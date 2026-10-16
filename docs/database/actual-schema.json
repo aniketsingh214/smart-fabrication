@@ -1,0 +1,4730 @@
+{
+  "captured_at": "2026-10-16T05:24:27.154Z",
+  "tables": [
+    {
+      "name": "audit_logs",
+      "rls": true
+    },
+    {
+      "name": "bom_items",
+      "rls": true
+    },
+    {
+      "name": "bom_versions",
+      "rls": true
+    },
+    {
+      "name": "calculation_rules",
+      "rls": true
+    },
+    {
+      "name": "catalog_copies",
+      "rls": true
+    },
+    {
+      "name": "categories",
+      "rls": true
+    },
+    {
+      "name": "customer_payments",
+      "rls": true
+    },
+    {
+      "name": "customers",
+      "rls": true
+    },
+    {
+      "name": "deliveries",
+      "rls": true
+    },
+    {
+      "name": "estimate_snapshots",
+      "rls": true
+    },
+    {
+      "name": "expense_reversals",
+      "rls": true
+    },
+    {
+      "name": "expenses",
+      "rls": true
+    },
+    {
+      "name": "finance_period_closures",
+      "rls": true
+    },
+    {
+      "name": "financial_adjustments",
+      "rls": true
+    },
+    {
+      "name": "follow_ups",
+      "rls": true
+    },
+    {
+      "name": "gallery_items",
+      "rls": true
+    },
+    {
+      "name": "installations",
+      "rls": true
+    },
+    {
+      "name": "labour_payments",
+      "rls": true
+    },
+    {
+      "name": "labour_rates",
+      "rls": true
+    },
+    {
+      "name": "lead_attachments",
+      "rls": true
+    },
+    {
+      "name": "lead_notes",
+      "rls": true
+    },
+    {
+      "name": "lead_status_history",
+      "rls": true
+    },
+    {
+      "name": "leads",
+      "rls": true
+    },
+    {
+      "name": "material_rates",
+      "rls": true
+    },
+    {
+      "name": "materials",
+      "rls": true
+    },
+    {
+      "name": "measurements",
+      "rls": true
+    },
+    {
+      "name": "media_assets",
+      "rls": true
+    },
+    {
+      "name": "notifications",
+      "rls": true
+    },
+    {
+      "name": "order_status_history",
+      "rls": true
+    },
+    {
+      "name": "orders",
+      "rls": true
+    },
+    {
+      "name": "owner_withdrawals",
+      "rls": true
+    },
+    {
+      "name": "permissions",
+      "rls": true
+    },
+    {
+      "name": "product_media",
+      "rls": true
+    },
+    {
+      "name": "product_options",
+      "rls": true
+    },
+    {
+      "name": "product_variants",
+      "rls": true
+    },
+    {
+      "name": "products",
+      "rls": true
+    },
+    {
+      "name": "profiles",
+      "rls": true
+    },
+    {
+      "name": "purchase_attachments",
+      "rls": true
+    },
+    {
+      "name": "purchase_items",
+      "rls": true
+    },
+    {
+      "name": "purchase_returns",
+      "rls": true
+    },
+    {
+      "name": "purchases",
+      "rls": true
+    },
+    {
+      "name": "quality_checks",
+      "rls": true
+    },
+    {
+      "name": "quotation_versions",
+      "rls": true
+    },
+    {
+      "name": "quotations",
+      "rls": true
+    },
+    {
+      "name": "reviews",
+      "rls": true
+    },
+    {
+      "name": "role_permissions",
+      "rls": true
+    },
+    {
+      "name": "roles",
+      "rls": true
+    },
+    {
+      "name": "site_settings",
+      "rls": true
+    },
+    {
+      "name": "stock_movements",
+      "rls": true
+    },
+    {
+      "name": "stock_reservations",
+      "rls": true
+    },
+    {
+      "name": "supplier_payments",
+      "rls": true
+    },
+    {
+      "name": "suppliers",
+      "rls": true
+    },
+    {
+      "name": "upload_intents",
+      "rls": true
+    },
+    {
+      "name": "user_roles",
+      "rls": true
+    },
+    {
+      "name": "website_sections",
+      "rls": true
+    },
+    {
+      "name": "work_entries",
+      "rls": true
+    },
+    {
+      "name": "work_orders",
+      "rls": true
+    },
+    {
+      "name": "workers",
+      "rls": true
+    }
+  ],
+  "columns": [
+    {
+      "table_name": "audit_logs",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "audit_logs",
+      "column_name": "actor_id",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "audit_logs",
+      "column_name": "action",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "audit_logs",
+      "column_name": "entity_type",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "audit_logs",
+      "column_name": "entity_id",
+      "data_type": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "audit_logs",
+      "column_name": "old_status",
+      "data_type": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "audit_logs",
+      "column_name": "new_status",
+      "data_type": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "audit_logs",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "bom_items",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "bom_items",
+      "column_name": "bom_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "bom_items",
+      "column_name": "material_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "bom_items",
+      "column_name": "quantity_per_sq_m",
+      "data_type": "numeric",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "bom_items",
+      "column_name": "wastage_percent",
+      "data_type": "numeric",
+      "is_nullable": "NO",
+      "column_default": "5"
+    },
+    {
+      "table_name": "bom_items",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "bom_versions",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "bom_versions",
+      "column_name": "product_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "bom_versions",
+      "column_name": "version",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "bom_versions",
+      "column_name": "status",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "'draft'::text"
+    },
+    {
+      "table_name": "bom_versions",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "calculation_rules",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "calculation_rules",
+      "column_name": "product_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "calculation_rules",
+      "column_name": "version",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "calculation_rules",
+      "column_name": "labour_minor_per_sq_m",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "calculation_rules",
+      "column_name": "finish_minor_per_sq_m",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "calculation_rules",
+      "column_name": "hardware_minor",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "calculation_rules",
+      "column_name": "delivery_minor",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "calculation_rules",
+      "column_name": "installation_minor",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "calculation_rules",
+      "column_name": "margin_bps",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "calculation_rules",
+      "column_name": "range_percent",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "calculation_rules",
+      "column_name": "status",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "'draft'::text"
+    },
+    {
+      "table_name": "calculation_rules",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "catalog_copies",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "catalog_copies",
+      "column_name": "source_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "catalog_copies",
+      "column_name": "product_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "catalog_copies",
+      "column_name": "actor_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "catalog_copies",
+      "column_name": "request",
+      "data_type": "jsonb",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "catalog_copies",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "categories",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "categories",
+      "column_name": "name",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "categories",
+      "column_name": "slug",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "categories",
+      "column_name": "parent_id",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "categories",
+      "column_name": "active",
+      "data_type": "boolean",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "categories",
+      "column_name": "sort_order",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": "0"
+    },
+    {
+      "table_name": "categories",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "customer_payments",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "customer_payments",
+      "column_name": "order_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "customer_payments",
+      "column_name": "amount_minor",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "customer_payments",
+      "column_name": "mode",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "customer_payments",
+      "column_name": "reference",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "customer_payments",
+      "column_name": "idempotency_key",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "customer_payments",
+      "column_name": "created_by",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": "auth.uid()"
+    },
+    {
+      "table_name": "customer_payments",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "customers",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "customers",
+      "column_name": "user_id",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "customers",
+      "column_name": "name",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "customers",
+      "column_name": "phone",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "customers",
+      "column_name": "email",
+      "data_type": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "customers",
+      "column_name": "address",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "''::text"
+    },
+    {
+      "table_name": "customers",
+      "column_name": "notes",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "''::text"
+    },
+    {
+      "table_name": "customers",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "deliveries",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "deliveries",
+      "column_name": "name",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "deliveries",
+      "column_name": "order_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "deliveries",
+      "column_name": "scheduled_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "deliveries",
+      "column_name": "address",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "deliveries",
+      "column_name": "crew",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "deliveries",
+      "column_name": "status",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "'scheduled'::text"
+    },
+    {
+      "table_name": "deliveries",
+      "column_name": "proof_media_id",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "deliveries",
+      "column_name": "confirmed_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "deliveries",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "estimate_snapshots",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "estimate_snapshots",
+      "column_name": "product_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "estimate_snapshots",
+      "column_name": "bom_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "estimate_snapshots",
+      "column_name": "input",
+      "data_type": "jsonb",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "estimate_snapshots",
+      "column_name": "result",
+      "data_type": "jsonb",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "estimate_snapshots",
+      "column_name": "formula_version",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "estimate_snapshots",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "expense_reversals",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "expense_reversals",
+      "column_name": "expense_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "expense_reversals",
+      "column_name": "amount_minor",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "expense_reversals",
+      "column_name": "reversal_date",
+      "data_type": "date",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "expense_reversals",
+      "column_name": "reason",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "expense_reversals",
+      "column_name": "idempotency_key",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "expense_reversals",
+      "column_name": "created_by",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "expense_reversals",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "expenses",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "expenses",
+      "column_name": "name",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "expenses",
+      "column_name": "category",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "expenses",
+      "column_name": "amount_minor",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "expenses",
+      "column_name": "expense_date",
+      "data_type": "date",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "expenses",
+      "column_name": "mode",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "expenses",
+      "column_name": "reference",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "expenses",
+      "column_name": "order_id",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "expenses",
+      "column_name": "status",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "'draft'::text"
+    },
+    {
+      "table_name": "expenses",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "finance_period_closures",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "finance_period_closures",
+      "column_name": "closed_through",
+      "data_type": "date",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "finance_period_closures",
+      "column_name": "reason",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "finance_period_closures",
+      "column_name": "idempotency_key",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "finance_period_closures",
+      "column_name": "created_by",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "finance_period_closures",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "financial_adjustments",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "financial_adjustments",
+      "column_name": "kind",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "financial_adjustments",
+      "column_name": "source_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "financial_adjustments",
+      "column_name": "purchase_id",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "financial_adjustments",
+      "column_name": "order_id",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "financial_adjustments",
+      "column_name": "worker_id",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "financial_adjustments",
+      "column_name": "amount_minor",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "financial_adjustments",
+      "column_name": "posting_date",
+      "data_type": "date",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "financial_adjustments",
+      "column_name": "mode",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "financial_adjustments",
+      "column_name": "reference",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "financial_adjustments",
+      "column_name": "reason",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "financial_adjustments",
+      "column_name": "idempotency_key",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "financial_adjustments",
+      "column_name": "created_by",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "financial_adjustments",
+      "column_name": "request",
+      "data_type": "jsonb",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "financial_adjustments",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "follow_ups",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "follow_ups",
+      "column_name": "lead_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "follow_ups",
+      "column_name": "assigned_to",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "follow_ups",
+      "column_name": "due_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "follow_ups",
+      "column_name": "note",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "''::text"
+    },
+    {
+      "table_name": "follow_ups",
+      "column_name": "status",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "'pending'::text"
+    },
+    {
+      "table_name": "follow_ups",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "gallery_items",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "gallery_items",
+      "column_name": "name",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "gallery_items",
+      "column_name": "media_id",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "gallery_items",
+      "column_name": "category_id",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "gallery_items",
+      "column_name": "alt_text",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "gallery_items",
+      "column_name": "status",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "'draft'::text"
+    },
+    {
+      "table_name": "gallery_items",
+      "column_name": "consent_confirmed",
+      "data_type": "boolean",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "gallery_items",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "installations",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "installations",
+      "column_name": "name",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "installations",
+      "column_name": "delivery_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "installations",
+      "column_name": "checklist",
+      "data_type": "jsonb",
+      "is_nullable": "NO",
+      "column_default": "'{}'::jsonb"
+    },
+    {
+      "table_name": "installations",
+      "column_name": "customer_confirmed",
+      "data_type": "boolean",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "installations",
+      "column_name": "status",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "'pending'::text"
+    },
+    {
+      "table_name": "installations",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "labour_payments",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "labour_payments",
+      "column_name": "worker_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "labour_payments",
+      "column_name": "amount_minor",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "labour_payments",
+      "column_name": "mode",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "labour_payments",
+      "column_name": "reference",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "labour_payments",
+      "column_name": "idempotency_key",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "labour_payments",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "labour_payments",
+      "column_name": "created_by",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": "auth.uid()"
+    },
+    {
+      "table_name": "labour_rates",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "labour_rates",
+      "column_name": "worker_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "labour_rates",
+      "column_name": "unit",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "labour_rates",
+      "column_name": "rate_minor",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "labour_rates",
+      "column_name": "effective_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "labour_rates",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "lead_attachments",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "lead_attachments",
+      "column_name": "lead_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lead_attachments",
+      "column_name": "media_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lead_attachments",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "lead_notes",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "lead_notes",
+      "column_name": "lead_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lead_notes",
+      "column_name": "note",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lead_notes",
+      "column_name": "created_by",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "auth.uid()"
+    },
+    {
+      "table_name": "lead_notes",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "lead_status_history",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "lead_status_history",
+      "column_name": "lead_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lead_status_history",
+      "column_name": "from_status",
+      "data_type": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lead_status_history",
+      "column_name": "to_status",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lead_status_history",
+      "column_name": "actor_id",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lead_status_history",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "leads",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "leads",
+      "column_name": "name",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "leads",
+      "column_name": "phone",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "leads",
+      "column_name": "email",
+      "data_type": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "leads",
+      "column_name": "city",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "leads",
+      "column_name": "requirement",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "leads",
+      "column_name": "product_id",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "leads",
+      "column_name": "source",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "'direct'::text"
+    },
+    {
+      "table_name": "leads",
+      "column_name": "status",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "'NEW'::text"
+    },
+    {
+      "table_name": "leads",
+      "column_name": "assigned_to",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "leads",
+      "column_name": "customer_id",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "leads",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "leads",
+      "column_name": "updated_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "leads",
+      "column_name": "version",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": "1"
+    },
+    {
+      "table_name": "leads",
+      "column_name": "duplicate_of",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "leads",
+      "column_name": "configuration_snapshot",
+      "data_type": "jsonb",
+      "is_nullable": "NO",
+      "column_default": "'{}'::jsonb"
+    },
+    {
+      "table_name": "material_rates",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "material_rates",
+      "column_name": "material_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "material_rates",
+      "column_name": "purchase_minor",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "material_rates",
+      "column_name": "selling_minor",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "material_rates",
+      "column_name": "effective_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "material_rates",
+      "column_name": "currency",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "'INR'::text"
+    },
+    {
+      "table_name": "material_rates",
+      "column_name": "created_by",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": "auth.uid()"
+    },
+    {
+      "table_name": "material_rates",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "materials",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "materials",
+      "column_name": "name",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "materials",
+      "column_name": "code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "materials",
+      "column_name": "type",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "materials",
+      "column_name": "size",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "materials",
+      "column_name": "thickness_mm",
+      "data_type": "numeric",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "materials",
+      "column_name": "unit",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "materials",
+      "column_name": "weight_kg_per_unit",
+      "data_type": "numeric",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "materials",
+      "column_name": "reorder_level",
+      "data_type": "numeric",
+      "is_nullable": "NO",
+      "column_default": "0"
+    },
+    {
+      "table_name": "materials",
+      "column_name": "active",
+      "data_type": "boolean",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "materials",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "measurements",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "measurements",
+      "column_name": "lead_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "measurements",
+      "column_name": "width_mm",
+      "data_type": "numeric",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "measurements",
+      "column_name": "height_mm",
+      "data_type": "numeric",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "measurements",
+      "column_name": "depth_mm",
+      "data_type": "numeric",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "measurements",
+      "column_name": "note",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "''::text"
+    },
+    {
+      "table_name": "measurements",
+      "column_name": "verified_by",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "auth.uid()"
+    },
+    {
+      "table_name": "measurements",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "media_assets",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "media_assets",
+      "column_name": "asset_id",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "media_assets",
+      "column_name": "public_id",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "media_assets",
+      "column_name": "resource_type",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "media_assets",
+      "column_name": "format",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "media_assets",
+      "column_name": "bytes",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "media_assets",
+      "column_name": "width",
+      "data_type": "integer",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "media_assets",
+      "column_name": "height",
+      "data_type": "integer",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "media_assets",
+      "column_name": "owner_user_id",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "media_assets",
+      "column_name": "visibility",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "media_assets",
+      "column_name": "context",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "media_assets",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "media_assets",
+      "column_name": "duration_seconds",
+      "data_type": "numeric",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "notifications",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "notifications",
+      "column_name": "user_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "notifications",
+      "column_name": "name",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "notifications",
+      "column_name": "body",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "notifications",
+      "column_name": "read_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "notifications",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "notifications",
+      "column_name": "event_key",
+      "data_type": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "notifications",
+      "column_name": "entity_type",
+      "data_type": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "notifications",
+      "column_name": "entity_id",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "order_status_history",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "order_status_history",
+      "column_name": "order_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "order_status_history",
+      "column_name": "from_status",
+      "data_type": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "order_status_history",
+      "column_name": "to_status",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "order_status_history",
+      "column_name": "note",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "''::text"
+    },
+    {
+      "table_name": "order_status_history",
+      "column_name": "actor_id",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": "auth.uid()"
+    },
+    {
+      "table_name": "order_status_history",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "orders",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "orders",
+      "column_name": "name",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "orders",
+      "column_name": "quotation_version_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "orders",
+      "column_name": "customer_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "orders",
+      "column_name": "total_minor",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "orders",
+      "column_name": "status",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "'CONFIRMED'::text"
+    },
+    {
+      "table_name": "orders",
+      "column_name": "due_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "orders",
+      "column_name": "note",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "''::text"
+    },
+    {
+      "table_name": "orders",
+      "column_name": "version",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": "1"
+    },
+    {
+      "table_name": "orders",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "owner_withdrawals",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "owner_withdrawals",
+      "column_name": "name",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "owner_withdrawals",
+      "column_name": "amount_minor",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "owner_withdrawals",
+      "column_name": "withdrawal_date",
+      "data_type": "date",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "owner_withdrawals",
+      "column_name": "mode",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "owner_withdrawals",
+      "column_name": "reason",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "owner_withdrawals",
+      "column_name": "created_by",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": "auth.uid()"
+    },
+    {
+      "table_name": "owner_withdrawals",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "owner_withdrawals",
+      "column_name": "idempotency_key",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "permissions",
+      "column_name": "id",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "product_media",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "product_media",
+      "column_name": "product_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "product_media",
+      "column_name": "media_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "product_media",
+      "column_name": "alt_text",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "product_media",
+      "column_name": "sort_order",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": "0"
+    },
+    {
+      "table_name": "product_media",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "product_options",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "product_options",
+      "column_name": "product_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "product_options",
+      "column_name": "name",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "product_options",
+      "column_name": "option_group",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "product_options",
+      "column_name": "extra_cost_minor",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": "0"
+    },
+    {
+      "table_name": "product_options",
+      "column_name": "sort_order",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": "0"
+    },
+    {
+      "table_name": "product_options",
+      "column_name": "status",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "'draft'::text"
+    },
+    {
+      "table_name": "product_options",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "product_variants",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "product_variants",
+      "column_name": "product_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "product_variants",
+      "column_name": "name",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "product_variants",
+      "column_name": "sku",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "product_variants",
+      "column_name": "width_mm",
+      "data_type": "integer",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "product_variants",
+      "column_name": "height_mm",
+      "data_type": "integer",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "product_variants",
+      "column_name": "colour",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "''::text"
+    },
+    {
+      "table_name": "product_variants",
+      "column_name": "finish",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "''::text"
+    },
+    {
+      "table_name": "product_variants",
+      "column_name": "price_min_minor",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": "0"
+    },
+    {
+      "table_name": "product_variants",
+      "column_name": "price_max_minor",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": "0"
+    },
+    {
+      "table_name": "product_variants",
+      "column_name": "status",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "'draft'::text"
+    },
+    {
+      "table_name": "product_variants",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "products",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "products",
+      "column_name": "name",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "products",
+      "column_name": "sku",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "products",
+      "column_name": "slug",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "products",
+      "column_name": "category_id",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "products",
+      "column_name": "description",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "''::text"
+    },
+    {
+      "table_name": "products",
+      "column_name": "material",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "'Mild steel'::text"
+    },
+    {
+      "table_name": "products",
+      "column_name": "finish",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "''::text"
+    },
+    {
+      "table_name": "products",
+      "column_name": "price_min_minor",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": "0"
+    },
+    {
+      "table_name": "products",
+      "column_name": "price_max_minor",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": "0"
+    },
+    {
+      "table_name": "products",
+      "column_name": "custom_size",
+      "data_type": "boolean",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "products",
+      "column_name": "status",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "'draft'::text"
+    },
+    {
+      "table_name": "products",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "products",
+      "column_name": "updated_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "products",
+      "column_name": "weight_kg",
+      "data_type": "numeric",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "products",
+      "column_name": "design_code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "''::text"
+    },
+    {
+      "table_name": "products",
+      "column_name": "design_details",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "''::text"
+    },
+    {
+      "table_name": "profiles",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "profiles",
+      "column_name": "display_name",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "''::text"
+    },
+    {
+      "table_name": "profiles",
+      "column_name": "disabled",
+      "data_type": "boolean",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "profiles",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "purchase_attachments",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "purchase_attachments",
+      "column_name": "purchase_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "purchase_attachments",
+      "column_name": "media_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "purchase_attachments",
+      "column_name": "note",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "''::text"
+    },
+    {
+      "table_name": "purchase_attachments",
+      "column_name": "created_by",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "purchase_attachments",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "purchase_items",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "purchase_items",
+      "column_name": "purchase_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "purchase_items",
+      "column_name": "material_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "purchase_items",
+      "column_name": "quantity",
+      "data_type": "numeric",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "purchase_items",
+      "column_name": "rate_minor",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "purchase_items",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "purchase_items",
+      "column_name": "discount_minor",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": "0"
+    },
+    {
+      "table_name": "purchase_items",
+      "column_name": "tax_bps",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": "0"
+    },
+    {
+      "table_name": "purchase_items",
+      "column_name": "tax_recoverable",
+      "data_type": "boolean",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "purchase_items",
+      "column_name": "net_minor",
+      "data_type": "bigint",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "purchase_items",
+      "column_name": "tax_minor",
+      "data_type": "bigint",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "purchase_items",
+      "column_name": "total_minor",
+      "data_type": "bigint",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "purchase_items",
+      "column_name": "inventory_minor",
+      "data_type": "bigint",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "purchase_returns",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "purchase_returns",
+      "column_name": "purchase_item_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "purchase_returns",
+      "column_name": "quantity",
+      "data_type": "numeric",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "purchase_returns",
+      "column_name": "amount_minor",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "purchase_returns",
+      "column_name": "reason",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "purchase_returns",
+      "column_name": "idempotency_key",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "purchase_returns",
+      "column_name": "created_by",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": "auth.uid()"
+    },
+    {
+      "table_name": "purchase_returns",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "purchase_returns",
+      "column_name": "inventory_value_minor",
+      "data_type": "bigint",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "purchases",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "purchases",
+      "column_name": "name",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "purchases",
+      "column_name": "supplier_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "purchases",
+      "column_name": "bill_number",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "purchases",
+      "column_name": "bill_date",
+      "data_type": "date",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "purchases",
+      "column_name": "total_minor",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": "0"
+    },
+    {
+      "table_name": "purchases",
+      "column_name": "status",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "'draft'::text"
+    },
+    {
+      "table_name": "purchases",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "quality_checks",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "quality_checks",
+      "column_name": "work_order_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "quality_checks",
+      "column_name": "name",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "quality_checks",
+      "column_name": "passed",
+      "data_type": "boolean",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "quality_checks",
+      "column_name": "note",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "''::text"
+    },
+    {
+      "table_name": "quality_checks",
+      "column_name": "created_by",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": "auth.uid()"
+    },
+    {
+      "table_name": "quality_checks",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "quotation_versions",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "quotation_versions",
+      "column_name": "quotation_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "quotation_versions",
+      "column_name": "version",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "quotation_versions",
+      "column_name": "snapshot",
+      "data_type": "jsonb",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "quotation_versions",
+      "column_name": "total_minor",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "quotation_versions",
+      "column_name": "currency",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "'INR'::text"
+    },
+    {
+      "table_name": "quotation_versions",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "quotations",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "quotations",
+      "column_name": "name",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "quotations",
+      "column_name": "lead_id",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "quotations",
+      "column_name": "customer_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "quotations",
+      "column_name": "status",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "'draft'::text"
+    },
+    {
+      "table_name": "quotations",
+      "column_name": "expires_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "quotations",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "quotations",
+      "column_name": "revision_of",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "quotations",
+      "column_name": "revision_key",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "quotations",
+      "column_name": "revision_reason",
+      "data_type": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "quotations",
+      "column_name": "revision_actor",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "reviews",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "reviews",
+      "column_name": "name",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "reviews",
+      "column_name": "rating",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "reviews",
+      "column_name": "body",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "reviews",
+      "column_name": "status",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "'pending'::text"
+    },
+    {
+      "table_name": "reviews",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "role_permissions",
+      "column_name": "role_id",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "role_permissions",
+      "column_name": "permission_id",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "roles",
+      "column_name": "id",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "site_settings",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "site_settings",
+      "column_name": "name",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "site_settings",
+      "column_name": "value",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "site_settings",
+      "column_name": "public",
+      "data_type": "boolean",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "site_settings",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "stock_movements",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "stock_movements",
+      "column_name": "material_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "stock_movements",
+      "column_name": "quantity",
+      "data_type": "numeric",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "stock_movements",
+      "column_name": "unit_cost_minor",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "stock_movements",
+      "column_name": "kind",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "stock_movements",
+      "column_name": "purchase_id",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "stock_movements",
+      "column_name": "work_order_id",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "stock_movements",
+      "column_name": "note",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "stock_movements",
+      "column_name": "idempotency_key",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "stock_movements",
+      "column_name": "created_by",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": "auth.uid()"
+    },
+    {
+      "table_name": "stock_movements",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "stock_movements",
+      "column_name": "book_value_minor",
+      "data_type": "bigint",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "stock_reservations",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "stock_reservations",
+      "column_name": "material_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "stock_reservations",
+      "column_name": "work_order_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "stock_reservations",
+      "column_name": "quantity",
+      "data_type": "numeric",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "stock_reservations",
+      "column_name": "status",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "'active'::text"
+    },
+    {
+      "table_name": "stock_reservations",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "stock_reservations",
+      "column_name": "consumed_quantity",
+      "data_type": "numeric",
+      "is_nullable": "NO",
+      "column_default": "0"
+    },
+    {
+      "table_name": "stock_reservations",
+      "column_name": "release_note",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "''::text"
+    },
+    {
+      "table_name": "stock_reservations",
+      "column_name": "released_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "stock_reservations",
+      "column_name": "released_by",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "supplier_payments",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "supplier_payments",
+      "column_name": "purchase_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "supplier_payments",
+      "column_name": "amount_minor",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "supplier_payments",
+      "column_name": "mode",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "supplier_payments",
+      "column_name": "reference",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "supplier_payments",
+      "column_name": "idempotency_key",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "supplier_payments",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "supplier_payments",
+      "column_name": "created_by",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": "auth.uid()"
+    },
+    {
+      "table_name": "suppliers",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "suppliers",
+      "column_name": "name",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "suppliers",
+      "column_name": "phone",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "suppliers",
+      "column_name": "address",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "''::text"
+    },
+    {
+      "table_name": "suppliers",
+      "column_name": "gst_number",
+      "data_type": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "suppliers",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "upload_intents",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "upload_intents",
+      "column_name": "owner_user_id",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "upload_intents",
+      "column_name": "public_id",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "upload_intents",
+      "column_name": "context",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "upload_intents",
+      "column_name": "visibility",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "upload_intents",
+      "column_name": "expires_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "upload_intents",
+      "column_name": "confirmed_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "upload_intents",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "upload_intents",
+      "column_name": "lead_id",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "upload_intents",
+      "column_name": "resource_type",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "'image'::text"
+    },
+    {
+      "table_name": "user_roles",
+      "column_name": "user_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "user_roles",
+      "column_name": "role_id",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "website_sections",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "website_sections",
+      "column_name": "name",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "website_sections",
+      "column_name": "heading",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "website_sections",
+      "column_name": "body",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "''::text"
+    },
+    {
+      "table_name": "website_sections",
+      "column_name": "status",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "'draft'::text"
+    },
+    {
+      "table_name": "website_sections",
+      "column_name": "sort_order",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": "0"
+    },
+    {
+      "table_name": "website_sections",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "work_entries",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "work_entries",
+      "column_name": "worker_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "work_entries",
+      "column_name": "work_order_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "work_entries",
+      "column_name": "labour_rate_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "work_entries",
+      "column_name": "quantity",
+      "data_type": "numeric",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "work_entries",
+      "column_name": "rate_minor",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "work_entries",
+      "column_name": "amount_minor",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "work_entries",
+      "column_name": "status",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "'approved'::text"
+    },
+    {
+      "table_name": "work_entries",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "work_entries",
+      "column_name": "idempotency_key",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "work_entries",
+      "column_name": "created_by",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": "auth.uid()"
+    },
+    {
+      "table_name": "work_orders",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "work_orders",
+      "column_name": "name",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "work_orders",
+      "column_name": "order_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "work_orders",
+      "column_name": "assigned_to",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "work_orders",
+      "column_name": "status",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "'pending'::text"
+    },
+    {
+      "table_name": "work_orders",
+      "column_name": "planned_weight_kg",
+      "data_type": "numeric",
+      "is_nullable": "NO",
+      "column_default": "0"
+    },
+    {
+      "table_name": "work_orders",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "workers",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "workers",
+      "column_name": "name",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "workers",
+      "column_name": "phone",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "workers",
+      "column_name": "work_type",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "workers",
+      "column_name": "active",
+      "data_type": "boolean",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "workers",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    }
+  ],
+  "policies": [
+    {
+      "tablename": "audit_logs",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('audit.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "bom_items",
+      "policyname": "staff_insert",
+      "roles": "{authenticated}",
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "has_permission('materials.write'::text)"
+    },
+    {
+      "tablename": "bom_items",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('materials.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "bom_items",
+      "policyname": "staff_update",
+      "roles": "{authenticated}",
+      "cmd": "UPDATE",
+      "qual": "has_permission('materials.write'::text)",
+      "with_check": "has_permission('materials.write'::text)"
+    },
+    {
+      "tablename": "bom_versions",
+      "policyname": "staff_insert",
+      "roles": "{authenticated}",
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "has_permission('materials.write'::text)"
+    },
+    {
+      "tablename": "bom_versions",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('materials.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "bom_versions",
+      "policyname": "staff_update",
+      "roles": "{authenticated}",
+      "cmd": "UPDATE",
+      "qual": "has_permission('materials.write'::text)",
+      "with_check": "has_permission('materials.write'::text)"
+    },
+    {
+      "tablename": "calculation_rules",
+      "policyname": "rules_insert",
+      "roles": "{authenticated}",
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "has_permission('materials.write'::text)"
+    },
+    {
+      "tablename": "calculation_rules",
+      "policyname": "rules_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('materials.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "calculation_rules",
+      "policyname": "rules_update",
+      "roles": "{authenticated}",
+      "cmd": "UPDATE",
+      "qual": "has_permission('materials.write'::text)",
+      "with_check": "has_permission('materials.write'::text)"
+    },
+    {
+      "tablename": "catalog_copies",
+      "policyname": "copies_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('catalog.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "categories",
+      "policyname": "public_categories",
+      "roles": "{anon,authenticated}",
+      "cmd": "SELECT",
+      "qual": "active",
+      "with_check": null
+    },
+    {
+      "tablename": "categories",
+      "policyname": "staff_insert",
+      "roles": "{authenticated}",
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "has_permission('catalog.write'::text)"
+    },
+    {
+      "tablename": "categories",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('catalog.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "categories",
+      "policyname": "staff_update",
+      "roles": "{authenticated}",
+      "cmd": "UPDATE",
+      "qual": "has_permission('catalog.write'::text)",
+      "with_check": "has_permission('catalog.write'::text)"
+    },
+    {
+      "tablename": "customer_payments",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('finance.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "customers",
+      "policyname": "staff_insert",
+      "roles": "{authenticated}",
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "has_permission('customers.write'::text)"
+    },
+    {
+      "tablename": "customers",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('customers.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "customers",
+      "policyname": "staff_update",
+      "roles": "{authenticated}",
+      "cmd": "UPDATE",
+      "qual": "has_permission('customers.write'::text)",
+      "with_check": "has_permission('customers.write'::text)"
+    },
+    {
+      "tablename": "deliveries",
+      "policyname": "staff_insert",
+      "roles": "{authenticated}",
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "has_permission('delivery.write'::text)"
+    },
+    {
+      "tablename": "deliveries",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('delivery.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "deliveries",
+      "policyname": "staff_update",
+      "roles": "{authenticated}",
+      "cmd": "UPDATE",
+      "qual": "has_permission('delivery.write'::text)",
+      "with_check": "has_permission('delivery.write'::text)"
+    },
+    {
+      "tablename": "estimate_snapshots",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('materials.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "expense_reversals",
+      "policyname": "reversals_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('finance.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "expenses",
+      "policyname": "staff_insert",
+      "roles": "{authenticated}",
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "has_permission('finance.write'::text)"
+    },
+    {
+      "tablename": "expenses",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('finance.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "expenses",
+      "policyname": "staff_update",
+      "roles": "{authenticated}",
+      "cmd": "UPDATE",
+      "qual": "has_permission('finance.write'::text)",
+      "with_check": "has_permission('finance.write'::text)"
+    },
+    {
+      "tablename": "finance_period_closures",
+      "policyname": "closure_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('finance.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "financial_adjustments",
+      "policyname": "adjustment_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('finance.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "follow_ups",
+      "policyname": "staff_insert",
+      "roles": "{authenticated}",
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "(has_permission('leads.write'::text) AND can_access_lead(lead_id))"
+    },
+    {
+      "tablename": "follow_ups",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "can_access_lead(lead_id)",
+      "with_check": null
+    },
+    {
+      "tablename": "follow_ups",
+      "policyname": "staff_update",
+      "roles": "{authenticated}",
+      "cmd": "UPDATE",
+      "qual": "(has_permission('leads.write'::text) AND can_access_lead(lead_id))",
+      "with_check": "(has_permission('leads.write'::text) AND can_access_lead(lead_id))"
+    },
+    {
+      "tablename": "gallery_items",
+      "policyname": "public_gallery",
+      "roles": "{anon,authenticated}",
+      "cmd": "SELECT",
+      "qual": "((status = 'published'::text) AND consent_confirmed)",
+      "with_check": null
+    },
+    {
+      "tablename": "gallery_items",
+      "policyname": "staff_insert",
+      "roles": "{authenticated}",
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "has_permission('content.write'::text)"
+    },
+    {
+      "tablename": "gallery_items",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('content.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "gallery_items",
+      "policyname": "staff_update",
+      "roles": "{authenticated}",
+      "cmd": "UPDATE",
+      "qual": "has_permission('content.write'::text)",
+      "with_check": "has_permission('content.write'::text)"
+    },
+    {
+      "tablename": "installations",
+      "policyname": "staff_insert",
+      "roles": "{authenticated}",
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "has_permission('delivery.write'::text)"
+    },
+    {
+      "tablename": "installations",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('delivery.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "installations",
+      "policyname": "staff_update",
+      "roles": "{authenticated}",
+      "cmd": "UPDATE",
+      "qual": "has_permission('delivery.write'::text)",
+      "with_check": "has_permission('delivery.write'::text)"
+    },
+    {
+      "tablename": "labour_payments",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('finance.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "labour_rates",
+      "policyname": "staff_insert",
+      "roles": "{authenticated}",
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "has_permission('workers.write'::text)"
+    },
+    {
+      "tablename": "labour_rates",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "(has_permission('finance.read'::text) OR has_permission('workers.approve'::text))",
+      "with_check": null
+    },
+    {
+      "tablename": "labour_rates",
+      "policyname": "staff_update",
+      "roles": "{authenticated}",
+      "cmd": "UPDATE",
+      "qual": "has_permission('workers.write'::text)",
+      "with_check": "has_permission('workers.write'::text)"
+    },
+    {
+      "tablename": "lead_attachments",
+      "policyname": "assigned_lead_attachments",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "can_access_lead(lead_id)",
+      "with_check": null
+    },
+    {
+      "tablename": "lead_notes",
+      "policyname": "staff_insert",
+      "roles": "{authenticated}",
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "(has_permission('leads.write'::text) AND can_access_lead(lead_id) AND (created_by = auth.uid()))"
+    },
+    {
+      "tablename": "lead_notes",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "can_access_lead(lead_id)",
+      "with_check": null
+    },
+    {
+      "tablename": "lead_notes",
+      "policyname": "staff_update",
+      "roles": "{authenticated}",
+      "cmd": "UPDATE",
+      "qual": "has_permission('leads.write'::text)",
+      "with_check": "has_permission('leads.write'::text)"
+    },
+    {
+      "tablename": "lead_status_history",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "can_access_lead(lead_id)",
+      "with_check": null
+    },
+    {
+      "tablename": "leads",
+      "policyname": "staff_insert",
+      "roles": "{authenticated}",
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "has_permission('leads.write'::text)"
+    },
+    {
+      "tablename": "leads",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "(has_permission('leads.read'::text) AND ((assigned_to IS NULL) OR (assigned_to = auth.uid()) OR has_permission('users.read'::text)))",
+      "with_check": null
+    },
+    {
+      "tablename": "leads",
+      "policyname": "staff_update",
+      "roles": "{authenticated}",
+      "cmd": "UPDATE",
+      "qual": "(has_permission('leads.write'::text) AND can_access_lead(id))",
+      "with_check": "(has_permission('leads.write'::text) AND ((assigned_to IS NULL) OR (assigned_to = auth.uid()) OR has_permission('users.read'::text)))"
+    },
+    {
+      "tablename": "material_rates",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('materials.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "materials",
+      "policyname": "staff_insert",
+      "roles": "{authenticated}",
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "has_permission('materials.write'::text)"
+    },
+    {
+      "tablename": "materials",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('materials.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "materials",
+      "policyname": "staff_update",
+      "roles": "{authenticated}",
+      "cmd": "UPDATE",
+      "qual": "has_permission('materials.write'::text)",
+      "with_check": "has_permission('materials.write'::text)"
+    },
+    {
+      "tablename": "measurements",
+      "policyname": "staff_insert",
+      "roles": "{authenticated}",
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "(has_permission('leads.write'::text) AND can_access_lead(lead_id) AND (verified_by = auth.uid()))"
+    },
+    {
+      "tablename": "measurements",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "can_access_lead(lead_id)",
+      "with_check": null
+    },
+    {
+      "tablename": "measurements",
+      "policyname": "staff_update",
+      "roles": "{authenticated}",
+      "cmd": "UPDATE",
+      "qual": "has_permission('leads.write'::text)",
+      "with_check": "has_permission('leads.write'::text)"
+    },
+    {
+      "tablename": "media_assets",
+      "policyname": "lead_media_metadata",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "(EXISTS ( SELECT 1\n   FROM lead_attachments a\n  WHERE ((a.media_id = media_assets.id) AND can_access_lead(a.lead_id))))",
+      "with_check": null
+    },
+    {
+      "tablename": "media_assets",
+      "policyname": "own_media_metadata",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "((owner_user_id = auth.uid()) AND active_user())",
+      "with_check": null
+    },
+    {
+      "tablename": "media_assets",
+      "policyname": "public_media",
+      "roles": "{anon,authenticated}",
+      "cmd": "SELECT",
+      "qual": "(visibility = 'public'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "media_assets",
+      "policyname": "staff_insert",
+      "roles": "{authenticated}",
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "has_permission('media.write'::text)"
+    },
+    {
+      "tablename": "media_assets",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('media.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "media_assets",
+      "policyname": "staff_update",
+      "roles": "{authenticated}",
+      "cmd": "UPDATE",
+      "qual": "has_permission('media.write'::text)",
+      "with_check": "has_permission('media.write'::text)"
+    },
+    {
+      "tablename": "notifications",
+      "policyname": "notifications_mark_read",
+      "roles": "{authenticated}",
+      "cmd": "UPDATE",
+      "qual": "(user_id = auth.uid())",
+      "with_check": "(user_id = auth.uid())"
+    },
+    {
+      "tablename": "notifications",
+      "policyname": "notifications_own",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "((user_id = auth.uid()) AND active_user())",
+      "with_check": null
+    },
+    {
+      "tablename": "order_status_history",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('orders.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "orders",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('orders.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "owner_withdrawals",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('finance.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "permissions",
+      "policyname": "permissions_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('users.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "product_media",
+      "policyname": "public_product_media",
+      "roles": "{anon,authenticated}",
+      "cmd": "SELECT",
+      "qual": "((EXISTS ( SELECT 1\n   FROM products p\n  WHERE ((p.id = product_media.product_id) AND (p.status = 'published'::text)))) AND (EXISTS ( SELECT 1\n   FROM media_assets m\n  WHERE ((m.id = product_media.media_id) AND (m.visibility = 'public'::text)))))",
+      "with_check": null
+    },
+    {
+      "tablename": "product_media",
+      "policyname": "staff_insert",
+      "roles": "{authenticated}",
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "has_permission('catalog.write'::text)"
+    },
+    {
+      "tablename": "product_media",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('catalog.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "product_media",
+      "policyname": "staff_update",
+      "roles": "{authenticated}",
+      "cmd": "UPDATE",
+      "qual": "has_permission('catalog.write'::text)",
+      "with_check": "has_permission('catalog.write'::text)"
+    },
+    {
+      "tablename": "product_options",
+      "policyname": "public_published",
+      "roles": "{anon,authenticated}",
+      "cmd": "SELECT",
+      "qual": "((status = 'published'::text) AND (EXISTS ( SELECT 1\n   FROM products p\n  WHERE ((p.id = product_options.product_id) AND (p.status = 'published'::text)))))",
+      "with_check": null
+    },
+    {
+      "tablename": "product_options",
+      "policyname": "staff_insert",
+      "roles": "{authenticated}",
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "has_permission('catalog.write'::text)"
+    },
+    {
+      "tablename": "product_options",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('catalog.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "product_options",
+      "policyname": "staff_update",
+      "roles": "{authenticated}",
+      "cmd": "UPDATE",
+      "qual": "has_permission('catalog.write'::text)",
+      "with_check": "has_permission('catalog.write'::text)"
+    },
+    {
+      "tablename": "product_variants",
+      "policyname": "public_published",
+      "roles": "{anon,authenticated}",
+      "cmd": "SELECT",
+      "qual": "((status = 'published'::text) AND (EXISTS ( SELECT 1\n   FROM products p\n  WHERE ((p.id = product_variants.product_id) AND (p.status = 'published'::text)))))",
+      "with_check": null
+    },
+    {
+      "tablename": "product_variants",
+      "policyname": "staff_insert",
+      "roles": "{authenticated}",
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "has_permission('catalog.write'::text)"
+    },
+    {
+      "tablename": "product_variants",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('catalog.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "product_variants",
+      "policyname": "staff_update",
+      "roles": "{authenticated}",
+      "cmd": "UPDATE",
+      "qual": "has_permission('catalog.write'::text)",
+      "with_check": "has_permission('catalog.write'::text)"
+    },
+    {
+      "tablename": "products",
+      "policyname": "public_products",
+      "roles": "{anon,authenticated}",
+      "cmd": "SELECT",
+      "qual": "(status = 'published'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "products",
+      "policyname": "staff_insert",
+      "roles": "{authenticated}",
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "has_permission('catalog.write'::text)"
+    },
+    {
+      "tablename": "products",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('catalog.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "products",
+      "policyname": "staff_update",
+      "roles": "{authenticated}",
+      "cmd": "UPDATE",
+      "qual": "has_permission('catalog.write'::text)",
+      "with_check": "has_permission('catalog.write'::text)"
+    },
+    {
+      "tablename": "profiles",
+      "policyname": "own_profile",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "((id = auth.uid()) OR has_permission('users.read'::text))",
+      "with_check": null
+    },
+    {
+      "tablename": "profiles",
+      "policyname": "own_profile_name",
+      "roles": "{authenticated}",
+      "cmd": "UPDATE",
+      "qual": "((id = auth.uid()) AND (NOT disabled))",
+      "with_check": "((id = auth.uid()) AND (NOT disabled))"
+    },
+    {
+      "tablename": "purchase_attachments",
+      "policyname": "invoice_attachment_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "(has_permission('purchases.read'::text) AND has_permission('finance.read'::text))",
+      "with_check": null
+    },
+    {
+      "tablename": "purchase_items",
+      "policyname": "staff_insert",
+      "roles": "{authenticated}",
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "has_permission('purchases.write'::text)"
+    },
+    {
+      "tablename": "purchase_items",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('purchases.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "purchase_items",
+      "policyname": "staff_update",
+      "roles": "{authenticated}",
+      "cmd": "UPDATE",
+      "qual": "has_permission('purchases.write'::text)",
+      "with_check": "has_permission('purchases.write'::text)"
+    },
+    {
+      "tablename": "purchase_returns",
+      "policyname": "returns_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('purchases.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "purchases",
+      "policyname": "staff_insert",
+      "roles": "{authenticated}",
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "has_permission('purchases.write'::text)"
+    },
+    {
+      "tablename": "purchases",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('purchases.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "purchases",
+      "policyname": "staff_update",
+      "roles": "{authenticated}",
+      "cmd": "UPDATE",
+      "qual": "has_permission('purchases.write'::text)",
+      "with_check": "has_permission('purchases.write'::text)"
+    },
+    {
+      "tablename": "quality_checks",
+      "policyname": "staff_insert",
+      "roles": "{authenticated}",
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "has_permission('production.write'::text)"
+    },
+    {
+      "tablename": "quality_checks",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('production.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "quality_checks",
+      "policyname": "staff_update",
+      "roles": "{authenticated}",
+      "cmd": "UPDATE",
+      "qual": "has_permission('production.write'::text)",
+      "with_check": "has_permission('production.write'::text)"
+    },
+    {
+      "tablename": "quotation_versions",
+      "policyname": "own_quote_versions",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "(EXISTS ( SELECT 1\n   FROM quotations q\n  WHERE ((q.id = quotation_versions.quotation_id) AND (q.status <> 'draft'::text) AND owns_customer(q.customer_id))))",
+      "with_check": null
+    },
+    {
+      "tablename": "quotation_versions",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('quotations.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "quotations",
+      "policyname": "own_quotes",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "((status <> 'draft'::text) AND owns_customer(customer_id))",
+      "with_check": null
+    },
+    {
+      "tablename": "quotations",
+      "policyname": "staff_insert",
+      "roles": "{authenticated}",
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "has_permission('quotations.write'::text)"
+    },
+    {
+      "tablename": "quotations",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('quotations.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "quotations",
+      "policyname": "staff_update",
+      "roles": "{authenticated}",
+      "cmd": "UPDATE",
+      "qual": "has_permission('quotations.write'::text)",
+      "with_check": "has_permission('quotations.write'::text)"
+    },
+    {
+      "tablename": "reviews",
+      "policyname": "public_reviews",
+      "roles": "{anon,authenticated}",
+      "cmd": "SELECT",
+      "qual": "(status = 'published'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "reviews",
+      "policyname": "staff_insert",
+      "roles": "{authenticated}",
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "has_permission('content.write'::text)"
+    },
+    {
+      "tablename": "reviews",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('content.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "reviews",
+      "policyname": "staff_update",
+      "roles": "{authenticated}",
+      "cmd": "UPDATE",
+      "qual": "has_permission('content.write'::text)",
+      "with_check": "has_permission('content.write'::text)"
+    },
+    {
+      "tablename": "role_permissions",
+      "policyname": "role_permissions_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('users.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "roles",
+      "policyname": "roles_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('users.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "site_settings",
+      "policyname": "public_settings",
+      "roles": "{anon,authenticated}",
+      "cmd": "SELECT",
+      "qual": "public",
+      "with_check": null
+    },
+    {
+      "tablename": "site_settings",
+      "policyname": "staff_insert",
+      "roles": "{authenticated}",
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "has_permission('settings.write'::text)"
+    },
+    {
+      "tablename": "site_settings",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('settings.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "site_settings",
+      "policyname": "staff_update",
+      "roles": "{authenticated}",
+      "cmd": "UPDATE",
+      "qual": "has_permission('settings.write'::text)",
+      "with_check": "has_permission('settings.write'::text)"
+    },
+    {
+      "tablename": "stock_movements",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('inventory.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "stock_reservations",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('inventory.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "supplier_payments",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('finance.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "suppliers",
+      "policyname": "staff_insert",
+      "roles": "{authenticated}",
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "has_permission('suppliers.write'::text)"
+    },
+    {
+      "tablename": "suppliers",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('suppliers.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "suppliers",
+      "policyname": "staff_update",
+      "roles": "{authenticated}",
+      "cmd": "UPDATE",
+      "qual": "has_permission('suppliers.write'::text)",
+      "with_check": "has_permission('suppliers.write'::text)"
+    },
+    {
+      "tablename": "upload_intents",
+      "policyname": "upload_intents_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "((owner_user_id = auth.uid()) OR has_permission('media.read'::text))",
+      "with_check": null
+    },
+    {
+      "tablename": "user_roles",
+      "policyname": "user_roles_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "((user_id = auth.uid()) OR has_permission('users.read'::text))",
+      "with_check": null
+    },
+    {
+      "tablename": "website_sections",
+      "policyname": "public_sections",
+      "roles": "{anon,authenticated}",
+      "cmd": "SELECT",
+      "qual": "(status = 'published'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "website_sections",
+      "policyname": "staff_insert",
+      "roles": "{authenticated}",
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "has_permission('content.write'::text)"
+    },
+    {
+      "tablename": "website_sections",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('content.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "website_sections",
+      "policyname": "staff_update",
+      "roles": "{authenticated}",
+      "cmd": "UPDATE",
+      "qual": "has_permission('content.write'::text)",
+      "with_check": "has_permission('content.write'::text)"
+    },
+    {
+      "tablename": "work_entries",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "(has_permission('finance.read'::text) OR has_permission('workers.approve'::text))",
+      "with_check": null
+    },
+    {
+      "tablename": "work_orders",
+      "policyname": "staff_insert",
+      "roles": "{authenticated}",
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "has_permission('production.write'::text)"
+    },
+    {
+      "tablename": "work_orders",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('production.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "work_orders",
+      "policyname": "staff_update",
+      "roles": "{authenticated}",
+      "cmd": "UPDATE",
+      "qual": "has_permission('production.write'::text)",
+      "with_check": "has_permission('production.write'::text)"
+    },
+    {
+      "tablename": "workers",
+      "policyname": "staff_insert",
+      "roles": "{authenticated}",
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "has_permission('workers.write'::text)"
+    },
+    {
+      "tablename": "workers",
+      "policyname": "staff_read",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "has_permission('workers.read'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "workers",
+      "policyname": "staff_update",
+      "roles": "{authenticated}",
+      "cmd": "UPDATE",
+      "qual": "has_permission('workers.write'::text)",
+      "with_check": "has_permission('workers.write'::text)"
+    }
+  ],
+  "migrations": [
+    {
+      "name": "202610140001_foundation.sql",
+      "sha256": "c1c652b7859f1abaea0a840f33d29487bc4a9d9752dadbf059d39d0489cc089d",
+      "applied_at": "2026-10-14T18:38:50.958Z"
+    },
+    {
+      "name": "202610150002_workflows.sql",
+      "sha256": "d57bd4312b2c99a99e36c779a743dc4812d6da4ea30263a16797c4c9edf2185c",
+      "applied_at": "2026-10-14T18:38:51.528Z"
+    },
+    {
+      "name": "202610150003_access_hardening.sql",
+      "sha256": "3a6d752bf9ac8fbc95d606fb0137bdeddbd190b0de9471905f392d50fac0c80e",
+      "applied_at": "2026-10-14T19:00:46.874Z"
+    },
+    {
+      "name": "202610150004_trigger_record_safety.sql",
+      "sha256": "66fca9225d7391044929c1c9cb78938fb19d11b9a6d1e51c7098f0cc3a3920ef",
+      "applied_at": "2026-10-14T19:16:16.738Z"
+    },
+    {
+      "name": "202610150005_estimator_media.sql",
+      "sha256": "bee0d3693d6f523a9fff0bb127084d085e42d257f8ccca3f44188cd76e29271d",
+      "applied_at": "2026-10-14T19:27:37.128Z"
+    },
+    {
+      "name": "202610150006_returns_and_statements.sql",
+      "sha256": "c426e08b6fbdfc4b9c2a702f088a6a9c861b4ea3b2524bf4a3879d01a140cb65",
+      "applied_at": "2026-10-14T19:34:00.725Z"
+    },
+    {
+      "name": "202610150007_workflow_integrity.sql",
+      "sha256": "7b7a948fe01ba8981c0606c742ff5f4eb0d7e1946e2a9a2b5890238af1048365",
+      "applied_at": "2026-10-14T19:58:48.251Z"
+    },
+    {
+      "name": "202610150008_notifications_permissions.sql",
+      "sha256": "7eea72230f95e0a0887608a52a431e73663358e9ddffb057a6714340636551cc",
+      "applied_at": "2026-10-14T20:01:53.479Z"
+    },
+    {
+      "name": "202610150009_verified_uploads.sql",
+      "sha256": "87f1b3a37f4e642f539af20f963a85dbc9edb1fdf0efebbb289ad59730411d4b",
+      "applied_at": "2026-10-14T20:05:58.379Z"
+    },
+    {
+      "name": "202610150010_stock_media_integrity.sql",
+      "sha256": "c5580b4b30bb174f88ebdb4266d023be84c970de976b6e1912936dd69a42acee",
+      "applied_at": "2026-10-15T05:21:16.838Z"
+    },
+    {
+      "name": "202610150011_publication_completion_guards.sql",
+      "sha256": "3bf5015dbb4f7bddeef8cbe1ac2afdfd55c62b0aad0a33130ee7ac49251a2932",
+      "applied_at": "2026-10-15T05:28:44.562Z"
+    },
+    {
+      "name": "202610150012_customer_privacy.sql",
+      "sha256": "7c02705b90fe8bf0871dba691592b9c2c8eb77d08490df97f49ffa08169d49bb",
+      "applied_at": "2026-10-15T05:34:36.166Z"
+    },
+    {
+      "name": "202610150013_reporting_timezone.sql",
+      "sha256": "d76c6ecbe47a3de1f0b8ebab9204e5c3f2b7826d8e44e3da62982c488e541d41",
+      "applied_at": "2026-10-15T05:36:59.234Z"
+    },
+    {
+      "name": "202610150014_customer_order_dtos.sql",
+      "sha256": "3085f9eeb66f99898cbf266da284fad0bec45e7f73f77036a701617a0ef82de8",
+      "applied_at": "2026-10-15T05:40:00.761Z"
+    },
+    {
+      "name": "202610150015_reservation_release.sql",
+      "sha256": "e486cfba3868a79c23f6fea14d552e34715123bee64abd90af1e904efacd7410",
+      "applied_at": "2026-10-15T05:50:09.169Z"
+    },
+    {
+      "name": "202610150016_crm_followup_scope.sql",
+      "sha256": "2a9f14641d726bfe74e0d15fa103dcfc75168bf8275ce4a8945446b88e6b7078",
+      "applied_at": "2026-10-15T06:13:10.760Z"
+    },
+    {
+      "name": "202610150017_withdrawal_idempotency.sql",
+      "sha256": "e072ce1873258f050da0779bc0727082a84ab2714428b8f4967ae993c7f3ca24",
+      "applied_at": "2026-10-15T06:20:11.626Z"
+    },
+    {
+      "name": "202610150018_quotation_revisions.sql",
+      "sha256": "c90ca834e664429fe78e01ef438d881f6f181aaa82ef02b34217e0fb9b504aaf",
+      "applied_at": "2026-10-15T06:53:21.163Z"
+    },
+    {
+      "name": "202610150019_catalog_configuration.sql",
+      "sha256": "834915687486d26cb6e4a82a9522dd89f4edc72f046a1b39fc3dbb8d1c83c5f8",
+      "applied_at": "2026-10-15T07:39:08.581Z"
+    },
+    {
+      "name": "202610150020_supplier_statements.sql",
+      "sha256": "f17cfd214289f45cb4e80e67069f40af838bb58268946ff34312b413757c52e3",
+      "applied_at": "2026-10-15T07:39:10.005Z"
+    },
+    {
+      "name": "202610150021_expense_reversals.sql",
+      "sha256": "ab6ce1142066b04cc51026c395075354b4818160768bf34160e23fe957510550",
+      "applied_at": "2026-10-15T07:39:11.259Z"
+    },
+    {
+      "name": "202610150022_catalog_finance_privileges.sql",
+      "sha256": "029ddaf55c33b38631ed9afd3776f01e17dedc482c267dc81e1277160e9b799d",
+      "applied_at": "2026-10-15T08:31:05.245Z"
+    },
+    {
+      "name": "202610150023_purchase_pricing.sql",
+      "sha256": "45c9ea68af383672ebd52e1ba29e9635a6d2db01fc769b515d30bec6af53519d",
+      "applied_at": "2026-10-15T09:28:56.366Z"
+    },
+    {
+      "name": "202610150024_financial_corrections.sql",
+      "sha256": "861627563e1cfb23d4e0973f8d68b58caa286349a1f4804c63da0c87022f2873",
+      "applied_at": "2026-10-15T09:28:57.596Z"
+    },
+    {
+      "name": "202610150025_finance_reporting_periods.sql",
+      "sha256": "f9cb3ea16c954d2ae949a7f0f257b9a30fa763559604eb7272e086ea56c4ba57",
+      "applied_at": "2026-10-15T09:28:58.778Z"
+    },
+    {
+      "name": "202610150026_report_trends.sql",
+      "sha256": "5df8f45282bcd751cadbb64312622674e9e3d6b9eccb099506aebcf11c1b771c",
+      "applied_at": "2026-10-15T10:37:11.859Z"
+    },
+    {
+      "name": "202610150027_balance_report_pages.sql",
+      "sha256": "4008160fc576dacb81004d57ab494f5ba321bec1fac8c8e17f3c9046872bcbfc",
+      "applied_at": "2026-10-15T10:51:25.767Z"
+    },
+    {
+      "name": "202610150028_cancellation_work_guards.sql",
+      "sha256": "ecd2b7813aac441734e0db7bf1854d191a5aa1bfd36d7df502735df5e73fcb18",
+      "applied_at": "2026-10-15T11:13:09.052Z"
+    },
+    {
+      "name": "202610150029_job_order_provenance.sql",
+      "sha256": "41b9af19bbb349192fbcf917f298bfb5cd35a9002cf9b5e06ce99afa7fcfb913",
+      "applied_at": "2026-10-15T11:14:19.557Z"
+    },
+    {
+      "name": "202610150030_catalog_enquiry_choices.sql",
+      "sha256": "c1e0695a470213df17d625761783f958e9c92a65c8a1460d15a2bbcbb36d2e80",
+      "applied_at": "2026-10-15T11:45:27.987Z"
+    },
+    {
+      "name": "202610150031_catalog_copy_metadata.sql",
+      "sha256": "978e9490bf1fd4595671acfb26e93fa3cf0f51e6fcaaef400ec6efb2d2d3a4cd",
+      "applied_at": "2026-10-15T11:48:31.191Z"
+    },
+    {
+      "name": "202610150032_purchase_invoice_attachments.sql",
+      "sha256": "2db2f674394d47e6e7d41ea47fe981868ebe9339ade0a31a392083ed33487ea6",
+      "applied_at": "2026-10-15T11:51:53.723Z"
+    },
+    {
+      "name": "202610150033_scheduler_execute_privileges.sql",
+      "sha256": "e074ff1721eb02b30c3576ccf90ff2e641db2f5626a617d3a015558ec82270f9",
+      "applied_at": "2026-10-15T11:51:54.863Z"
+    },
+    {
+      "name": "202610150034_catalog_video_verification.sql",
+      "sha256": "de4dff4d60178b339a4a6163d5bdb6623853d4d574cc0fab8dcb85e23c89a917",
+      "applied_at": "2026-10-15T11:57:33.426Z"
+    },
+    {
+      "name": "202610150035_invoice_asset_parameter.sql",
+      "sha256": "a7ac3f51309c25aca26ba7fd7d1cbfec8a2c93ef2aa47a26fb4d4465bef2afd7",
+      "applied_at": "2026-10-15T11:57:34.546Z"
+    },
+    {
+      "name": "202610150036_finance_reconciliation.sql",
+      "sha256": "5a41ee666069a83c2650ec48cccc04f3b9146fe54e38aa6df37a2ef9f367abdb",
+      "applied_at": "2026-10-15T12:54:22.932Z"
+    },
+    {
+      "name": "202610150037_customer_quotation_pages.sql",
+      "sha256": "4cb9503fc3b9cdf9882a53211698864e6952a06cc0996a0e04149dbb0bd66d69",
+      "applied_at": "2026-10-15T15:19:35.945Z"
+    },
+    {
+      "name": "202610150038_posting_retry_actors.sql",
+      "sha256": "356e8998e957efc7ae7b57d3f42dacebac9fb847d88a0845ec1adb521b284bc4",
+      "applied_at": "2026-10-15T15:35:21.863Z"
+    },
+    {
+      "name": "202610160039_private_invoice_pdf.sql",
+      "sha256": "da79705d4219356d2ea4234714b00e8090bbe5764c49e742fa342488d4408b21",
+      "applied_at": "2026-10-16T05:21:03.590Z"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+﻿import { NextResponse,type NextRequest } from 'next/server';
+import { requestContext } from '@/lib/auth/request';
+import { failure,databaseError } from '@/lib/api';
+import { AppError } from '@/lib/errors';
+import { quotationPdf } from '@/features/quotations/document';
+import { z } from 'zod';
+export async function GET(request:NextRequest,{params}:{params:Promise<{id:string}>}){const requestId=crypto.randomUUID();try{const {id}=await params;z.uuid().parse(id);const versionInput=request.nextUrl.searchParams.get('version');const requestedVersion=versionInput===null?null:z.coerce.number().int().min(1).max(2147483647).parse(versionInput);const {db}=await requestContext(request);const {data:q,error}=await db.from('quotations').select('name,status,expires_at').eq('id',id).maybeSingle();databaseError(error);if(!q)throw new AppError('NOT_FOUND','Quotation not found',404);let versionQuery=db.from('quotation_versions').select('version,snapshot,total_minor').eq('quotation_id',id);if(requestedVersion!==null)versionQuery=versionQuery.eq('version',requestedVersion);const {data:v,error:versionError}=await versionQuery.order('version',{ascending:false}).limit(1).maybeSingle();databaseError(versionError);if(!v)throw new AppError('NOT_FOUND','Quotation has no price version',404);const buffer=await quotationPdf(q,v);return new NextResponse(new Uint8Array(buffer),{headers:{'Content-Type':'application/pdf','Content-Disposition':`attachment; filename="quotation-${id}-v${v.version}.pdf"`,'Cache-Control':'private, no-store','X-Request-ID':requestId}});}catch(e){return failure(e,requestId);}}
+

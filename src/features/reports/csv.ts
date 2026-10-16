@@ -1,0 +1,2 @@
+export function csvCell(value:unknown){const raw=value===null||value===undefined?'':typeof value==='object'?JSON.stringify(value):String(value);const safe=/^(?:[\t\r\n]|\s*[=+\-@])/.test(raw)?`'${raw}`:raw;return `"${safe.replaceAll('"','""')}"`;}
+export function toCsv(rows:Record<string,unknown>[],columns:string[]){return '\uFEFF'+[columns.map(csvCell).join(','),...rows.map(row=>columns.map(c=>csvCell(row[c])).join(','))].join('\r\n');}

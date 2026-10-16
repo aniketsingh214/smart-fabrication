@@ -1,0 +1,3 @@
+﻿import { defineConfig,devices } from '@playwright/test';
+export default defineConfig({testDir:'tests/e2e',outputDir:'test-results/browser',fullyParallel:false,workers:1,timeout:45000,use:{baseURL:process.env.TEST_BASE_URL??'http://localhost:3000',channel:'chrome',trace:'retain-on-failure'},projects:[{name:'desktop',use:{...devices['Desktop Chrome']}},{name:'mobile',use:{...devices['iPhone 13'],defaultBrowserType:'chromium'}}],reporter:[['list'],['html',{open:'never'}]],webServer:process.env.TEST_BASE_URL?undefined:{command:'npm run start',url:'http://localhost:3000',reuseExistingServer:true,timeout:120000}});
+

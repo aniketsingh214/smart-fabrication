@@ -1,0 +1,3 @@
+import type { SupabaseClient } from '@supabase/supabase-js';
+import { BalancePanel } from './balance-panel';
+export async function BalanceTables({db}:{db:SupabaseClient}){const reports=[['receivables','Customer receivables'],['payables','Supplier payables'],['workers','Worker outstanding']] as const;const results=await Promise.all(reports.map(([report])=>db.rpc('finance_balance_page',{report_name:report,page_limit:25})));return <div className="mt-7 space-y-5">{reports.map(([report,title],i)=><BalancePanel key={report} report={report} title={title} initial={results[i].data} initialError={Boolean(results[i].error)}/>)}</div>;}

@@ -1,0 +1,4 @@
+'use client';
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+export function AccountStatus({id,disabled}:{id:string;disabled:boolean}){const [busy,setBusy]=useState(false),[error,setError]=useState('');return <div className="mt-4"><Button disabled={busy} variant="outline" size="sm" onClick={async()=>{setBusy(true);setError('');try{const r=await fetch(`/api/v1/admin/users/${id}/status`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({disabled:!disabled})});const result=await r.json();if(!r.ok)throw new Error(result.error?.message??'Account could not be updated');location.reload();}catch(e){setError(e instanceof Error?e.message:'Account could not be updated');setBusy(false);}}}>{disabled?'Enable account':'Disable account'}</Button>{error&&<p role="alert" className="mt-2 text-xs text-red-600">{error}</p>}</div>;}

@@ -1,0 +1,4 @@
+import { expect,it } from 'vitest';
+import { exportQuery,reportDateFields } from '@/contracts/export-query';
+it('caps each CSV batch below the PostgREST row cap rather than silently truncating a large export',()=>{expect(exportQuery(new URLSearchParams()).limit).toBe(500);expect(()=>exportQuery(new URLSearchParams({limit:'501'}))).toThrow();expect(()=>exportQuery(new URLSearchParams({limit:'0'}))).toThrow();});
+it('uses India business date boundaries and rejects excessively long periods',()=>{const p=exportQuery(new URLSearchParams({from:'2026-10-01',until:'2026-10-15'})).period;expect(p?.start).toBe('2026-09-30T18:30:00.000Z');expect(reportDateFields['financial-adjustments']).toBe('posting_date');expect(()=>exportQuery(new URLSearchParams({from:'2020-01-01',until:'2026-01-01'}))).toThrow();});

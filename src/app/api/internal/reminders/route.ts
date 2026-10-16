@@ -1,0 +1,4 @@
+import { createClient } from '@supabase/supabase-js';
+import { timingSafeEqual } from 'node:crypto';
+import { NextResponse } from 'next/server';
+export async function GET(request:Request){const secret=process.env.CRON_SECRET;if(!secret||!process.env.SUPABASE_SECRET_KEY)return NextResponse.json({error:'Scheduler not configured'},{status:503});const supplied=Buffer.from(request.headers.get('authorization')??''),expected=Buffer.from(`Bearer ${secret}`);if(supplied.length!==expected.length||!timingSafeEqual(supplied,expected))return NextResponse.json({error:'Unauthorized'},{status:401});const db=createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!,process.env.SUPABASE_SECRET_KEY,{auth:{persistSession:false}});const {data,error}=await db.rpc('dispatch_due_notifications');if(error)return NextResponse.json({error:'Reminder processing failed'},{status:500});return NextResponse.json({processed:data});}

@@ -1,0 +1,10 @@
+﻿import { expect,it,vi } from 'vitest';
+import { NextRequest } from 'next/server';
+import { requestContext } from '@/lib/auth/request';
+import { GET } from '@/app/api/v1/me/route';
+import { identitySchema,notificationSchema } from '@/contracts/identity';
+vi.mock('@/lib/auth/request',()=>({requestContext:vi.fn()}));
+const profile={id:crypto.randomUUID(),display_name:'Fixture',disabled:false};
+it('returns the documented narrow identity DTO',async()=>{vi.mocked(requestContext).mockResolvedValue({profile,db:{rpc:async(name:string)=>({data:name==='my_permissions'?['finance.read']:null,error:null})}} as unknown as Awaited<ReturnType<typeof requestContext>>);const response=await GET(new NextRequest('http://localhost/api/v1/me'));expect(response.status).toBe(200);expect(identitySchema.parse((await response.json()).data)).toEqual({...profile,permissions:['finance.read'],customer:null});});
+it('does not report successful empty permissions when an identity RPC fails',async()=>{vi.mocked(requestContext).mockResolvedValue({profile,db:{rpc:async()=>({data:null,error:{code:'42501',message:'denied'}})}} as unknown as Awaited<ReturnType<typeof requestContext>>);const response=await GET(new NextRequest('http://localhost/api/v1/me'));expect(response.status).toBe(403);expect((await response.json()).data).toBeUndefined();});
+it('rejects privileged extra fields in documented identity and notification DTOs',()=>{expect(identitySchema.safeParse({...profile,permissions:[],customer:null,service_role:'private'}).success).toBe(false);expect(notificationSchema.safeParse({id:crypto.randomUUID(),name:'Notice',body:'Body',read_at:null,created_at:'2026-10-15T10:00:00Z',user_id:crypto.randomUUID()}).success).toBe(false);});

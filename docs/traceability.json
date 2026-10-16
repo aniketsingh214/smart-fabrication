@@ -1,0 +1,274 @@
+[
+  {
+    "num": 1,
+    "name": "Dashboard",
+    "covered": "Dashboard / reports",
+    "phase": "18",
+    "id": "SF-REQ-0001",
+    "status": "partially_implemented"
+  },
+  {
+    "num": 2,
+    "name": "Products",
+    "covered": "Products",
+    "phase": "07",
+    "id": "SF-REQ-0002",
+    "status": "partially_implemented"
+  },
+  {
+    "num": 3,
+    "name": "Categories",
+    "covered": "Categories & Subcategories",
+    "phase": "07",
+    "id": "SF-REQ-0003",
+    "status": "partially_implemented"
+  },
+  {
+    "num": 4,
+    "name": "Leads",
+    "covered": "Leads",
+    "phase": "10",
+    "id": "SF-REQ-0004",
+    "status": "partially_implemented"
+  },
+  {
+    "num": 5,
+    "name": "Customers",
+    "covered": "Customers",
+    "phase": "10",
+    "id": "SF-REQ-0005",
+    "status": "partially_implemented"
+  },
+  {
+    "num": 6,
+    "name": "Material Library",
+    "covered": "Material Library",
+    "phase": "08",
+    "id": "SF-REQ-0006",
+    "status": "partially_implemented"
+  },
+  {
+    "num": 7,
+    "name": "Material Rates",
+    "covered": "Material Rates",
+    "phase": "08",
+    "id": "SF-REQ-0007",
+    "status": "partially_implemented"
+  },
+  {
+    "num": 8,
+    "name": "Product-Material Mapping",
+    "covered": "Product–Material Mapping",
+    "phase": "08",
+    "id": "SF-REQ-0008",
+    "status": "partially_implemented"
+  },
+  {
+    "num": 9,
+    "name": "Calculation Engine",
+    "covered": "Calculation Engine",
+    "phase": "09",
+    "id": "SF-REQ-0009",
+    "status": "partially_implemented"
+  },
+  {
+    "num": 10,
+    "name": "Suppliers",
+    "covered": "Suppliers/Vendors",
+    "phase": "13",
+    "id": "SF-REQ-0010",
+    "status": "partially_implemented"
+  },
+  {
+    "num": 11,
+    "name": "Purchase",
+    "covered": "Purchases/Procurement",
+    "phase": "13",
+    "id": "SF-REQ-0011",
+    "status": "partially_implemented"
+  },
+  {
+    "num": 12,
+    "name": "Stock",
+    "covered": "Stock/Inventory",
+    "phase": "14",
+    "id": "SF-REQ-0012",
+    "status": "partially_implemented"
+  },
+  {
+    "num": 13,
+    "name": "Labour",
+    "covered": "Labour Management",
+    "phase": "15",
+    "id": "SF-REQ-0013",
+    "status": "partially_implemented"
+  },
+  {
+    "num": 14,
+    "name": "Expenses",
+    "covered": "Business Expenses",
+    "phase": "17",
+    "id": "SF-REQ-0014",
+    "status": "partially_implemented"
+  },
+  {
+    "num": 15,
+    "name": "Owner Withdrawals",
+    "covered": "Owner Withdrawals",
+    "phase": "17",
+    "id": "SF-REQ-0015",
+    "status": "partially_implemented"
+  },
+  {
+    "num": 16,
+    "name": "Accounts",
+    "covered": "Accounts/Finance",
+    "phase": "17",
+    "id": "SF-REQ-0016",
+    "status": "partially_implemented"
+  },
+  {
+    "num": 17,
+    "name": "Profit & Loss",
+    "covered": "Profit & Loss",
+    "phase": "17",
+    "id": "SF-REQ-0017",
+    "status": "partially_implemented"
+  },
+  {
+    "num": 18,
+    "name": "Quotations",
+    "covered": "Quotations",
+    "phase": "11",
+    "id": "SF-REQ-0018",
+    "status": "partially_implemented"
+  },
+  {
+    "num": 19,
+    "name": "Orders",
+    "covered": "Orders",
+    "phase": "12",
+    "id": "SF-REQ-0019",
+    "status": "partially_implemented"
+  },
+  {
+    "num": 20,
+    "name": "Follow-up",
+    "covered": "Follow-ups",
+    "phase": "10",
+    "id": "SF-REQ-0020",
+    "status": "partially_implemented"
+  },
+  {
+    "num": 21,
+    "name": "Gallery",
+    "covered": "Gallery",
+    "phase": "06",
+    "id": "SF-REQ-0021",
+    "status": "partially_implemented"
+  },
+  {
+    "num": 22,
+    "name": "Website Content",
+    "covered": "Website Content",
+    "phase": "06",
+    "id": "SF-REQ-0022",
+    "status": "partially_implemented"
+  },
+  {
+    "num": 23,
+    "name": "Reviews",
+    "covered": "Reviews",
+    "phase": "06",
+    "id": "SF-REQ-0023",
+    "status": "partially_implemented"
+  },
+  {
+    "num": 24,
+    "name": "Reports",
+    "covered": "Reports",
+    "phase": "18",
+    "id": "SF-REQ-0024",
+    "status": "partially_implemented"
+  },
+  {
+    "num": 25,
+    "name": "WhatsApp & Notifications",
+    "covered": "WhatsApp & Notifications",
+    "phase": "10/18",
+    "id": "SF-REQ-0025",
+    "status": "partially_implemented"
+  },
+  {
+    "num": 26,
+    "name": "Admin Users & Permissions",
+    "covered": "Admin Users & Permissions",
+    "phase": "04/18",
+    "id": "SF-REQ-0026",
+    "status": "partially_implemented"
+  },
+  {
+    "num": 27,
+    "name": "Activity Log",
+    "covered": "Activity Log",
+    "phase": "18",
+    "id": "SF-REQ-0027",
+    "status": "partially_implemented"
+  },
+  {
+    "num": 28,
+    "name": "Settings",
+    "covered": "Settings",
+    "phase": "18",
+    "id": "SF-REQ-0028",
+    "status": "partially_implemented"
+  },
+  {
+    "num": 29,
+    "name": "End-to-end Flow",
+    "covered": "Workflow 4.1",
+    "phase": "10–16",
+    "id": "SF-REQ-0029",
+    "status": "partially_implemented"
+  },
+  {
+    "num": 30,
+    "name": "Future AI",
+    "covered": "Future AI",
+    "phase": "Future",
+    "id": "SF-REQ-0030",
+    "status": "future_scope"
+  },
+  {
+    "num": 31,
+    "name": "Multi-city Partner",
+    "covered": "Future Partner Network",
+    "phase": "Future",
+    "id": "SF-REQ-0031",
+    "status": "future_scope"
+  },
+  {
+    "num": 32,
+    "name": "Sidebar",
+    "covered": "Admin navigation / module list",
+    "phase": "03–18",
+    "id": "SF-REQ-0032",
+    "status": "partially_implemented"
+  },
+  {
+    "num": 33,
+    "name": "Phase 1 current requirements",
+    "covered": "Core release scope",
+    "phase": "01–19",
+    "id": "SF-REQ-0033",
+    "status": "partially_implemented"
+  },
+  {
+    "num": 34,
+    "name": "Development principle",
+    "covered": "Configurable admin / docs",
+    "phase": "All",
+    "id": "SF-REQ-0034",
+    "status": "in_progress"
+  }
+]

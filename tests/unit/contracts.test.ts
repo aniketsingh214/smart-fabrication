@@ -1,0 +1,23 @@
+import { describe,it,expect } from 'vitest';
+import { resourceMap,resourceSchema,leadSchema } from '@/contracts/resources';
+import { estimateSchema,areaSqM } from '@/contracts/estimates';
+import { stockSchema,nextStates,quoteVersionSchema } from '@/contracts/workflows';
+import { parseCursor,recordFields } from '@/features/operations/services';
+import { toCsv } from '@/features/reports/csv';
+describe('Public and admin input boundaries',()=>{
+ it('rejects role escalation and unexpected fields in lead input',()=>expect(()=>leadSchema.parse({name:'Customer',phone:'919876543210',city:'Delhi',requirement:'Custom gate required',role:'owner'})).toThrow());
+ it('allows guest enquiries without an auth identity',()=>expect(leadSchema.parse({name:'Customer',phone:'919876543210',city:'Delhi',requirement:'Custom gate required'}).source).toBe('direct'));
+ it('rejects malformed phone and insufficient requirement',()=>expect(()=>leadSchema.parse({name:'C',phone:'123',city:'D',requirement:'short'})).toThrow());
+ it('accepts supported dimension boundaries and rejects outside range',()=>{const id='d9f8784a-7b79-4629-8ae8-052d4a2a2100';expect(estimateSchema.parse({product_id:id,width_mm:100,height_mm:100}).width_mm).toBe(100);expect(()=>estimateSchema.parse({product_id:id,width_mm:20001,height_mm:100})).toThrow();});
+ it('converts millimetres to square metres without metre/mm confusion',()=>expect(areaSqM(3000,2000)).toBe(6));
+ it('does not accept invalid or zero dimensions',()=>{expect(()=>areaSqM(0,2000)).toThrow();expect(()=>areaSqM(NaN,2000)).toThrow();});
+ it('requires positive consumption job traceability',()=>expect(()=>stockSchema.parse({material_id:crypto.randomUUID(),quantity:5,unit_cost_minor:10,kind:'consumption',note:'Job use',idempotency_key:crypto.randomUUID()})).toThrow());
+ it('rejects invalid quotation tax, money and line quantities',()=>{expect(()=>quoteVersionSchema.parse({items:[{description:'Gate',quantity:0,unit_minor:100}]})).toThrow();expect(()=>quoteVersionSchema.parse({items:[{description:'Gate',quantity:1,unit_minor:1.5}]})).toThrow();});
+ it('does not allow arbitrary status writes through generic lead update',()=>expect(()=>resourceSchema(resourceMap.leads!,true).parse({status:'COMPLETED'})).toThrow());
+ it('partial updates preserve omitted defaults such as publication and active state',()=>{expect(resourceSchema(resourceMap.categories!,true).parse({name:'Updated'})).toEqual({name:'Updated'});expect(resourceSchema(resourceMap.products!,true).parse({name:'Updated'})).toEqual({name:'Updated'});});
+ it('rejects invalid category slug and injected payload keys',()=>{expect(()=>resourceSchema(resourceMap.categories!).parse({name:'Gates',slug:'Bad Slug'})).toThrow();expect(()=>resourceSchema(resourceMap.categories!).parse({name:'Gates',slug:'gates',id:'hijacked'})).toThrow();});
+ it('never suggests skipping order stages or recovering completed leads',()=>{expect(nextStates('CONFIRMED','order')).toEqual(['ADVANCE_RECEIVED']);expect(nextStates('COMPLETED','lead')).toEqual([]);expect(nextStates('LOST','lead')).toEqual(['CONTACTED']);});
+ it('validates cursors before interpolating database filters',()=>{expect(()=>parseCursor(Buffer.from('{"id":"x),status.eq.published","created_at":"bad"}').toString('base64url'))).toThrow();});
+ it('uses explicit response fields instead of silently exposing new database columns',()=>{expect(recordFields(resourceMap.products!)).not.toContain('*');expect(recordFields(resourceMap['stock-movements']!)).not.toContain('idempotency_key');});
+ it('neutralizes spreadsheet formulas and quotes text correctly',()=>{const csv=toCsv([{name:'=HYPERLINK("x")',note:'a,b\n"quoted"'}],['name','note']);expect(csv).toContain("'=HYPERLINK");expect(csv).toContain('""quoted""');});
+});

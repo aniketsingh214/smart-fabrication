@@ -1,0 +1,7 @@
+import 'server-only';
+import { createHmac,timingSafeEqual } from 'node:crypto';
+import { z } from 'zod';
+import { AppError } from '@/lib/errors';
+const payloadSchema=z.object({leadId:z.uuid(),expires:z.number().int().positive()});
+export function enquiryUploadToken(leadId:string){const secret=process.env.ENQUIRY_UPLOAD_SECRET;if(!secret)return undefined;const payload=Buffer.from(JSON.stringify({leadId,expires:Date.now()+15*60000})).toString('base64url');return `${payload}.${createHmac('sha256',secret).update(payload).digest('base64url')}`;}
+export function verifyEnquiryToken(token:string|null){const secret=process.env.ENQUIRY_UPLOAD_SECRET;if(!secret||!token||token.length>1000)throw new AppError('INVALID_UPLOAD_TOKEN','Enquiry upload token required',401);const [payload,signature,extra]=token.split('.');if(!payload||!signature||extra||!/^[A-Za-z0-9_-]+$/.test(payload)||!/^[A-Za-z0-9_-]{43}$/.test(signature))throw new AppError('INVALID_UPLOAD_TOKEN','Invalid enquiry upload token',401);const expected=createHmac('sha256',secret).update(payload).digest('base64url');if(!timingSafeEqual(Buffer.from(signature),Buffer.from(expected)))throw new AppError('INVALID_UPLOAD_TOKEN','Invalid enquiry upload token',401);let decoded;try{decoded=payloadSchema.parse(JSON.parse(Buffer.from(payload,'base64url').toString('utf8')));}catch{throw new AppError('INVALID_UPLOAD_TOKEN','Invalid enquiry upload token',401);}if(decoded.expires<Date.now())throw new AppError('UPLOAD_EXPIRED','Enquiry upload window expired',401);return decoded.leadId;}

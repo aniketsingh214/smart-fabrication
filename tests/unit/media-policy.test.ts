@@ -1,0 +1,6 @@
+﻿import {expect,it} from 'vitest';
+import {uploadIntentSchema} from '@/contracts/media-policy';
+import {uploadMedia} from '@/features/media/upload';
+it('allows bounded invoice PDFs while excluding public/product/guest-design contexts',()=>{expect(uploadIntentSchema.safeParse({context:'invoice',format:'pdf',bytes:10485760}).success).toBe(true);for(const context of ['product','gallery','customer_design','delivery_proof'])expect(uploadIntentSchema.safeParse({context,format:'pdf',bytes:100}).success).toBe(false);expect(uploadIntentSchema.safeParse({context:'invoice',format:'pdf',bytes:10485761}).success).toBe(false);});
+it('keeps product video and image policies scoped',()=>{expect(uploadIntentSchema.safeParse({context:'product',format:'webm',bytes:104857600}).success).toBe(true);expect(uploadIntentSchema.safeParse({context:'invoice',format:'webm',bytes:100}).success).toBe(false);expect(uploadIntentSchema.safeParse({context:'customer_design',format:'png',bytes:100}).success).toBe(true);});
+it('rejects guest PDF attempts before requesting an upload capability',async()=>{const file=new File(['%PDF-test'],'invoice.pdf',{type:'application/pdf'});await expect(uploadMedia(file,'invoice','guest-token')).rejects.toThrow('private invoices');await expect(uploadMedia(file,'product')).rejects.toThrow('private invoices');});
