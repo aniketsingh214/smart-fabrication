@@ -20,9 +20,13 @@ export function PurchaseAttachments({ purchaseId, canAttach }: { purchaseId: str
   }, [endpoint]);
   useEffect(() => {
     const controller = new AbortController();
-    void load(controller.signal).catch(e => { if (!controller.signal.aborted) setError(e.message); });
+    void fetch(endpoint, { signal: controller.signal }).then(async response => {
+      const body = await response.json();
+      if (!response.ok) throw new Error(body.error?.message ?? 'Invoices could not be loaded');
+      if (!controller.signal.aborted) { setItems(body.data); setNext(body.meta.nextCursor); }
+    }).catch(e => { if (!controller.signal.aborted) setError(e.message); });
     return () => controller.abort();
-  }, [load]);
+  }, [endpoint]);
   return <section className="mt-6 space-y-3 border-t pt-5">
     <h3 className="font-semibold">Private invoices</h3>
     {!items.length && <p className="text-xs text-slate-500">No invoices attached.</p>}

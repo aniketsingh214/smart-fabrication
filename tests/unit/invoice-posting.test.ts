@@ -25,4 +25,6 @@ it('blocks concurrent submission before upload completes and releases after uplo
   const first = command.post('/attachments', file(), '', upload, send);
   await expect(command.post('/attachments', file(), '', upload, send)).rejects.toThrow('already in progress');
   reject(new Error('Upload interrupted')); await expect(first).rejects.toThrow('Upload interrupted');
-  expect(command.pending).toBe(false); expect(send).not.toHaveB
+  expect(command.pending).toBe(false); expect(send).not.toHaveBeenCalled();
+  await expect(command.post('/attachments', null, '', upload, send)).rejects.toThrow('Choose an invoice');
+});

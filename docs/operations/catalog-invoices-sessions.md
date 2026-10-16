@@ -30,3 +30,6 @@ Synthetic native PostgreSQL restore is now verified: all 39 migrations apply fro
 ## Catalog and hardening follow-up — 2026-10-15
 
 Twelve session/read-role checks, five contention checks and five real browser media checks passed. Video duration is requested using media_metadata per the [Cloudinary Admin API](https://cloudinary.com/documentation/admin_api). See [test evidence](../testing/evidence.md) for failures found/fixed and fixture cleanup.
+
+
+Phase 13 continuation (2026-10-16): invoice association retries now retain the exact original asset/note/purchase, block concurrent submission and avoid re-upload. Authorized downloads use a prepared expiring link. Three regression tests pass; total unit/integration count is 104/27 files. Full live browser purchase association remains pending. See docs/phases/phase-13.md for scope and evidence.

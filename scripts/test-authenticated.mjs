@@ -10,7 +10,7 @@ import { reportBrowserChecks } from './browser-report-checks.mjs';
 // Administrative credentials are restricted to fixture creation/cleanup. Browser requests use real user sessions and RLS.
 const admin=createClient(process.env.NEXT_PUBLIC_SUPABASE_URL,process.env.SUPABASE_SECRET_KEY,{auth:{persistSession:false,autoRefreshToken:false}});
 const db=databaseClient(),fixtures=[];let browser,checks=0;
-const base=process.env.TEST_BASE_URL??'http://127.0.0.1:3000';
+const base=process.env.TEST_BASE_URL??'http://localhost:3000';
 async function check(name,fn){await fn();console.log(`PASS: ${name}`);checks++;}
 try{
  await db.connect();

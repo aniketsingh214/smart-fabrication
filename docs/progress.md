@@ -96,3 +96,6 @@ Implemented the audited inventory same-key/body retry fix (mounted-form scope), 
 
 About/process route, footer/sitemap discovery and demo-reference enquiry prefill are verified in the 24-check public suite. Inventory pending requests now persist before dispatch in account-scoped tab storage and restore across reload/navigation; eight stock regression tests pass. Staff page/API and lead assignment have cursor continuation. Current unit/integration count: 95 tests / 24 files. Earlier six desktop/mobile reliability checks passed with real auth/reads and intercepted stock/permission writes; expanded checks are recorded after completion. No migrations, deployment or real financial postings were performed. See [current execution register](operations/completion-audit.md).
 
+
+
+Phase 13 continuation (2026-10-16): invoice association retries now retain the exact original asset/note/purchase, block concurrent submission and avoid re-upload. Authorized downloads use a prepared expiring link. Three regression tests pass; total unit/integration count is 104/27 files. Full live browser purchase association remains pending. See docs/phases/phase-13.md for scope and evidence.

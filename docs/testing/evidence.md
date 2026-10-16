@@ -96,3 +96,6 @@ Only the current development project is available, as confirmed by the user. Clo
 
 
 Latest configured-development result, 2026-10-16: all 186 live Supabase database checks passed; test users and fixtures rolled back. This is distinct from the 186 restored-local checks and 11 local committed concurrency assertions. Public browser rerun: 24/24 passed after the PDF changes. Documentation link/traceability check passed.
+
+
+Phase 13 continuation (2026-10-16): invoice association retries now retain the exact original asset/note/purchase, block concurrent submission and avoid re-upload. Authorized downloads use a prepared expiring link. Three regression tests pass; total unit/integration count is 104/27 files. Full live browser purchase association remains pending. See docs/phases/phase-13.md for scope and evidence.

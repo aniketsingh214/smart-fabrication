@@ -4,6 +4,27 @@ import { expect } from '@playwright/test';
 export async function operationalBrowserChecks(page,check,viewport){
  const stamp=new Date().toISOString(),id=crypto.randomUUID();
  const respond=(route,data,meta={})=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({data,meta,requestId:crypto.randomUUID()})});
+ await check(`${viewport} owner: private PDF association recovers a lost response and prepares authorized delivery (simulated APIs)`,async()=>{
+  const purchase=crypto.randomUUID(),asset=crypto.randomUUID(),attachment=crypto.randomUUID();let attached=false,attempts=0,uploads=0,denyDelivery=true;const payloads=[];
+  await page.route('**/api/v1/admin/purchases**',route=>respond(route,[{id:purchase,supplier_id:crypto.randomUUID(),invoice_number:'Browser invoice fixture',invoice_date:'2026-10-16',total_minor:10000,created_at:stamp}]));
+  await page.route(`**/api/v1/purchases/${purchase}/attachments*`,async route=>{
+   if(route.request().method()==='POST'){payloads.push(route.request().postDataJSON());attempts++;attached=true;if(attempts===1)return route.abort('failed');return respond(route,{id:attachment});}
+   return respond(route,attached?[{id:attachment,media_id:asset,note:'Original supplier note'}]:[],{nextCursor:null});
+  });
+  await page.route('**/api/v1/uploads/sign',route=>{const body=route.request().postDataJSON();assert.equal(body.context,'invoice');assert.equal(body.format,'pdf');uploads++;return respond(route,{apiKey:'synthetic',signature:'synthetic',params:{},intentId:crypto.randomUUID(),uploadUrl:'https://example.invalid/invoice-test-provider'});});
+  await page.route('https://example.invalid/invoice-test-provider',route=>respond(route,{}));
+  await page.route('**/api/v1/uploads/confirm',route=>respond(route,{id:asset}));
+  await page.route(`**/api/v1/uploads/${asset}`,route=>denyDelivery?route.fulfill({status:403,contentType:'application/json',body:JSON.stringify({error:{message:'Invoice access denied'}})}):respond(route,{url:'https://example.invalid/private-invoice.pdf',expiresIn:300}));
+  await page.goto('/admin/purchases');await page.getByRole('button',{name:new RegExp(`View details of (${purchase}|Browser invoice fixture)`)}).click();
+  const section=page.locator('section').filter({has:page.getByRole('heading',{name:'Private invoices',exact:true})});
+  await section.getByLabel('Invoice image or PDF',{exact:true}).setInputFiles({name:'synthetic.pdf',mimeType:'application/pdf',buffer:Buffer.from('%PDF-1.4 synthetic fixture')});await section.getByLabel('Invoice note',{exact:true}).fill('Original supplier note');
+  await section.getByRole('button',{name:'Upload and attach invoice',exact:true}).click();await expect(section.getByRole('button',{name:'Retry attachment',exact:true})).toBeEnabled();
+  await expect(section.getByLabel('Invoice note',{exact:true})).toBeDisabled();await section.getByRole('button',{name:'Retry attachment',exact:true}).click();await expect(section.getByRole('button',{name:'Prepare invoice 1',exact:true})).toBeVisible();
+  assert.equal(uploads,1);assert.equal(attempts,2);assert.deepEqual(payloads[0],payloads[1]);assert.deepEqual(payloads[1],{media_id:asset,note:'Original supplier note'});
+  await section.getByRole('button',{name:'Prepare invoice 1',exact:true}).click();await expect(section.getByRole('alert')).toHaveText('Invoice access denied');await expect(section.getByRole('link',{name:/Open invoice/})).toHaveCount(0);
+  denyDelivery=false;await section.getByRole('button',{name:'Prepare invoice 1',exact:true}).click();await expect(section.getByRole('link',{name:/Open invoice 1/})).toHaveAttribute('href','https://example.invalid/private-invoice.pdf');
+  await page.unrouteAll({behavior:'wait'});
+ });
  await check(`${viewport} owner: product draft duplication and private preview link (simulated API)`,async()=>{
   let captured,key;await page.route('**/api/v1/admin/products**',route=>{const request=route.request();if(request.method()==='POST'){captured=request.postDataJSON();key=request.headers()['idempotency-key'];return respond(route,{result:crypto.randomUUID()});}return respond(route,[{id,name:'Browser gate fixture',sku:'GATE-1',slug:'browser-gate',material:'Steel',price_min_minor:10000,status:'published',created_at:stamp}]);});
   await page.goto('/admin/products');await page.getByRole('button',{name:'View details of Browser gate fixture',exact:true}).click();const dialog=page.getByRole('dialog',{name:'Browser gate fixture',exact:true});await expect(dialog.getByRole('link',{name:'Open private preview',exact:true})).toHaveAttribute('href',`/admin/products/${id}/preview`);await dialog.getByLabel('New product name',{exact:true}).fill('New browser gate');await dialog.getByLabel('New SKU',{exact:true}).fill('GATE-2');await dialog.getByLabel('New URL slug',{exact:true}).fill('new-browser-gate');await dialog.getByRole('button',{name:'Create product draft',exact:true}).click();await expect(page.getByText('Product copied as a draft. Review choices, BOM and pricing before publication.',{exact:true})).toBeVisible();assert.deepEqual(captured,{name:'New browser gate',sku:'GATE-2',slug:'new-browser-gate'});assert.match(key,/^[a-f0-9-]{36}$/);await page.unrouteAll({behavior:'wait'});
