@@ -9,13 +9,13 @@ servers:
   - url: http://localhost:3000/api/v1
     description: Local development
 paths:
-  /admin/financial-adjustments:
+  /admin/estimate-history:
     get:
-      summary: List Financial corrections
+      summary: List Estimate history
       security: &a1
         - bearerAuth: []
         - cookieAuth: []
-      x-permission: finance.read
+      x-permission: materials.read
       responses:
         "200":
           description: Explicit projected resource DTO; collection continuation is in
@@ -32,7 +32,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: "#/components/schemas/financial_adjustments_record"
+                      $ref: "#/components/schemas/estimate_history_record"
                   meta: &a3
                     type: object
                     properties:
@@ -133,6 +133,203 @@ paths:
           in: query
           schema:
             type: string
+  /admin/estimate-history/{id}:
+    get:
+      summary: Read Estimate history record
+      security: *a1
+      x-permission: materials.read
+      responses:
+        "200":
+          description: Explicit projected resource DTO; collection continuation is in
+            meta.nextCursor
+          content:
+            application/json:
+              schema:
+                type: object
+                required: *a2
+                properties:
+                  data:
+                    $ref: "#/components/schemas/estimate_history_record"
+                  meta: *a3
+                  requestId: *a4
+        "400": *a5
+        "401": *a6
+        "403": *a7
+        "404": *a8
+        "409": *a9
+        "413": *a10
+        "415": *a11
+        "422": *a12
+        "429": *a13
+        "500": *a14
+        "503": *a15
+      parameters: &a17
+        - &a18
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+  /estimate-history:
+    get:
+      summary: List Estimate history
+      security: *a1
+      x-permission: materials.read
+      responses:
+        "200":
+          description: Explicit projected resource DTO; collection continuation is in
+            meta.nextCursor
+          content:
+            application/json:
+              schema:
+                type: object
+                required: *a2
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/estimate_history_record"
+                  meta: *a3
+                  requestId: *a4
+        "400": *a5
+        "401": *a6
+        "403": *a7
+        "404": *a8
+        "409": *a9
+        "413": *a10
+        "415": *a11
+        "422": *a12
+        "429": *a13
+        "500": *a14
+        "503": *a15
+      parameters: *a16
+  /estimate-history/{id}:
+    get:
+      summary: Read Estimate history record
+      security: *a1
+      x-permission: materials.read
+      responses:
+        "200":
+          description: Explicit projected resource DTO; collection continuation is in
+            meta.nextCursor
+          content:
+            application/json:
+              schema:
+                type: object
+                required: *a2
+                properties:
+                  data:
+                    $ref: "#/components/schemas/estimate_history_record"
+                  meta: *a3
+                  requestId: *a4
+        "400": *a5
+        "401": *a6
+        "403": *a7
+        "404": *a8
+        "409": *a9
+        "413": *a10
+        "415": *a11
+        "422": *a12
+        "429": *a13
+        "500": *a14
+        "503": *a15
+      parameters: *a17
+  /reports/estimate-history/export:
+    get:
+      summary: Export Estimate history in cursor-paged CSV batches (maximum 500 rows
+        per response)
+      security: *a1
+      x-permission: materials.export
+      responses:
+        "200":
+          description: CSV with spreadsheet formula injection protection. Follow
+            X-Next-Cursor or Link rel=next; absent cursor means the final batch.
+          headers:
+            X-Next-Cursor:
+              schema:
+                type: string
+            X-Export-Row-Count:
+              schema:
+                type: integer
+          content:
+            text/csv:
+              schema:
+                type: string
+        "400": *a5
+        "401": *a6
+        "403": *a7
+        "404": *a8
+        "409": *a9
+        "413": *a10
+        "415": *a11
+        "422": *a12
+        "429": *a13
+        "500": *a14
+        "503": *a15
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 500
+            default: 500
+        - name: cursor
+          in: query
+          schema:
+            type: string
+        - name: from
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: until
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: q
+          in: query
+          schema:
+            type: string
+        - name: status
+          in: query
+          schema:
+            type: string
+  /admin/financial-adjustments:
+    get:
+      summary: List Financial corrections
+      security: *a1
+      x-permission: finance.read
+      responses:
+        "200":
+          description: Explicit projected resource DTO; collection continuation is in
+            meta.nextCursor
+          content:
+            application/json:
+              schema:
+                type: object
+                required: *a2
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/financial_adjustments_record"
+                  meta: *a3
+                  requestId: *a4
+        "400": *a5
+        "401": *a6
+        "403": *a7
+        "404": *a8
+        "409": *a9
+        "413": *a10
+        "415": *a11
+        "422": *a12
+        "429": *a13
+        "500": *a14
+        "503": *a15
+      parameters: *a16
   /admin/financial-adjustments/{id}:
     get:
       summary: Read Financial corrections record
@@ -163,14 +360,7 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
-      parameters: &a17
-        - &a18
-          name: id
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
+      parameters: *a17
   /financial-adjustments:
     get:
       summary: List Financial corrections
@@ -13405,11 +13595,18 @@ paths:
               additionalProperties: false
       responses:
         "201":
-          description: Success envelope
+          description: Server-authoritative approximate result with immutable
+            formula/BOM/rate provenance
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Envelope"
+                type: object
+                required: *a2
+                properties:
+                  data:
+                    $ref: "#/components/schemas/EstimateResult"
+                  meta: *a3
+                  requestId: *a4
         "400": *a5
         "401": *a6
         "403": *a7
@@ -14024,11 +14221,52 @@ paths:
       x-permission: authenticated actor with object ownership
       responses:
         "200":
-          description: Success envelope
+          description: Own verified asset metadata only; stable created_at/id continuation
+            in meta.nextCursor
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Envelope"
+                type: object
+                required: *a2
+                properties:
+                  data:
+                    $schema: https://json-schema.org/draft/2020-12/schema
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                          pattern: ^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$
+                        public_id:
+                          type: string
+                        context:
+                          type: string
+                        visibility:
+                          type: string
+                          enum:
+                            - public
+                            - private
+                        resource_type:
+                          type: string
+                        format:
+                          type: string
+                        created_at:
+                          type: string
+                          format: date-time
+                          pattern: ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z|([+-](?:[01]\d|2[0-3]):[0-5]\d)))$
+                      required:
+                        - id
+                        - public_id
+                        - context
+                        - visibility
+                        - resource_type
+                        - format
+                        - created_at
+                      additionalProperties: false
+                  meta: *a3
+                  requestId: *a4
         "400":
           description: HTTP 400; sanitized error envelope
           content:
@@ -14095,6 +14333,15 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 100
+        - *a20
   /uploads/{id}:
     get:
       summary: Get authorized public or five-minute private delivery URL
@@ -16983,6 +17230,217 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+  /estimates/preview:
+    post:
+      summary: Evaluate selected draft/published configuration without saving an
+        estimate
+      security: *a1
+      x-permission: materials.read AND catalog.read
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $schema: https://json-schema.org/draft/2020-12/schema
+              type: object
+              properties:
+                product_id:
+                  type: string
+                  format: uuid
+                  pattern: ^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$
+                width_mm:
+                  type: number
+                  minimum: 100
+                  maximum: 20000
+                height_mm:
+                  type: number
+                  minimum: 100
+                  maximum: 10000
+                bom_id:
+                  type: string
+                  format: uuid
+                  pattern: ^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$
+                rule_id:
+                  type: string
+                  format: uuid
+                  pattern: ^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$
+              required:
+                - product_id
+                - width_mm
+                - height_mm
+                - bom_id
+                - rule_id
+              additionalProperties: false
+      responses:
+        "200":
+          description: Preview-only result; no issued history ID
+          content:
+            application/json:
+              schema:
+                type: object
+                required: *a2
+                properties:
+                  data:
+                    $schema: https://json-schema.org/draft/2020-12/schema
+                    type: object
+                    properties:
+                      approximate:
+                        type: boolean
+                        const: true
+                      currency:
+                        type: string
+                        const: INR
+                      area_sq_m:
+                        type: number
+                        exclusiveMinimum: 0
+                      weight_kg:
+                        type: number
+                        minimum: 0
+                      total_minor:
+                        type: integer
+                        minimum: 0
+                        maximum: 9007199254740991
+                      min_minor:
+                        type: integer
+                        minimum: 0
+                        maximum: 9007199254740991
+                      max_minor:
+                        type: integer
+                        minimum: 0
+                        maximum: 9007199254740991
+                      notice:
+                        type: string
+                      formula_version:
+                        type: string
+                      bom_version:
+                        type: integer
+                        exclusiveMinimum: 0
+                        maximum: 9007199254740991
+                      rule_version:
+                        type: integer
+                        exclusiveMinimum: 0
+                        maximum: 9007199254740991
+                      material_minor:
+                        type: integer
+                        minimum: 0
+                        maximum: 9007199254740991
+                      labour_minor:
+                        type: integer
+                        minimum: 0
+                        maximum: 9007199254740991
+                      finish_minor:
+                        type: integer
+                        minimum: 0
+                        maximum: 9007199254740991
+                      hardware_minor:
+                        type: integer
+                        minimum: 0
+                        maximum: 9007199254740991
+                      delivery_minor:
+                        type: integer
+                        minimum: 0
+                        maximum: 9007199254740991
+                      installation_minor:
+                        type: integer
+                        minimum: 0
+                        maximum: 9007199254740991
+                      materials:
+                        minItems: 1
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                            quantity:
+                              type: number
+                              minimum: 0
+                            unit:
+                              type: string
+                              enum:
+                                - kg
+                                - m
+                                - piece
+                                - litre
+                                - sheet
+                            weight_kg:
+                              type: number
+                              minimum: 0
+                            amount_minor:
+                              type: integer
+                              minimum: 0
+                              maximum: 9007199254740991
+                            rate_minor:
+                              type: integer
+                              minimum: 0
+                              maximum: 9007199254740991
+                            material_id:
+                              type: string
+                              format: uuid
+                              pattern: ^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$
+                            rate_id:
+                              type: string
+                              format: uuid
+                              pattern: ^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$
+                            rate_effective_at:
+                              type: string
+                              format: date-time
+                              pattern: ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z|([+-](?:[01]\d|2[0-3]):[0-5]\d)))$
+                            rate_effective_snapshot:
+                              type: boolean
+                              const: true
+                            customer_visible:
+                              type: boolean
+                          required:
+                            - name
+                            - quantity
+                            - unit
+                            - weight_kg
+                            - amount_minor
+                            - rate_minor
+                            - material_id
+                            - rate_id
+                            - rate_effective_at
+                            - rate_effective_snapshot
+                            - customer_visible
+                          additionalProperties: false
+                      preview:
+                        type: boolean
+                        const: true
+                    required:
+                      - approximate
+                      - currency
+                      - area_sq_m
+                      - weight_kg
+                      - total_minor
+                      - min_minor
+                      - max_minor
+                      - notice
+                      - formula_version
+                      - bom_version
+                      - rule_version
+                      - material_minor
+                      - labour_minor
+                      - finish_minor
+                      - hardware_minor
+                      - delivery_minor
+                      - installation_minor
+                      - materials
+                      - preview
+                    additionalProperties: false
+                  meta: *a3
+                  requestId: *a4
+        "400": *a5
+        "401": *a6
+        "403": *a7
+        "404": *a8
+        "409": *a9
+        "413": *a10
+        "415": *a11
+        "422": *a12
+        "429": *a13
+        "500": *a14
+        "503": *a15
 components:
   securitySchemes:
     bearerAuth:
@@ -17022,6 +17480,72 @@ components:
         data: {}
         meta: *a3
         requestId: *a4
+    estimate_history_create:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      type: object
+      properties:
+        product_id:
+          type: string
+          format: uuid
+          pattern: ^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$
+        bom_id:
+          type: string
+          format: uuid
+          pattern: ^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$
+        input:
+          anyOf:
+            - type: object
+              propertyNames:
+                type: string
+              additionalProperties: {}
+            - type: "null"
+        result:
+          anyOf:
+            - type: object
+              propertyNames:
+                type: string
+              additionalProperties: {}
+            - type: "null"
+        formula_version:
+          type: string
+          minLength: 1
+          maxLength: 200
+      required:
+        - product_id
+        - bom_id
+        - formula_version
+      additionalProperties: false
+    estimate_history_update:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      type: object
+      properties:
+        product_id:
+          type: string
+          format: uuid
+          pattern: ^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$
+        bom_id:
+          type: string
+          format: uuid
+          pattern: ^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$
+        input:
+          anyOf:
+            - type: object
+              propertyNames:
+                type: string
+              additionalProperties: {}
+            - type: "null"
+        result:
+          anyOf:
+            - type: object
+              propertyNames:
+                type: string
+              additionalProperties: {}
+            - type: "null"
+        formula_version:
+          type: string
+          minLength: 1
+          maxLength: 200
+      additionalProperties: false
     financial_adjustments_create:
       $schema: https://json-schema.org/draft/2020-12/schema
       type: object
@@ -17477,6 +18001,25 @@ components:
           type:
             - boolean
             - "null"
+        featured:
+          default: false
+          type:
+            - boolean
+            - "null"
+        delivery_availability:
+          default: confirm_with_workshop
+          type: string
+          enum:
+            - confirm_with_workshop
+            - available
+            - unavailable
+        installation_availability:
+          default: confirm_with_workshop
+          type: string
+          enum:
+            - confirm_with_workshop
+            - available
+            - unavailable
         status:
           default: draft
           type: string
@@ -17492,6 +18035,9 @@ components:
         - price_min_minor
         - price_max_minor
         - custom_size
+        - featured
+        - delivery_availability
+        - installation_availability
         - status
       additionalProperties: false
     products_update:
@@ -17563,6 +18109,22 @@ components:
           type:
             - boolean
             - "null"
+        featured:
+          type:
+            - boolean
+            - "null"
+        delivery_availability:
+          type: string
+          enum:
+            - confirm_with_workshop
+            - available
+            - unavailable
+        installation_availability:
+          type: string
+          enum:
+            - confirm_with_workshop
+            - available
+            - unavailable
         status:
           type: string
           enum:
@@ -17584,6 +18146,12 @@ components:
           maxLength: 200
           pattern: ^[a-z0-9]+(?:-[a-z0-9]+)*$
         parent_id:
+          anyOf:
+            - type: string
+              format: uuid
+              pattern: ^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$
+            - type: "null"
+        image_media_id:
           anyOf:
             - type: string
               format: uuid
@@ -17618,6 +18186,12 @@ components:
           maxLength: 200
           pattern: ^[a-z0-9]+(?:-[a-z0-9]+)*$
         parent_id:
+          anyOf:
+            - type: string
+              format: uuid
+              pattern: ^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$
+            - type: "null"
+        image_media_id:
           anyOf:
             - type: string
               format: uuid
@@ -18471,11 +19045,17 @@ components:
           type: number
           minimum: 0
           maximum: 30
+        customer_visible:
+          default: true
+          type:
+            - boolean
+            - "null"
       required:
         - bom_id
         - material_id
         - quantity_per_sq_m
         - wastage_percent
+        - customer_visible
       additionalProperties: false
     bom_items_update:
       $schema: https://json-schema.org/draft/2020-12/schema
@@ -18497,6 +19077,10 @@ components:
           type: number
           minimum: 0
           maximum: 30
+        customer_visible:
+          type:
+            - boolean
+            - "null"
       additionalProperties: false
     calculation_rules_create:
       $schema: https://json-schema.org/draft/2020-12/schema
@@ -19557,6 +20141,183 @@ components:
       type: object
       properties: {}
       additionalProperties: false
+    EstimateResult:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          pattern: ^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$
+        approximate:
+          type: boolean
+          const: true
+        currency:
+          type: string
+          const: INR
+        area_sq_m:
+          type: number
+          exclusiveMinimum: 0
+        weight_kg:
+          type: number
+          minimum: 0
+        total_minor:
+          type: integer
+          minimum: 0
+          maximum: 9007199254740991
+        min_minor:
+          type: integer
+          minimum: 0
+          maximum: 9007199254740991
+        max_minor:
+          type: integer
+          minimum: 0
+          maximum: 9007199254740991
+        notice:
+          type: string
+        formula_version:
+          type: string
+        bom_version:
+          type: integer
+          exclusiveMinimum: 0
+          maximum: 9007199254740991
+        rule_version:
+          type: integer
+          exclusiveMinimum: 0
+          maximum: 9007199254740991
+        material_minor:
+          type: integer
+          minimum: 0
+          maximum: 9007199254740991
+        labour_minor:
+          type: integer
+          minimum: 0
+          maximum: 9007199254740991
+        finish_minor:
+          type: integer
+          minimum: 0
+          maximum: 9007199254740991
+        hardware_minor:
+          type: integer
+          minimum: 0
+          maximum: 9007199254740991
+        delivery_minor:
+          type: integer
+          minimum: 0
+          maximum: 9007199254740991
+        installation_minor:
+          type: integer
+          minimum: 0
+          maximum: 9007199254740991
+        materials:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              quantity:
+                type: number
+                minimum: 0
+              unit:
+                type: string
+                enum:
+                  - kg
+                  - m
+                  - piece
+                  - litre
+                  - sheet
+              weight_kg:
+                type: number
+                minimum: 0
+              amount_minor:
+                type: integer
+                minimum: 0
+                maximum: 9007199254740991
+              rate_minor:
+                type: integer
+                minimum: 0
+                maximum: 9007199254740991
+              material_id:
+                type: string
+                format: uuid
+                pattern: ^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$
+              rate_id:
+                type: string
+                format: uuid
+                pattern: ^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$
+              rate_effective_at:
+                type: string
+                format: date-time
+                pattern: ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z|([+-](?:[01]\d|2[0-3]):[0-5]\d)))$
+              rate_effective_snapshot:
+                type: boolean
+                const: true
+              customer_visible:
+                type: boolean
+                const: true
+            required:
+              - name
+              - quantity
+              - unit
+              - weight_kg
+              - amount_minor
+              - rate_minor
+              - material_id
+              - rate_id
+              - rate_effective_at
+              - rate_effective_snapshot
+              - customer_visible
+            additionalProperties: false
+      required:
+        - id
+        - approximate
+        - currency
+        - area_sq_m
+        - weight_kg
+        - total_minor
+        - min_minor
+        - max_minor
+        - notice
+        - formula_version
+        - bom_version
+        - rule_version
+        - material_minor
+        - labour_minor
+        - finish_minor
+        - hardware_minor
+        - delivery_minor
+        - installation_minor
+        - materials
+      additionalProperties: false
+    estimate_history_record:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - created_at
+        - product_id
+        - bom_id
+        - input
+        - result
+        - formula_version
+      properties:
+        id:
+          type: string
+          format: uuid
+        created_at:
+          type: string
+          format: date-time
+        product_id:
+          type: string
+          format: uuid
+        bom_id:
+          type: string
+          format: uuid
+        input: {}
+        result: {}
+        formula_version:
+          type: string
     financial_adjustments_record:
       type: object
       additionalProperties: false
@@ -19770,6 +20531,9 @@ components:
         - price_min_minor
         - price_max_minor
         - custom_size
+        - featured
+        - delivery_availability
+        - installation_availability
         - status
       properties:
         id:
@@ -19809,6 +20573,12 @@ components:
           type: integer
         custom_size:
           type: boolean
+        featured:
+          type: boolean
+        delivery_availability:
+          type: string
+        installation_availability:
+          type: string
         status:
           type: string
     categories_record:
@@ -19820,6 +20590,7 @@ components:
         - name
         - slug
         - parent_id
+        - image_media_id
         - sort_order
         - active
       properties:
@@ -19834,6 +20605,11 @@ components:
         slug:
           type: string
         parent_id:
+          anyOf:
+            - type: string
+              format: uuid
+            - type: "null"
+        image_media_id:
           anyOf:
             - type: string
               format: uuid
@@ -20326,6 +21102,7 @@ components:
         - material_id
         - quantity_per_sq_m
         - wastage_percent
+        - customer_visible
       properties:
         id:
           type: string
@@ -20343,6 +21120,8 @@ components:
           type: number
         wastage_percent:
           type: number
+        customer_visible:
+          type: boolean
     calculation_rules_record:
       type: object
       additionalProperties: false

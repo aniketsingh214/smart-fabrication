@@ -35,3 +35,13 @@ Use additive forward migrations for applied schemas. No destructive rollback, re
 ## Catalog and hardening follow-up — 2026-10-15
 
 Implemented catalog weight/design fields, published-choice enquiry snapshots, product video, private invoice images and historical-version PDF selection. Reminder dispatch is service-role-only and SQL runtime/deduplication tests pass. Twelve bearer/session/read-role checks, five contention checks and five real browser media checks passed. See [workflow details](../operations/catalog-invoices-sessions.md) and [test evidence](../testing/evidence.md). Full production acceptance remains pending.
+
+## Live Quotation Lifecycle & Customer PDF Browser Acceptance — 2026-10-17
+
+A complete 5-check live browser acceptance run (`npm run test:quotation-browser`) passed with real Chromium/Mobile Safari emulation, owner and customer sessions, PDF generation, and database state transitions:
+1. **Draft quote and draft PDF privacy**: Draft quotation and draft PDF endpoints return 404 for the linked customer, 404 for other customers, and 401 for anonymous callers.
+2. **Immutable versions & discount-before-tax totals**: Owner creates quotation version 1 with items, discount, and tax (INR 224.20). Owner creates version 2 with updated rate (INR 342.20). Both immutable versions preserved; live PDF generation verified for both version 1 and version 2 (`%PDF-` header, > 1000 bytes, `private, no-store` caching headers).
+3. **Customer approval, PDF access & cross-account denial**: Owner approves quotation. Customer views quotation and actions on `/account`, downloads approved version 1 and version 2 PDFs. Cross-account acceptance attempt by stranger customer is denied (409 Conflict). Customer rejects quotation; UI reflects `rejected` status.
+4. **Revision draft & separate approval**: Owner creates revised draft using idempotency key; conflicting retry is rejected (409). Source quote is superseded (`superseded` status) with original version history intact. Revised quotation remains draft/hidden from customer until owner approves it.
+5. **Customer acceptance & idempotent conversion**: Customer views approved revision and accepts. Owner converts accepted quote to order (`POST /admin/quotations/{id}/convert`). Order created in `CONFIRMED` state with exact quotation price (INR 342.20). Conversion is idempotent (re-posting returns same order ID). Quote is locked against further repricing or revisions (409 Conflict). Customer sees order timeline on `/account`.
+- **Fixture Lifecycle**: Converted order transitioned to `CANCELLED` (no real workshop production/stock movement), quotes closed, generated test identities retired from Supabase Auth. Verified evidence recorded in `test-results/quotation-browser-latest.json`.

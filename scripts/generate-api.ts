@@ -1,4 +1,4 @@
-﻿import { uploadIntentSchema } from '../src/contracts/media-policy.ts';
+import { uploadIntentSchema } from '../src/contracts/media-policy.ts';
 import { identitySchema,profileUpdateSchema,notificationSchema,notificationReadSchema,staffProfileSchema } from '../src/contracts/identity.ts';
 import { reconciliationSchema } from '../src/contracts/reconciliation.ts';
 import { recordFields } from '../src/contracts/resource-projections.ts';
@@ -8,7 +8,7 @@ import fs from 'node:fs';
 import YAML from 'yaml';
 import { z } from 'zod';
 import { resources,resourceSchema,leadSchema } from '../src/contracts/resources.ts';
-import { estimateSchema } from '../src/contracts/estimates.ts';
+import { estimateSchema,estimateResultSchema,estimatePreviewSchema,estimatePreviewResultSchema } from '../src/contracts/estimates.ts';
 import { quoteVersionSchema,transitionSchema,stockSchema } from '../src/contracts/workflows.ts';
 import { duplicateProductSchema } from '../src/contracts/catalog.ts';
 import { financialCorrectionSchema,periodClosureSchema } from '../src/contracts/finance-corrections.ts';
@@ -74,6 +74,12 @@ paths['/uploads/sign']={post:op('Sign authenticated Cloudinary upload; private i
 
 // Specialized endpoint declarations are maintained separately from registry-derived resources.
 Object.assign(paths,JSON.parse(fs.readFileSync('scripts/api-specialized-paths.json','utf8')));
+const ownedMediaSchema=z.object({id:z.uuid(),public_id:z.string(),context:z.string(),visibility:z.enum(['public','private']),resource_type:z.string(),format:z.string(),created_at:z.iso.datetime({offset:true})});
+(paths['/uploads/mine'] as {get:{parameters:unknown[];responses:Record<string,unknown>}}).get.parameters=[{name:'limit',in:'query',schema:{type:'integer',minimum:1,maximum:100,default:100}},listing[1]];
+(paths['/uploads/mine'] as {get:{responses:Record<string,unknown>}}).get.responses[200]={description:'Own verified asset metadata only; stable created_at/id continuation in meta.nextCursor',content:{'application/json':{schema:{...envelope,properties:{...envelope.properties,data:z.toJSONSchema(z.array(ownedMediaSchema))}}}}};
+schemas.EstimateResult=z.toJSONSchema(estimateResultSchema);
+(paths['/estimates'] as {post:{responses:Record<string,unknown>}}).post.responses[201]={description:'Server-authoritative approximate result with immutable formula/BOM/rate provenance',content:{'application/json':{schema:{...envelope,properties:{...envelope.properties,data:{$ref:'#/components/schemas/EstimateResult'}}}}}};
+paths['/estimates/preview']={post:op('Evaluate selected draft/published configuration without saving an estimate','materials.read AND catalog.read',z.toJSONSchema(estimatePreviewSchema),false,200,{responses:{200:{description:'Preview-only result; no issued history ID',content:{'application/json':{schema:{...envelope,properties:{...envelope.properties,data:z.toJSONSchema(estimatePreviewResultSchema)}}}}},...responses}})};
 const databaseMetadata=JSON.parse(fs.readFileSync('docs/database/actual-schema.json','utf8'));
 for(const resource of resources){
  const name=resource.slug.replaceAll('-','_');schemas[`${name}_record`]=resourceReadSchema(resource,recordFields(resource),databaseMetadata.columns);

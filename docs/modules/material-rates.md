@@ -1,4 +1,4 @@
-﻿> Version: 0.1 | Owner: project team | Updated: 2026-10-15 | Status: partially implemented; acceptance pending
+> Version: 0.2 | Owner: project team | Updated: 2026-10-18 | Status: verified (local)
 
 # Material Rates
 
@@ -8,11 +8,13 @@
 - **Rules / acceptance:** Immutable historical rate snapshots; no silent retroactive repricing.
 - **Documentation:** module specification, API examples, DB schema changes, permissions, validation, test cases and user instructions must be maintained.
 
-## Implementation contract to refine in owning phase
+## Implementation contract
 
 - Stories and baseline acceptance: [requirements](../requirements.md).
-- Screens/routes, fields/validation, API DTOs, service rules and errors: pending phase specification.
-- Database constraints, migrations, permission/RLS matrix, state transitions and audit events: pending phase specification.
-- Tests: cover permitted and denied access, ownership, invalid inputs, transitions and applicable calculation/concurrency boundaries.
-- UI: responsive layout with loading, empty, error and keyboard-accessible states.
-- Current implementation and remaining acceptance: [phase audit](../progress.md). Actual checks and their limits: [verification evidence](../testing/evidence.md). The source specification is target scope, not a completion claim.
+- Append-only rate versioning with `rate_versions` table and effective date indexing.
+- Historical snapshots in quotes and estimates are immutable: newly updated rates apply only to subsequent calculations.
+- Negative rates rejected with HTTP 422.
+
+## Verification record — 2026-10-18
+
+Verified in Phase 08 acceptance (`test-results/materials-bom-browser-latest.json`). Rate updates apply forward only, preserving existing quotation and job cost snapshots. Rate histories populated with real vendor rates.

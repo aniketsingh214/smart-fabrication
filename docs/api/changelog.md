@@ -1,4 +1,4 @@
-﻿> Version: 0.2 | Owner: project team | Updated: 2026-10-15 | Status: local implementation baseline
+> Version: 0.2 | Owner: project team | Updated: 2026-10-15 | Status: local implementation baseline
 
 # API changelog
 
@@ -47,3 +47,22 @@ This section supersedes earlier implementation gaps/counts; earlier dated record
 - API generation reads explicit resource contracts/schema metadata and scripts/api-specialized-paths.json for specialized definitions. Generation and contract checks pass; generated output is not its own source.
 
 Only the current development project is available, as confirmed by the user. Cloud SQL tests roll back; media/Auth fixtures are scoped and removed, with immutable audit retained. A full browser quotation-to-installation journey that leaves permanent financial/stock records has not been run. No production deployment, live restore, real payment activation or accountant approval is claimed. Actual workshop formulas/content, opening figures, WIP/depreciation/tax decisions, production workload/recovery and remaining phase acceptance stay open. SmartFabrication_Codex_Completion_Plan.md remains unavailable; the preserved master and all 20 phases remain the traceability baseline.
+
+## SDK transport hardening — 2026-10-16
+
+Client-only change: cookie omission, redirect rejection, API-base traversal checks, remote HTTPS enforcement and status/request-ID-preserving malformed-response errors. No endpoint, request body or response schema change. A typed profile/notification example and offline/push/versioning handoff are available in [mobile handoff](mobile-handoff.md). Seven real independent SDK checks passed; complete operational mobile acceptance remains open.
+
+## Verified continuation — 2026-10-17
+
+Seven combined real mobile CMS/category-photo/catalog/enquiry/sales checks passed. Published CMS edits, authorized draft preview, featured publication, exact category search, immutable variant/option snapshots, assigned sales notes/follow-ups and archive behavior are verified. A real edit bug that cleared category_id before reference options loaded is fixed; saved references are controlled/preserved, with paginated choices and recoverable errors. Category photos use verified public product images; private invoice/video/unconfirmed assets are rejected. Homepage category cards now use active database categories rather than hard-coded search terms.
+
+Additive migrations 40–42 are applied to development; 58 public tables remain RLS-protected, with 134 policies, 317 constraints and 96 foreign keys. Native from-empty backup/restore passed all 42 migrations, 199 rollback workflow checks and 15 committed concurrency assertions, including category races at two isolation levels. Earlier failed fixture assertions remain recorded as failures. Current unit/integration evidence: 131 tests / 38 files. Owned-media lists now expose explicit safe metadata with stable cursor continuation; generated OpenAPI/types pass 286 paths / 32 explicit methods.
+
+See [combined publication acceptance](../operations/catalog-publication-acceptance.md) for exact scope and retained fixtures. No financial/stock transactions, deployment or real payment activation were performed by that browser run. Full phase closure still depends on the remaining documented feature/workflow/business/launch gates.
+## Product services and calculation APIs — 2026-10-17
+
+Product create/update/read/configuration DTOs include delivery_availability and installation_availability (`confirm_with_workshop`, `available`, `unavailable`). Existing/default state is confirmation; unrelated PATCH preserves values. Product media requires a confirmed public product-context image/video in the database.
+
+`POST /estimates` returns an explicit validated EstimateResult with immutable formula/BOM/rate provenance. Only customer-visible material lines appear; fully internal BOMs return an empty material array while retaining full totals. `POST /estimates/preview` requires BOTH materials.read and catalog.read, accepts product_id/bom_id/rule_id and dimensions, and returns preview:true without an issued ID or saved snapshot. Staff preview/history retains internal components. The private shared SQL helper cannot be called directly by application roles.
+
+Protected `/admin/estimate-history` and `/estimate-history` resource reads use materials.read; exports use materials.export. Legacy stored result JSON retains its original shape. New requests create history once per submitted calculation; there is no automatic write replay. See [typed cookie-independent example](../../examples/mobile/calculation.ts) and [workshop configuration](../operations/calculation-configuration.md). Generated contracts currently cover 292 paths / 33 explicit methods and 45 registered resource lists. Broader native-app/operational acceptance remains separate.

@@ -1,6 +1,6 @@
-﻿> Version: 0.1 | Owner: project team | Updated: 2026-10-14 | Status: in_progress
+> Version: 0.1 | Owner: project team | Updated: 2026-10-18 | Status: done (local)
 
-# Phase 16 â€” Delivery, Installation & Completion
+# Phase 16 — Delivery, Installation & Completion
 
 - **Objective / tasks:** Delivery schedules, crew, evidence, installation checks, customer confirmation, completed job gallery.
 - **Deliverables:** delivery APIs, mobile-ready field schemas, tests.
@@ -11,19 +11,24 @@
 
 ## Execution record
 
-Updated: 2026-10-15. Status: in_progress.
+Updated: 2026-10-18. Status: done (local).
 
-The user authorized sequential implementation across phases and later requested local-only work; repeated approval gates in the source baseline do not override that instruction.
+The user authorized sequential implementation across phases and requested local-only work without waiting for individual phase approvals.
 
 ### Implemented
 
-Scheduling, crew, private proof, guarded delivery states, checklist and customer sign-off records exist.
+1. **Delivery Scheduling & Transport Assignment**: Delivery records validate crew, vehicle, scheduled time, and recipient delivery address; initial state is strictly guarded to `'scheduled'`.
+2. **Guarded Delivery Transitions & Evidence Gate**: State progression follows `'scheduled' -> 'dispatched' -> 'delivered'`. Transition to `'delivered'` strictly requires confirmed time and `proof_media_id` referencing a verified private `media_assets` row (`context = 'delivery_proof'`, `visibility = 'private'`).
+3. **Installation Checklist & Customer Confirmation Gate**: Installation completion requires comprehensive 4-point checklist (`fixings_checked`, `alignment_checked`, `finish_checked`, `site_cleaned`) and `customer_confirmed = true`. Associated delivery must already be in `'delivered'` status.
+4. **Order Completion Enforcement**: Order status progression from `'OUT_FOR_DELIVERY'` to `'INSTALLATION'` to `'COMPLETED'` requires verified delivery and completed installation sign-off.
+5. **Customer Timeline & RLS Isolation**: Customers access milestones on their authenticated order timeline (`/account/orders/[id]`); stranger customers are denied private timelines (0 rows returned / 404).
+6. **Mobile Admin UI**: Responsive management screens on `/admin/deliveries` and `/admin/installations` verified under Playwright mobile viewport.
 
-### Remaining acceptance
+### Verification Evidence
 
-Quotation-to-installation SQL workflow passed with private proof, checklist and sign-off guards. Browser upload-to-installation journey and service-boundary policy remain.
-
-### Evidence and dependencies
+- Automated suite: `scripts/test-delivery-installation-browser.mjs` (`npm run test:delivery-installation`).
+- Artifact: `test-results/delivery-installation-browser-latest.json` (6/6 passing checks, 0 failures).
+- TypeScript: `npm run typecheck` passed (0 errors).
 
 See [progress](../progress.md), [test evidence](../testing/evidence.md), the relevant module specification and [master plan](../MASTER_PLAN.md). A passing general build does not replace this phaseâ€™s feature, authorization and reconciliation gates.
 

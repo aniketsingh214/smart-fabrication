@@ -1,4 +1,4 @@
-﻿> Version: 0.1 | Owner: project team | Updated: 2026-10-15 | Status: initial audit complete; remediation in progress
+> Version: 0.1 | Owner: project team | Updated: 2026-10-15 | Status: initial audit complete; remediation in progress
 
 # Completion audit and execution register
 
@@ -105,3 +105,37 @@ Only the current development project is available, as confirmed by the user. Clo
 
 
 Latest configured-development result, 2026-10-16: all 186 live Supabase database checks passed; test users and fixtures rolled back. This is distinct from the 186 restored-local checks and 11 local committed concurrency assertions. Public browser rerun: 24/24 passed after the PDF changes. Documentation link/traceability check passed.
+
+## Current technical continuation — 2026-10-16
+
+- Applied schema documentation is synchronized: 58 tables, 95 foreign keys, 316 constraints and 39 migrations, captured in a read-only transaction. Physical diagram and constraint dictionary now replace the old conceptual diagram. Phase 02 still needs broader module/UX acceptance.
+- Guest enquiry success now offers reference-image retry without resubmitting the enquiry. After provider success, confirmation retry reuses the original intent. Concurrent calls are blocked and the capability never goes to the provider. Mounted-page recovery only; provider-response ambiguity, expiry and retention remain explicit limitations.
+- Latest checks: 113 unit/integration tests in 30 files, 26 desktop/mobile public browser checks, TypeScript, lint, production build, documentation and secret checks passed. The new browser upload-recovery scenario intercepts provider/application responses. Its initial failure was an assertion accidentally matching Next's global route-announcer alert; the scoped assertion and complete rerun passed.
+- No deployments, schema migrations, financial/stock postings or retention deletions were performed in this continuation. Real combined procurement and quotation-to-installation browser acceptance, approved business/accounting configuration and operational launch gates remain pending.
+
+## Current technical continuation — 2026-10-16
+
+Mobile: seven independent live shipped-SDK checks passed, including safe profile writes, notification pagination/read retries, permission/object denials, refresh and disabled-profile enforcement. Type-checked example and offline/push/compatibility handoff added. Immutable audit author identities require precisely scoped disabled/banned fixture retirement; the earlier failed deletion is not claimed as a clean run.
+
+Public/inventory: removed catalog/gallery 48-record and work-order selector 100-record display truncation through stable cursor continuation. Public suite: 28 desktop/mobile checks pass. Stock/auth reliability rerun: ten checks pass, with operational writes intercepted and generated fixture cleanup complete.
+
+Media: read-only stale-intent review passed with zero matching records. This is not provider-orphan deletion or approved retention policy.
+
+Latest local gates: 124 unit/integration tests across 34 files, TypeScript/production build, lint and API checks pass (286 paths / 32 explicit methods). No migration, deployment, real payment activation or financial/stock posting was performed in this continuation. Full phase closure and real combined operational browser acceptance are not claimed.
+
+## Verified continuation — 2026-10-17
+
+Seven combined real mobile CMS/category-photo/catalog/enquiry/sales checks passed. Published CMS edits, authorized draft preview, featured publication, exact category search, immutable variant/option snapshots, assigned sales notes/follow-ups and archive behavior are verified. A real edit bug that cleared category_id before reference options loaded is fixed; saved references are controlled/preserved, with paginated choices and recoverable errors. Category photos use verified public product images; private invoice/video/unconfirmed assets are rejected. Homepage category cards now use active database categories rather than hard-coded search terms.
+
+Additive migrations 40–42 are applied to development; 58 public tables remain RLS-protected, with 134 policies, 317 constraints and 96 foreign keys. Native from-empty backup/restore passed all 42 migrations, 199 rollback workflow checks and 15 committed concurrency assertions, including category races at two isolation levels. Earlier failed fixture assertions remain recorded as failures. Current unit/integration evidence: 131 tests / 38 files. Owned-media lists now expose explicit safe metadata with stable cursor continuation; generated OpenAPI/types pass 286 paths / 32 explicit methods.
+
+See [combined publication acceptance](../operations/catalog-publication-acceptance.md) for exact scope and retained fixtures. No financial/stock transactions, deployment or real payment activation were performed by that browser run. Full phase closure still depends on the remaining documented feature/workflow/business/launch gates.
+## Steps 1–2 engineering continuation — 2026-10-17
+
+Step 1: dedicated product delivery/installation availability, safe defaults/display/copy and database-verified product image/video association are implemented. Seven real catalog/media/customer/sales checks passed before starting Step 2. Initial required-label and missing-display-order fixture attempts failed and were archived/retired, not counted as passing.
+
+Step 2: exact effective-rate provenance, explicit public/preview DTOs, protected immutable estimate history, non-persisted draft preview and BOM customer-visible flags are implemented. The latest combined catalog run passed eight real checks including draft preview, live calculator rate changes, original-history preservation and internal-component public redaction. A targeted calculator-only run also passed the same assertions independently. Data/provider/auth responses were real. Native empty-schema/restore on 46 migrations passed 227 SQL/RLS workflows and 15 committed concurrency assertions. Current unit/integration suite: 141 tests / 40 files.
+
+Earlier preview attempts returned an unexpected runtime error; a clean dev-worker restart first exposed repeated login reloads, then moving only the verified project dev cache to an ignored workspace backup and restarting restored stable login and preview HTTP 200. No source or database was deleted. A later corrected complete rerun, not the failed attempts, supports acceptance. Preview server diagnostics record only stage/type/call frames, never request bodies, bearer tokens or raw private errors.
+
+Fixtures: test products/content archived, categories/materials deactivated, generated logins disabled/roles removed/sessions retired. Referenced synthetic photos and immutable BOM/rate/estimate/audit history are intentionally retained and labeled TEST ONLY. No receipt/payment/stock posting occurred. Actual workshop material/rate/BOM inputs are still absent; “ok done” supplied no values/file. Native 2D formula testing is not business/accountant approval or an approved depth/thickness formula.

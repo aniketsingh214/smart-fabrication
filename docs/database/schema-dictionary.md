@@ -1,6 +1,6 @@
 # Applied schema dictionary
 
-Captured from the connected development project. No application records or secrets included.
+Captured from the connected development project in a repeatable-read, read-only transaction. No application records or secrets included. Applied relationships and constraints: [diagram](erd.md).
 
 ## audit_logs
 
@@ -29,6 +29,7 @@ RLS enabled: true.
 | quantity_per_sq_m | numeric | NO |  |
 | wastage_percent | numeric | NO | 5 |
 | created_at | timestamp with time zone | NO | now() |
+| customer_visible | boolean | NO | true |
 
 ## bom_versions
 
@@ -87,6 +88,7 @@ RLS enabled: true.
 | active | boolean | NO | true |
 | sort_order | integer | NO | 0 |
 | created_at | timestamp with time zone | NO | now() |
+| image_media_id | uuid | YES |  |
 
 ## customer_payments
 
@@ -359,7 +361,7 @@ RLS enabled: true.
 | effective_at | timestamp with time zone | NO | now() |
 | currency | text | NO | 'INR'::text |
 | created_by | uuid | YES | auth.uid() |
-| created_at | timestamp with time zone | NO | now() |
+| created_at | timestamp with time zone | NO | clock_timestamp() |
 
 ## materials
 
@@ -555,6 +557,9 @@ RLS enabled: true.
 | weight_kg | numeric | YES |  |
 | design_code | text | NO | ''::text |
 | design_details | text | NO | ''::text |
+| featured | boolean | NO | false |
+| delivery_availability | text | NO | 'confirm_with_workshop'::text |
+| installation_availability | text | NO | 'confirm_with_workshop'::text |
 
 ## profiles
 

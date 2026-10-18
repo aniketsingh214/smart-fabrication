@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import crypto from 'node:crypto';
+import { mkdir, writeFile } from 'node:fs/promises';
 import { createClient } from '@supabase/supabase-js';
 import { chromium,devices,expect } from '@playwright/test';
 import { databaseClient } from './db-client.mjs';
@@ -9,9 +10,9 @@ import { reportBrowserChecks } from './browser-report-checks.mjs';
 
 // Administrative credentials are restricted to fixture creation/cleanup. Browser requests use real user sessions and RLS.
 const admin=createClient(process.env.NEXT_PUBLIC_SUPABASE_URL,process.env.SUPABASE_SECRET_KEY,{auth:{persistSession:false,autoRefreshToken:false}});
-const db=databaseClient(),fixtures=[];let browser,checks=0;
+const db=databaseClient(),fixtures=[],passedChecks=[];let browser,checks=0;
 const base=process.env.TEST_BASE_URL??'http://localhost:3000';
-async function check(name,fn){await fn();console.log(`PASS: ${name}`);checks++;}
+async function check(name,fn){await fn();console.log(`PASS: ${name}`);checks++;passedChecks.push(name);}
 try{
  await db.connect();
  for(const role of (process.env.TEST_AUTH_ROLE?[process.env.TEST_AUTH_ROLE]:['owner','customer'])){
@@ -21,7 +22,7 @@ try{
   fixtures.push({id:data.user.id,email,password,role});
   if(role==='owner')await db.query("insert into public.user_roles(user_id,role_id) values($1,'owner')",[data.user.id]);
  }
- browser=await chromium.launch({channel:'chrome',headless:true});
+ browser=await chromium.launch({channel:process.env.TEST_BROWSER_CHANNEL??'chrome',headless:true});
  for(const viewport of (process.env.TEST_AUTH_VIEWPORT?[process.env.TEST_AUTH_VIEWPORT]:['desktop','mobile']))for(const fixture of fixtures){
   const context=await browser.newContext(viewport==='mobile'?{...devices['iPhone 13'],baseURL:base}:{viewport:{width:1440,height:1000},baseURL:base});
   try{
@@ -77,4 +78,6 @@ finally{
  }catch(e){await db.query('rollback').catch(()=>{});console.error(`Fixture cleanup failed for ${fixture.id}: ${e.message}`);process.exitCode=1;}}
  await db.end().catch(()=>{});
  if(fixtures.length)console.log('Authentication fixture cleanup finished; immutable audit history is retained.');
+ await mkdir('test-results',{recursive:true});
+ await writeFile('test-results/authenticated-latest.json',JSON.stringify({finishedAt:new Date().toISOString(),passed:!process.exitCode,browser:process.env.TEST_BROWSER_CHANNEL??'chrome',viewport:process.env.TEST_AUTH_VIEWPORT??'desktop/mobile',role:process.env.TEST_AUTH_ROLE??'owner/customer',checks,passedChecks,scope:'Real login/read APIs; operational writes simulated. A failure includes fixture cleanup failures.'},null,2));
 }

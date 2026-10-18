@@ -1,4 +1,4 @@
-﻿> Version: 0.1 | Owner: project team | Updated: 2026-10-15 | Status: partially implemented; acceptance pending
+> Version: 0.2 | Owner: project team | Updated: 2026-10-18 | Status: verified (local)
 
 # Stock/Inventory
 
@@ -8,25 +8,22 @@
 - **Rules / acceptance:** Signed movement ledger, nonnegative constraints or approved override, reconciliation and concurrency tests.
 - **Documentation:** module specification, API examples, DB schema changes, permissions, validation, test cases and user instructions must be maintained.
 
-## Implementation contract to refine in owning phase
+## Implementation contract
 
 - Stories and baseline acceptance: [requirements](../requirements.md).
-- Screens/routes, fields/validation, API DTOs, service rules and errors: pending phase specification.
-- Database constraints, migrations, permission/RLS matrix, state transitions and audit events: pending phase specification.
-- Tests: cover permitted and denied access, ownership, invalid inputs, transitions and applicable calculation/concurrency boundaries.
-- UI: responsive layout with loading, empty, error and keyboard-accessible states.
-- Current implementation and remaining acceptance: [phase audit](../progress.md). Actual checks and their limits: [verification evidence](../testing/evidence.md). The source specification is target scope, not a completion claim.
+- Movements: `stock_movements` immutable ledger with `material_id`, signed `quantity`, `kind` ('adjustment', 'consumption', 'return'), `unit_cost_minor`, `book_value_minor`, `work_order_id`, and `idempotency_key`.
+- Balances: `inventory_balances()` SQL function derives `on_hand`, `reserved`, and `available` dynamically from ledger movements and active reservations.
+- Reservations: `reserve_stock` RPC and `/api/v1/stock-reservations` resource allow reserving materials for active fabrication jobs; reservations reduce available quantity without mutating on-hand stock.
+- Consumption costing: Job consumption derives unit cost authoritatively from ledger book values, ignoring client inputs.
+- Unused release: `release_reservation` RPC and `/api/v1/stock-reservations/[id]/release` action cleanly release unconsumed materials back to available inventory.
+- UI & recovery: Account-scoped reload recovery in sessionStorage; responsive dashboard on `/admin/inventory`.
 
-## Current implementation contract — browser posting retries
+## Verification record — 2026-10-18
 
-POST /api/v1/inventory/adjustments validates a stock payload and Idempotency-Key, enforces production.write for consumption or inventory.approve for reviewed adjustments/returns, then calls post_stock under the user session. Existing database ledger/locking/costing/actor guards remain unchanged.
-
-The inventory form now retains exact JSON bytes and one key while a result is unknown; locks details until that command is confirmed/rejected; blocks simultaneous submissions; and preserves fields on request failure. Known server rejections permit editing. Unit cost text is converted to integer paise without floating-point multiplication. The regression simulates a server commit followed by a lost response and verifies only one distinct command key.
-
-The pending command lasts only while the form stays mounted. Reload/navigation/cross-tab recovery is not implemented: staff must retry here or check the ledger before recreating elsewhere. This limitation remains a phase acceptance item. Broader production load and reconciliation/workshop acceptance remain pending; prior bounded database concurrency checks are separate evidence.
-
-Sources: [posting command](../../src/features/inventory/posting.ts), [form](../../src/features/inventory/stock-form.tsx), [focused tests](../../tests/unit/stock-posting.test.ts), [execution audit](../operations/completion-audit.md).
-
-### Inventory recovery update — 2026-10-16
-
-The mounted-form-only limitation above is historical. Pending commands now persist before dispatch in account-scoped sessionStorage and restore after same-tab reload/navigation. Storage failure prevents unrecorded dispatch; malformed saved requests fail closed until explicit ledger-review/reset. A successful response followed by failed local clearing retains the original key for retry. Cross-device and separate fresh commands are not deduplicated by business intent; verify the ledger before recreating an uncertain movement elsewhere. Eight focused stock tests cover posting, exact paise and storage/recovery failures. Earlier six desktop/mobile browser checks passed with a real account and intercepted writes, including reload/same-key replay. Broader stress/workshop acceptance remains pending.
+Verified in Phase 14 acceptance (`npm run test:inventory`, artifact: `test-results/inventory-browser-latest.json`):
+1. Ledger reconciliation & balances: On-hand, reserved, and available quantities reconcile to signed movements.
+2. Idempotency & conflict rejection: Exact key retry returns existing movement; conflicting payload rejected.
+3. Negative stock prevention & reservation bounds: Nonnegative constraint enforced; reserved stock protected.
+4. Server-derived valuation: Work order consumption derives cost from ledger book values.
+5. Reservation release: Unconsumed reservations restored to available stock idempotently.
+6. Mobile UI: Admin dashboard renders responsive inventory balances and operational stock form.

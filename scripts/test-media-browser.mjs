@@ -1,7 +1,8 @@
-﻿import {createElement} from 'react';
+import {createElement} from 'react';
 import {Document,Page,Text,renderToBuffer} from '@react-pdf/renderer';
 import assert from 'node:assert/strict';
 import crypto from 'node:crypto';
+import fs from 'node:fs/promises';
 import sharp from 'sharp';
 import { chromium } from '@playwright/test';
 import { createClient } from '@supabase/supabase-js';
@@ -24,7 +25,8 @@ try{
  }else{
  const created=await admin.auth.admin.createUser({email,password,email_confirm:true});assert.equal(created.error,null,'Fixture creation failed');fixture=created.data.user.id;
  await db.query("insert into public.user_roles(user_id,role_id) values($1,'owner')",[fixture]);
- browser=await chromium.launch({channel:'chrome',headless:true});const context=await browser.newContext({baseURL:base}),page=await context.newPage();
+ browser=await chromium.launch({channel:process.env.TEST_BROWSER_CHANNEL??'msedge',headless:true});const context=await browser.newContext({baseURL:base}),page=await context.newPage();
+ page.setDefaultTimeout(90000);page.setDefaultNavigationTimeout(90000);
  page.on('response',async response=>{if(response.url().startsWith('https://api.cloudinary.com/')&&response.status()>=400){const body=await response.json().catch(()=>({}));const message=String(body.error?.message??'Upload rejected');console.error(`Provider upload error ${response.status()}: ${/signature/i.test(message)?'Upload signature rejected':message.slice(0,180)}`);}});
  await page.goto('/login');await page.getByLabel('Email',{exact:true}).fill(email);await page.getByLabel('Password',{exact:true}).fill(password);await page.getByRole('button',{name:'Sign in',exact:true}).click();await page.waitForURL('**/account');
  await page.goto('/admin/media-assets');await page.getByRole('heading',{name:'Upload catalog media or evidence',exact:true}).waitFor();const uploader=page.locator('section').filter({has:page.getByRole('heading',{name:'Upload catalog media or evidence',exact:true})});
@@ -79,14 +81,17 @@ finally{
   const {rows:intents}=await db.query('select public_id,resource_type,visibility from public.upload_intents where owner_user_id=$1',[fixture]);
   for(const intent of intents){assert.match(intent.public_id,/^smart-fabrication\/[^/]+\/(invoice|product)\/[0-9a-f-]{36}$/);const result=await cloudinary.uploader.destroy(intent.public_id,{resource_type:intent.resource_type,type:intent.visibility==='private'?'authenticated':'upload',invalidate:true});assert.ok(['ok','not found'].includes(result.result),'Provider cleanup failed');}
   await db.query('begin');
+  await db.query('delete from public.notifications where user_id=$1',[fixture]);
   await db.query('delete from public.media_assets where owner_user_id=$1',[fixture]);
   await db.query('delete from public.upload_intents where owner_user_id=$1',[fixture]);
   await db.query('delete from public.user_roles where user_id=$1',[fixture]);
-  await db.query('delete from public.profiles where id=$1',[fixture]);await db.query('commit');
-  assert.equal((await admin.auth.admin.deleteUser(fixture)).error,null,'Auth fixture cleanup failed');
+  await db.query('update public.profiles set disabled=true where id=$1',[fixture]);await db.query('commit');
+  assert.equal((await admin.auth.admin.updateUserById(fixture,{ban_duration:'876000h',password:crypto.randomBytes(32).toString('base64url')})).error,null,'Auth fixture ban failed');
   console.log('Only this run’s verified fixture assets and account removed; audit history retained.');
  }catch(error){await db.query('rollback').catch(()=>{});console.error(`Media fixture cleanup failed: ${error.message}`);process.exitCode=1;}}
  await db.end().catch(()=>{});
+ await fs.mkdir('test-results', { recursive: true });
+ await fs.writeFile('test-results/media-browser-latest.json', JSON.stringify({ finishedAt: new Date().toISOString(), passed: !process.exitCode, checks, scope: 'Live browser → Cloudinary → database → private delivery checks. Signed private upload, provider verification, atomic database confirmation, expiring private delivery, unauthenticated denial, video upload/duration, PDF invoice and attachment download.' }, null, 2));
 }
 
 

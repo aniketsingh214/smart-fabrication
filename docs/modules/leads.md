@@ -16,3 +16,5 @@
 - Tests: cover permitted and denied access, ownership, invalid inputs, transitions and applicable calculation/concurrency boundaries.
 - UI: responsive layout with loading, empty, error and keyboard-accessible states.
 - Current implementation and remaining acceptance: [phase audit](../progress.md). Actual checks and their limits: [verification evidence](../testing/evidence.md). The source specification is target scope, not a completion claim.
+
+Guest reference confirmation retry is implemented and browser-tested with simulated endpoints. The acknowledged enquiry remains saved; successful provider upload intent is reused for confirmation retry, without another enquiry POST. Capability remains memory-only and is never sent to the provider. File/task state is not durable across reload. See [upload flow](../media/upload-flow.md) for limits and [evidence](../testing/evidence.md) for real versus simulated checks.

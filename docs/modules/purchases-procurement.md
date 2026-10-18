@@ -34,3 +34,14 @@ Implemented catalog weight/design fields, published-choice enquiry snapshots, pr
 
 
 Phase 13 continuation (2026-10-16): invoice association retries now retain the exact original asset/note/purchase, block concurrent submission and avoid re-upload. Authorized downloads use a prepared expiring link. Three regression tests pass; total unit/integration count is 104/27 files. Full live browser purchase association remains pending. See docs/phases/phase-13.md for scope and evidence.
+
+## Procurement acceptance continuation — 2026-10-16
+
+Five additional invoice HTTP-handler tests verify combined purchase/finance read authorization, purchase-scoped 25-row continuation, malformed cursor and overposted financial-field rejection, validated transactional RPC arguments, and propagation of denied sessions/RPC permissions. These are mocked-dependency handler tests, not replacement RLS evidence. All 109 unit/integration tests across 28 files passed; TypeScript and lint passed.
+
+The mobile owner run using installed Edge passed all 18 authenticated browser checks, including the new private PDF association lost-response retry, exact frozen payload, single upload and denied/authorized prepared download link. Other passing checks cover purchase returns, supplier statement, discount/tax, refunds, reports and sign-out. Login and selected read APIs are real; operational write responses are simulated. The generated Auth fixture was cleaned, with immutable audit retained. Chrome startup and server-unavailable attempts failed earlier and are not counted as acceptance. The authenticated runner defaults to localhost, supports TEST_BROWSER_CHANNEL, and now saves sanitized outcome metadata under ignored test-results for future runs.
+
+Phase 13 remains in progress: real provider upload and real rollback SQL association are individually verified, but the complete live purchase-to-provider-to-association browser journey is still pending. No permanent demonstration purchase, stock or financial posting was made. Larger customer-to-installation acceptance, business/accountant decisions and launch gates in the phase register remain open.
+
+
+Latest procurement acceptance: four combined real mobile browser/Auth/Cloudinary/database checks passed; exact same-asset/note retry after a committed-but-lost response returns one immutable attachment. Local phase 13 gate is closed. Retained labeled zero draft, supplier and private invoice evidence, with generated login retired; no receipt/payment/stock posting. Earlier pending/simulated-only descriptions are historical. See [acceptance runbook](../operations/procurement-acceptance.md).

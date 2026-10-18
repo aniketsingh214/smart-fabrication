@@ -1,4 +1,4 @@
-﻿> Version: 0.1 | Owner: project team | Updated: 2026-10-14 | Status: in_progress
+> Version: 0.2 | Owner: project team | Updated: 2026-10-16 | Status: done (local engineering)
 
 # Phase 13 â€” Suppliers & Procurement
 
@@ -11,7 +11,7 @@
 
 ## Execution record
 
-Updated: 2026-10-15. Status: in_progress.
+Updated: 2026-10-16. Status: local engineering gate passed. Earlier dated continuations below are historical.
 
 The user authorized sequential implementation across phases and later requested local-only work; repeated approval gates in the source baseline do not override that instruction.
 
@@ -21,7 +21,7 @@ Supplier/purchase records, item receipt transaction, supplier payments and purch
 
 ### Remaining acceptance
 
-Return forms/history and supplier statement pagination/totals are implemented and checked. Line discount/tax, exact stock valuation, paid returns and supplier refund recording are implemented. Remaining: invoice attachment acceptance and broader live procurement journey.
+Local scope verified: supplier/purchase/item CRUD, receipt/return/payment/refund reconciliation, discount/tax snapshots, paginated statements and private image/PDF invoice evidence. The four-check combined real browser invoice journey now passes. Production/workshop rollout and professional accounting approval remain separate phase 17/19 gates; see the acceptance runbook.
 
 ### Evidence and dependencies
 
@@ -57,3 +57,16 @@ The attachment client now freezes the verified asset, original trimmed note and 
 Three regression tests cover lost responses with an exact retry, cross-purchase misuse, malformed confirmation/permission denial and concurrent/upload failures. All 104 unit/integration tests passed; typecheck and production build passed. The updated effect was lint-checked separately. Pending commands are retained only while the component remains mounted; reload recovery is not claimed.
 
 A desktop/mobile simulated-API browser scenario has been added to browser-operational-checks.mjs. It uses real authentication but intercepts purchase, upload and download responses, so it does not demonstrate real purchase association or create financial records. The initial browser run failed at login hydration and cleaned its Auth fixture; rerun results are recorded separately. Complete live association acceptance and the broader procurement journey remain open. No migration, API shape or permission/RLS change was made.
+
+## Procurement acceptance continuation — 2026-10-16
+
+Five additional invoice HTTP-handler tests verify combined purchase/finance read authorization, purchase-scoped 25-row continuation, malformed cursor and overposted financial-field rejection, validated transactional RPC arguments, and propagation of denied sessions/RPC permissions. These are mocked-dependency handler tests, not replacement RLS evidence. All 109 unit/integration tests across 28 files passed; TypeScript and lint passed.
+
+The mobile owner run using installed Edge passed all 18 authenticated browser checks, including the new private PDF association lost-response retry, exact frozen payload, single upload and denied/authorized prepared download link. Other passing checks cover purchase returns, supplier statement, discount/tax, refunds, reports and sign-out. Login and selected read APIs are real; operational write responses are simulated. The generated Auth fixture was cleaned, with immutable audit retained. Chrome startup and server-unavailable attempts failed earlier and are not counted as acceptance. The authenticated runner defaults to localhost, supports TEST_BROWSER_CHANNEL, and now saves sanitized outcome metadata under ignored test-results for future runs.
+
+Phase 13 remains in progress: real provider upload and real rollback SQL association are individually verified, but the complete live purchase-to-provider-to-association browser journey is still pending. No permanent demonstration purchase, stock or financial posting was made. Larger customer-to-installation acceptance, business/accountant decisions and launch gates in the phase register remain open.
+
+
+## Local gate closure — 2026-10-16
+
+Four real procurement browser checks passed, including a deliberately lost committed response with exact idempotent association recovery. Existing 186 live rollback workflow checks include supplier/received-stock reconciliation; 124 unit/integration tests, build, lint and API checks pass. See [real acceptance runbook](../operations/procurement-acceptance.md) for retained zero-draft fixture boundaries. This closes local phase 13 engineering, not launch/accountant approval. Prior statements that combined invoice acceptance was pending are superseded by this result.

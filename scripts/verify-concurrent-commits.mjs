@@ -33,6 +33,17 @@ export async function verifyConcurrentCommits(connectionString,owner){
   const {rows:jobs}=await first.query("insert into public.work_orders(name,order_id) values('Concurrent reserve A',$1),('Concurrent reserve B',$1) returning id",[order]);
   await oneWinner('Committed competing reservations cannot allocate more than available stock',()=>rpc(first,'reserve_stock',[{work_order_id:jobs[0].id,material_id:material,quantity:20}]),()=>rpc(second,'reserve_stock',[{work_order_id:jobs[1].id,material_id:material,quantity:20}]));
   const {rows:reserved}=await first.query("select sum(quantity-consumed_quantity)::text quantity from public.stock_reservations where material_id=$1 and status='active'",[material]);assert.equal(Number(reserved[0].quantity),20);checks++;
+  for(const isolation of ['READ COMMITTED','REPEATABLE READ']){
+   const ids=[crypto.randomUUID(),crypto.randomUUID()];
+   for(const id of ids)await first.query("insert into public.categories(id,name,slug) values($1,'Concurrent category',$2)",[id,`concurrent-${id}`]);
+   if(isolation==='REPEATABLE READ')for(const client of [first,second]){await client.query('begin isolation level repeatable read');await client.query('select id from public.categories where id=any($1::uuid[])',[ids]);}
+   const write=async(client,id,parent)=>{try{await client.query('update public.categories set parent_id=$1 where id=$2',[parent,id]);if(isolation==='REPEATABLE READ')await client.query('commit');}catch(error){if(isolation==='REPEATABLE READ')await client.query('rollback');throw error;}};
+   const result=await Promise.allSettled([write(first,ids[0],ids[1]),write(second,ids[1],ids[0])]);
+   assert.equal(result.filter(item=>item.status==='fulfilled').length,1,`${isolation}: exactly one hierarchy edit commits`);
+   const failure=result.find(item=>item.status==='rejected');assert.ok(['23514','40001'].includes(failure.reason.code),`${isolation}: expected cycle or stale-snapshot rejection`);checks++;
+   const {rows}=await first.query('select id,parent_id from public.categories where id=any($1::uuid[])',[ids]);assert.equal(rows.filter(row=>row.parent_id!==null).length,1);checks++;
+   console.log(`PASS: Committed competing category edits cannot create a cycle (${isolation})`);
+  }
   console.log(`PASS: ${checks} isolated concurrent-commit assertions. Synthetic local database only.`);return checks;
  }finally{await Promise.allSettled([first.end(),second.end()]);}
 }

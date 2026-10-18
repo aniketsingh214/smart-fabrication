@@ -4,6 +4,734 @@
  */
 
 export interface paths {
+    "/admin/estimate-history": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Estimate history */
+        get: {
+            parameters: {
+                query?: {
+                    limit?: number;
+                    cursor?: string;
+                    /** @description Text search on resources with a name/heading field */
+                    q?: string;
+                    status?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Explicit projected resource DTO; collection continuation is in meta.nextCursor */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: components["schemas"]["estimate_history_record"][];
+                            meta: {
+                                nextCursor?: string | null;
+                            };
+                            /** Format: uuid */
+                            requestId: string;
+                        };
+                    };
+                };
+                /** @description HTTP 400; sanitized error envelope */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 401; sanitized error envelope */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 403; sanitized error envelope */
+                403: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 404; sanitized error envelope */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 409; sanitized error envelope */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 413; sanitized error envelope */
+                413: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 415; sanitized error envelope */
+                415: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 422; sanitized error envelope */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 429; sanitized error envelope */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 500; sanitized error envelope */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 503; sanitized error envelope */
+                503: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/estimate-history/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Read Estimate history record */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Explicit projected resource DTO; collection continuation is in meta.nextCursor */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: components["schemas"]["estimate_history_record"];
+                            meta: {
+                                nextCursor?: string | null;
+                            };
+                            /** Format: uuid */
+                            requestId: string;
+                        };
+                    };
+                };
+                /** @description HTTP 400; sanitized error envelope */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 401; sanitized error envelope */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 403; sanitized error envelope */
+                403: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 404; sanitized error envelope */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 409; sanitized error envelope */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 413; sanitized error envelope */
+                413: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 415; sanitized error envelope */
+                415: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 422; sanitized error envelope */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 429; sanitized error envelope */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 500; sanitized error envelope */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 503; sanitized error envelope */
+                503: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/estimate-history": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Estimate history */
+        get: {
+            parameters: {
+                query?: {
+                    limit?: number;
+                    cursor?: string;
+                    /** @description Text search on resources with a name/heading field */
+                    q?: string;
+                    status?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Explicit projected resource DTO; collection continuation is in meta.nextCursor */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: components["schemas"]["estimate_history_record"][];
+                            meta: {
+                                nextCursor?: string | null;
+                            };
+                            /** Format: uuid */
+                            requestId: string;
+                        };
+                    };
+                };
+                /** @description HTTP 400; sanitized error envelope */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 401; sanitized error envelope */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 403; sanitized error envelope */
+                403: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 404; sanitized error envelope */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 409; sanitized error envelope */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 413; sanitized error envelope */
+                413: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 415; sanitized error envelope */
+                415: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 422; sanitized error envelope */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 429; sanitized error envelope */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 500; sanitized error envelope */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 503; sanitized error envelope */
+                503: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/estimate-history/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Read Estimate history record */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Explicit projected resource DTO; collection continuation is in meta.nextCursor */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: components["schemas"]["estimate_history_record"];
+                            meta: {
+                                nextCursor?: string | null;
+                            };
+                            /** Format: uuid */
+                            requestId: string;
+                        };
+                    };
+                };
+                /** @description HTTP 400; sanitized error envelope */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 401; sanitized error envelope */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 403; sanitized error envelope */
+                403: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 404; sanitized error envelope */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 409; sanitized error envelope */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 413; sanitized error envelope */
+                413: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 415; sanitized error envelope */
+                415: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 422; sanitized error envelope */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 429; sanitized error envelope */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 500; sanitized error envelope */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 503; sanitized error envelope */
+                503: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/reports/estimate-history/export": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Export Estimate history in cursor-paged CSV batches (maximum 500 rows per response) */
+        get: {
+            parameters: {
+                query?: {
+                    limit?: number;
+                    cursor?: string;
+                    from?: string;
+                    until?: string;
+                    q?: string;
+                    status?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description CSV with spreadsheet formula injection protection. Follow X-Next-Cursor or Link rel=next; absent cursor means the final batch. */
+                200: {
+                    headers: {
+                        "X-Next-Cursor"?: string;
+                        "X-Export-Row-Count"?: number;
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/csv": string;
+                    };
+                };
+                /** @description HTTP 400; sanitized error envelope */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 401; sanitized error envelope */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 403; sanitized error envelope */
+                403: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 404; sanitized error envelope */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 409; sanitized error envelope */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 413; sanitized error envelope */
+                413: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 415; sanitized error envelope */
+                415: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 422; sanitized error envelope */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 429; sanitized error envelope */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 500; sanitized error envelope */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 503; sanitized error envelope */
+                503: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/admin/financial-adjustments": {
         parameters: {
             query?: never;
@@ -51840,13 +52568,20 @@ export interface paths {
                 };
             };
             responses: {
-                /** @description Success envelope */
+                /** @description Server-authoritative approximate result with immutable formula/BOM/rate provenance */
                 201: {
                     headers: {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["Envelope"];
+                        "application/json": {
+                            data: components["schemas"]["EstimateResult"];
+                            meta: {
+                                nextCursor?: string | null;
+                            };
+                            /** Format: uuid */
+                            requestId: string;
+                        };
                     };
                 };
                 /** @description HTTP 400; sanitized error envelope */
@@ -53566,20 +54301,41 @@ export interface paths {
         /** List own verified asset metadata */
         get: {
             parameters: {
-                query?: never;
+                query?: {
+                    limit?: number;
+                    cursor?: string;
+                };
                 header?: never;
                 path?: never;
                 cookie?: never;
             };
             requestBody?: never;
             responses: {
-                /** @description Success envelope */
+                /** @description Own verified asset metadata only; stable created_at/id continuation in meta.nextCursor */
                 200: {
                     headers: {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["Envelope"];
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                public_id: string;
+                                context: string;
+                                /** @enum {string} */
+                                visibility: "public" | "private";
+                                resource_type: string;
+                                format: string;
+                                /** Format: date-time */
+                                created_at: string;
+                            }[];
+                            meta: {
+                                nextCursor?: string | null;
+                            };
+                            /** Format: uuid */
+                            requestId: string;
+                        };
                     };
                 };
                 /** @description HTTP 400; sanitized error envelope */
@@ -57781,6 +58537,201 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/estimates/preview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Evaluate selected draft/published configuration without saving an estimate */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        product_id: string;
+                        width_mm: number;
+                        height_mm: number;
+                        /** Format: uuid */
+                        bom_id: string;
+                        /** Format: uuid */
+                        rule_id: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Preview-only result; no issued history ID */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** @constant */
+                                approximate: true;
+                                /** @constant */
+                                currency: "INR";
+                                area_sq_m: number;
+                                weight_kg: number;
+                                total_minor: number;
+                                min_minor: number;
+                                max_minor: number;
+                                notice: string;
+                                formula_version: string;
+                                bom_version: number;
+                                rule_version: number;
+                                material_minor: number;
+                                labour_minor: number;
+                                finish_minor: number;
+                                hardware_minor: number;
+                                delivery_minor: number;
+                                installation_minor: number;
+                                materials: {
+                                    name: string;
+                                    quantity: number;
+                                    /** @enum {string} */
+                                    unit: "kg" | "m" | "piece" | "litre" | "sheet";
+                                    weight_kg: number;
+                                    amount_minor: number;
+                                    rate_minor: number;
+                                    /** Format: uuid */
+                                    material_id: string;
+                                    /** Format: uuid */
+                                    rate_id: string;
+                                    /** Format: date-time */
+                                    rate_effective_at: string;
+                                    /** @constant */
+                                    rate_effective_snapshot: true;
+                                    customer_visible: boolean;
+                                }[];
+                                /** @constant */
+                                preview: true;
+                            };
+                            meta: {
+                                nextCursor?: string | null;
+                            };
+                            /** Format: uuid */
+                            requestId: string;
+                        };
+                    };
+                };
+                /** @description HTTP 400; sanitized error envelope */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 401; sanitized error envelope */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 403; sanitized error envelope */
+                403: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 404; sanitized error envelope */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 409; sanitized error envelope */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 413; sanitized error envelope */
+                413: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 415; sanitized error envelope */
+                415: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 422; sanitized error envelope */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 429; sanitized error envelope */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 500; sanitized error envelope */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 503; sanitized error envelope */
+                503: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -57801,6 +58752,32 @@ export interface components {
             };
             /** Format: uuid */
             requestId: string;
+        };
+        estimate_history_create: {
+            /** Format: uuid */
+            product_id: string;
+            /** Format: uuid */
+            bom_id: string;
+            input?: {
+                [key: string]: unknown;
+            } | null;
+            result?: {
+                [key: string]: unknown;
+            } | null;
+            formula_version: string;
+        };
+        estimate_history_update: {
+            /** Format: uuid */
+            product_id?: string;
+            /** Format: uuid */
+            bom_id?: string;
+            input?: {
+                [key: string]: unknown;
+            } | null;
+            result?: {
+                [key: string]: unknown;
+            } | null;
+            formula_version?: string;
         };
         financial_adjustments_create: {
             kind: string;
@@ -57929,6 +58906,18 @@ export interface components {
             price_max_minor: number;
             /** @default true */
             custom_size: boolean | null;
+            /** @default false */
+            featured: boolean | null;
+            /**
+             * @default confirm_with_workshop
+             * @enum {string}
+             */
+            delivery_availability: "confirm_with_workshop" | "available" | "unavailable";
+            /**
+             * @default confirm_with_workshop
+             * @enum {string}
+             */
+            installation_availability: "confirm_with_workshop" | "available" | "unavailable";
             /**
              * @default draft
              * @enum {string}
@@ -57949,6 +58938,11 @@ export interface components {
             price_min_minor?: number;
             price_max_minor?: number;
             custom_size?: boolean | null;
+            featured?: boolean | null;
+            /** @enum {string} */
+            delivery_availability?: "confirm_with_workshop" | "available" | "unavailable";
+            /** @enum {string} */
+            installation_availability?: "confirm_with_workshop" | "available" | "unavailable";
             /** @enum {string} */
             status?: "draft" | "published" | "archived";
         };
@@ -57956,6 +58950,7 @@ export interface components {
             name: string;
             slug: string;
             parent_id?: string | null;
+            image_media_id?: string | null;
             sort_order: number;
             /** @default true */
             active: boolean | null;
@@ -57964,6 +58959,7 @@ export interface components {
             name?: string;
             slug?: string;
             parent_id?: string | null;
+            image_media_id?: string | null;
             sort_order?: number;
             active?: boolean | null;
         };
@@ -58220,6 +59216,8 @@ export interface components {
             material_id: string;
             quantity_per_sq_m: number;
             wastage_percent: number;
+            /** @default true */
+            customer_visible: boolean | null;
         };
         bom_items_update: {
             /** Format: uuid */
@@ -58228,6 +59226,7 @@ export interface components {
             material_id?: string;
             quantity_per_sq_m?: number;
             wastage_percent?: number;
+            customer_visible?: boolean | null;
         };
         calculation_rules_create: {
             /** Format: uuid */
@@ -58571,6 +59570,61 @@ export interface components {
         media_assets_update: Record<string, never>;
         audit_logs_create: Record<string, never>;
         audit_logs_update: Record<string, never>;
+        EstimateResult: {
+            /** Format: uuid */
+            id: string;
+            /** @constant */
+            approximate: true;
+            /** @constant */
+            currency: "INR";
+            area_sq_m: number;
+            weight_kg: number;
+            total_minor: number;
+            min_minor: number;
+            max_minor: number;
+            notice: string;
+            formula_version: string;
+            bom_version: number;
+            rule_version: number;
+            material_minor: number;
+            labour_minor: number;
+            finish_minor: number;
+            hardware_minor: number;
+            delivery_minor: number;
+            installation_minor: number;
+            materials: {
+                name: string;
+                quantity: number;
+                /** @enum {string} */
+                unit: "kg" | "m" | "piece" | "litre" | "sheet";
+                weight_kg: number;
+                amount_minor: number;
+                rate_minor: number;
+                /** Format: uuid */
+                material_id: string;
+                /** Format: uuid */
+                rate_id: string;
+                /** Format: date-time */
+                rate_effective_at: string;
+                /** @constant */
+                rate_effective_snapshot: true;
+                /** @constant */
+                customer_visible: true;
+            }[];
+        };
+        estimate_history_record: {
+            /** Format: uuid */
+            id: string;
+            /** Format: date-time */
+            created_at: string;
+            /** Format: uuid */
+            product_id: string;
+            /** Format: uuid */
+            bom_id: string;
+            input: unknown;
+            result: unknown;
+            formula_version: string;
+        };
         financial_adjustments_record: {
             /** Format: uuid */
             id: string;
@@ -58667,6 +59721,9 @@ export interface components {
             price_min_minor: number;
             price_max_minor: number;
             custom_size: boolean;
+            featured: boolean;
+            delivery_availability: string;
+            installation_availability: string;
             status: string;
         };
         categories_record: {
@@ -58677,6 +59734,7 @@ export interface components {
             name: string;
             slug: string;
             parent_id: string | null;
+            image_media_id: string | null;
             sort_order: number;
             active: boolean;
         };
@@ -58871,6 +59929,7 @@ export interface components {
             material_id: string;
             quantity_per_sq_m: number;
             wastage_percent: number;
+            customer_visible: boolean;
         };
         calculation_rules_record: {
             /** Format: uuid */

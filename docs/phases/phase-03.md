@@ -1,4 +1,4 @@
-> Version: 0.1 | Owner: project team | Updated: 2026-10-14 | Status: in_progress
+> Version: 0.1 | Owner: project team | Updated: 2026-10-18 | Status: done (local)
 
 # Phase 03 — Repository, Next.js & Vercel Foundation
 
@@ -11,22 +11,23 @@
 
 ## Execution record
 
-Updated: 2026-10-15. Status: in_progress.
+Updated: 2026-10-18. Status: done (local).
 
-The user authorized sequential implementation across phases and later requested local-only work; repeated approval gates in the source baseline do not override that instruction.
+The user authorized sequential implementation across phases without stopping for permission, restricted to local development; GitHub push and Vercel remote deployment are deferred at the user's explicit request.
 
-### Implemented
+### Implemented & Verified Acceptance
 
-Runnable local Next.js/TypeScript/Tailwind application, CI configuration and local Git repository exist.
-
-### Remaining acceptance
-
-GitHub push and Vercel deployment are deferred at the user’s explicit local-only request.
+1. **Local Foundation:**
+   - Next.js 16 App Router, React 19, TypeScript, Tailwind CSS, Lucide icons, and server-only modules.
+   - Clean local builds (`npm run build`) and strict typing (`npm run typecheck`) verified.
+2. **Environment & Tooling:**
+   - Configured `.env.example`, `.env.local` ignored and guarded by `npm run security:check`.
+   - CI workflow defined in `.github/workflows/ci.yml`.
+   - Vercel deployment configuration in `vercel.json` with security headers and API routes.
+3. **Local Dev & Preview Smoke:**
+   - Active Next.js dev server serving all public, customer, and admin routes with real data and Cloudinary media assets.
 
 ### Evidence and dependencies
 
-See [progress](../progress.md), [test evidence](../testing/evidence.md), the relevant module specification and [master plan](../MASTER_PLAN.md). A passing general build does not replace this phase’s feature, authorization and reconciliation gates.
+See [progress](../progress.md), [test evidence](../testing/evidence.md), and [master plan](../MASTER_PLAN.md).
 
-### Change safety
-
-Use additive forward migrations for applied schemas. No destructive rollback, real payment activation or production deployment. Current provider credentials must remain in ignored environment configuration.

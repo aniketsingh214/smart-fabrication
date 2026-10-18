@@ -13,8 +13,8 @@
 - Public endpoints anonymous; protected endpoints return 401 without valid identity and 403 without permission.
 - IDs: UUID strings; dates ISO 8601 UTC; money decimal strings with currency (avoid binary floating-point); units explicit (`mm`, `m`, `kg`, `pcs`, `sq_m`).
 - Pagination: `limit` + opaque cursor for large changing collections; bounded limits and deterministic ordering; filters documented; do not leak private counts.
-- Success response example: `{ "data": { "id": "..." }, "meta": { "requestId": "..." } }`.
-- Error response example: `{ "error": { "code": "VALIDATION_ERROR", "message": "Invalid dimensions", "details": [] }, "meta": { "requestId": "..." } }`.
+- Success response example: `{ "data": { "id": "..." }, "meta": {}, "requestId": "..." }`.
+- Error response example: `{ "error": { "code": "VALIDATION_ERROR", "message": "Invalid dimensions", "details": [] }, "requestId": "..." }`.
 - Standard codes: 200/201/202/204, 400/401/403/404/409/422/429/500; never leak stack traces.
 - Use `Idempotency-Key` on order creation, quote conversion, payments, stock posting and other retriable non-idempotent operations. Store key, actor, request hash and result; reject conflicting reuse.
 - Support `If-Match`/version field for high-contention edits; 409 on stale state; state-transition APIs rather than arbitrary status writes.
@@ -92,3 +92,17 @@ Identity/notification responses now have explicit generated schemas. GET /me con
 After an uncertain network/server response, retry stock writes with the exact original Idempotency-Key and payload bytes. A fresh key represents a new command, even when values look identical. The web inventory form now freezes an unresolved mounted-form request and releases fields after a recognized rejection. It does not persist that pending command across reload/navigation or queue offline stock writes. Verify the ledger before recreating a request after losing local pending state. No HTTP request/response schema or database rule changed in this UI fix.
 
 Stock navigation recovery now supersedes the earlier mounted-form-only note: the web command persists to account-scoped sessionStorage before dispatch and restores in the same tab after reload/navigation. This is not cross-device/offline business-intent deduplication. Storage failure blocks dispatch; unknown outcomes retain the original key/body. Staff list continuation is available on /admin/users with limit default/max 100 and meta.nextCursor; the safe response schema includes created_at.
+
+## Shipped SDK handoff — 2026-10-16
+
+The [mobile handoff](mobile-handoff.md) includes a type-checked generated-contract example, token/error handling, feature mapping, offline/conflict rules, push roadmap and compatibility/deprecation strategy. The shipped client explicitly omits cookies, refuses redirects, constrains paths to its API base, permits remote HTTPS/loopback HTTP, and retains correlation/status on non-JSON failures. No automatic write replay is added. Five client regression tests pass.
+
+`test:mobile-client` passed seven independent real SDK/Auth/API checks: identity, profile update with privilege-overposting denial, notification pagination/idempotent mark-read, object/staff denials, anonymous isolation, refreshed token and disabled-profile denial. This does not certify every operational write or a native UI. Its initial run passed HTTP checks but failed deletion because immutable audit records reference the fixture author. Corrected cleanup removes notifications/roles and retains only a disabled/banned generated author identity; successful sessions are globally signed out. No audit history or financial/stock records were deleted.
+
+## Product services and calculation APIs — 2026-10-17
+
+Product create/update/read/configuration DTOs include delivery_availability and installation_availability (`confirm_with_workshop`, `available`, `unavailable`). Existing/default state is confirmation; unrelated PATCH preserves values. Product media requires a confirmed public product-context image/video in the database.
+
+`POST /estimates` returns an explicit validated EstimateResult with immutable formula/BOM/rate provenance. Only customer-visible material lines appear; fully internal BOMs return an empty material array while retaining full totals. `POST /estimates/preview` requires BOTH materials.read and catalog.read, accepts product_id/bom_id/rule_id and dimensions, and returns preview:true without an issued ID or saved snapshot. Staff preview/history retains internal components. The private shared SQL helper cannot be called directly by application roles.
+
+Protected `/admin/estimate-history` and `/estimate-history` resource reads use materials.read; exports use materials.export. Legacy stored result JSON retains its original shape. New requests create history once per submitted calculation; there is no automatic write replay. See [typed cookie-independent example](../../examples/mobile/calculation.ts) and [workshop configuration](../operations/calculation-configuration.md). Generated contracts currently cover 292 paths / 33 explicit methods and 45 registered resource lists. Broader native-app/operational acceptance remains separate.

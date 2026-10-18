@@ -1,5 +1,5 @@
 {
-  "captured_at": "2026-10-16T05:24:27.154Z",
+  "captured_at": "2026-10-18T09:31:40.807Z",
   "tables": [
     {
       "name": "audit_logs",
@@ -334,6 +334,13 @@
       "column_default": "now()"
     },
     {
+      "table_name": "bom_items",
+      "column_name": "customer_visible",
+      "data_type": "boolean",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
       "table_name": "bom_versions",
       "column_name": "id",
       "data_type": "uuid",
@@ -542,6 +549,13 @@
       "data_type": "timestamp with time zone",
       "is_nullable": "NO",
       "column_default": "now()"
+    },
+    {
+      "table_name": "categories",
+      "column_name": "image_media_id",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
     },
     {
       "table_name": "customer_payments",
@@ -1570,7 +1584,7 @@
       "column_name": "created_at",
       "data_type": "timestamp with time zone",
       "is_nullable": "NO",
-      "column_default": "now()"
+      "column_default": "clock_timestamp()"
     },
     {
       "table_name": "materials",
@@ -2348,6 +2362,27 @@
       "data_type": "text",
       "is_nullable": "NO",
       "column_default": "''::text"
+    },
+    {
+      "table_name": "products",
+      "column_name": "featured",
+      "data_type": "boolean",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "products",
+      "column_name": "delivery_availability",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "'confirm_with_workshop'::text"
+    },
+    {
+      "table_name": "products",
+      "column_name": "installation_availability",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "'confirm_with_workshop'::text"
     },
     {
       "table_name": "profiles",
@@ -4725,6 +4760,4729 @@
       "name": "202610160039_private_invoice_pdf.sql",
       "sha256": "da79705d4219356d2ea4234714b00e8090bbe5764c49e742fa342488d4408b21",
       "applied_at": "2026-10-16T05:21:03.590Z"
+    },
+    {
+      "name": "202610170040_featured_products.sql",
+      "sha256": "89b41e703f29e88dfe2f3ee7a54920c8c3cd8e24d4c9a8c71ff64572e86457a8",
+      "applied_at": "2026-10-16T21:20:13.946Z"
+    },
+    {
+      "name": "202610170041_category_images.sql",
+      "sha256": "737e65ab627cb3fd351c6a4f5c6721e4859e3b0cd8e690b6bd513cd7177b917f",
+      "applied_at": "2026-10-16T22:11:59.044Z"
+    },
+    {
+      "name": "202610170042_category_hierarchy_integrity.sql",
+      "sha256": "f35d39e4a10c005c56a6151c34d293bbb9b4ab02281d560fec9f8b4bec74ca80",
+      "applied_at": "2026-10-16T22:25:27.481Z"
+    },
+    {
+      "name": "202610170043_product_services_media.sql",
+      "sha256": "d43fabe155685ebfa371fdd911a01a19972d7ff1f1d9fb3c9dd2003e1f24690e",
+      "applied_at": "2026-10-17T05:45:58.843Z"
+    },
+    {
+      "name": "202610170044_estimate_rate_provenance.sql",
+      "sha256": "dbbe92ebdac4b9d84a1ca939745309db3fc040609c397929accca18099387f5b",
+      "applied_at": "2026-10-17T07:35:36.011Z"
+    },
+    {
+      "name": "202610170045_draft_calculation_preview.sql",
+      "sha256": "a6cfe26511605d353bb7eb5a30e55629ccf1839bd7d58b538e40e7c1fe433d21",
+      "applied_at": "2026-10-17T07:45:06.703Z"
+    },
+    {
+      "name": "202610170046_bom_customer_visibility.sql",
+      "sha256": "7f92dc50ec8c72a2d45732bd45e578da50a78b439e262120d96699a512e78d3e",
+      "applied_at": "2026-10-17T07:50:09.436Z"
+    }
+  ],
+  "constraints": [
+    {
+      "schema_name": "public",
+      "table_name": "audit_logs",
+      "name": "audit_logs_actor_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (actor_id) REFERENCES profiles(id)",
+      "parent_schema": "public",
+      "parent_table": "profiles",
+      "columns": [
+        "actor_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "audit_logs",
+      "name": "audit_logs_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "bom_items",
+      "name": "bom_items_bom_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (bom_id) REFERENCES bom_versions(id)",
+      "parent_schema": "public",
+      "parent_table": "bom_versions",
+      "columns": [
+        "bom_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "bom_items",
+      "name": "bom_items_bom_id_material_id_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (bom_id, material_id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "bom_id",
+        "material_id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "bom_items",
+      "name": "bom_items_material_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (material_id) REFERENCES materials(id)",
+      "parent_schema": "public",
+      "parent_table": "materials",
+      "columns": [
+        "material_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "bom_items",
+      "name": "bom_items_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "bom_items",
+      "name": "bom_items_quantity_per_sq_m_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (quantity_per_sq_m > 0::numeric)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "quantity_per_sq_m"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "bom_items",
+      "name": "bom_items_wastage_percent_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (wastage_percent >= 0::numeric AND wastage_percent <= 30::numeric)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "wastage_percent"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "bom_items",
+      "name": "finite_quantity_per_sq_m",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (quantity_per_sq_m::text <> ALL (ARRAY['NaN'::text, 'Infinity'::text, '-Infinity'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "quantity_per_sq_m"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "bom_items",
+      "name": "finite_wastage_percent",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (wastage_percent::text <> ALL (ARRAY['NaN'::text, 'Infinity'::text, '-Infinity'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "wastage_percent"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "bom_versions",
+      "name": "bom_versions_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "bom_versions",
+      "name": "bom_versions_product_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (product_id) REFERENCES products(id)",
+      "parent_schema": "public",
+      "parent_table": "products",
+      "columns": [
+        "product_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "bom_versions",
+      "name": "bom_versions_product_id_version_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (product_id, version)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "product_id",
+        "version"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "bom_versions",
+      "name": "bom_versions_status_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (status = ANY (ARRAY['draft'::text, 'published'::text, 'archived'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "status"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "bom_versions",
+      "name": "bom_versions_version_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (version > 0)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "version"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "calculation_rules",
+      "name": "calculation_rules_delivery_minor_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (delivery_minor >= 0)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "delivery_minor"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "calculation_rules",
+      "name": "calculation_rules_finish_minor_per_sq_m_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (finish_minor_per_sq_m >= 0)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "finish_minor_per_sq_m"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "calculation_rules",
+      "name": "calculation_rules_hardware_minor_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (hardware_minor >= 0)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "hardware_minor"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "calculation_rules",
+      "name": "calculation_rules_installation_minor_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (installation_minor >= 0)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "installation_minor"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "calculation_rules",
+      "name": "calculation_rules_labour_minor_per_sq_m_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (labour_minor_per_sq_m >= 0)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "labour_minor_per_sq_m"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "calculation_rules",
+      "name": "calculation_rules_margin_bps_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (margin_bps >= 0 AND margin_bps <= 10000)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "margin_bps"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "calculation_rules",
+      "name": "calculation_rules_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "calculation_rules",
+      "name": "calculation_rules_product_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (product_id) REFERENCES products(id)",
+      "parent_schema": "public",
+      "parent_table": "products",
+      "columns": [
+        "product_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "calculation_rules",
+      "name": "calculation_rules_product_id_version_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (product_id, version)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "product_id",
+        "version"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "calculation_rules",
+      "name": "calculation_rules_range_percent_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (range_percent >= 0 AND range_percent <= 50)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "range_percent"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "calculation_rules",
+      "name": "calculation_rules_status_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (status = ANY (ARRAY['draft'::text, 'published'::text, 'archived'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "status"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "calculation_rules",
+      "name": "calculation_rules_version_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (version > 0)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "version"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "catalog_copies",
+      "name": "catalog_copies_actor_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (actor_id) REFERENCES profiles(id)",
+      "parent_schema": "public",
+      "parent_table": "profiles",
+      "columns": [
+        "actor_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "catalog_copies",
+      "name": "catalog_copies_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "catalog_copies",
+      "name": "catalog_copies_product_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (product_id) REFERENCES products(id)",
+      "parent_schema": "public",
+      "parent_table": "products",
+      "columns": [
+        "product_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "catalog_copies",
+      "name": "catalog_copies_source_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (source_id) REFERENCES products(id)",
+      "parent_schema": "public",
+      "parent_table": "products",
+      "columns": [
+        "source_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "categories",
+      "name": "categories_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (parent_id IS DISTINCT FROM id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "parent_id",
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "categories",
+      "name": "categories_image_media_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (image_media_id) REFERENCES media_assets(id)",
+      "parent_schema": "public",
+      "parent_table": "media_assets",
+      "columns": [
+        "image_media_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "categories",
+      "name": "categories_parent_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (parent_id) REFERENCES categories(id)",
+      "parent_schema": "public",
+      "parent_table": "categories",
+      "columns": [
+        "parent_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "categories",
+      "name": "categories_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "categories",
+      "name": "categories_slug_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (slug)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "slug"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "customer_payments",
+      "name": "customer_payments_amount_minor_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (amount_minor > 0)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "amount_minor"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "customer_payments",
+      "name": "customer_payments_created_by_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (created_by) REFERENCES profiles(id)",
+      "parent_schema": "public",
+      "parent_table": "profiles",
+      "columns": [
+        "created_by"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "customer_payments",
+      "name": "customer_payments_idempotency_key_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (idempotency_key)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "idempotency_key"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "customer_payments",
+      "name": "customer_payments_mode_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (mode = ANY (ARRAY['cash'::text, 'bank'::text, 'upi'::text, 'cheque'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "mode"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "customer_payments",
+      "name": "customer_payments_order_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (order_id) REFERENCES orders(id)",
+      "parent_schema": "public",
+      "parent_table": "orders",
+      "columns": [
+        "order_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "customer_payments",
+      "name": "customer_payments_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "customers",
+      "name": "customers_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "customers",
+      "name": "customers_user_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (user_id) REFERENCES profiles(id)",
+      "parent_schema": "public",
+      "parent_table": "profiles",
+      "columns": [
+        "user_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "customers",
+      "name": "customers_user_id_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (user_id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "user_id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "deliveries",
+      "name": "deliveries_order_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (order_id) REFERENCES orders(id)",
+      "parent_schema": "public",
+      "parent_table": "orders",
+      "columns": [
+        "order_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "deliveries",
+      "name": "deliveries_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "deliveries",
+      "name": "deliveries_proof_media_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (proof_media_id) REFERENCES media_assets(id)",
+      "parent_schema": "public",
+      "parent_table": "media_assets",
+      "columns": [
+        "proof_media_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "deliveries",
+      "name": "deliveries_status_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (status = ANY (ARRAY['scheduled'::text, 'dispatched'::text, 'delivered'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "status"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "estimate_snapshots",
+      "name": "estimate_snapshots_bom_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (bom_id) REFERENCES bom_versions(id)",
+      "parent_schema": "public",
+      "parent_table": "bom_versions",
+      "columns": [
+        "bom_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "estimate_snapshots",
+      "name": "estimate_snapshots_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "estimate_snapshots",
+      "name": "estimate_snapshots_product_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (product_id) REFERENCES products(id)",
+      "parent_schema": "public",
+      "parent_table": "products",
+      "columns": [
+        "product_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "expense_reversals",
+      "name": "expense_reversals_amount_minor_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (amount_minor > 0)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "amount_minor"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "expense_reversals",
+      "name": "expense_reversals_created_by_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (created_by) REFERENCES profiles(id)",
+      "parent_schema": "public",
+      "parent_table": "profiles",
+      "columns": [
+        "created_by"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "expense_reversals",
+      "name": "expense_reversals_expense_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (expense_id) REFERENCES expenses(id)",
+      "parent_schema": "public",
+      "parent_table": "expenses",
+      "columns": [
+        "expense_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "expense_reversals",
+      "name": "expense_reversals_expense_id_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (expense_id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "expense_id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "expense_reversals",
+      "name": "expense_reversals_idempotency_key_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (idempotency_key)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "idempotency_key"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "expense_reversals",
+      "name": "expense_reversals_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "expense_reversals",
+      "name": "expense_reversals_reason_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (length(reason) >= 3 AND length(reason) <= 500)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "reason"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "expenses",
+      "name": "expenses_amount_minor_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (amount_minor > 0)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "amount_minor"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "expenses",
+      "name": "expenses_mode_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (mode = ANY (ARRAY['cash'::text, 'bank'::text, 'upi'::text, 'cheque'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "mode"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "expenses",
+      "name": "expenses_order_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (order_id) REFERENCES orders(id)",
+      "parent_schema": "public",
+      "parent_table": "orders",
+      "columns": [
+        "order_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "expenses",
+      "name": "expenses_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "expenses",
+      "name": "expenses_reference_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (reference)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "reference"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "expenses",
+      "name": "expenses_status_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (status = ANY (ARRAY['draft'::text, 'approved'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "status"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "finance_period_closures",
+      "name": "finance_period_closures_closed_through_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (closed_through)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "closed_through"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "finance_period_closures",
+      "name": "finance_period_closures_created_by_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (created_by) REFERENCES profiles(id)",
+      "parent_schema": "public",
+      "parent_table": "profiles",
+      "columns": [
+        "created_by"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "finance_period_closures",
+      "name": "finance_period_closures_idempotency_key_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (idempotency_key)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "idempotency_key"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "finance_period_closures",
+      "name": "finance_period_closures_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "finance_period_closures",
+      "name": "finance_period_closures_reason_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (length(reason) >= 3 AND length(reason) <= 500)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "reason"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "financial_adjustments",
+      "name": "financial_adjustments_amount_minor_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (amount_minor > 0)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "amount_minor"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "financial_adjustments",
+      "name": "financial_adjustments_created_by_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (created_by) REFERENCES profiles(id)",
+      "parent_schema": "public",
+      "parent_table": "profiles",
+      "columns": [
+        "created_by"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "financial_adjustments",
+      "name": "financial_adjustments_idempotency_key_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (idempotency_key)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "idempotency_key"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "financial_adjustments",
+      "name": "financial_adjustments_kind_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (kind = ANY (ARRAY['customer_payment_reversal'::text, 'supplier_payment_reversal'::text, 'labour_payment_reversal'::text, 'withdrawal_reversal'::text, 'work_entry_reversal'::text, 'supplier_refund'::text, 'customer_refund'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "kind"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "financial_adjustments",
+      "name": "financial_adjustments_kind_reference_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (kind, reference)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "kind",
+        "reference"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "financial_adjustments",
+      "name": "financial_adjustments_mode_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (mode = ANY (ARRAY['cash'::text, 'bank'::text, 'upi'::text, 'cheque'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "mode"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "financial_adjustments",
+      "name": "financial_adjustments_order_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (order_id) REFERENCES orders(id)",
+      "parent_schema": "public",
+      "parent_table": "orders",
+      "columns": [
+        "order_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "financial_adjustments",
+      "name": "financial_adjustments_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "financial_adjustments",
+      "name": "financial_adjustments_purchase_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (purchase_id) REFERENCES purchases(id)",
+      "parent_schema": "public",
+      "parent_table": "purchases",
+      "columns": [
+        "purchase_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "financial_adjustments",
+      "name": "financial_adjustments_reason_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (length(reason) >= 3 AND length(reason) <= 500)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "reason"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "financial_adjustments",
+      "name": "financial_adjustments_reference_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (length(reference) >= 1 AND length(reference) <= 200)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "reference"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "financial_adjustments",
+      "name": "financial_adjustments_worker_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (worker_id) REFERENCES workers(id)",
+      "parent_schema": "public",
+      "parent_table": "workers",
+      "columns": [
+        "worker_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "follow_ups",
+      "name": "follow_ups_assigned_to_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (assigned_to) REFERENCES profiles(id)",
+      "parent_schema": "public",
+      "parent_table": "profiles",
+      "columns": [
+        "assigned_to"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "follow_ups",
+      "name": "follow_ups_lead_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (lead_id) REFERENCES leads(id)",
+      "parent_schema": "public",
+      "parent_table": "leads",
+      "columns": [
+        "lead_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "follow_ups",
+      "name": "follow_ups_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "follow_ups",
+      "name": "follow_ups_status_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (status = ANY (ARRAY['pending'::text, 'completed'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "status"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "gallery_items",
+      "name": "gallery_items_category_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (category_id) REFERENCES categories(id)",
+      "parent_schema": "public",
+      "parent_table": "categories",
+      "columns": [
+        "category_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "gallery_items",
+      "name": "gallery_items_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (status <> 'published'::text OR consent_confirmed)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "status",
+        "consent_confirmed"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "gallery_items",
+      "name": "gallery_items_media_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (media_id) REFERENCES media_assets(id)",
+      "parent_schema": "public",
+      "parent_table": "media_assets",
+      "columns": [
+        "media_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "gallery_items",
+      "name": "gallery_items_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "gallery_items",
+      "name": "gallery_items_status_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (status = ANY (ARRAY['draft'::text, 'published'::text, 'archived'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "status"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "installations",
+      "name": "installations_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (status <> 'completed'::text OR customer_confirmed)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "status",
+        "customer_confirmed"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "installations",
+      "name": "installations_delivery_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (delivery_id) REFERENCES deliveries(id)",
+      "parent_schema": "public",
+      "parent_table": "deliveries",
+      "columns": [
+        "delivery_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "installations",
+      "name": "installations_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "installations",
+      "name": "installations_status_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (status = ANY (ARRAY['pending'::text, 'completed'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "status"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "labour_payments",
+      "name": "labour_payments_amount_minor_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (amount_minor > 0)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "amount_minor"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "labour_payments",
+      "name": "labour_payments_created_by_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (created_by) REFERENCES profiles(id)",
+      "parent_schema": "public",
+      "parent_table": "profiles",
+      "columns": [
+        "created_by"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "labour_payments",
+      "name": "labour_payments_idempotency_key_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (idempotency_key)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "idempotency_key"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "labour_payments",
+      "name": "labour_payments_mode_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (mode = ANY (ARRAY['cash'::text, 'bank'::text, 'upi'::text, 'cheque'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "mode"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "labour_payments",
+      "name": "labour_payments_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "labour_payments",
+      "name": "labour_payments_worker_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (worker_id) REFERENCES workers(id)",
+      "parent_schema": "public",
+      "parent_table": "workers",
+      "columns": [
+        "worker_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "labour_rates",
+      "name": "labour_rates_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "labour_rates",
+      "name": "labour_rates_rate_minor_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (rate_minor > 0)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "rate_minor"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "labour_rates",
+      "name": "labour_rates_unit_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (unit = ANY (ARRAY['kg'::text, 'piece'::text, 'hour'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "unit"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "labour_rates",
+      "name": "labour_rates_worker_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (worker_id) REFERENCES workers(id)",
+      "parent_schema": "public",
+      "parent_table": "workers",
+      "columns": [
+        "worker_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "lead_attachments",
+      "name": "lead_attachments_lead_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (lead_id) REFERENCES leads(id)",
+      "parent_schema": "public",
+      "parent_table": "leads",
+      "columns": [
+        "lead_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "lead_attachments",
+      "name": "lead_attachments_media_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (media_id) REFERENCES media_assets(id)",
+      "parent_schema": "public",
+      "parent_table": "media_assets",
+      "columns": [
+        "media_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "lead_attachments",
+      "name": "lead_attachments_media_id_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (media_id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "media_id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "lead_attachments",
+      "name": "lead_attachments_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "lead_notes",
+      "name": "lead_notes_created_by_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (created_by) REFERENCES profiles(id)",
+      "parent_schema": "public",
+      "parent_table": "profiles",
+      "columns": [
+        "created_by"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "lead_notes",
+      "name": "lead_notes_lead_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (lead_id) REFERENCES leads(id)",
+      "parent_schema": "public",
+      "parent_table": "leads",
+      "columns": [
+        "lead_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "lead_notes",
+      "name": "lead_notes_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "lead_status_history",
+      "name": "lead_status_history_actor_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (actor_id) REFERENCES profiles(id)",
+      "parent_schema": "public",
+      "parent_table": "profiles",
+      "columns": [
+        "actor_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "lead_status_history",
+      "name": "lead_status_history_lead_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (lead_id) REFERENCES leads(id)",
+      "parent_schema": "public",
+      "parent_table": "leads",
+      "columns": [
+        "lead_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "lead_status_history",
+      "name": "lead_status_history_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "leads",
+      "name": "leads_assigned_to_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (assigned_to) REFERENCES profiles(id)",
+      "parent_schema": "public",
+      "parent_table": "profiles",
+      "columns": [
+        "assigned_to"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "leads",
+      "name": "leads_configuration_snapshot_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (jsonb_typeof(configuration_snapshot) = 'object'::text)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "configuration_snapshot"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "leads",
+      "name": "leads_customer_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (customer_id) REFERENCES customers(id)",
+      "parent_schema": "public",
+      "parent_table": "customers",
+      "columns": [
+        "customer_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "leads",
+      "name": "leads_duplicate_of_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (duplicate_of) REFERENCES leads(id)",
+      "parent_schema": "public",
+      "parent_table": "leads",
+      "columns": [
+        "duplicate_of"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "leads",
+      "name": "leads_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "leads",
+      "name": "leads_product_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (product_id) REFERENCES products(id)",
+      "parent_schema": "public",
+      "parent_table": "products",
+      "columns": [
+        "product_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "leads",
+      "name": "leads_source_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (source = ANY (ARRAY['google'::text, 'instagram'::text, 'facebook'::text, 'whatsapp'::text, 'direct'::text, 'referral'::text, 'other'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "source"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "leads",
+      "name": "leads_status_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (status = ANY (ARRAY['NEW'::text, 'CONTACTED'::text, 'REQUIREMENT_CONFIRMED'::text, 'MEASUREMENT_PENDING'::text, 'MEASUREMENT_DONE'::text, 'QUOTATION_SENT'::text, 'NEGOTIATION'::text, 'ORDER_CONFIRMED'::text, 'PRODUCTION'::text, 'COMPLETED'::text, 'LOST'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "status"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "material_rates",
+      "name": "material_rates_created_by_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (created_by) REFERENCES profiles(id)",
+      "parent_schema": "public",
+      "parent_table": "profiles",
+      "columns": [
+        "created_by"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "material_rates",
+      "name": "material_rates_currency_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (currency = 'INR'::text)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "currency"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "material_rates",
+      "name": "material_rates_material_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (material_id) REFERENCES materials(id)",
+      "parent_schema": "public",
+      "parent_table": "materials",
+      "columns": [
+        "material_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "material_rates",
+      "name": "material_rates_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "material_rates",
+      "name": "material_rates_purchase_minor_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (purchase_minor >= 0)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "purchase_minor"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "material_rates",
+      "name": "material_rates_selling_minor_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (selling_minor >= 0)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "selling_minor"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "materials",
+      "name": "finite_reorder_level",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (reorder_level::text <> ALL (ARRAY['NaN'::text, 'Infinity'::text, '-Infinity'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "reorder_level"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "materials",
+      "name": "finite_thickness_mm",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (thickness_mm::text <> ALL (ARRAY['NaN'::text, 'Infinity'::text, '-Infinity'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "thickness_mm"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "materials",
+      "name": "finite_weight_kg_per_unit",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (weight_kg_per_unit::text <> ALL (ARRAY['NaN'::text, 'Infinity'::text, '-Infinity'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "weight_kg_per_unit"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "materials",
+      "name": "materials_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "code"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "materials",
+      "name": "materials_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "materials",
+      "name": "materials_reorder_level_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (reorder_level >= 0::numeric)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "reorder_level"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "materials",
+      "name": "materials_thickness_mm_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (thickness_mm > 0::numeric)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "thickness_mm"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "materials",
+      "name": "materials_unit_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (unit = ANY (ARRAY['kg'::text, 'm'::text, 'piece'::text, 'litre'::text, 'sheet'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "unit"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "materials",
+      "name": "materials_weight_kg_per_unit_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (weight_kg_per_unit > 0::numeric)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "weight_kg_per_unit"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "measurements",
+      "name": "finite_depth_mm",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (depth_mm::text <> ALL (ARRAY['NaN'::text, 'Infinity'::text, '-Infinity'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "depth_mm"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "measurements",
+      "name": "finite_height_mm",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (height_mm::text <> ALL (ARRAY['NaN'::text, 'Infinity'::text, '-Infinity'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "height_mm"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "measurements",
+      "name": "finite_width_mm",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (width_mm::text <> ALL (ARRAY['NaN'::text, 'Infinity'::text, '-Infinity'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "width_mm"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "measurements",
+      "name": "measurements_depth_mm_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (depth_mm > 0::numeric)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "depth_mm"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "measurements",
+      "name": "measurements_height_mm_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (height_mm > 0::numeric)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "height_mm"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "measurements",
+      "name": "measurements_lead_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (lead_id) REFERENCES leads(id)",
+      "parent_schema": "public",
+      "parent_table": "leads",
+      "columns": [
+        "lead_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "measurements",
+      "name": "measurements_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "measurements",
+      "name": "measurements_verified_by_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (verified_by) REFERENCES profiles(id)",
+      "parent_schema": "public",
+      "parent_table": "profiles",
+      "columns": [
+        "verified_by"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "measurements",
+      "name": "measurements_width_mm_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (width_mm > 0::numeric)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "width_mm"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "media_assets",
+      "name": "media_assets_asset_id_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (asset_id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "asset_id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "media_assets",
+      "name": "media_assets_bytes_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (bytes > 0)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "bytes"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "media_assets",
+      "name": "media_assets_duration_seconds_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (duration_seconds > 0::numeric AND duration_seconds <= 120::numeric)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "duration_seconds"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "media_assets",
+      "name": "media_assets_owner_user_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (owner_user_id) REFERENCES profiles(id)",
+      "parent_schema": "public",
+      "parent_table": "profiles",
+      "columns": [
+        "owner_user_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "media_assets",
+      "name": "media_assets_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "media_assets",
+      "name": "media_assets_public_id_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (public_id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "public_id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "media_assets",
+      "name": "media_assets_visibility_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (visibility = ANY (ARRAY['public'::text, 'private'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "visibility"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "media_assets",
+      "name": "private_invoice_pdf_only",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (format <> 'pdf'::text OR context = 'invoice'::text AND visibility = 'private'::text AND resource_type = 'image'::text AND owner_user_id IS NOT NULL)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "format",
+        "context",
+        "visibility",
+        "resource_type",
+        "owner_user_id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "notifications",
+      "name": "notifications_event_key_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (event_key)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "event_key"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "notifications",
+      "name": "notifications_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "notifications",
+      "name": "notifications_user_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (user_id) REFERENCES profiles(id)",
+      "parent_schema": "public",
+      "parent_table": "profiles",
+      "columns": [
+        "user_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "order_status_history",
+      "name": "order_status_history_actor_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (actor_id) REFERENCES profiles(id)",
+      "parent_schema": "public",
+      "parent_table": "profiles",
+      "columns": [
+        "actor_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "order_status_history",
+      "name": "order_status_history_order_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (order_id) REFERENCES orders(id)",
+      "parent_schema": "public",
+      "parent_table": "orders",
+      "columns": [
+        "order_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "order_status_history",
+      "name": "order_status_history_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "orders",
+      "name": "orders_customer_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (customer_id) REFERENCES customers(id)",
+      "parent_schema": "public",
+      "parent_table": "customers",
+      "columns": [
+        "customer_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "orders",
+      "name": "orders_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "orders",
+      "name": "orders_quotation_version_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (quotation_version_id) REFERENCES quotation_versions(id)",
+      "parent_schema": "public",
+      "parent_table": "quotation_versions",
+      "columns": [
+        "quotation_version_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "orders",
+      "name": "orders_quotation_version_id_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (quotation_version_id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "quotation_version_id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "orders",
+      "name": "orders_status_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (status = ANY (ARRAY['CONFIRMED'::text, 'ADVANCE_RECEIVED'::text, 'MEASUREMENT_CONFIRMED'::text, 'PRODUCTION_PENDING'::text, 'PRODUCTION_STARTED'::text, 'FABRICATION_COMPLETED'::text, 'FINISHING'::text, 'READY'::text, 'OUT_FOR_DELIVERY'::text, 'INSTALLATION'::text, 'COMPLETED'::text, 'CANCELLED'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "status"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "orders",
+      "name": "orders_total_minor_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (total_minor > 0)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "total_minor"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "orders",
+      "name": "safe_money",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (total_minor <= '9000000000000'::bigint)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "total_minor"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "owner_withdrawals",
+      "name": "owner_withdrawals_amount_minor_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (amount_minor > 0)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "amount_minor"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "owner_withdrawals",
+      "name": "owner_withdrawals_created_by_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (created_by) REFERENCES profiles(id)",
+      "parent_schema": "public",
+      "parent_table": "profiles",
+      "columns": [
+        "created_by"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "owner_withdrawals",
+      "name": "owner_withdrawals_idempotency_key_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (idempotency_key)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "idempotency_key"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "owner_withdrawals",
+      "name": "owner_withdrawals_mode_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (mode = ANY (ARRAY['cash'::text, 'bank'::text, 'upi'::text, 'cheque'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "mode"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "owner_withdrawals",
+      "name": "owner_withdrawals_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "permissions",
+      "name": "permissions_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "product_media",
+      "name": "product_media_media_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (media_id) REFERENCES media_assets(id)",
+      "parent_schema": "public",
+      "parent_table": "media_assets",
+      "columns": [
+        "media_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "product_media",
+      "name": "product_media_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "product_media",
+      "name": "product_media_product_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (product_id) REFERENCES products(id)",
+      "parent_schema": "public",
+      "parent_table": "products",
+      "columns": [
+        "product_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "product_options",
+      "name": "product_options_extra_cost_minor_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (extra_cost_minor >= 0)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "extra_cost_minor"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "product_options",
+      "name": "product_options_name_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (length(name) >= 1 AND length(name) <= 200)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "name"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "product_options",
+      "name": "product_options_option_group_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (length(option_group) >= 1 AND length(option_group) <= 100)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "option_group"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "product_options",
+      "name": "product_options_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "product_options",
+      "name": "product_options_product_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (product_id) REFERENCES products(id)",
+      "parent_schema": "public",
+      "parent_table": "products",
+      "columns": [
+        "product_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "product_options",
+      "name": "product_options_product_id_option_group_name_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (product_id, option_group, name)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "product_id",
+        "option_group",
+        "name"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "product_options",
+      "name": "product_options_status_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (status = ANY (ARRAY['draft'::text, 'published'::text, 'archived'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "status"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "product_variants",
+      "name": "product_variants_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (price_max_minor >= price_min_minor)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "price_max_minor",
+        "price_min_minor"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "product_variants",
+      "name": "product_variants_height_mm_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (height_mm > 0)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "height_mm"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "product_variants",
+      "name": "product_variants_name_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (length(name) >= 1 AND length(name) <= 200)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "name"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "product_variants",
+      "name": "product_variants_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "product_variants",
+      "name": "product_variants_price_min_minor_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (price_min_minor >= 0)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "price_min_minor"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "product_variants",
+      "name": "product_variants_product_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (product_id) REFERENCES products(id)",
+      "parent_schema": "public",
+      "parent_table": "products",
+      "columns": [
+        "product_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "product_variants",
+      "name": "product_variants_sku_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (sku)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "sku"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "product_variants",
+      "name": "product_variants_status_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (status = ANY (ARRAY['draft'::text, 'published'::text, 'archived'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "status"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "product_variants",
+      "name": "product_variants_width_mm_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (width_mm > 0)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "width_mm"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "products",
+      "name": "products_category_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (category_id) REFERENCES categories(id)",
+      "parent_schema": "public",
+      "parent_table": "categories",
+      "columns": [
+        "category_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "products",
+      "name": "products_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (price_max_minor >= price_min_minor)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "price_max_minor",
+        "price_min_minor"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "products",
+      "name": "products_delivery_availability_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (delivery_availability = ANY (ARRAY['confirm_with_workshop'::text, 'available'::text, 'unavailable'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "delivery_availability"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "products",
+      "name": "products_design_code_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (length(design_code) <= 200)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "design_code"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "products",
+      "name": "products_design_details_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (length(design_details) <= 2000)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "design_details"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "products",
+      "name": "products_installation_availability_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (installation_availability = ANY (ARRAY['confirm_with_workshop'::text, 'available'::text, 'unavailable'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "installation_availability"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "products",
+      "name": "products_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "products",
+      "name": "products_price_min_minor_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (price_min_minor >= 0)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "price_min_minor"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "products",
+      "name": "products_sku_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (sku)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "sku"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "products",
+      "name": "products_slug_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (slug)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "slug"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "products",
+      "name": "products_status_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (status = ANY (ARRAY['draft'::text, 'published'::text, 'archived'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "status"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "products",
+      "name": "products_weight_kg_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (weight_kg > 0::numeric AND weight_kg <= 10000000::numeric)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "weight_kg"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "profiles",
+      "name": "profiles_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (id) REFERENCES auth.users(id)",
+      "parent_schema": "auth",
+      "parent_table": "users",
+      "columns": [
+        "id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "profiles",
+      "name": "profiles_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "purchase_attachments",
+      "name": "purchase_attachments_created_by_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (created_by) REFERENCES profiles(id)",
+      "parent_schema": "public",
+      "parent_table": "profiles",
+      "columns": [
+        "created_by"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "purchase_attachments",
+      "name": "purchase_attachments_media_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (media_id) REFERENCES media_assets(id)",
+      "parent_schema": "public",
+      "parent_table": "media_assets",
+      "columns": [
+        "media_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "purchase_attachments",
+      "name": "purchase_attachments_media_id_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (media_id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "media_id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "purchase_attachments",
+      "name": "purchase_attachments_note_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (length(note) <= 500)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "note"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "purchase_attachments",
+      "name": "purchase_attachments_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "purchase_attachments",
+      "name": "purchase_attachments_purchase_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (purchase_id) REFERENCES purchases(id)",
+      "parent_schema": "public",
+      "parent_table": "purchases",
+      "columns": [
+        "purchase_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "purchase_items",
+      "name": "finite_quantity",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (quantity::text <> ALL (ARRAY['NaN'::text, 'Infinity'::text, '-Infinity'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "quantity"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "purchase_items",
+      "name": "purchase_items_discount_minor_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (discount_minor >= 0)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "discount_minor"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "purchase_items",
+      "name": "purchase_items_material_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (material_id) REFERENCES materials(id)",
+      "parent_schema": "public",
+      "parent_table": "materials",
+      "columns": [
+        "material_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "purchase_items",
+      "name": "purchase_items_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "purchase_items",
+      "name": "purchase_items_purchase_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (purchase_id) REFERENCES purchases(id)",
+      "parent_schema": "public",
+      "parent_table": "purchases",
+      "columns": [
+        "purchase_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "purchase_items",
+      "name": "purchase_items_quantity_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (quantity > 0::numeric)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "quantity"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "purchase_items",
+      "name": "purchase_items_rate_minor_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (rate_minor >= 0)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "rate_minor"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "purchase_items",
+      "name": "purchase_items_tax_bps_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (tax_bps >= 0 AND tax_bps <= 10000)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "tax_bps"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "purchase_returns",
+      "name": "finite_quantity",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (quantity::text <> ALL (ARRAY['NaN'::text, 'Infinity'::text, '-Infinity'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "quantity"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "purchase_returns",
+      "name": "purchase_returns_amount_minor_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (amount_minor >= 0)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "amount_minor"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "purchase_returns",
+      "name": "purchase_returns_created_by_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (created_by) REFERENCES profiles(id)",
+      "parent_schema": "public",
+      "parent_table": "profiles",
+      "columns": [
+        "created_by"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "purchase_returns",
+      "name": "purchase_returns_idempotency_key_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (idempotency_key)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "idempotency_key"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "purchase_returns",
+      "name": "purchase_returns_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "purchase_returns",
+      "name": "purchase_returns_purchase_item_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (purchase_item_id) REFERENCES purchase_items(id)",
+      "parent_schema": "public",
+      "parent_table": "purchase_items",
+      "columns": [
+        "purchase_item_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "purchase_returns",
+      "name": "purchase_returns_quantity_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (quantity > 0::numeric)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "quantity"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "purchases",
+      "name": "purchases_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "purchases",
+      "name": "purchases_status_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (status = ANY (ARRAY['draft'::text, 'received'::text, 'cancelled'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "status"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "purchases",
+      "name": "purchases_supplier_id_bill_number_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (supplier_id, bill_number)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "supplier_id",
+        "bill_number"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "purchases",
+      "name": "purchases_supplier_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (supplier_id) REFERENCES suppliers(id)",
+      "parent_schema": "public",
+      "parent_table": "suppliers",
+      "columns": [
+        "supplier_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "purchases",
+      "name": "purchases_total_minor_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (total_minor >= 0)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "total_minor"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "quality_checks",
+      "name": "quality_checks_created_by_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (created_by) REFERENCES profiles(id)",
+      "parent_schema": "public",
+      "parent_table": "profiles",
+      "columns": [
+        "created_by"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "quality_checks",
+      "name": "quality_checks_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "quality_checks",
+      "name": "quality_checks_work_order_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (work_order_id) REFERENCES work_orders(id)",
+      "parent_schema": "public",
+      "parent_table": "work_orders",
+      "columns": [
+        "work_order_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "quotation_versions",
+      "name": "quotation_versions_currency_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (currency = 'INR'::text)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "currency"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "quotation_versions",
+      "name": "quotation_versions_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "quotation_versions",
+      "name": "quotation_versions_quotation_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (quotation_id) REFERENCES quotations(id)",
+      "parent_schema": "public",
+      "parent_table": "quotations",
+      "columns": [
+        "quotation_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "quotation_versions",
+      "name": "quotation_versions_quotation_id_version_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (quotation_id, version)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "quotation_id",
+        "version"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "quotation_versions",
+      "name": "quotation_versions_total_minor_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (total_minor > 0)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "total_minor"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "quotation_versions",
+      "name": "quotation_versions_version_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (version > 0)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "version"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "quotation_versions",
+      "name": "safe_money",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (total_minor <= '9000000000000'::bigint)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "total_minor"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "quotations",
+      "name": "quotation_revision_metadata",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (revision_of IS NULL AND revision_key IS NULL AND revision_reason IS NULL AND revision_actor IS NULL OR revision_of IS NOT NULL AND revision_key IS NOT NULL AND length(revision_reason) >= 3 AND length(revision_reason) <= 500 AND revision_actor IS NOT NULL)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "revision_of",
+        "revision_key",
+        "revision_reason",
+        "revision_actor"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "quotations",
+      "name": "quotations_customer_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (customer_id) REFERENCES customers(id)",
+      "parent_schema": "public",
+      "parent_table": "customers",
+      "columns": [
+        "customer_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "quotations",
+      "name": "quotations_lead_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (lead_id) REFERENCES leads(id)",
+      "parent_schema": "public",
+      "parent_table": "leads",
+      "columns": [
+        "lead_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "quotations",
+      "name": "quotations_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "quotations",
+      "name": "quotations_revision_actor_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (revision_actor) REFERENCES profiles(id)",
+      "parent_schema": "public",
+      "parent_table": "profiles",
+      "columns": [
+        "revision_actor"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "quotations",
+      "name": "quotations_revision_key_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (revision_key)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "revision_key"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "quotations",
+      "name": "quotations_revision_of_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (revision_of) REFERENCES quotations(id)",
+      "parent_schema": "public",
+      "parent_table": "quotations",
+      "columns": [
+        "revision_of"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "quotations",
+      "name": "quotations_revision_of_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (revision_of)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "revision_of"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "quotations",
+      "name": "quotations_status_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (status = ANY (ARRAY['draft'::text, 'approved'::text, 'accepted'::text, 'rejected'::text, 'expired'::text, 'superseded'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "status"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "reviews",
+      "name": "reviews_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "reviews",
+      "name": "reviews_rating_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (rating >= 1 AND rating <= 5)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "rating"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "reviews",
+      "name": "reviews_status_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (status = ANY (ARRAY['pending'::text, 'published'::text, 'hidden'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "status"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "role_permissions",
+      "name": "role_permissions_permission_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (permission_id) REFERENCES permissions(id)",
+      "parent_schema": "public",
+      "parent_table": "permissions",
+      "columns": [
+        "permission_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "role_permissions",
+      "name": "role_permissions_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (role_id, permission_id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "role_id",
+        "permission_id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "role_permissions",
+      "name": "role_permissions_role_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (role_id) REFERENCES roles(id)",
+      "parent_schema": "public",
+      "parent_table": "roles",
+      "columns": [
+        "role_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "roles",
+      "name": "roles_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "site_settings",
+      "name": "site_settings_name_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (name)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "name"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "site_settings",
+      "name": "site_settings_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "stock_movements",
+      "name": "finite_quantity",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (quantity::text <> ALL (ARRAY['NaN'::text, 'Infinity'::text, '-Infinity'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "quantity"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "stock_movements",
+      "name": "stock_movements_created_by_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (created_by) REFERENCES profiles(id)",
+      "parent_schema": "public",
+      "parent_table": "profiles",
+      "columns": [
+        "created_by"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "stock_movements",
+      "name": "stock_movements_idempotency_key_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (idempotency_key)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "idempotency_key"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "stock_movements",
+      "name": "stock_movements_kind_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (kind = ANY (ARRAY['receipt'::text, 'consumption'::text, 'adjustment'::text, 'return'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "kind"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "stock_movements",
+      "name": "stock_movements_material_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (material_id) REFERENCES materials(id)",
+      "parent_schema": "public",
+      "parent_table": "materials",
+      "columns": [
+        "material_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "stock_movements",
+      "name": "stock_movements_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "stock_movements",
+      "name": "stock_movements_purchase_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (purchase_id) REFERENCES purchases(id)",
+      "parent_schema": "public",
+      "parent_table": "purchases",
+      "columns": [
+        "purchase_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "stock_movements",
+      "name": "stock_movements_quantity_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (quantity <> 0::numeric)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "quantity"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "stock_movements",
+      "name": "stock_movements_unit_cost_minor_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (unit_cost_minor >= 0)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "unit_cost_minor"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "stock_movements",
+      "name": "stock_movements_work_order_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (work_order_id) REFERENCES work_orders(id)",
+      "parent_schema": "public",
+      "parent_table": "work_orders",
+      "columns": [
+        "work_order_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "stock_reservations",
+      "name": "finite_consumed_quantity",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (consumed_quantity::text <> ALL (ARRAY['NaN'::text, 'Infinity'::text, '-Infinity'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "consumed_quantity"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "stock_reservations",
+      "name": "finite_quantity",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (quantity::text <> ALL (ARRAY['NaN'::text, 'Infinity'::text, '-Infinity'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "quantity"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "stock_reservations",
+      "name": "reservation_consumed_bounds",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (consumed_quantity >= 0::numeric AND consumed_quantity <= quantity)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "consumed_quantity",
+        "quantity"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "stock_reservations",
+      "name": "stock_reservations_material_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (material_id) REFERENCES materials(id)",
+      "parent_schema": "public",
+      "parent_table": "materials",
+      "columns": [
+        "material_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "stock_reservations",
+      "name": "stock_reservations_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "stock_reservations",
+      "name": "stock_reservations_quantity_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (quantity > 0::numeric)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "quantity"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "stock_reservations",
+      "name": "stock_reservations_released_by_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (released_by) REFERENCES profiles(id)",
+      "parent_schema": "public",
+      "parent_table": "profiles",
+      "columns": [
+        "released_by"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "stock_reservations",
+      "name": "stock_reservations_status_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (status = ANY (ARRAY['active'::text, 'consumed'::text, 'released'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "status"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "stock_reservations",
+      "name": "stock_reservations_work_order_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (work_order_id) REFERENCES work_orders(id)",
+      "parent_schema": "public",
+      "parent_table": "work_orders",
+      "columns": [
+        "work_order_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "supplier_payments",
+      "name": "supplier_payments_amount_minor_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (amount_minor > 0)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "amount_minor"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "supplier_payments",
+      "name": "supplier_payments_created_by_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (created_by) REFERENCES profiles(id)",
+      "parent_schema": "public",
+      "parent_table": "profiles",
+      "columns": [
+        "created_by"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "supplier_payments",
+      "name": "supplier_payments_idempotency_key_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (idempotency_key)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "idempotency_key"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "supplier_payments",
+      "name": "supplier_payments_mode_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (mode = ANY (ARRAY['cash'::text, 'bank'::text, 'upi'::text, 'cheque'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "mode"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "supplier_payments",
+      "name": "supplier_payments_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "supplier_payments",
+      "name": "supplier_payments_purchase_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (purchase_id) REFERENCES purchases(id)",
+      "parent_schema": "public",
+      "parent_table": "purchases",
+      "columns": [
+        "purchase_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "suppliers",
+      "name": "suppliers_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "upload_intents",
+      "name": "catalog_video_only",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (resource_type = 'image'::text OR context = 'product'::text AND visibility = 'public'::text AND owner_user_id IS NOT NULL AND lead_id IS NULL)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "resource_type",
+        "context",
+        "visibility",
+        "owner_user_id",
+        "lead_id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "upload_intents",
+      "name": "upload_actor",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (owner_user_id IS NOT NULL OR lead_id IS NOT NULL)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "owner_user_id",
+        "lead_id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "upload_intents",
+      "name": "upload_intents_context_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (context = ANY (ARRAY['product'::text, 'gallery'::text, 'customer_design'::text, 'delivery_proof'::text, 'invoice'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "context"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "upload_intents",
+      "name": "upload_intents_lead_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (lead_id) REFERENCES leads(id)",
+      "parent_schema": "public",
+      "parent_table": "leads",
+      "columns": [
+        "lead_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "upload_intents",
+      "name": "upload_intents_owner_user_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (owner_user_id) REFERENCES profiles(id)",
+      "parent_schema": "public",
+      "parent_table": "profiles",
+      "columns": [
+        "owner_user_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "upload_intents",
+      "name": "upload_intents_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "upload_intents",
+      "name": "upload_intents_public_id_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (public_id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "public_id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "upload_intents",
+      "name": "upload_intents_resource_type_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (resource_type = ANY (ARRAY['image'::text, 'video'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "resource_type"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "upload_intents",
+      "name": "upload_intents_visibility_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (visibility = ANY (ARRAY['public'::text, 'private'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "visibility"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "user_roles",
+      "name": "user_roles_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (user_id, role_id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "user_id",
+        "role_id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "user_roles",
+      "name": "user_roles_role_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (role_id) REFERENCES roles(id)",
+      "parent_schema": "public",
+      "parent_table": "roles",
+      "columns": [
+        "role_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "user_roles",
+      "name": "user_roles_user_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (user_id) REFERENCES profiles(id)",
+      "parent_schema": "public",
+      "parent_table": "profiles",
+      "columns": [
+        "user_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "website_sections",
+      "name": "website_sections_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "website_sections",
+      "name": "website_sections_status_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (status = ANY (ARRAY['draft'::text, 'published'::text, 'archived'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "status"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "work_entries",
+      "name": "finite_quantity",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (quantity::text <> ALL (ARRAY['NaN'::text, 'Infinity'::text, '-Infinity'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "quantity"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "work_entries",
+      "name": "work_entries_amount_minor_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (amount_minor > 0)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "amount_minor"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "work_entries",
+      "name": "work_entries_created_by_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (created_by) REFERENCES profiles(id)",
+      "parent_schema": "public",
+      "parent_table": "profiles",
+      "columns": [
+        "created_by"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "work_entries",
+      "name": "work_entries_idempotency_key_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (idempotency_key)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "idempotency_key"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "work_entries",
+      "name": "work_entries_labour_rate_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (labour_rate_id) REFERENCES labour_rates(id)",
+      "parent_schema": "public",
+      "parent_table": "labour_rates",
+      "columns": [
+        "labour_rate_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "work_entries",
+      "name": "work_entries_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "work_entries",
+      "name": "work_entries_quantity_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (quantity > 0::numeric)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "quantity"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "work_entries",
+      "name": "work_entries_rate_minor_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (rate_minor > 0)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "rate_minor"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "work_entries",
+      "name": "work_entries_status_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (status = 'approved'::text)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "status"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "work_entries",
+      "name": "work_entries_work_order_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (work_order_id) REFERENCES work_orders(id)",
+      "parent_schema": "public",
+      "parent_table": "work_orders",
+      "columns": [
+        "work_order_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "work_entries",
+      "name": "work_entries_worker_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (worker_id) REFERENCES workers(id)",
+      "parent_schema": "public",
+      "parent_table": "workers",
+      "columns": [
+        "worker_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "work_orders",
+      "name": "finite_planned_weight_kg",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (planned_weight_kg::text <> ALL (ARRAY['NaN'::text, 'Infinity'::text, '-Infinity'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "planned_weight_kg"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "work_orders",
+      "name": "work_orders_assigned_to_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (assigned_to) REFERENCES profiles(id)",
+      "parent_schema": "public",
+      "parent_table": "profiles",
+      "columns": [
+        "assigned_to"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "work_orders",
+      "name": "work_orders_order_id_fkey",
+      "kind": "f",
+      "validated": true,
+      "definition": "FOREIGN KEY (order_id) REFERENCES orders(id)",
+      "parent_schema": "public",
+      "parent_table": "orders",
+      "columns": [
+        "order_id"
+      ],
+      "parent_columns": [
+        "id"
+      ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "work_orders",
+      "name": "work_orders_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "work_orders",
+      "name": "work_orders_planned_weight_kg_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (planned_weight_kg >= 0::numeric)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "planned_weight_kg"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "work_orders",
+      "name": "work_orders_status_check",
+      "kind": "c",
+      "validated": true,
+      "definition": "CHECK (status = ANY (ARRAY['pending'::text, 'fabrication'::text, 'finishing'::text, 'quality_check'::text, 'ready'::text]))",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "status"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "workers",
+      "name": "workers_pkey",
+      "kind": "p",
+      "validated": true,
+      "definition": "PRIMARY KEY (id)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "id"
+      ],
+      "parent_columns": []
     }
   ]
 }

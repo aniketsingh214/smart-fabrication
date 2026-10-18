@@ -1,4 +1,4 @@
-﻿# SmartFabrication — Project Status Audit
+# SmartFabrication — Project Status Audit
 
 Audit date: 2026-10-15 (India)
 Requested scope: analysis only; create this report without changing existing application code.
@@ -7,7 +7,7 @@ Requested scope: analysis only; create this report without changing existing app
 
 The project has a real backend, not only a website UI. Next.js Route Handlers call Supabase tables and PostgreSQL RPCs; migrations implement permissions, RLS, transactions, state guards and immutable financial history. Cloudinary signed uploads and Supabase authentication have real integration evidence.
 
-It is nevertheless **not fully complete or approved for daily production use**. The current phase register closes **1 of 20 phases** and leaves **19 partially implemented / awaiting acceptance**. This is a phase-gate count, **not 5% implementation progress**. No measured task weighting supports an honest overall completion percentage.
+It is nevertheless **not fully complete or approved for daily production use**. At the original 2026-10-15 audit, the phase register closed **1 of 20 phases** and left **19 partially implemented / awaiting acceptance**. See the current progress register for subsequent results. This is a phase-gate count, **not 5% implementation progress**. No measured task weighting supports an honest overall completion percentage.
 
 Most core modules have UI + API + database implementation. The largest remaining gaps are complete real browser workflow acceptance, some missing features, real business configuration, finance/accountant decisions, operational recovery and deployment.
 
@@ -207,3 +207,35 @@ Only the current development project is available, as confirmed by the user. Clo
 
 
 Latest configured-development result, 2026-10-16: all 186 live Supabase database checks passed; test users and fixtures rolled back. This is distinct from the 186 restored-local checks and 11 local committed concurrency assertions. Public browser rerun: 24/24 passed after the PDF changes. Documentation link/traceability check passed.
+
+## Current technical continuation — 2026-10-16
+
+- Applied schema documentation is synchronized: 58 tables, 95 foreign keys, 316 constraints and 39 migrations, captured in a read-only transaction. Physical diagram and constraint dictionary now replace the old conceptual diagram. Phase 02 still needs broader module/UX acceptance.
+- Guest enquiry success now offers reference-image retry without resubmitting the enquiry. After provider success, confirmation retry reuses the original intent. Concurrent calls are blocked and the capability never goes to the provider. Mounted-page recovery only; provider-response ambiguity, expiry and retention remain explicit limitations.
+- Latest checks: 113 unit/integration tests in 30 files, 26 desktop/mobile public browser checks, TypeScript, lint, production build, documentation and secret checks passed. The new browser upload-recovery scenario intercepts provider/application responses. Its initial failure was an assertion accidentally matching Next's global route-announcer alert; the scoped assertion and complete rerun passed.
+- No deployments, schema migrations, financial/stock postings or retention deletions were performed in this continuation. Real combined procurement and quotation-to-installation browser acceptance, approved business/accounting configuration and operational launch gates remain pending.
+
+## Current technical continuation — 2026-10-16
+
+Mobile: seven independent live shipped-SDK checks passed, including safe profile writes, notification pagination/read retries, permission/object denials, refresh and disabled-profile enforcement. Type-checked example and offline/push/compatibility handoff added. Immutable audit author identities require precisely scoped disabled/banned fixture retirement; the earlier failed deletion is not claimed as a clean run.
+
+Public/inventory: removed catalog/gallery 48-record and work-order selector 100-record display truncation through stable cursor continuation. Public suite: 28 desktop/mobile checks pass. Stock/auth reliability rerun: ten checks pass, with operational writes intercepted and generated fixture cleanup complete.
+
+Media: read-only stale-intent review passed with zero matching records. This is not provider-orphan deletion or approved retention policy.
+
+Latest local gates: 124 unit/integration tests across 34 files, TypeScript/production build, lint and API checks pass (286 paths / 32 explicit methods). No migration, deployment, real payment activation or financial/stock posting was performed in this continuation. Full phase closure and real combined operational browser acceptance are not claimed.
+
+## Implementation continuation — 2026-10-17
+
+The analysis-only snapshot above is historical; the user subsequently authorized implementation and testing. Current local phase-gate closures remain 01 and 13 (2/20), with the other 18 requiring some feature, workflow, business or launch acceptance. This is not an implementation percentage. Three additive migrations (40–42) add featured products, verified category photos and serialized cycle-safe hierarchy edits; all 58 public tables retain RLS. Seven combined real CMS/category-photo/catalog/customer/sales checks pass, including the asynchronous-reference category-loss regression. Native empty-schema/restore verification passes 199 workflows and 15 committed concurrency assertions. Current unit/integration suite is 131 tests across 38 files. See [current progress](docs/progress.md) and [publication acceptance](docs/operations/catalog-publication-acceptance.md) for actual scope, retained fixtures and outstanding work. No deployment or real payment activation occurred.
+At that checkpoint, development verification passed 199 rollback checks and 32 public desktop/mobile checks. The continuation below supersedes the delivery/installation implementation gap.
+
+## Steps 1–2 continuation — 2026-10-17
+
+Product delivery/installation availability and verified product-media association are implemented. A shared SQL calculator now supports protected draft preview, exact rate provenance, immutable estimate history and internal BOM component visibility. The public calculator preserves dimensions on failure and carries product/dimension context to an enquiry. Four additive migrations (43–46) are applied; original migrations and old financial/estimate values were not rewritten.
+
+Latest combined catalog-only real browser acceptance passed eight checks; targeted calculator acceptance also passed. Public desktop/mobile suite passed 34 checks; unit/integration suite passed 141 tests across 40 files; production build passed. Native synthetic restore passed 46 migrations, 227 SQL/RLS checks and 15 committed concurrency assertions. Real media/Auth/API responses were used in combined acceptance; public regression tests label their simulated responses separately.
+
+Read-only readiness audit: zero active materials and zero published products; nine retained test rate versions are not approved business configuration. Actual workshop rates/BOM/formulas/examples, optional depth/thickness formula scope, remaining operational journeys, business/accountant acceptance and launch gates remain open. Local phase closures remain 01 and 13 (2/20); this is not an implementation percentage. No deployment, real payment activation or financial/stock posting was performed by this continuation. See [current progress](docs/progress.md).
+
+Final live regression: 227 configured-development SQL/RLS checks passed and all test business fixtures rolled back. The expanded six-role session suite passed 18 top-level checks, including 270 registered-list assertions, 30 special read probes and 24 non-lasting POST probes; generated session identity cleanup completed.

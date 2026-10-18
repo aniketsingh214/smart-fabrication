@@ -1,11 +1,23 @@
-﻿'use client';
-import { useState } from 'react';
+'use client';
+import { useRef, useState } from 'react';
 import type { ProductVariant,ProductOption } from '@/contracts/catalog';
 import { Button } from '@/components/ui/button';
-import { uploadImage } from '@/features/media/upload';
+import { referenceUpload } from '@/features/media/reference-upload';
+
 export function EnquiryForm({product,initialRequirement,variants=[],options=[]}:{product?:string;initialRequirement?:string;variants?:ProductVariant[];options?:ProductOption[]}) {
   const [busy,setBusy]=useState(false),[error,setError]=useState(''),[done,setDone]=useState(false);
+  const [referenceRetry,setReferenceRetry]=useState(false);
+  const reference=useRef<ReturnType<typeof referenceUpload> | null>(null), submitting=useRef(false);
+  async function attachReference() {
+    if(submitting.current||!reference.current)return;
+    submitting.current=true;setBusy(true);setError('');
+    try {await reference.current();reference.current=null;}
+    catch(e){setError(`Your enquiry is saved. Reference image could not be attached: ${e instanceof Error?e.message:'please contact the workshop'}`);}
+    finally{submitting.current=false;setReferenceRetry(Boolean(reference.current));setBusy(false);}
+  }
   async function submit(form:FormData) {
+    if(submitting.current)return;
+    submitting.current=true;
     setBusy(true);setError('');
     try {
       const file=form.get('design');
@@ -16,20 +28,21 @@ export function EnquiryForm({product,initialRequirement,variants=[],options=[]}:
       if(!response.ok)throw new Error(result.error?.message??'Unable to send enquiry');
       setDone(true);
       if(file instanceof File&&file.size) {
-        try {if(!result.data.uploadToken)throw new Error('Image uploads are not configured yet');await uploadImage(file,'customer_design',result.data.uploadToken);}
+        try {if(!result.data.uploadToken)throw new Error('Image uploads are not configured yet');reference.current=referenceUpload(file,result.data.uploadToken);await reference.current();reference.current=null;}
         catch(e){setError(`Your enquiry is saved. Reference image could not be attached: ${e instanceof Error?e.message:'please contact the workshop'}`);}
       }
     } catch(e) {setError(e instanceof Error?e.message:'Unable to connect. Please try again.');}
-    finally {setBusy(false);}
+    finally {submitting.current=false;setReferenceRetry(Boolean(reference.current));setBusy(false);}
   }
   if(done)return <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-8" role="status">
     <h2 className="text-xl font-bold text-emerald-800">Your enquiry has been received.</h2>
     <p className="mt-3 text-sm leading-6 text-emerald-700">Our team will review your requirement and follow up about measurement and a quotation.</p>
     {busy&&<p className="mt-3 text-xs text-emerald-700">Attaching your reference image…</p>}
     {error&&<p role="alert" className="mt-4 text-sm text-orange-800">{error}</p>}
-    <Button variant="outline" disabled={busy} className="mt-6" onClick={()=>{setDone(false);setError('');}}>Send another enquiry</Button>
+    {error&&referenceRetry&&<Button disabled={busy} className="mt-4" onClick={()=>void attachReference()}>Retry reference image</Button>}
+    <Button variant="outline" disabled={busy} className="mt-6" onClick={()=>{reference.current=null;setReferenceRetry(false);setDone(false);setError('');}}>Send another enquiry</Button>
   </div>;
-  return <form onSubmit={event=>{event.preventDefault();void submit(new FormData(event.currentTarget));}} className="space-y-5">
+  return <form method="post" action="#" onSubmit={event=>{event.preventDefault();if(!busy)void submit(new FormData(event.currentTarget));}} className="space-y-5">
     <div className="grid gap-5 sm:grid-cols-2">
       <label>Your name<input className="mt-2" name="name" required minLength={2} maxLength={120} autoComplete="name"/></label>
       <label>Mobile / WhatsApp<input className="mt-2" name="phone" type="tel" required pattern="[+0-9 ()-]{10,20}" autoComplete="tel"/></label>

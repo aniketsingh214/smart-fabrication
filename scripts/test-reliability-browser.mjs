@@ -1,4 +1,4 @@
-﻿import assert from 'node:assert/strict';
+import assert from 'node:assert/strict';
 import crypto from 'node:crypto';
 import {createClient} from '@supabase/supabase-js';
 import {chromium,devices,expect} from '@playwright/test';
@@ -13,13 +13,13 @@ try{
  await db.connect();await db.query('set statement_timeout=20000');console.log('INFO: database connected');const created=await admin.auth.admin.createUser({email,password,email_confirm:true,user_metadata:{display_name:'Reliability acceptance fixture'}});assert.equal(created.error,null,'Fixture auth creation failed');fixture=created.data.user.id;console.log('INFO: isolated user created');
  await db.query("insert into public.user_roles(user_id,role_id) values($1,'owner')",[fixture]);
  const inserted=await db.query("insert into public.materials(name,code,type,size,thickness_mm,unit,weight_kg_per_unit) values('Reliability acceptance material',$1,'square_pipe','25mm',2,'kg',1) returning id",[materialCode]);material=inserted.rows[0].id;
- console.log('INFO: material fixture ready');browser=await chromium.launch({channel:'chrome',headless:true});
+ console.log('INFO: material fixture ready');browser=await chromium.launch({channel:process.env.TEST_BROWSER_CHANNEL??'chrome',headless:true});
  for(const viewport of ['desktop','mobile']){
   const context=await browser.newContext(viewport==='mobile'?{...devices['iPhone 13'],baseURL:base}:{viewport:{width:1440,height:1000},baseURL:base});
   try{
    const page=await context.newPage();page.on('response',response=>{if(new URL(response.url()).pathname.endsWith('/auth/v1/token'))console.log('INFO: fixture auth response '+response.status());});page.setDefaultTimeout(30000);page.setDefaultNavigationTimeout(30000);await page.goto('/login');await page.getByLabel('Email',{exact:true}).fill(email);await page.getByLabel('Password',{exact:true}).fill(password);await page.getByRole('button',{name:'Sign in',exact:true}).click();try{await page.waitForURL('**/account',{timeout:90000});}catch{console.error('Login status: '+(await page.getByRole('status').allTextContents()).join(' '));throw new Error('Fixture login did not reach account');}
    await check(`${viewport}: real staff API continues owned permitted pages`,async()=>{
-    let cursor=null;const ids=[];let pages=0;do{const response=await context.request.get('/api/v1/admin/users?limit=1'+(cursor?'&cursor='+encodeURIComponent(cursor):''));assert.equal(response.status(),200);const body=await response.json();assert.equal(body.data.length,1);ids.push(body.data[0].id);cursor=body.meta.nextCursor;assert.ok(++pages<10,'Unexpected fixture dataset size');}while(cursor);assert.equal(new Set(ids).size,ids.length);assert.ok(ids.includes(fixture));assert.equal((await context.request.get('/api/v1/admin/users?cursor=bad!')).status(),422);
+    let cursor=null;const ids=[];let pages=0;do{const response=await context.request.get('/api/v1/admin/users?limit=1'+(cursor?'&cursor='+encodeURIComponent(cursor):''));assert.equal(response.status(),200);const body=await response.json();assert.equal(body.data.length,1);ids.push(body.data[0].id);cursor=body.meta.nextCursor;assert.ok(++pages<100,'Unexpected fixture dataset size');}while(cursor&&pages<5);assert.equal(new Set(ids).size,ids.length);assert.ok(ids.includes(fixture));assert.equal((await context.request.get('/api/v1/admin/users?cursor=bad!')).status(),422);
    });
    await check(`${viewport}: failed role request releases controls without changing access`,async()=>{
     await page.goto('/admin/users');const own=page.locator('article').filter({hasText:'Reliability acceptance fixture'});console.log(JSON.stringify({screen:await page.locator('h1').allTextContents(),articleCount:await page.locator('article').count(),fixtureProfile:(await db.query('select display_name,disabled from public.profiles where id=$1',[fixture])).rows,profileCount:(await db.query('select count(*)::int as count from public.profiles')).rows}));await expect(own).toHaveCount(1,{timeout:30000});

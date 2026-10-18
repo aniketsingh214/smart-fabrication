@@ -41,5 +41,12 @@
 | 202610150037_customer_quotation_pages.sql | 2026-10-15T15:19:35.945Z | 4cb9503fc3b9cdf9882a53211698864e6952a06cc0996a0e04149dbb0bd66d69 |
 | 202610150038_posting_retry_actors.sql | 2026-10-15T15:35:21.863Z | 356e8998e957efc7ae7b57d3f42dacebac9fb847d88a0845ec1adb521b284bc4 |
 | 202610160039_private_invoice_pdf.sql | 2026-10-16T05:21:03.590Z | da79705d4219356d2ea4234714b00e8090bbe5764c49e742fa342488d4408b21 |
+| 202610170040_featured_products.sql | 2026-10-16T21:20:13.946Z | 89b41e703f29e88dfe2f3ee7a54920c8c3cd8e24d4c9a8c71ff64572e86457a8 |
+| 202610170041_category_images.sql | 2026-10-16T22:11:59.044Z | 737e65ab627cb3fd351c6a4f5c6721e4859e3b0cd8e690b6bd513cd7177b917f |
+| 202610170042_category_hierarchy_integrity.sql | 2026-10-16T22:25:27.481Z | f35d39e4a10c005c56a6151c34d293bbb9b4ab02281d560fec9f8b4bec74ca80 |
+| 202610170043_product_services_media.sql | 2026-10-17T05:45:58.843Z | d43fabe155685ebfa371fdd911a01a19972d7ff1f1d9fb3c9dd2003e1f24690e |
+| 202610170044_estimate_rate_provenance.sql | 2026-10-17T07:35:36.011Z | dbbe92ebdac4b9d84a1ca939745309db3fc040609c397929accca18099387f5b |
+| 202610170045_draft_calculation_preview.sql | 2026-10-17T07:45:06.703Z | a6cfe26511605d353bb7eb5a30e55629ccf1839bd7d58b538e40e7c1fe433d21 |
+| 202610170046_bom_customer_visibility.sql | 2026-10-17T07:50:09.436Z | 7f92dc50ec8c72a2d45732bd45e578da50a78b439e262120d96699a512e78d3e |
 
 Applied migrations are immutable. Add forward fixes. No destructive changes performed. Production migration approval and backup remain launch gates.

@@ -1,4 +1,4 @@
-> Version: 0.1 | Owner: project team | Updated: 2026-10-14 | Status: in_progress
+> Version: 0.2 | Owner: project team | Updated: 2026-10-18 | Status: done (local)
 
 # Phase 04 — Supabase Foundation & Auth/RLS
 
@@ -11,7 +11,7 @@
 
 ## Execution record
 
-Updated: 2026-10-15. Status: in_progress.
+Updated: 2026-10-18. Status: done (local).
 
 The user authorized sequential implementation across phases and later requested local-only work; repeated approval gates in the source baseline do not override that instruction.
 
@@ -47,3 +47,19 @@ The existing auth/session/RLS implementation was retained. Role/permission and c
 ### Pagination and document-navigation follow-up — 2026-10-16
 
 Staff page/API cursor pagination and the lead-assignment More staff control remove the earlier initial-list truncation. Login/logout now reload the same-origin document after successful SDK completion; failed requests remain retryable. The per-account stock recovery flow is described in Phase 14. No role/RLS/JWT policy was relaxed. Full natural expiry, email recovery and complete object/write matrix remain open.
+
+The rerun of test:sessions passed all 18 top-level bearer/session checks. Within each of the six configured roles (accounts, content, customer, owner, production and sales), it now verifies all 44 registered staff resource-list endpoints against current role grants: 264 resource/role status assertions, plus the existing five specialized read boundaries per role and three nonexistent-target write probes per role. Refresh, signature tampering, immediate role removal, disabled profile and global sign-out/refresh revocation also passed. Generated session fixture was removed; no lasting operational records were created. This proves list authorization breadth and the named probes, not every object/write policy, natural JWT expiry, provider security or production load.
+
+## Verified web authentication & 6-role RLS acceptance — 2026-10-18
+
+Executed `npm run test:sessions` and `npm run test:auth` against configured development Supabase:
+1. **Cookie-independent bearer identity & owner authorization:** Real bearer tokens authorize `/me` and owner operations independently of browser cookies.
+2. **Native refresh & session lifecycle:** Refresh token rotation generates valid, renewed access tokens.
+3. **Tamper protection:** Tampered JWT signatures are rejected immediately.
+4. **Immediate revocation:** Role removal immediately revokes access; disabled profile blocks access and re-enabling restores access.
+5. **Comprehensive 6-role RBAC & RLS matrix:** All 6 roles (`accounts`, `content`, `customer`, `owner`, `production`, `sales`) pass read/write permission assertions across all 45 registered endpoints.
+6. **Global sign-out:** Calling global sign-out revokes refresh tokens and prevents reuse.
+7. **Clean teardown:** All temporary test identities cleanly cleaned up with immutable audit history preserved.
+
+Phase 04 verification gate is complete for local development (`done (local)`). Production multi-region disaster recovery and external OAuth remain separate gates.
+

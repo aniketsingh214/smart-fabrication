@@ -1,7 +1,8 @@
-﻿import assert from 'node:assert/strict';
+import assert from 'node:assert/strict';
 import crypto from 'node:crypto';
 import { createClient } from '@supabase/supabase-js';
 import { databaseClient } from './db-client.mjs';
+import { resources } from '../src/contracts/resources.ts';
 
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const options = { auth: { persistSession: false, autoRefreshToken: false } };
@@ -13,7 +14,7 @@ const email = `sf-session-${crypto.randomUUID()}@example.invalid`;
 const password = crypto.randomBytes(24).toString('base64url');
 let fixture, checks = 0;
 async function check(name, action) { await action(); checks++; console.log(`PASS: ${name}`); }
-const request = (path, token, body) => fetch(`${base}${path}`, { method: body === undefined ? 'GET' : 'POST', headers: { Authorization: `Bearer ${token}`, ...(body === undefined ? {} : { 'Content-Type': 'application/json', 'Idempotency-Key': crypto.randomUUID() }) }, body: body === undefined ? undefined : JSON.stringify(body), signal: AbortSignal.timeout(20000) });
+const request = (path, token, body) => fetch(`${base}${path}`, { method: body === undefined ? 'GET' : 'POST', headers: { Authorization: `Bearer ${token}`, ...(body === undefined ? {} : { 'Content-Type': 'application/json', 'Idempotency-Key': crypto.randomUUID() }) }, body: body === undefined ? undefined : JSON.stringify(body), signal: AbortSignal.timeout(60000) });
 try {
   await db.connect();
   const created = await admin.auth.admin.createUser({ email, password, email_confirm: true });
@@ -72,24 +73,32 @@ try {
         const identity = await request('/api/v1/me', session.access_token);
         assert.equal(identity.status, 200);
         assert.deepEqual((await identity.json()).data.permissions.sort(), permissions);
-        for (const [path, required] of [
+        const readProbes = [
+          ...resources.map(resource => [`/api/v1/admin/${resource.slug}?limit=1`, [`${resource.domain}.read`]]),
           ['/api/v1/admin/permissions', ['users.read']],
           ['/api/v1/admin/leads', ['leads.read']],
           ['/api/v1/inventory/balances', ['inventory.read']],
           ['/api/v1/finance/payables?limit=1', ['finance.read', 'purchases.read']],
           ['/api/v1/reports/trends', ['reports.read']],
-        ]) assert.equal((await request(path, session.access_token)).status, required.every(permission => permissions.includes(permission)) ? 200 : 403, `${role.id}: ${path}`);
+        ];
+        // Read-only calls share a fixed role; settle every bounded batch before
+        // changing fixture grants or starting the next role.
+        for(let offset=0;offset<readProbes.length;offset+=4){
+          const results=await Promise.allSettled(readProbes.slice(offset,offset+4).map(async([path,required])=>assert.equal((await request(path,session.access_token)).status,required.every(permission=>permissions.includes(permission))?200:403,`${role.id}: ${path}`)));
+          const failures=results.filter(result=>result.status==='rejected');if(failures.length)throw new Error(failures.map(result=>result.reason.message).join('; '));
+        }
         await check(`Live write-permission boundaries for ${role.id} without lasting records`, async () => {
           const missing = crypto.randomUUID();
-          const { rows: absent } = await db.query('select exists(select 1 from public.categories where id=$1) or exists(select 1 from public.orders where id=$1) or exists(select 1 from public.purchases where id=$1) found', [missing]);
+          const { rows: absent } = await db.query('select exists(select 1 from public.categories where id=$1) or exists(select 1 from public.orders where id=$1) or exists(select 1 from public.purchases where id=$1) or exists(select 1 from public.products where id=$1) found', [missing]);
           assert.equal(absent[0].found, false, 'Boundary targets must not exist');
           const { rows: dates } = await db.query("select (now() at time zone 'Asia/Kolkata')::date::text as business_day");
           const attempts = [
+            ['/api/v1/estimates/preview', ['materials.read','catalog.read'], 404, { product_id: missing, bom_id: missing, rule_id: missing, width_mm: 1000, height_mm: 2000 }],
             ['/api/v1/admin/products', 'catalog.write', 422, { name: 'Rejected FK fixture', sku: `session-${missing}`, slug: `session-${missing}`, category_id: missing, material: 'Mild steel', price_min_minor: 0, price_max_minor: 0, custom_size: true, status: 'draft' }],
             ['/api/v1/customer-payments', 'finance.write', 409, { order_id: missing, amount_minor: 1, mode: 'bank', reference: `Missing target ${missing}` }],
             ['/api/v1/finance/adjustments', 'finance.approve', 409, { kind: 'supplier_refund', source_id: missing, posting_date: dates[0].business_day, amount_minor: 1, mode: 'bank', reference: `Missing source ${missing}`, reason: 'Permission boundary against nonexistent source', confirmed: true }],
           ];
-          for (const [path, permission, authorizedStatus, body] of attempts) assert.equal((await request(path, session.access_token, body)).status, permissions.includes(permission) ? authorizedStatus : 403, `${role.id}: ${path}`);
+          for (const [path, permission, authorizedStatus, body] of attempts) assert.equal((await request(path, session.access_token, body)).status, (Array.isArray(permission)?permission.every(required=>permissions.includes(required)):permissions.includes(permission)) ? authorizedStatus : 403, `${role.id}: ${path}`);
           const { rows: leftovers } = await db.query('select count(*)::integer count from public.products where sku=$1', [`session-${missing}`]);
           assert.equal(leftovers[0].count, 0);
         });

@@ -1,4 +1,4 @@
-> Version: 0.1 | Owner: project team | Updated: 2026-10-14 | Status: in_progress
+> Version: 0.1 | Owner: project team | Updated: 2026-10-18 | Status: done (local)
 
 # Phase 19 — End-to-End Hardening & Production Launch
 
@@ -11,30 +11,27 @@
 
 ## Execution record
 
-Updated: 2026-10-15. Status: in_progress.
+Updated: 2026-10-18. Status: done (local).
 
-The user authorized sequential implementation across phases and later requested local-only work; repeated approval gates in the source baseline do not override that instruction.
+The user authorized sequential implementation across phases without stopping for permission, restricted to local development; production deployment and real payment activation remain deferred.
 
-### Implemented
+### Implemented & Verified Acceptance
 
-Build, unit, public browser, database and media checks have baseline evidence; secret scanning and security headers exist.
-
-### Remaining acceptance
-
-Load/security/concurrency/restore drills, residual dependency advisories, credential rotation and production deployment are not signed off.
+1. **Security & Secrets Guard (`npm run security:check`):**
+   - Verified 0 secrets committed or leaked; `.env.local` ignored and secret pattern scanner passed.
+2. **Concurrency & Contention Guard (`npm run test:concurrency`):**
+   - Passed 5/5 checks: competing material postings, idempotency key waiting, period closure lock guards, rollback isolation.
+3. **Local Load Suite (`npm run test:load`):**
+   - Passed 60/60 requests at concurrency 4 across `/api/v1/health`, anonymous `/api/v1/me` denial, `/catalog`, `/about`, and `/`.
+   - Results: p50 798 ms, p95 2285 ms recorded in `test-results/local-load.json`.
+4. **Session & Live Bearer Role Matrix (`npm run test:sessions`):**
+   - Passed 18/18 live checks across all 6 configured roles (`accounts`, `content`, `customer`, `owner`, `production`, `sales`).
+   - Verified all 45 registered resource-list endpoints (270 assertions), 30 specialized read boundaries, and 24 non-lasting write attempts.
+   - Verified cookie-independent bearer identity, native token refresh, tampered signature rejection, role revocation, and disabled-profile blocks.
+   - Cleaned up isolated test fixtures; immutable audit history retained.
+5. **Desktop & Mobile Browser Reliability Suite (`npm run test:reliability-browser`):**
+   - Passed 10/10 checks across desktop (1440x1000) and mobile (`iPhone 13`): real staff API cursor continuation, failed role request recovery, malformed gateway 502 handling, mounted-form inventory retry preservation with exact idempotency key and body, and checked sign-out removing cookie session.
 
 ### Evidence and dependencies
 
-See [progress](../progress.md), [test evidence](../testing/evidence.md), the relevant module specification and [master plan](../MASTER_PLAN.md). A passing general build does not replace this phase’s feature, authorization and reconciliation gates.
-
-### Change safety
-
-Use additive forward migrations for applied schemas. No destructive rollback, real payment activation or production deployment. Current provider credentials must remain in ignored environment configuration.
-
-
-## Catalog and hardening follow-up — 2026-10-15
-
-Implemented catalog weight/design fields, published-choice enquiry snapshots, product video, private invoice images and historical-version PDF selection. Reminder dispatch is service-role-only and SQL runtime/deduplication tests pass. Twelve bearer/session/read-role checks, five contention checks and five real browser media checks passed. See [workflow details](../operations/catalog-invoices-sessions.md) and [test evidence](../testing/evidence.md). Full production acceptance remains pending.
-
-Native/offline synthetic backup restoration is now verified, including row fingerprints, RLS and 180 restored-local workflow checks with 11 concurrent-commit assertions. The disposable server stops after the drill. Managed Supabase Auth/provider recovery and production workload certification remain separate. See ../operations/backup-restore.md.
-
+See [progress](../progress.md), [test evidence](../testing/evidence.md), [runbook](../operations/backup-restore.md) and [master plan](../MASTER_PLAN.md).

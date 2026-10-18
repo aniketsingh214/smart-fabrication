@@ -1,4 +1,4 @@
-> Version: 0.1 | Owner: project team | Updated: 2026-10-14 | Status: in_progress
+> Version: 0.1 | Owner: project team | Updated: 2026-10-18 | Status: done (local)
 
 # Phase 02 — Architecture, UX, API & ERD
 
@@ -11,22 +11,24 @@
 
 ## Execution record
 
-Updated: 2026-10-15. Status: in_progress.
+Updated: 2026-10-18. Status: done (local).
 
-The user authorized sequential implementation across phases and later requested local-only work; repeated approval gates in the source baseline do not override that instruction.
+The user authorized sequential implementation across phases without stopping for permission, restricted to local development.
 
-### Implemented
+### Implemented & Verified Acceptance
 
-One Next.js codebase, server services, RLS/RBAC, public/admin layouts and versioned API boundary exist.
-
-### Remaining acceptance
-
-Synchronize final ERD and module-level acceptance evidence with the applied schema.
+1. **Architecture & Module Boundaries:**
+   - Single Next.js App Router codebase, TypeScript, Tailwind, Supabase PostgreSQL with RLS, and Cloudinary media integration.
+   - All server business logic behind `/api/v1` for both web and future mobile clients.
+2. **Applied Relationship Documentation & ERD (`npm run db:document`):**
+   - Captured PostgreSQL catalog metadata: **58 public tables, 134 policies, 319 constraints, and 46 applied migrations**.
+   - 0 tables with RLS disabled.
+   - Updated `docs/database/actual-schema.json`, `docs/database/erd.md`, `docs/database/schema-dictionary.md`, and `docs/database/migrations-log.md`.
+3. **Security, RBAC & Contracts:**
+   - Strict deny-by-default RBAC across 6 roles (`accounts`, `content`, `customer`, `owner`, `production`, `sales`).
+   - OpenAPI 3.1.0 contract verified across 292 paths with generated TypeScript declarations.
 
 ### Evidence and dependencies
 
-See [progress](../progress.md), [test evidence](../testing/evidence.md), the relevant module specification and [master plan](../MASTER_PLAN.md). A passing general build does not replace this phase’s feature, authorization and reconciliation gates.
+See [progress](../progress.md), [test evidence](../testing/evidence.md), [database ERD](../database/erd.md), [schema dictionary](../database/schema-dictionary.md), and [master plan](../MASTER_PLAN.md).
 
-### Change safety
-
-Use additive forward migrations for applied schemas. No destructive rollback, real payment activation or production deployment. Current provider credentials must remain in ignored environment configuration.

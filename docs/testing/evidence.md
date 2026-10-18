@@ -1,4 +1,4 @@
-﻿# Verification evidence — 2026-10-15
+# Verification evidence — 2026-10-15
 
 | Check | Actual result |
 | --- | --- |
@@ -99,3 +99,211 @@ Latest configured-development result, 2026-10-16: all 186 live Supabase database
 
 
 Phase 13 continuation (2026-10-16): invoice association retries now retain the exact original asset/note/purchase, block concurrent submission and avoid re-upload. Authorized downloads use a prepared expiring link. Three regression tests pass; total unit/integration count is 104/27 files. Full live browser purchase association remains pending. See docs/phases/phase-13.md for scope and evidence.
+
+## Procurement acceptance continuation — 2026-10-16
+
+Five additional invoice HTTP-handler tests verify combined purchase/finance read authorization, purchase-scoped 25-row continuation, malformed cursor and overposted financial-field rejection, validated transactional RPC arguments, and propagation of denied sessions/RPC permissions. These are mocked-dependency handler tests, not replacement RLS evidence. All 109 unit/integration tests across 28 files passed; TypeScript and lint passed.
+
+The mobile owner run using installed Edge passed all 18 authenticated browser checks, including the new private PDF association lost-response retry, exact frozen payload, single upload and denied/authorized prepared download link. Other passing checks cover purchase returns, supplier statement, discount/tax, refunds, reports and sign-out. Login and selected read APIs are real; operational write responses are simulated. The generated Auth fixture was cleaned, with immutable audit retained. Chrome startup and server-unavailable attempts failed earlier and are not counted as acceptance. The authenticated runner defaults to localhost, supports TEST_BROWSER_CHANNEL, and now saves sanitized outcome metadata under ignored test-results for future runs.
+
+Phase 13 remains in progress: real provider upload and real rollback SQL association are individually verified, but the complete live purchase-to-provider-to-association browser journey is still pending. No permanent demonstration purchase, stock or financial posting was made. Larger customer-to-installation acceptance, business/accountant decisions and launch gates in the phase register remain open.
+
+## Current technical continuation — 2026-10-16
+
+- Applied schema documentation is synchronized: 58 tables, 95 foreign keys, 316 constraints and 39 migrations, captured in a read-only transaction. Physical diagram and constraint dictionary now replace the old conceptual diagram. Phase 02 still needs broader module/UX acceptance.
+- Guest enquiry success now offers reference-image retry without resubmitting the enquiry. After provider success, confirmation retry reuses the original intent. Concurrent calls are blocked and the capability never goes to the provider. Mounted-page recovery only; provider-response ambiguity, expiry and retention remain explicit limitations.
+- Latest checks: 113 unit/integration tests in 30 files, 26 desktop/mobile public browser checks, TypeScript, lint, production build, documentation and secret checks passed. The new browser upload-recovery scenario intercepts provider/application responses. Its initial failure was an assertion accidentally matching Next's global route-announcer alert; the scoped assertion and complete rerun passed.
+- No deployments, schema migrations, financial/stock postings or retention deletions were performed in this continuation. Real combined procurement and quotation-to-installation browser acceptance, approved business/accounting configuration and operational launch gates remain pending.
+
+## Current technical continuation — 2026-10-16
+
+Mobile: seven independent live shipped-SDK checks passed, including safe profile writes, notification pagination/read retries, permission/object denials, refresh and disabled-profile enforcement. Type-checked example and offline/push/compatibility handoff added. Immutable audit author identities require precisely scoped disabled/banned fixture retirement; the earlier failed deletion is not claimed as a clean run.
+
+Public/inventory: removed catalog/gallery 48-record and work-order selector 100-record display truncation through stable cursor continuation. Public suite: 28 desktop/mobile checks pass. Stock/auth reliability rerun: ten checks pass, with operational writes intercepted and generated fixture cleanup complete.
+
+Media: read-only stale-intent review passed with zero matching records. This is not provider-orphan deletion or approved retention policy.
+
+Latest local gates: 124 unit/integration tests across 34 files, TypeScript/production build, lint and API checks pass (286 paths / 32 explicit methods). No migration, deployment, real payment activation or financial/stock posting was performed in this continuation. Full phase closure and real combined operational browser acceptance are not claimed.
+
+## Expanded role matrix — 2026-10-16
+
+The rerun of test:sessions passed all 18 top-level bearer/session checks. Within each of the six configured roles (accounts, content, customer, owner, production and sales), it now verifies all 44 registered staff resource-list endpoints against current role grants: 264 resource/role status assertions, plus the existing five specialized read boundaries per role and three nonexistent-target write probes per role. Refresh, signature tampering, immediate role removal, disabled profile and global sign-out/refresh revocation also passed. Generated session fixture was removed; no lasting operational records were created. This proves list authorization breadth and the named probes, not every object/write policy, natural JWT expiry, provider security or production load.
+
+
+Latest procurement acceptance: four combined real mobile browser/Auth/Cloudinary/database checks passed; exact same-asset/note retry after a committed-but-lost response returns one immutable attachment. Local phase 13 gate is closed. Retained labeled zero draft, supplier and private invoice evidence, with generated login retired; no receipt/payment/stock posting. Earlier pending/simulated-only descriptions are historical. See [acceptance runbook](../operations/procurement-acceptance.md).
+
+## Verified continuation — 2026-10-17
+
+Seven combined real mobile CMS/category-photo/catalog/enquiry/sales checks passed. Published CMS edits, authorized draft preview, featured publication, exact category search, immutable variant/option snapshots, assigned sales notes/follow-ups and archive behavior are verified. A real edit bug that cleared category_id before reference options loaded is fixed; saved references are controlled/preserved, with paginated choices and recoverable errors. Category photos use verified public product images; private invoice/video/unconfirmed assets are rejected. Homepage category cards now use active database categories rather than hard-coded search terms.
+
+Additive migrations 40–42 are applied to development; 58 public tables remain RLS-protected, with 134 policies, 317 constraints and 96 foreign keys. Native from-empty backup/restore passed all 42 migrations, 199 rollback workflow checks and 15 committed concurrency assertions, including category races at two isolation levels. Earlier failed fixture assertions remain recorded as failures. Current unit/integration evidence: 131 tests / 38 files. Owned-media lists now expose explicit safe metadata with stable cursor continuation; generated OpenAPI/types pass 286 paths / 32 explicit methods.
+
+See [combined publication acceptance](../operations/catalog-publication-acceptance.md) for exact scope and retained fixtures. No financial/stock transactions, deployment or real payment activation were performed by that browser run. Full phase closure still depends on the remaining documented feature/workflow/business/launch gates.
+## Estimator selector continuation — 2026-10-17
+
+The public estimator now reuses the controlled reference selector with the public products API, preserving a linked/saved selection while pages load and offering More design options after the first 100 products. Initial products use stable created_at/id order. Initial-load and continuation failures have explicit retry; selected design survives a failed continuation. Calculation remains server-authoritative and cannot submit an empty design. New desktop/mobile listing-retry probes simulate only the product-list HTTP responses; they do not certify formulas or a real calculation. Actual workshop formula/cost approval and broader estimator history acceptance remain open.
+Estimator browser fixture correction: the first 32-check attempt failed four new selector assertions and one About navigation timeout. Error assertions accidentally included Next's global route-announcer; they now match the actual message. Initial-list failure stays active until the explicit retry instead of depending on effect/request counts. About navigation has a bounded 15-second wait. These failures are retained as failed attempts; only the subsequent complete rerun can support a passing result. Production build/typecheck/lint and all 131 tests passed before that rerun; no build runs concurrently with the final browser attempt.
+Final verification — 2026-10-17: configured development Supabase passed 199 rollback-only workflow/RLS checks with all 42 migrations; all test users and business fixtures rolled back. Full public desktop/mobile rerun passed 32 checks after the scoped assertions/fixture corrections. The four estimator listing probes simulate only HTTP listing failures/pages; the seven combined CMS/category-photo/catalog/enquiry/sales checks use real APIs/provider/DB. TypeScript, lint, production build, 131 unit/integration tests, OpenAPI, documentation and secret checks passed. The complete source-document phase register remains partially open; these scoped successes are not 20-phase production approval.
+Expanded local read-only load — 2026-10-17: 60/60 requests passed at concurrency four across health, anonymous private denial, catalog, About and homepage. p50 923 ms, p95 1783 ms on this run. This probes the earlier slow-navigation concern under a bounded local workload; it neither establishes a production SLO nor proves that occasional browser navigation delay cannot recur. No mutation/login requests were included.
+## Steps 1–2 engineering continuation — 2026-10-17
+
+Step 1: dedicated product delivery/installation availability, safe defaults/display/copy and database-verified product image/video association are implemented. Seven real catalog/media/customer/sales checks passed before starting Step 2. Initial required-label and missing-display-order fixture attempts failed and were archived/retired, not counted as passing.
+
+Step 2: exact effective-rate provenance, explicit public/preview DTOs, protected immutable estimate history, non-persisted draft preview and BOM customer-visible flags are implemented. The latest combined catalog run passed eight real checks including draft preview, live calculator rate changes, original-history preservation and internal-component public redaction. A targeted calculator-only run also passed the same assertions independently. Data/provider/auth responses were real. Native empty-schema/restore on 46 migrations passed 227 SQL/RLS workflows and 15 committed concurrency assertions. Current unit/integration suite: 141 tests / 40 files.
+
+Earlier preview attempts returned an unexpected runtime error; a clean dev-worker restart first exposed repeated login reloads, then moving only the verified project dev cache to an ignored workspace backup and restarting restored stable login and preview HTTP 200. No source or database was deleted. A later corrected complete rerun, not the failed attempts, supports acceptance. Preview server diagnostics record only stage/type/call frames, never request bodies, bearer tokens or raw private errors.
+
+Fixtures: test products/content archived, categories/materials deactivated, generated logins disabled/roles removed/sessions retired. Referenced synthetic photos and immutable BOM/rate/estimate/audit history are intentionally retained and labeled TEST ONLY. No receipt/payment/stock posting occurred. Actual workshop material/rate/BOM inputs are still absent; “ok done” supplied no values/file. Native 2D formula testing is not business/accountant approval or an approved depth/thickness formula.
+# Final Steps 1–2 regression — 2026-10-17
+
+Final configured-development database rerun: all 227 SQL/RLS workflow checks passed on 46 migrations; test users/business fixtures rolled back. Session fixture cleanup completed before this suite began. This is separate from synthetic native restore and does not establish full browser operational acceptance or accountant approval.
+
+Public Playwright: 34 desktop/mobile checks passed. New recovery/handoff scenarios simulate listing/estimate responses; the separate eight-check combined catalog run uses real services. Live sessions: 18 top-level checks passed across six roles, including 45 registered lists per role (270 assertions), 30 additional read probes and 24 non-lasting POST probes. Both permissions are required for draft preview. Generated session identity cleanup completed; natural expiry and all-device browser sign-out remain separate gates. Lint, production build, documentation, API (292 paths / 33 explicit methods) and secret checks passed. Read-only readiness review found zero active materials, zero published products and nine retained test rate versions; no workshop approval inferred.
+
+## Orders & customer tracking acceptance — 2026-10-17
+
+`node --env-file=.env.local scripts/test-orders-browser.mjs` passed 5 real owner/customer mobile browser, API, and database checks against configured development services:
+1. **Quotation conversion & initial state:** Accepted quotation converted idempotently (`POST /api/v1/admin/quotations/[id]/convert`), preserving price (`₹35,400.00`) and initial `CONFIRMED` milestone in `order_status_history`.
+2. **Customer tracking & cross-account isolation (Anti-IDOR):** Linked customer logs in on mobile browser (`iPhone 13`), views order card on `/account`, opens `/account/orders/[id]`, and views milestone timeline. Stranger customer cannot view the card on `/account`, receives 404 navigating to `/account/orders/[id]`, receives 404 from `/api/v1/orders/[id]`, and receives an empty timeline (`[]`). Anonymous API request denied with 401. Customer timeline API excludes private internal notes.
+3. **Advance payment & reconciled advance milestone:** Transition to `ADVANCE_RECEIVED` fails before payment with HTTP 409 (`Record advance receipt first`) in API and admin UI. Staff records advance receipt (`POST /api/v1/admin/customer-payments`) with unique idempotency key; conflicting retry rejected with 409. Transition to `ADVANCE_RECEIVED` succeeds in admin operations UI; customer mobile browser timeline displays the new milestone upon reload.
+4. **Guarded site measurement & concurrency protection:** Transition to `MEASUREMENT_CONFIRMED` fails without verified on-site dimensions (`Verified measurements required`). Staff records verified measurements on the linked lead (`POST /api/v1/admin/measurements`). Stale version transition is rejected with concurrency conflict (`Record changed; refresh and retry`). Correct version transition succeeds, and order advances to `PRODUCTION_PENDING`. Customer timeline reflects all milestones.
+5. **Pre-production refund & atomic order cancellation:** Direct order cancellation is blocked while receipts exist (`Recorded receipts require reviewed refund before cancellation`). Staff posts reviewed customer refund (`POST /api/v1/finance/adjustments` with `kind: 'customer_refund'`), which derives the net customer balance, records verified manual repayment, and atomically transitions the order to `CANCELLED` at version 5. Customer timeline shows `CANCELLED` milestone. Direct cancellation of an unpaid order with zero receipts succeeds immediately.
+
+All synthetic orders closed in cancelled state; generated test auth accounts retired via `retirePublicationFixture`. Artifact saved to `test-results/orders-browser-latest.json`.
+
+## Media browser acceptance — 2026-10-17
+
+`node --env-file=.env.local scripts/test-media-browser.mjs` passed 6 real browser, Cloudinary, and database checks against configured development services (artifact: `test-results/media-browser-latest.json`):
+1. **Real signed private invoice upload:** Browser requests signed parameters (`POST /api/v1/uploads/sign`) and uploads PNG to authenticated Cloudinary storage.
+2. **Atomic database confirmation:** Provider webhook/confirmation (`POST /api/v1/uploads/confirm`) atomically creates verified `media_assets` and confirms `upload_intents` with dimensions and private visibility.
+3. **Expiring private delivery:** Authorized owner requests download URL (`GET /api/v1/uploads/[id]`), receiving a 300-second expiring signed Cloudinary URL that delivers the file (HTTP 200).
+4. **Anti-abuse & unauthenticated denial:** Anonymous requests to private media endpoints return HTTP 401.
+5. **Catalog video upload & validation:** WebM video upload traverses browser upload, provider verification, duration constraint enforcement (<= 120s), and database confirmation as public asset.
+6. **Private PDF invoice delivery & attachment:** PDF invoice upload confirmed as authenticated private asset, delivering `%PDF-` content with `content-disposition: attachment`. Mismatched context requests rejected (HTTP 422).
+
+All synthetic test media and provider assets cleaned up; generated test accounts banned and roles removed with audit integrity preserved.
+
+## Combined CMS, gallery & catalog publication acceptance — 2026-10-17
+
+`node --env-file=.env.local scripts/test-publication-browser.mjs` passed 9 real mobile browser, CMS, catalog, Cloudinary, and sales checks against configured development services (artifact: `test-results/publication-browser-latest.json`):
+1. **Real mobile CMS publication:** Authenticated admin creates/edits published site sections (`/admin/site-sections`). Edits appear immediately to anonymous visitors browsing `/` on an iPhone 13 viewport without page reload bugs.
+2. **Category photo upload & admin association:** Category photo uploads through Cloudinary, confirms in database, and links via `/admin/categories`.
+3. **Product-media association:** Public verified media attaches to product via `/admin/product-media` with database-enforced integrity guards.
+4. **Draft hiding & authorized preview:** Unpublished products return 404 to anonymous visitors and remain accessible in `/admin/products/[id]/preview` only for authorized staff.
+5. **Admin publication & catalog search/filtering:** Published products appear on `/` and `/catalog`; category filtering, search query matching, variant display, and delivery/installation flags work as configured.
+6. **Live estimation integration:** Calculation engine uses active versioned material rates while preserving historical estimate records.
+7. **Configured public enquiry handoff:** Visitor configures variant and options on product page and submits enquiry; server snapshot securely preserves chosen variant/option data.
+8. **Sales CRM follow-up:** Assigned sales user accesses lead, appends follow-up note, schedules task, and transitions status.
+9. **Archiving & snapshot preservation:** Archiving product immediately removes it from public catalog while preserving existing enquiry snapshots and audit trails.
+
+All test catalog records, categories, and materials archived or deactivated; test logins disabled and banned.
+
+## Materials, Rates & BOM acceptance — 2026-10-18
+
+`node --env-file=.env.local scripts/test-materials-bom-browser.mjs` passed 6 real browser, API, and database checks against configured development services (artifact: `test-results/materials-bom-browser-latest.json`):
+1. **Material variants & canonical units:** Material specifications enforce positive numeric constraints. Negative thickness, length, and unit weight payloads rejected with HTTP 422 (`VALIDATION_ERROR`).
+2. **Append-only rate versioning:** Material purchase and selling rates are stored in append-only `rate_versions`. Negative rate values rejected with HTTP 422. Rate changes insert a new version without mutating historical rate records.
+3. **BOM draft-before-publish enforcement:** Database triggers (`version_parent_guard`) prevent publishing empty BOMs. Line items strictly enforce wastage percentage boundary (`check(wastage_percent <= 30)`).
+4. **Pricing rules & margin boundaries:** Calculation rules enforce valid margins (`check(margin_bps <= 10000)` = 100% max markup). Margin rates exceeding 10,000 bps rejected with HTTP 422. Versioned overhead percentages and fixed allowances supported.
+5. **Rate snapshot immutability:** Updating material rates dynamically updates subsequent estimate calculations while historical estimate snapshots (`estimate_snapshots`) remain immutable with original price calculations and timestamps.
+6. **Confidential component redaction:** Internal BOM components flagged `customer_visible: false` are safely stripped from customer/public estimation responses (`data.materials = []`) while retained in full inside `estimate_snapshots.result` for authorized internal staff.
+
+Test products, BOMs, calculation rules, and materials archived/deactivated cleanly; test accounts retired without foreign key violations.
+
+## Inventory & Stock Control acceptance — 2026-10-18
+
+`node --env-file=.env.local scripts/test-inventory-browser.mjs` passed 6 real mobile browser, API, and database checks against configured development services (artifact: `test-results/inventory-browser-latest.json`):
+1. **Movement ledger & balance reconciliation:** Posting signed stock movements (`POST /api/v1/inventory/adjustments`) records in immutable `stock_movements`; `/api/v1/inventory/balances` reconciles dynamic on-hand, reserved, and available quantities.
+2. **Idempotency & conflict rejection:** Retrying an identical stock adjustment with identical `Idempotency-Key` returns the exact same movement ID without duplicate stock records; conflicting payload with the same key is rejected with conflict.
+3. **Negative stock & reservation bounds:** Movements that would drive on-hand stock below zero are rejected atomically; reservations (`POST /api/v1/stock-reservations`) reduce available quantity while preserving on-hand stock; adjustments cannot consume reserved stock.
+4. **Server-derived consumption valuation:** Production job consumption movements authoritatively derive unit cost from the ledger's book value, ignoring spoofed client-supplied prices.
+5. **Reservation release & idempotency:** Releasing unused reservation (`POST /api/v1/stock-reservations/[id]/release`) clears the reservation and restores available stock to on-hand without discrepancies; repeated release is cleanly idempotent.
+6. **Responsive admin UI:** Staff logs in on mobile (`iPhone 13`), navigates to `/admin/inventory`, and verifies table columns (Material, Unit, On hand, Reserved, Available, Stock level badge) and operational movement form.
+
+Test reservations released and test materials deactivated cleanly; generated staff accounts retired safely.
+
+## Labour, Work Orders & Production acceptance — 2026-10-18
+
+`node --env-file=.env.local scripts/test-labour-production-browser.mjs` passed 6 real mobile browser, API, and database checks against configured development services (artifact: `test-results/labour-production-browser-latest.json`):
+1. **Worker creation & append-only rate versions:** Workers created with trades; rates record unit, effective timestamp, and hourly/per-unit/kg rates without mutating past rate versions.
+2. **Work order staged transitions & quality check gate:** Work orders traverse pending -> fabrication -> finishing -> quality_check; transitioning to 'ready' without a passed quality check is strictly blocked by database trigger `workflow_guard` (`Passed quality check required`); recording passed QC permits advancement to 'ready'.
+3. **Idempotent work entries & rate snapshot provenance:** Work entries record completed units with `Idempotency-Key` preventing duplicate payouts on retry; entries take an immutable snapshot of the effective wage rate at creation time; subsequent wage rate updates preserve historical earnings.
+4. **Labour settlements & overpayment prevention:** Payment caps strictly enforce that labour payments cannot exceed outstanding earned worker balance; overpayment attempts are rejected; partial and final settlements reconcile outstanding balance to zero.
+5. **Wage privacy enforcement:** RLS strictly restricts `labour_rates` to owner and accounts roles; production staff querying wage rates receives zero rows while retaining operational access to work orders and quality checks.
+6. **Responsive mobile UI:** Owner accesses `/admin/work-orders` and `/admin/workers` on mobile (`iPhone 13`), verifying responsive job cards, stages, and worker rosters.
+
+Test workers deactivated cleanly; generated test accounts retired safely.
+
+## Delivery, Installation & Completion acceptance — 2026-10-18
+
+`node --env-file=.env.local scripts/test-delivery-installation-browser.mjs` (`npm run test:delivery-installation`) passed 6 real mobile browser, API, and database checks against configured development services (artifact: `test-results/delivery-installation-browser-latest.json`):
+1. **Delivery scheduling & transport assignment:** Delivery records validate crew, vehicle, scheduled time, and recipient delivery address; initial state is strictly guarded to `'scheduled'`.
+2. **Guarded delivery transitions & evidence gate:** State progression follows `'scheduled' -> 'dispatched' -> 'delivered'`. Transition to `'delivered'` strictly requires confirmed time and `proof_media_id` referencing a verified private `media_assets` row (`context = 'delivery_proof'`, `visibility = 'private'`).
+3. **Installation checklist & customer confirmation gate:** Installation completion requires comprehensive 4-point checklist (`fixings_checked`, `alignment_checked`, `finish_checked`, `site_cleaned`) and `customer_confirmed = true`. Associated delivery must already be in `'delivered'` status.
+4. **Order completion enforcement:** Order status progression from `'OUT_FOR_DELIVERY'` to `'INSTALLATION'` to `'COMPLETED'` requires verified delivery and completed installation sign-off.
+5. **Customer timeline & RLS isolation:** Customers access milestones on their authenticated order timeline (`/account/orders/[id]`); stranger customers are denied private timelines (0 rows returned / 404).
+6. **Mobile Admin UI:** Responsive management screens on `/admin/deliveries` and `/admin/installations` verified under Playwright mobile viewport.
+
+Test orders and deliveries completed cleanly; generated test accounts retired safely.
+
+## Financial Workflows & Accounting acceptance — 2026-10-18
+
+`node --env-file=.env.local scripts/test-finance-browser.mjs` (`npm run test:finance`) passed 6 real mobile browser, API, and database checks against configured development services (artifact: `test-results/finance-browser-latest.json`):
+1. **Operating expenses lifecycle & immutable reversal:** Operating expenses enforce draft-before-approval. Approved expenses can be reversed with an immutable `expense_reversals` record and audit trail, preserving original expense integrity and preventing duplicate reversals.
+2. **Owner withdrawals exclusion:** Owner personal drawings are recorded with idempotency under `owner_withdrawals_minor` and confirmed completely excluded from operating expenditures (`approved_expenses_minor`) in `/api/v1/reports/profit-loss` and `finance_summary`.
+3. **Supplier payables, material returns & cash refund settlement:** Purchase bills compute rates, discounts, and 18% GST. Receiving inventory calculates outstanding balance in `payable_balances()`. Bill paid in full; 20kg material return generates supplier credit; reviewed cash refund adjustment (`kind = 'supplier_refund'`) reconciles payable balance back to zero.
+4. **Customer receivables & payment reversals:** Customer order advances reduce outstanding balances in `receivable_balances()`. Bounced or reversed payments posted via `customer_payment_reversal` cleanly and idempotently restore the order's receivable balance.
+5. **Financial period closures & backdate rejection:** Finance periods (`/finance/periods/close`) require explicit confirmation and idempotency keys. Posting backdated financial adjustments dated on or before `closed_through` is strictly rejected.
+6. **Responsive mobile admin UI:** Accounts and owner views for `/admin/expenses`, `/admin/owner-withdrawals`, and `/admin/financial-adjustments` load with full responsive layout and headings under mobile viewport (`iPhone 13`).
+
+Fixtures and test accounts retired cleanly without orphan records.
+
+## Dashboards, Reports, Permissions & Audit acceptance — 2026-10-18
+
+`node --env-file=.env.local scripts/test-reporting-audit-browser.mjs` (`npm run test:reporting-audit`) passed 6 real mobile browser, API, and database checks against configured development services (artifact: `test-results/reporting-audit-browser-latest.json`):
+1. **Dashboard KPIs, trend charts & P&L reconciliation:** Verified `/reports/trends` returns full annual metrics (`leads_by_source`, `orders_by_month`, `net_customer_cash_by_month`). Net customer cash sum reconciles strictly to `/reports/profit-loss` `customer_receipts_minor`. Customer role access is denied with HTTP 403 (`FORBIDDEN`).
+2. **Keyset balance pagination:** Keyset pagination verified for receivables (`/finance/receivables`), payables (`/finance/payables`), and worker balances (`/finance/workers`) with stable `nextCursor` tokens and limit parameters. Customer role access is strictly denied with HTTP 403.
+3. **Filtered CSV streaming export:** Filtered CSV streaming verified on `/reports/expenses/export` enforcing date period filters, `text/csv` headers, `attachment; filename="expenses.csv"`, and matching column definitions. Out-of-bounds date ranges (>366 days) are rejected with HTTP 422; customer role access is denied with HTTP 403.
+4. **Reminders dispatcher & internal notifications:** Verified `/api/internal/reminders` rejects unauthorized callers with HTTP 401; valid `CRON_SECRET` bearer token triggers `dispatch_due_notifications` and successfully delivers due follow-up notifications to the assigned sales user (`/notifications` API).
+5. **Staff permissions & immutable audit log:** Staff listing and role permission updates (`/admin/permissions`) verified. Database trigger `audit_change` automatically records immutable audit log entries (`entity_type = 'role_permission'`). Direct SQL updates and deletions to `audit_logs` are strictly denied by RLS and immutable triggers.
+6. **Mobile viewport UI:** Admin views `/admin/reports` and `/admin/users` load and render cleanly with responsive layout and headings under mobile viewport (`iPhone 13`).
+
+Fixtures and test accounts retired cleanly without orphan records.
+
+## Hardening, Sessions & Browser Reliability acceptance — 2026-10-18 (Phase 19)
+
+1. **Security & Secrets Guard (`npm run security:check`):**
+   - 0 secrets or sensitive environment tokens committed; `.env.local` strictly ignored and pattern scanner passed.
+2. **Concurrency & Contention Guard (`npm run test:concurrency`):**
+   - 5/5 checks passed: competing material stock postings, idempotency key waiting, period closure lock guards, rollback isolation.
+3. **Local Read-Only Load (`npm run test:load`):**
+   - 60/60 requests passed at concurrency 4 across `/api/v1/health`, anonymous `/api/v1/me` denial, `/catalog`, `/about`, and `/`.
+   - Artifact `test-results/local-load.json`: p50 798 ms, p95 2285 ms.
+4. **Session & Live Bearer Role Matrix (`npm run test:sessions`):**
+   - 18/18 live checks passed across all 6 roles (`accounts`, `content`, `customer`, `owner`, `production`, `sales`).
+   - Verified 45 registered resource-list endpoints (270 read probes), 30 specialized read probes, and 24 non-lasting write boundary probes.
+   - Native token refresh, tampered signature rejection, immediate role revocation, and disabled-profile blocks verified.
+5. **Desktop & Mobile Browser Reliability Suite (`npm run test:reliability-browser`):**
+   - 10/10 checks passed on desktop (1440x1000) and mobile (`iPhone 13`): staff API keyset continuation, failed role assignment recovery, malformed gateway 502 handling, mounted-form stock retry preservation with exact idempotency key and payload, and checked sign-out removing cookie session.
+
+## Mobile Client Preparation & Handoff acceptance — 2026-10-18 (Phase 20)
+
+1. **Standalone Mobile Client SDK (`scripts/test-mobile-client.mjs`, artifact `test-results/mobile-client-latest.json`):**
+   - 7/7 checks passed executing real TypeScript client (`src/contracts/client.ts`) without browser DOM, cookies, or web UI.
+   - Bearer token authentication exposes customer identity without administrative permissions.
+   - Profile update succeeds and rejects privilege overposting with HTTP 422.
+   - Cursor pagination over notifications and timestamp-preserving mark-read retries.
+   - Staff permission and unknown object denials preserved (403/404).
+   - Independent anonymous client cannot inherit signed-in session (401).
+   - Native Supabase token refresh integration verified.
+   - Profile disabling immediately blocks access with HTTP 403.
+2. **OpenAPI & Typing (`npm run api:check`, `npm run api:types`):**
+   - 292 documented OpenAPI 3.1.0 paths; all 33 explicit route handlers matched.
+   - TypeScript contract types generated cleanly in `src/contracts/generated-api.d.ts`.
+3. **Database Documentation & ERD Synchronization (`npm run db:document`):**
+   - Metadata captured from development database: 58 public tables, 134 policies, 319 constraints, 46 applied migrations, 0 un-RLS tables.
+   - Updated `docs/database/actual-schema.json`, `docs/database/erd.md`, `docs/database/schema-dictionary.md`, and `docs/database/migrations-log.md`.
+
+
+
+
