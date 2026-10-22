@@ -185,4 +185,23 @@ Expanded local read-only load — 2026-10-17: 60/60 requests passed at concurren
   - `npm run build` passed cleanly with Turbopack.
   - Local catalog rendering verified for `/catalog?category=window-grills` and all 4 grill subcategories.
 
+## Pinterest Steel Gates & Railings Collection Ingestion — 2026-10-22
+
+- Extracted 75 unique steel gates and 74 unique steel railings from Pinterest search queries (`steel gate design` and `steel railing design`).
+- Registered 75 Stainless Steel (SS 304) Gates under parent `Main Gates & Entry Gates` (`main-gates` / sub: `steel-gates`).
+- Configured 2-tier subcategory hierarchy under `Stair & Balcony Railings` (`railings`):
+  - `Stainless Steel (SS 304) Balcony Railings` (`ss-balcony-railings`)
+  - `Glass & Stainless Steel Railings` (`glass-ss-railings`)
+  - `Staircase SS Handrails & Balusters` (`staircase-handrails`)
+  - `Modern Minimalist Pipe Railings` (`modern-pipe-railings`)
+- Uploaded 149 high-resolution images to Cloudinary (`steel-gates-search/` and `steel-railings/`).
+- Registered all 149 products in Supabase PostgreSQL with sizing variants, published BOMs, pricing rules, and gallery records.
+- Total published catalog size reached **315 designs**.
+- Verification:
+  - `npm run typecheck` passed (0 errors).
+  - `npm run calc:review` passed (315 published products, 311 configured).
+  - `npm run build` passed cleanly with Turbopack.
+  - Local catalog rendering verified for `/catalog?category=main-gates&sub=steel-gates` and `/catalog?category=railings`.
+
+
 
