@@ -4,6 +4,7 @@ import { Search, ArrowUpRight, ChevronRight, Layers, ArrowRight } from 'lucide-r
 import { serverClient } from '@/lib/supabase/server';
 import { money } from '@/lib/utils';
 import { ProductVisual } from '@/components/product-visual';
+import { DataTablePagination } from '@/components/data-table-pagination';
 import { browseHref, publicCursor, publicCursorFilter, publicPageSize, publicWindow, singleQuery, type BrowseQuery } from '@/features/catalog/public-pagination';
 
 export const metadata = { title: 'Explore fabrication designs & catalogue' };
@@ -36,8 +37,7 @@ export default async function Catalog({ searchParams }: { searchParams: Promise<
     .from('categories')
     .select('id,name,slug,parent_id,sort_order,media_assets!categories_image_media_id_fkey(public_id,resource_type,visibility)')
     .eq('active', true)
-    .order('sort_order')
-    .order('name');
+    .order('sort_order');
 
   const allCategories = allCategoriesRaw ?? [];
   const parentCategories = allCategories.filter(c => !c.parent_id);
@@ -72,7 +72,10 @@ export default async function Catalog({ searchParams }: { searchParams: Promise<
   // 3. Build Products Query
   let query = db
     .from('products')
-    .select('id,name,slug,description,material,category_id,price_min_minor,price_max_minor,created_at,product_media(alt_text,sort_order,media_assets(public_id,resource_type,visibility))')
+    .select(
+      'id,name,slug,description,material,category_id,price_min_minor,price_max_minor,created_at,product_media(alt_text,sort_order,media_assets(public_id,resource_type,visibility))',
+      { count: 'exact' }
+    )
     .eq('status', 'published')
     .order('created_at', { ascending: false })
     .order('id', { ascending: false })
@@ -91,13 +94,15 @@ export default async function Catalog({ searchParams }: { searchParams: Promise<
     } else {
       query = query.eq('category_id', activeParent.id);
     }
+  } else if (categoryParam) {
+    query = query.eq('category_id', categoryParam);
   }
 
   if (cursor) {
     query = query.or(publicCursorFilter(cursor));
   }
 
-  const { data: rawProducts, error } = await query;
+  const { data: rawProducts, count: totalCount, error } = await query;
   const { items: products, nextCursor } = publicWindow(rawProducts ?? []);
 
   // Title and subtitle
@@ -286,8 +291,14 @@ export default async function Catalog({ searchParams }: { searchParams: Promise<
       )}
 
       {/* Product Grid Header */}
-      <div className="mb-4 flex items-center justify-between text-xs text-slate-400">
-        <span>Showing {products.length} design{products.length === 1 ? '' : 's'}</span>
+      <div className="mb-4 flex items-center justify-between text-xs text-slate-500">
+        <span>
+          Showing <strong className="font-semibold text-slate-900">{products.length}</strong>
+          {totalCount !== undefined && totalCount !== null && (
+            <> of <strong className="font-semibold text-slate-900">{totalCount}</strong></>
+          )}{' '}
+          designs
+        </span>
         {activeSub && (
           <Link
             href={browseHref('/catalog', { category: activeParent?.slug })}
@@ -367,12 +378,21 @@ export default async function Catalog({ searchParams }: { searchParams: Promise<
         </div>
       )}
 
-      {/* Pagination */}
-      {(cursor || nextCursor) && (
-        <nav aria-label="Catalog pages" className="mt-8 flex flex-wrap gap-5 text-sm font-semibold underline">
-          {cursor && <Link href={browseHref('/catalog', { q, category: activeParent?.slug, sub: activeSub?.slug })}>First page</Link>}
-          {!error && nextCursor && <Link href={browseHref('/catalog', { q, category: activeParent?.slug, sub: activeSub?.slug }, nextCursor)}>More designs</Link>}
-        </nav>
+      {/* DataTable Pagination */}
+      {products.length > 0 && (cursor || nextCursor) && (
+        <div className="mt-10">
+          <DataTablePagination
+            ariaLabel="Catalog pages"
+            currentCount={products.length}
+            totalCount={totalCount}
+            pageSize={publicPageSize}
+            hasPreviousPage={!!cursor}
+            hasNextPage={!error && !!nextCursor}
+            firstPageHref={browseHref('/catalog', { q, category: activeParent?.slug ?? categoryParam, sub: activeSub?.slug ?? subParam })}
+            nextPageHref={nextCursor ? browseHref('/catalog', { q, category: activeParent?.slug ?? categoryParam, sub: activeSub?.slug ?? subParam }, nextCursor) : undefined}
+            entityName="designs"
+          />
+        </div>
       )}
 
       {!error && !products.length && !q && !categoryParam && !cursor && <DemoPhotography />}

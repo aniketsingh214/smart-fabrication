@@ -203,5 +203,22 @@ Expanded local read-only load — 2026-10-17: 60/60 requests passed at concurren
   - `npm run build` passed cleanly with Turbopack.
   - Local catalog rendering verified for `/catalog?category=main-gates&sub=steel-gates` and `/catalog?category=railings`.
 
+## DataTable Pagination Component Implementation — 2026-10-22
 
-
+- Implemented modern, elevated `DataTablePagination` component (`src/components/data-table-pagination.tsx`):
+  - Displays record summary: `Showing {currentCount} of {totalCount} {entityName}` with `{pageSize} per page` badge and layer icon.
+  - Dual navigation modes: supports Next.js Server Components (`firstPageHref`, `nextPageHref`) and Client Components (`onFirstPage`, `onNextPage`).
+  - Controls: First page (`<< First page`), Active Page Pill (`Page 1` / `Page 2+`), Next page (`Next page` / `More designs` / `More projects >`).
+  - Full accessibility: `aria-label`, disabled attributes (`aria-disabled`), and keyboard friendly styling.
+- Integrated across:
+  - `/catalog`: Server-side cursor pagination with exact Supabase count (315 designs), preserving search query and 2-tier subcategory filters.
+  - `/gallery`: Server-side cursor pagination with project count and consent guards preserved.
+  - `/admin/[module]` (`ResourceWorkspace`): Client-side cursor pagination across all operations tables (Products, Categories, Quotations, Orders, Deliveries, Invoices, Expenses, Suppliers, etc.).
+- Verification:
+  - `tests/integration/public-browse.test.tsx` & `tests/unit/public-pagination.test.ts` passed (5/5 tests).
+  - Full test suite: 40 test files passed (141/141 tests).
+  - `npm run typecheck` passed (0 errors).
+  - `npm run docs:check` passed.
+  - `npm run api:check` passed (OpenAPI 3.1.0, 292 paths).
+  - `npm run calc:review` passed (315 published products).
+  - `npm run build` passed cleanly with Turbopack and static generation.
