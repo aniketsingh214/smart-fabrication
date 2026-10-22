@@ -168,3 +168,21 @@ Expanded local read-only load — 2026-10-17: 60/60 requests passed at concurren
   - `npm run build` passed cleanly with Turbopack.
   - Local catalog rendering verified for `/catalog`, `/catalog?category=main-gates&sub=iron-pipe-gates`, and `/catalog?category=metal-doors`.
 
+## Pinterest Steel Grill Collection Ingestion — 2026-10-22
+
+- Extracted 75 unique steel window/balcony grill design pins from Pinterest search query (`q=steel%20grill%20design`).
+- Configured 2-tier subcategory hierarchy under `Safety Window Grills` (`window-grills`):
+  - `Stainless Steel (SS 304) Window Grills` (`ss-window-grills`)
+  - `Modern Box & Geometric Window Grills` (`modern-window-grills`)
+  - `Balcony & Safety Boundary Grills` (`balcony-safety-grills`)
+  - `CNC Laser Cut Window Grills` (`laser-cut-grills`)
+- Uploaded 75 high-resolution images to Cloudinary under folder `smart-fabrication/development/steel-grills/`.
+- Registered 76 products in Supabase PostgreSQL under `window-grills` subcategories, with 222 sizing variants, published BOMs, pricing rules, and gallery records.
+- Total catalog size reached 166 published fabrication designs.
+- Verification:
+  - `npm run typecheck` passed (0 errors).
+  - `npm run calc:review` passed (166 published products, 162 configured).
+  - `npm run build` passed cleanly with Turbopack.
+  - Local catalog rendering verified for `/catalog?category=window-grills` and all 4 grill subcategories.
+
+
