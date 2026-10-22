@@ -150,3 +150,21 @@ See [combined publication acceptance](operations/catalog-publication-acceptance.
 The public estimator now reuses the controlled reference selector with the public products API, preserving a linked/saved selection while pages load and offering More design options after the first 100 products. Initial products use stable created_at/id order. Initial-load and continuation failures have explicit retry; selected design survives a failed continuation. Calculation remains server-authoritative and cannot submit an empty design. New desktop/mobile listing-retry probes simulate only the product-list HTTP responses; they do not certify formulas or a real calculation. Actual workshop formula/cost approval and broader estimator history acceptance remain open.
 Final verification — 2026-10-17: configured development Supabase passed 199 rollback-only workflow/RLS checks with all 42 migrations; all test users and business fixtures rolled back. Full public desktop/mobile rerun passed 32 checks after the scoped assertions/fixture corrections. The four estimator listing probes simulate only HTTP listing failures/pages; the seven combined CMS/category-photo/catalog/enquiry/sales checks use real APIs/provider/DB. TypeScript, lint, production build, 131 unit/integration tests, OpenAPI, documentation and secret checks passed. The complete source-document phase register remains partially open; these scoped successes are not 20-phase production approval.
 Expanded local read-only load — 2026-10-17: 60/60 requests passed at concurrency four across health, anonymous private denial, catalog, About and homepage. p50 923 ms, p95 1783 ms on this run. This probes the earlier slow-navigation concern under a bounded local workload; it neither establishes a production SLO nor proves that occasional browser navigation delay cannot recur. No mutation/login requests were included.
+
+## Pinterest Design Collection Ingestion — 2026-10-22
+
+- Extracted 68 unique fabrication design pins directly from user Pinterest profile (`https://in.pinterest.com/anirajpoot789/`).
+- Uploaded all 68 high-resolution images to Cloudinary under folder `smart-fabrication/development/pinterest-collection/`.
+- Registered all 68 assets in Supabase PostgreSQL:
+  - `upload_intents` and `media_assets` (with width, height, format, bytes, owner_id)
+  - `products` (status: `published`, featured: true, custom_size: true) categorized under `iron-pipe-gates` (44 items), `metal-doors` (21 items), and `steel-gates` (3 items).
+  - `product_media` linking products to media assets.
+  - `product_variants` (204 total variants across Standard, Compact, and Grand opening dimensions with realistic minor pricing).
+  - `bom_versions` and `calculation_rules` published for estimation readiness.
+  - `gallery_items` added with verified residence/site installation tags.
+- Verification:
+  - `npm run typecheck` passed (0 errors).
+  - `npm run calc:review` passed (90 published products, 88 configured products).
+  - `npm run build` passed cleanly with Turbopack.
+  - Local catalog rendering verified for `/catalog`, `/catalog?category=main-gates&sub=iron-pipe-gates`, and `/catalog?category=metal-doors`.
+
