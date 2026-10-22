@@ -6,6 +6,8 @@ import { money } from '@/lib/utils';
 import { ProductVisual } from '@/components/product-visual';
 import { DataTablePagination } from '@/components/data-table-pagination';
 import { browseHref, publicCursor, publicCursorFilter, publicPageSize, publicWindow, singleQuery, type BrowseQuery } from '@/features/catalog/public-pagination';
+import { WishlistButton } from '@/features/shop/wishlist-button';
+import { AddToCartButton } from '@/features/shop/add-to-cart-button';
 
 export const metadata = { title: 'Explore fabrication designs & catalogue' };
 
@@ -373,40 +375,70 @@ export default async function Catalog({ searchParams }: { searchParams: Promise<
         </section>
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {products.map(p => (
-            <Link
-              href={`/catalog/${p.slug}`}
-              key={p.id}
-              className="card overflow-hidden transition-all hover:border-orange-300 hover:shadow-lg group"
-            >
-              <div className="relative overflow-hidden">
-                <ProductVisual
-                  media={p.product_media}
-                  alt={p.name}
-                  className="aspect-[16/10] w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-              </div>
-              <div className="p-5">
-                <div className="mb-2 text-[10px] font-bold uppercase tracking-widest text-orange-600">
-                  {p.material}
+          {products.map(p => {
+            const cloud = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+            const firstAsset = p.product_media?.[0]?.media_assets;
+            const assetObj = Array.isArray(firstAsset) ? firstAsset[0] : firstAsset;
+            const thumbUrl = (cloud && assetObj?.public_id) ? `https://res.cloudinary.com/${cloud}/image/upload/f_auto,q_auto,w_400/${assetObj.public_id}` : null;
+            const shopItem = {
+              id: p.id,
+              product_id: p.id,
+              name: p.name,
+              slug: p.slug,
+              material: p.material,
+              price_min_minor: p.price_min_minor,
+              image_url: thumbUrl
+            };
+
+            return (
+              <div
+                key={p.id}
+                className="card group relative flex flex-col overflow-hidden transition-all hover:border-orange-300 hover:shadow-lg"
+              >
+                <div className="relative overflow-hidden">
+                  <Link href={`/catalog/${p.slug}`} className="block">
+                    <ProductVisual
+                      media={p.product_media}
+                      alt={p.name}
+                      className="aspect-[16/10] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </Link>
+                  <div className="absolute top-3 right-3 z-10">
+                    <WishlistButton item={shopItem} />
+                  </div>
                 </div>
-                <h2 className="text-base font-bold text-slate-900 group-hover:text-orange-600 transition">
-                  {p.name}
-                </h2>
-                <p className="mt-2 line-clamp-2 text-xs leading-5 text-slate-500">
-                  {p.description}
-                </p>
-                <div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-3">
-                  <span className="text-sm font-semibold text-slate-900">
-                    {p.price_min_minor ? `From ${money(p.price_min_minor)}` : 'Request a quote'}
-                  </span>
-                  <span className="inline-flex items-center gap-1 text-xs font-semibold text-orange-600">
-                    View design <ArrowUpRight size={14} />
-                  </span>
+                <div className="flex flex-1 flex-col justify-between p-5">
+                  <div>
+                    <div className="mb-2 text-[10px] font-bold uppercase tracking-widest text-orange-600">
+                      {p.material}
+                    </div>
+                    <Link href={`/catalog/${p.slug}`} className="block">
+                      <h2 className="text-base font-bold text-slate-900 group-hover:text-orange-600 transition">
+                        {p.name}
+                      </h2>
+                    </Link>
+                    <p className="mt-2 line-clamp-2 text-xs leading-5 text-slate-500">
+                      {p.description}
+                    </p>
+                  </div>
+                  <div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-3">
+                    <span className="text-sm font-semibold text-slate-900">
+                      {p.price_min_minor ? `From ${money(p.price_min_minor)}` : 'Request a quote'}
+                    </span>
+                    <div className="flex items-center gap-2">
+                      <AddToCartButton item={shopItem} variant="compact" />
+                      <Link
+                        href={`/catalog/${p.slug}`}
+                        className="inline-flex items-center gap-1 text-xs font-semibold text-orange-600 hover:text-orange-700 transition"
+                      >
+                        <ArrowUpRight size={14} />
+                      </Link>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </Link>
-          ))}
+            );
+          })}
         </div>
       )}
 

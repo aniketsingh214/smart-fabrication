@@ -1,4 +1,38 @@
 import Link from 'next/link';
-import { Hammer,ArrowUpRight } from 'lucide-react';
+import { Hammer, ArrowUpRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-export function PublicHeader(){return <header className="border-b border-slate-200 bg-white"><div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-5 py-5 lg:px-8"><Link href="/" className="flex items-center gap-3"><span className="grid h-10 w-10 place-items-center rounded-xl bg-orange-600 text-white"><Hammer size={22}/></span><span className="text-base font-bold tracking-tight">SmartFabrication<span className="block text-[9px] uppercase tracking-[.23em] text-slate-400">Crafted in steel. Built to last.</span></span></Link><nav aria-label="Main navigation" className="order-3 flex w-full justify-center gap-5 text-xs font-semibold text-slate-500 sm:order-none sm:w-auto"><Link href="/catalog" className="hover:text-orange-600">Explore designs</Link><Link href="/gallery" className="hover:text-orange-600">Our work</Link><Link href="/estimate" className="hover:text-orange-600">Price estimate</Link><Link href="/account" className="hover:text-orange-600">My account</Link></nav><Button asChild size="sm"><Link href="/contact">Request a quote <ArrowUpRight size={14}/></Link></Button></div></header>;}
+import { HeaderShopTriggers } from '@/features/shop/header-shop-triggers';
+
+export function PublicHeader() {
+  return (
+    <header className="border-b border-slate-200 bg-white">
+      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-5 py-4 lg:px-8">
+        <Link href="/" className="flex items-center gap-3">
+          <span className="grid h-10 w-10 place-items-center rounded-xl bg-orange-600 text-white">
+            <Hammer size={22} />
+          </span>
+          <span className="text-base font-bold tracking-tight">
+            SmartFabrication
+            <span className="block text-[9px] uppercase tracking-[.23em] text-slate-400">
+              Crafted in steel. Built to last.
+            </span>
+          </span>
+        </Link>
+        <nav aria-label="Main navigation" className="order-3 flex w-full justify-center gap-6 text-xs font-semibold text-slate-500 sm:order-none sm:w-auto">
+          <Link href="/catalog" className="hover:text-orange-600 transition">Explore designs</Link>
+          <Link href="/gallery" className="hover:text-orange-600 transition">Our work</Link>
+          <Link href="/estimate" className="hover:text-orange-600 transition">Price estimate</Link>
+          <Link href="/account" className="hover:text-orange-600 transition">My account</Link>
+        </nav>
+        <div className="flex items-center gap-3">
+          <HeaderShopTriggers />
+          <Button asChild size="sm">
+            <Link href="/contact">
+              Request a quote <ArrowUpRight size={14} />
+            </Link>
+          </Button>
+        </div>
+      </div>
+    </header>
+  );
+}

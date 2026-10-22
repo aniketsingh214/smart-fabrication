@@ -252,3 +252,29 @@ Expanded local read-only load — 2026-10-17: 60/60 requests passed at concurren
   - `npm run typecheck` passed (0 errors).
   - `npm run docs:check` and `npm run security:check` passed.
   - `npm run build` passed cleanly with Turbopack.
+
+## Customer Wishlist & Project Cart System — 2026-10-22
+
+- Implemented comprehensive customer Wishlist and Project Cart (Bespoke Quotation Basket):
+  - **Shop State Management (`src/features/shop/shop-context.tsx`)**:
+    - Reactive context with hydration-safe `localStorage` persistence (`sf_wishlist_items_v1`, `sf_cart_items_v1`).
+    - Methods: `addToCart`, `removeFromCart`, `updateQuantity`, `clearCart`, `toggleWishlist`, `addToWishlist`, `removeFromWishlist`, `isWishlisted`, `isInCart`.
+    - Live counts and subtotal minor calculations.
+  - **Interactive Action Buttons**:
+    - `WishlistButton` (`src/features/shop/wishlist-button.tsx`): Floating heart icon on catalog cards and dedicated button on product detail pages with filled rose active state.
+    - `AddToCartButton` (`src/features/shop/add-to-cart-button.tsx`): Quick add-to-cart on catalog cards and full action on product detail pages with instant visual feedback and quantity steppers.
+  - **Slide-over Cart & Wishlist Drawers (`src/features/shop/shop-drawers.tsx`)**:
+    - Slide-over Cart drawer with itemized designs, thumbnail preview, material tag, unit price, quantity increment/decrement, indicative subtotal, and one-click "Request Combined Quotation" pre-filling `/contact?requirement=...` and WhatsApp message.
+    - Slide-over Wishlist drawer with saved designs, quick "Add to Cart", and "Move All to Cart".
+  - **Header Live Counters (`src/features/shop/header-shop-triggers.tsx`, `src/components/layout/public-header.tsx`)**:
+    - Heart and ShoppingCart trigger buttons with real-time numeric badge counters.
+  - **Dedicated Full Pages**:
+    - `/cart` (`src/app/(public)/cart/page.tsx`): Complete project basket management, item subtotals, site measurement guarantees, combined quotation request, and WhatsApp inquiry.
+    - `/wishlist` (`src/app/(public)/wishlist/page.tsx`): Full saved design portfolio with bulk move to cart.
+  - **Contact Form Pre-filling (`src/app/(public)/contact/page.tsx`)**:
+    - Automatically captures `requirement` search parameter from Cart to prefill enquiry requirement textarea with detailed item list.
+- Verification:
+  - Full test suite: 41 test files passed (143/143 tests).
+  - `npm run typecheck` passed (0 errors).
+  - `npm run build` compiled cleanly with Turbopack (including new `/cart` and `/wishlist` static/dynamic routes).
+
