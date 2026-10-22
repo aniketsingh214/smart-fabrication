@@ -2,8 +2,7 @@
 
 Read docs/MASTER_PLAN.md, docs/progress.md and the relevant phase/module before edits.
 
-- The user requested a local project named smart-fabrication inside aniket, following the plan step by step. GitHub, Vercel and Supabase access will follow later.
-- Latest scope: run and fix the application locally. GitHub push and Vercel deployment are deferred by the user; continue using the configured Supabase/Cloudinary development services. Do not create a default/shared owner login or infer an owner identity from Git configuration.
+- Latest scope: GitHub push (repository: aniketsingh214/smart-fabrication) and Vercel live deployment (https://smartfabrication.vercel.app) are authorized by the user and active. Continue using configured Supabase PostgreSQL/Auth and Cloudinary development services. Do not create a default/shared owner login or infer an owner identity from Git configuration. Destructive database migrations and real payment activation remain separately controlled.
 - Fixed stack: Next.js App Router + TypeScript, Tailwind/shadcn, Supabase PostgreSQL/Auth, Cloudinary, Vercel. No separate backend.
 - User authorization updated: implement all phases step by step, run checks independently, and continue without repeated phase approval requests. Infrastructure access can still limit deployment/media gates; record these accurately. Destructive changes and real payment activation remain separately controlled.
 - Preserve all 34 source sections and all 20 phases. Never silently remove a requirement.
