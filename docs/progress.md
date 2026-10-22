@@ -235,5 +235,20 @@ Expanded local read-only load — 2026-10-17: 60/60 requests passed at concurren
 - Verification:
   - Full test suite: 40 test files passed (141/141 tests).
   - `npm run typecheck` passed (0 errors).
+  - `npm run build` passed cleanly with Turbopack.
+
+## Modern Architectural Luxury & Bento Grid Homepage Redesign — 2026-10-22
+
+- Redesigned homepage (`src/app/(public)/page.tsx`) with modern architectural luxury & bento grid aesthetics:
+  - **Dark Ambient Hero Section**: Radial orange ambient glow, fine architectural blueprint grid, and glassmorphic pill badge (`✨ Premium Architectural Metalcraft & Structural Fabrication`).
+  - **Hero Direct Category Chips**: Quick direct filter links for Main Gates (75+ Designs), Railings & Balusters (74+ Designs), and Window Grills (76+ Designs).
+  - **Live Floating Badges & Trust Strip**: `±0.5 mm CAD Precision`, `100% Jindal SS 304 Certified`, `315+ Designs Live`, `100% Custom Dimensions (Feet / Inch / mm)`, `SS-304 & MS Prime Steel`, `7–10 Days Fabrication & Erection`.
+  - **30-Second Quick Estimate Teaser**: Highlighting multi-unit estimation in Feet, Inches, or Millimeters with a direct launch action.
+  - **Craftsmanship Bento Grid**: 4-card interactive feature grid detailing Grade 304/316 metallurgy, fiber CNC laser cutting, argon TIG welding, laser leveling, and heavy structural anchor hardware.
+  - **Interactive 4-Step Working Roadmap**: Select Design → Enter Dimensions → Laser Measurement → Workshop Erection.
+  - **High-Impact CTA Banner**: Deep slate-950 backdrop with dual consultation actions.
+- Verification:
+  - Full test suite: 40 test files passed (141/141 tests).
+  - `npm run typecheck` passed (0 errors).
   - `npm run docs:check` and `npm run security:check` passed.
   - `npm run build` passed cleanly with Turbopack.
