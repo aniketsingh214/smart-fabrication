@@ -18,8 +18,11 @@ import {
 import { useShop, type CartItem, type WishlistItem } from './shop-context';
 import { money } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { useLocale } from '@/lib/i18n/locale-context';
+import { getBilingualProductName, getBilingualMaterial } from '@/lib/i18n/catalog-bilingual';
 
 export function ShopDrawers() {
+  const { locale, dict } = useLocale();
   const {
     cart,
     wishlist,
@@ -65,9 +68,9 @@ export function ShopDrawers() {
   )}`;
 
   const whatsappMessage = encodeURIComponent(
-    `Hello SmartFabrication! I am interested in getting a quotation for:\n${cart
+    `नमस्ते SmartFabrication! मुझे अपने प्रोजेक्ट के लिए इन सामानों का कोटेशन चाहिए:\n${cart
       .map(i => `• ${i.name} (${i.material}) × ${i.quantity}`)
-      .join('\n')}\n\nPlease share design catalog and estimate.`
+      .join('\n')}\n\nकृपया डिज़ाइन और खर्च का विवरण भेजें।`
   );
 
   return (
@@ -91,9 +94,9 @@ export function ShopDrawers() {
                     <ShoppingCart size={20} />
                   </div>
                   <div>
-                    <h2 className="text-base font-bold text-slate-900">Project Cart</h2>
+                    <h2 className="text-base font-bold text-slate-900">{dict.cart.title}</h2>
                     <p className="text-xs text-slate-500">
-                      {totalCartItems} {totalCartItems === 1 ? 'item' : 'items'} selected for fabrication
+                      {totalCartItems} {locale === 'hi' ? 'सामान जोड़े गए' : totalCartItems === 1 ? 'item' : 'items'}
                     </p>
                   </div>
                 </div>
@@ -114,99 +117,103 @@ export function ShopDrawers() {
                     <div className="grid h-16 w-16 place-items-center rounded-2xl bg-orange-50 text-orange-600 mb-4">
                       <ShoppingCart size={32} />
                     </div>
-                    <h3 className="text-base font-bold text-slate-800">Your cart is empty</h3>
+                    <h3 className="text-base font-bold text-slate-800">{dict.cart.emptyTitle}</h3>
                     <p className="mt-2 text-xs text-slate-500 max-w-xs leading-5">
-                      Explore our handcrafted gate, railing, grill, and custom steel designs to assemble your quotation.
+                      {dict.cart.emptyMsg}
                     </p>
                     <Link
                       href="/catalog"
                       onClick={() => setIsCartOpen(false)}
                       className="mt-6 inline-flex items-center gap-2 rounded-xl bg-orange-600 px-5 py-2.5 text-xs font-semibold text-white shadow-sm hover:bg-orange-700 transition"
                     >
-                      Explore Catalogue <ArrowRight size={14} />
+                      {dict.cart.exploreBtn} <ArrowRight size={14} />
                     </Link>
                   </div>
                 ) : (
-                  cart.map(item => (
-                    <div
-                      key={item.id}
-                      className="group flex gap-4 rounded-xl border border-slate-200/80 bg-white p-3.5 shadow-xs transition hover:border-orange-200"
-                    >
-                      {/* Image Thumbnail */}
-                      <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-slate-100 border border-slate-100">
-                        {item.image_url ? (
-                          <Image
-                            src={item.image_url}
-                            alt={item.name}
-                            fill
-                            className="object-cover"
-                            sizes="80px"
-                          />
-                        ) : (
-                          <div className="grid h-full w-full place-items-center text-[10px] font-bold text-slate-400 uppercase">
-                            {item.material.slice(0, 3)}
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Item Details */}
-                      <div className="flex flex-1 flex-col justify-between">
-                        <div>
-                          <div className="flex items-start justify-between gap-2">
-                            <Link
-                              href={`/catalog/${item.slug}`}
-                              onClick={() => setIsCartOpen(false)}
-                              className="text-sm font-bold text-slate-900 hover:text-orange-600 line-clamp-1 transition"
-                            >
-                              {item.name}
-                            </Link>
-                            <button
-                              type="button"
-                              onClick={() => removeFromCart(item.id)}
-                              className="text-slate-400 hover:text-red-600 p-1 transition"
-                              title="Remove item"
-                            >
-                              <Trash2 size={15} />
-                            </button>
-                          </div>
-                          <span className="inline-block mt-0.5 rounded-sm bg-orange-50 px-1.5 py-0.5 text-[10px] font-semibold text-orange-800">
-                            {item.material}
-                          </span>
+                  cart.map(item => {
+                    const displayName = getBilingualProductName(item.name, locale);
+                    const displayMaterial = getBilingualMaterial(item.material, locale);
+                    return (
+                      <div
+                        key={item.id}
+                        className="group flex gap-4 rounded-xl border border-slate-200/80 bg-white p-3.5 shadow-xs transition hover:border-orange-200"
+                      >
+                        {/* Image Thumbnail */}
+                        <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-slate-100 border border-slate-100">
+                          {item.image_url ? (
+                            <Image
+                              src={item.image_url}
+                              alt={item.name}
+                              fill
+                              className="object-cover"
+                              sizes="80px"
+                            />
+                          ) : (
+                            <div className="grid h-full w-full place-items-center text-[10px] font-bold text-slate-400 uppercase">
+                              {item.material.slice(0, 3)}
+                            </div>
+                          )}
                         </div>
 
-                        {/* Price and Quantity Stepper */}
-                        <div className="mt-2.5 flex items-center justify-between">
-                          <span className="text-xs font-bold text-slate-800">
-                            {item.price_min_minor
-                              ? money(item.price_min_minor * item.quantity)
-                              : 'Quote on request'}
-                          </span>
-
-                          <div className="flex items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 p-0.5">
-                            <button
-                              type="button"
-                              onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                              className="flex h-6 w-6 items-center justify-center rounded-md text-slate-600 hover:bg-white hover:text-slate-900 transition"
-                              aria-label="Decrease quantity"
-                            >
-                              <Minus size={13} />
-                            </button>
-                            <span className="w-5 text-center text-xs font-bold text-slate-800">
-                              {item.quantity}
+                        {/* Item Details */}
+                        <div className="flex flex-1 flex-col justify-between">
+                          <div>
+                            <div className="flex items-start justify-between gap-2">
+                              <Link
+                                href={`/catalog/${item.slug}`}
+                                onClick={() => setIsCartOpen(false)}
+                                className="text-sm font-bold text-slate-900 hover:text-orange-600 line-clamp-1 transition"
+                              >
+                                {displayName}
+                              </Link>
+                              <button
+                                type="button"
+                                onClick={() => removeFromCart(item.id)}
+                                className="text-slate-400 hover:text-red-600 p-1 transition"
+                                title="Remove item"
+                              >
+                                <Trash2 size={15} />
+                              </button>
+                            </div>
+                            <span className="inline-block mt-0.5 rounded-sm bg-orange-50 px-1.5 py-0.5 text-[10px] font-semibold text-orange-800">
+                              {displayMaterial}
                             </span>
-                            <button
-                              type="button"
-                              onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                              className="flex h-6 w-6 items-center justify-center rounded-md text-slate-600 hover:bg-white hover:text-slate-900 transition"
-                              aria-label="Increase quantity"
-                            >
-                              <Plus size={13} />
-                            </button>
+                          </div>
+
+                          {/* Price and Quantity Stepper */}
+                          <div className="mt-2.5 flex items-center justify-between">
+                            <span className="text-xs font-bold text-slate-800">
+                              {item.price_min_minor
+                                ? money(item.price_min_minor * item.quantity)
+                                : (locale === 'hi' ? 'कोटेशन पर' : 'Quote on request')}
+                            </span>
+
+                            <div className="flex items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 p-0.5">
+                              <button
+                                type="button"
+                                onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                                className="flex h-6 w-6 items-center justify-center rounded-md text-slate-600 hover:bg-white hover:text-slate-900 transition"
+                                aria-label="Decrease quantity"
+                              >
+                                <Minus size={13} />
+                              </button>
+                              <span className="w-5 text-center text-xs font-bold text-slate-800">
+                                {item.quantity}
+                              </span>
+                              <button
+                                type="button"
+                                onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                                className="flex h-6 w-6 items-center justify-center rounded-md text-slate-600 hover:bg-white hover:text-slate-900 transition"
+                                aria-label="Increase quantity"
+                              >
+                                <Plus size={13} />
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  ))
+                    );
+                  })
                 )}
               </div>
 
@@ -216,8 +223,10 @@ export function ShopDrawers() {
                   {cartSubtotalMinor > 0 && (
                     <div className="flex items-center justify-between">
                       <div>
-                        <span className="text-xs font-semibold text-slate-600">Indicative Subtotal</span>
-                        <p className="text-[10px] text-slate-400">Subject to site measurement</p>
+                        <span className="text-xs font-semibold text-slate-600">{dict.cart.subtotal}</span>
+                        <p className="text-[10px] text-slate-400">
+                          {locale === 'hi' ? 'नाप के बाद पक्की कीमत तय होगी' : 'Subject to site measurement'}
+                        </p>
                       </div>
                       <span className="text-lg font-bold text-slate-900">
                         {money(cartSubtotalMinor)}
@@ -235,7 +244,7 @@ export function ShopDrawers() {
                         onClick={() => setIsCartOpen(false)}
                         className="flex items-center justify-center gap-2"
                       >
-                        <Sparkles size={16} /> Request Combined Quotation <ArrowUpRight size={15} />
+                        <Sparkles size={16} /> {dict.cart.requestQuotationBtn} <ArrowUpRight size={15} />
                       </Link>
                     </Button>
 
@@ -245,7 +254,7 @@ export function ShopDrawers() {
                       rel="noopener noreferrer"
                       className="flex w-full items-center justify-center gap-2 rounded-xl border border-emerald-600 bg-white py-3 text-xs font-bold text-emerald-700 hover:bg-emerald-50 transition shadow-xs"
                     >
-                      <MessageCircle size={15} /> Inquire via WhatsApp
+                      <MessageCircle size={15} /> {dict.cart.whatsappBtn}
                     </a>
                   </div>
 
@@ -255,14 +264,14 @@ export function ShopDrawers() {
                       onClick={() => setIsCartOpen(false)}
                       className="font-semibold text-slate-600 hover:text-orange-600 underline"
                     >
-                      View full cart page
+                      {locale === 'hi' ? 'पूरा कार्ट पेज देखें' : 'View full cart page'}
                     </Link>
                     <button
                       type="button"
                       onClick={clearCart}
                       className="text-slate-400 hover:text-red-600 transition"
                     >
-                      Clear all
+                      {dict.cart.clearBtn}
                     </button>
                   </div>
                 </div>
@@ -291,9 +300,9 @@ export function ShopDrawers() {
                     <Heart size={20} className="fill-white" />
                   </div>
                   <div>
-                    <h2 className="text-base font-bold text-slate-900">Saved Designs</h2>
+                    <h2 className="text-base font-bold text-slate-900">{dict.wishlist.title}</h2>
                     <p className="text-xs text-slate-500">
-                      {totalWishlistItems} {totalWishlistItems === 1 ? 'design' : 'designs'} saved to wishlist
+                      {totalWishlistItems} {locale === 'hi' ? 'डिज़ाइन सेव किए गए' : totalWishlistItems === 1 ? 'design' : 'designs'}
                     </p>
                   </div>
                 </div>
@@ -314,95 +323,99 @@ export function ShopDrawers() {
                     <div className="grid h-16 w-16 place-items-center rounded-2xl bg-rose-50 text-rose-500 mb-4">
                       <Heart size={32} />
                     </div>
-                    <h3 className="text-base font-bold text-slate-800">Your wishlist is empty</h3>
+                    <h3 className="text-base font-bold text-slate-800">{dict.wishlist.emptyTitle}</h3>
                     <p className="mt-2 text-xs text-slate-500 max-w-xs leading-5">
-                      Save fabrication designs that catch your eye by clicking the heart button on catalogue cards.
+                      {dict.wishlist.emptyMsg}
                     </p>
                     <Link
                       href="/catalog"
                       onClick={() => setIsWishlistOpen(false)}
                       className="mt-6 inline-flex items-center gap-2 rounded-xl bg-slate-900 px-5 py-2.5 text-xs font-semibold text-white shadow-sm hover:bg-slate-800 transition"
                     >
-                      Browse Designs <ArrowRight size={14} />
+                      {dict.wishlist.exploreBtn} <ArrowRight size={14} />
                     </Link>
                   </div>
                 ) : (
-                  wishlist.map(item => (
-                    <div
-                      key={item.id}
-                      className="group flex gap-4 rounded-xl border border-slate-200/80 bg-white p-3.5 shadow-xs transition hover:border-rose-200"
-                    >
-                      {/* Image Thumbnail */}
-                      <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-slate-100 border border-slate-100">
-                        {item.image_url ? (
-                          <Image
-                            src={item.image_url}
-                            alt={item.name}
-                            fill
-                            className="object-cover"
-                            sizes="80px"
-                          />
-                        ) : (
-                          <div className="grid h-full w-full place-items-center text-[10px] font-bold text-slate-400 uppercase">
-                            {item.material.slice(0, 3)}
-                          </div>
-                        )}
-                      </div>
+                  wishlist.map(item => {
+                    const displayName = getBilingualProductName(item.name, locale);
+                    const displayMaterial = getBilingualMaterial(item.material, locale);
+                    return (
+                      <div
+                        key={item.id}
+                        className="group flex gap-4 rounded-xl border border-slate-200/80 bg-white p-3.5 shadow-xs transition hover:border-rose-200"
+                      >
+                        {/* Image Thumbnail */}
+                        <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-slate-100 border border-slate-100">
+                          {item.image_url ? (
+                            <Image
+                              src={item.image_url}
+                              alt={item.name}
+                              fill
+                              className="object-cover"
+                              sizes="80px"
+                            />
+                          ) : (
+                            <div className="grid h-full w-full place-items-center text-[10px] font-bold text-slate-400 uppercase">
+                              {item.material.slice(0, 3)}
+                            </div>
+                          )}
+                        </div>
 
-                      {/* Item Details */}
-                      <div className="flex flex-1 flex-col justify-between">
-                        <div>
-                          <div className="flex items-start justify-between gap-2">
-                            <Link
-                              href={`/catalog/${item.slug}`}
-                              onClick={() => setIsWishlistOpen(false)}
-                              className="text-sm font-bold text-slate-900 hover:text-rose-600 line-clamp-1 transition"
-                            >
-                              {item.name}
-                            </Link>
+                        {/* Item Details */}
+                        <div className="flex flex-1 flex-col justify-between">
+                          <div>
+                            <div className="flex items-start justify-between gap-2">
+                              <Link
+                                href={`/catalog/${item.slug}`}
+                                onClick={() => setIsWishlistOpen(false)}
+                                className="text-sm font-bold text-slate-900 hover:text-rose-600 line-clamp-1 transition"
+                              >
+                                {displayName}
+                              </Link>
+                              <button
+                                type="button"
+                                onClick={() => removeFromWishlist(item.id)}
+                                className="text-slate-400 hover:text-red-600 p-1 transition"
+                                title="Remove from wishlist"
+                              >
+                                <Trash2 size={15} />
+                              </button>
+                            </div>
+                            <span className="inline-block mt-0.5 rounded-sm bg-slate-100 px-1.5 py-0.5 text-[10px] font-semibold text-slate-700">
+                              {displayMaterial}
+                            </span>
+                          </div>
+
+                          {/* Price and Add to Cart Action */}
+                          <div className="mt-2.5 flex items-center justify-between">
+                            <span className="text-xs font-semibold text-slate-800">
+                              {item.price_min_minor
+                                ? `${locale === 'hi' ? 'शुरुआती कीमत' : 'From'} ${money(item.price_min_minor)}`
+                                : (locale === 'hi' ? 'कोटेशन पर' : 'Custom quote')}
+                            </span>
+
                             <button
                               type="button"
-                              onClick={() => removeFromWishlist(item.id)}
-                              className="text-slate-400 hover:text-red-600 p-1 transition"
-                              title="Remove from wishlist"
+                              onClick={() => {
+                                addToCart({
+                                  product_id: item.id,
+                                  name: item.name,
+                                  slug: item.slug,
+                                  material: item.material,
+                                  price_min_minor: item.price_min_minor,
+                                  image_url: item.image_url
+                                });
+                              }}
+                              className="inline-flex items-center gap-1.5 rounded-lg bg-orange-600 px-3 py-1.5 text-xs font-semibold text-white shadow-xs hover:bg-orange-700 transition"
                             >
-                              <Trash2 size={15} />
+                              <ShoppingCart size={13} />
+                              <span>{dict.product.addToCart}</span>
                             </button>
                           </div>
-                          <span className="inline-block mt-0.5 rounded-sm bg-slate-100 px-1.5 py-0.5 text-[10px] font-semibold text-slate-700">
-                            {item.material}
-                          </span>
-                        </div>
-
-                        {/* Price and Add to Cart Action */}
-                        <div className="mt-2.5 flex items-center justify-between">
-                          <span className="text-xs font-semibold text-slate-800">
-                            {item.price_min_minor
-                              ? `From ${money(item.price_min_minor)}`
-                              : 'Custom quote'}
-                          </span>
-
-                          <button
-                            type="button"
-                            onClick={() => {
-                              addToCart({
-                                product_id: item.id,
-                                name: item.name,
-                                slug: item.slug,
-                                material: item.material,
-                                price_min_minor: item.price_min_minor,
-                                image_url: item.image_url
-                              });
-                            }}
-                            className="inline-flex items-center gap-1.5 rounded-lg bg-orange-600 px-3 py-1.5 text-xs font-semibold text-white shadow-xs hover:bg-orange-700 transition"
-                          >
-                            <ShoppingCart size={13} />
-                            <span>Add to Cart</span>
-                          </button>
                         </div>
                       </div>
-                    </div>
-                  ))
+                    );
+                  })
                 )}
               </div>
 
@@ -426,7 +439,7 @@ export function ShopDrawers() {
                     }}
                     className="w-full bg-slate-900 hover:bg-slate-800 py-6 text-sm font-bold shadow-md"
                   >
-                    Move All to Cart ({wishlist.length})
+                    {dict.wishlist.moveAllToCart} ({wishlist.length})
                   </Button>
 
                   <div className="flex items-center justify-between pt-1 text-xs">
@@ -435,7 +448,7 @@ export function ShopDrawers() {
                       onClick={() => setIsWishlistOpen(false)}
                       className="font-semibold text-slate-600 hover:text-rose-600 underline"
                     >
-                      View full wishlist page
+                      {locale === 'hi' ? 'पूरा विशलिस्ट पेज देखें' : 'View full wishlist page'}
                     </Link>
                   </div>
                 </div>
@@ -447,3 +460,4 @@ export function ShopDrawers() {
     </>
   );
 }
+

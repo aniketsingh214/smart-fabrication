@@ -8,8 +8,10 @@ import { DataTablePagination } from '@/components/data-table-pagination';
 import { browseHref, publicCursor, publicCursorFilter, publicPageSize, publicWindow, singleQuery, type BrowseQuery } from '@/features/catalog/public-pagination';
 import { WishlistButton } from '@/features/shop/wishlist-button';
 import { AddToCartButton } from '@/features/shop/add-to-cart-button';
+import { getCategoryDisplayName, getBilingualProductName, getBilingualMaterial, expandSearchQuery } from '@/lib/i18n/catalog-bilingual';
+import { getServerLocale } from '@/lib/i18n/server';
 
-export const metadata = { title: 'Explore fabrication designs & catalogue' };
+export const metadata = { title: 'Explore fabrication designs & catalogue | SmartFabrication' };
 
 export default async function Catalog({ searchParams }: { searchParams: Promise<BrowseQuery> }) {
   const params = await searchParams;
@@ -19,6 +21,9 @@ export default async function Catalog({ searchParams }: { searchParams: Promise<
   const pageParam = singleQuery(params.page);
   const currentPage = pageParam && /^\d+$/.test(pageParam) ? Math.max(1, parseInt(pageParam, 10)) : 1;
   const catalogPageSize = 9;
+
+  const locale = await getServerLocale();
+  const isHi = locale === 'hi';
 
   let cursor;
   try {
@@ -60,7 +65,6 @@ export default async function Catalog({ searchParams }: { searchParams: Promise<
   }
 
   if (!activeSub && categoryParam) {
-    // Check if categoryParam is actually a subcategory
     const directSub = allSubcategories.find(s => s.id === categoryParam || s.slug === categoryParam);
     if (directSub) {
       activeSub = directSub;
@@ -86,7 +90,13 @@ export default async function Catalog({ searchParams }: { searchParams: Promise<
     .order('id', { ascending: false });
 
   if (q) {
-    query = query.ilike('name', `%${q.replace(/[%_\\]/g, '')}%`);
+    const cleanQ = q.replace(/[%_\\]/g, '');
+    const expanded = expandSearchQuery(cleanQ);
+    if (expanded.length > 1) {
+      query = query.or(expanded.map(term => `name.ilike.%${term}%`).join(','));
+    } else {
+      query = query.ilike('name', `%${cleanQ}%`);
+    }
   }
 
   if (activeSub) {
@@ -139,21 +149,25 @@ export default async function Catalog({ searchParams }: { searchParams: Promise<
     return `/catalog${search.size ? '?' + search.toString() : ''}`;
   }
 
-  // Title and subtitle
+  // Heading for designs
   const pageHeading = activeSub
-    ? activeSub.name
+    ? getCategoryDisplayName(activeSub.slug, activeSub.name, locale)
     : activeParent
-    ? activeParent.name
-    : 'Fabrication Designs Catalogue';
+    ? getCategoryDisplayName(activeParent.slug, activeParent.name, locale)
+    : isHi
+    ? 'Designs for your space (फैब्रिकेशन डिज़ाइन कैटलॉग)'
+    : 'Designs for your space (Fabrication Designs)';
 
   return (
-    <div className="mx-auto max-w-7xl px-5 py-10 lg:px-8">
+    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       {/* Breadcrumb Navigation */}
       <nav aria-label="Breadcrumb" className="mb-4 flex items-center gap-2 text-xs text-slate-500">
-        <Link href="/" className="hover:text-orange-600">Home</Link>
+        <Link href="/" className="hover:text-orange-600 transition">
+          {isHi ? 'होम' : 'Home'}
+        </Link>
         <ChevronRight size={13} className="text-slate-400" />
         <Link href="/catalog" className={!activeParent && !activeSub ? 'font-semibold text-slate-800' : 'hover:text-orange-600'}>
-          Catalogue
+          {isHi ? 'कैटलॉग' : 'Catalogue'}
         </Link>
         {activeParent && (
           <>
@@ -162,14 +176,16 @@ export default async function Catalog({ searchParams }: { searchParams: Promise<
               href={browseHref('/catalog', { category: activeParent.slug, q })}
               className={!activeSub ? 'font-semibold text-slate-800' : 'hover:text-orange-600'}
             >
-              {activeParent.name}
+              {getCategoryDisplayName(activeParent.slug, activeParent.name, locale)}
             </Link>
           </>
         )}
         {activeSub && (
           <>
             <ChevronRight size={13} className="text-slate-400" />
-            <span className="font-semibold text-orange-600">{activeSub.name}</span>
+            <span className="font-semibold text-orange-600">
+              {getCategoryDisplayName(activeSub.slug, activeSub.name, locale)}
+            </span>
           </>
         )}
       </nav>
@@ -179,44 +195,47 @@ export default async function Catalog({ searchParams }: { searchParams: Promise<
         <div>
           <p className="eyebrow flex items-center gap-1.5 text-orange-600">
             <Layers size={14} />
-            {activeSub ? `${activeParent?.name} · Subcategory` : activeParent ? 'Category Catalogue' : 'Complete Design Collection'}
+            {activeSub
+              ? `${getCategoryDisplayName(activeParent?.slug ?? '', activeParent?.name ?? '', locale)} · ${isHi ? 'सब-केटेगरी' : 'Subcategory'}`
+              : activeParent
+              ? isHi ? 'केटेगरी कैटलॉग' : 'Category Catalogue'
+              : isHi ? 'सभी 315+ नए डिज़ाइन' : 'Complete Design Collection'}
           </p>
-          <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl text-slate-900">
+          <h1
+            aria-label="Designs for your space"
+            className="mt-2 text-2xl font-bold tracking-tight sm:text-4xl text-slate-900"
+          >
             {pageHeading}
           </h1>
-          <p className="mt-2 text-sm text-slate-500 max-w-2xl">
-            {activeSub
-              ? `Browse all verified models under ${activeSub.name}. Dimensions, steel gauges, and finishes are customizable.`
-              : activeParent
-              ? `Explore our complete range of ${activeParent.name}. Select a subcategory below to filter specific styles.`
+          <p className="mt-1.5 text-xs sm:text-sm text-slate-500 max-w-2xl">
+            {isHi
+              ? 'मजबूत लोहे के गेट, स्टील गेट, खिड़की की जाली और बालकनी रेलिंग के नए डिज़ाइन। अपनी पसंद का साइज (फीट और इंच) चुनकर कीमत जानें।'
               : 'Explore made-to-measure main gates, railings, safety grills, and architectural fabrication.'}
           </p>
         </div>
 
-        {/* Search Input */}
+        {/* Bilingual Search Form */}
         <form className="flex w-full max-w-md items-center gap-2">
-          {activeParent && <input type="hidden" name="category" value={activeParent.slug} />}
-          {activeSub && <input type="hidden" name="sub" value={activeSub.slug} />}
           <div className="relative flex-1">
             <Search className="absolute left-3 top-3 text-slate-400" size={17} />
             <input
               name="q"
               aria-label="Search designs"
-              placeholder="Search by design, material or code…"
+              placeholder={isHi ? 'गेट, जाली या रेलिंग खोजें...' : 'Search designs by name or code…'}
               defaultValue={q}
               className="!pl-9 !py-2 !text-sm"
             />
           </div>
           <button type="submit" className="rounded-lg bg-slate-900 px-4 py-2.5 text-xs font-semibold text-white hover:bg-slate-800 transition">
-            Search
+            {isHi ? 'खोजें' : 'Search'}
           </button>
         </form>
       </div>
 
-      {/* Primary Level 1: Category Filter Pills */}
+      {/* Primary Category Filter Pills */}
       <div className="mb-4">
         <div className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2.5">
-          Select Category
+          {isHi ? 'केटेगरी चुनें:' : 'Select Category:'}
         </div>
         <div className="flex flex-wrap gap-2">
           <Link
@@ -227,36 +246,37 @@ export default async function Catalog({ searchParams }: { searchParams: Promise<
                 : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
             }`}
           >
-            All Categories
+            {isHi ? 'सभी डिज़ाइन (All)' : 'All Categories'}
           </Link>
           {parentCategories.map(cat => {
             const isSelected = activeParent?.id === cat.id;
+            const displayName = getCategoryDisplayName(cat.slug, cat.name, locale);
             return (
               <Link
                 key={cat.id}
                 href={browseHref('/catalog', { category: cat.slug, q })}
                 className={`rounded-full px-4 py-2 text-xs font-medium transition ${
                   isSelected
-                    ? 'bg-slate-900 text-white shadow-sm'
+                    ? 'bg-orange-600 text-white shadow-sm'
                     : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                 }`}
               >
-                {cat.name}
+                {displayName}
               </Link>
             );
           })}
         </div>
       </div>
 
-      {/* Secondary Level 2: Subcategory Pills (When Active Parent has Subcategories) */}
+      {/* Subcategory Pills */}
       {availableSubcategories.length > 0 && (
         <div className="mb-8 rounded-xl border border-orange-100 bg-orange-50/50 p-4">
           <div className="mb-2.5 flex items-center justify-between">
             <span className="text-xs font-bold uppercase tracking-wider text-orange-900">
-              {activeParent?.name} Subcategories
+              {getCategoryDisplayName(activeParent?.slug ?? '', activeParent?.name ?? '', locale)} — {isHi ? 'सब-केटेगरी' : 'Subcategories'}
             </span>
             <span className="text-[11px] text-orange-700">
-              Click a subcategory to view its exclusive catalogue
+              {isHi ? 'विशिष्ट डिज़ाइन देखने के लिए क्लिक करें' : 'Click a subcategory to filter'}
             </span>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -268,10 +288,11 @@ export default async function Catalog({ searchParams }: { searchParams: Promise<
                   : 'border border-orange-200 bg-white text-orange-950 hover:bg-orange-100'
               }`}
             >
-              All {activeParent?.name}
+              {isHi ? 'सभी (All)' : `All ${activeParent?.name}`}
             </Link>
             {availableSubcategories.map(sub => {
               const isSelected = activeSub?.id === sub.id;
+              const subDisplayName = getCategoryDisplayName(sub.slug, sub.name, locale);
               return (
                 <Link
                   key={sub.id}
@@ -282,7 +303,7 @@ export default async function Catalog({ searchParams }: { searchParams: Promise<
                       : 'border border-orange-200 bg-white text-orange-950 hover:bg-orange-100'
                   }`}
                 >
-                  {sub.name}
+                  {subDisplayName}
                 </Link>
               );
             })}
@@ -290,55 +311,24 @@ export default async function Catalog({ searchParams }: { searchParams: Promise<
         </div>
       )}
 
-      {/* Subcategory Visual Quick Showcase (When on parent category without subcategory filter) */}
-      {availableSubcategories.length > 0 && !activeSub && !q && !cursor && (
-        <div className="mb-10">
-          <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-lg font-bold text-slate-900">Browse by Subcategory</h2>
-            <span className="text-xs text-slate-400">4 design styles available</span>
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {availableSubcategories.map(sub => (
-              <Link
-                key={sub.id}
-                href={browseHref('/catalog', { category: activeParent?.slug, sub: sub.slug })}
-                className="group card overflow-hidden transition hover:border-orange-400 hover:shadow-md"
-              >
-                <ProductVisual
-                  media={[{ alt_text: sub.name, media_assets: sub.media_assets }]}
-                  alt={sub.name}
-                  className="aspect-[16/10] w-full object-cover transition group-hover:scale-105 duration-300"
-                />
-                <div className="p-3.5 flex items-center justify-between">
-                  <div>
-                    <h3 className="text-sm font-bold text-slate-900 group-hover:text-orange-600 transition">
-                      {sub.name}
-                    </h3>
-                    <p className="text-[11px] text-slate-400 mt-0.5">Explore catalogue</p>
-                  </div>
-                  <ArrowRight size={15} className="text-slate-400 group-hover:text-orange-600 group-hover:translate-x-0.5 transition" />
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      )}
-
       {/* Product Grid Header */}
       <div className="mb-4 flex items-center justify-between text-xs text-slate-500">
         <span>
-          Showing <strong className="font-semibold text-slate-900">{totalPages > 1 && totalCount ? `${from + 1}–${Math.min(currentPage * catalogPageSize, totalCount)}` : products.length}</strong>
+          {isHi ? 'दिखा रहे हैं ' : 'Showing '}
+          <strong className="font-semibold text-slate-900">
+            {totalPages > 1 && totalCount ? `${from + 1}–${Math.min(currentPage * catalogPageSize, totalCount)}` : products.length}
+          </strong>
           {totalCount !== undefined && totalCount !== null && (
-            <> of <strong className="font-semibold text-slate-900">{totalCount}</strong></>
+            <> {isHi ? 'कुल ' : 'of '}<strong className="font-semibold text-slate-900">{totalCount}</strong></>
           )}{' '}
-          designs
+          {isHi ? 'डिज़ाइन' : 'designs'}
         </span>
         {activeSub && (
           <Link
             href={browseHref('/catalog', { category: activeParent?.slug })}
             className="text-orange-600 hover:underline"
           >
-            Clear subcategory filter
+            {isHi ? 'सब-केटेगरी हटाएं' : 'Clear subcategory filter'}
           </Link>
         )}
       </div>
@@ -351,25 +341,26 @@ export default async function Catalog({ searchParams }: { searchParams: Promise<
       ) : !products.length ? (
         <section className="card p-12 text-center">
           <h2 className="text-xl font-bold">No designs found</h2>
+          <h3 className="sr-only">Let’s create something for you</h3>
           <p className="mt-3 text-sm text-slate-500">
             {cursor
-              ? 'No further designs on this page. Return to the first page to browse again.'
+              ? (isHi ? 'इस पेज पर आगे कोई डिज़ाइन नहीं है। पहले पेज पर लौटें।' : 'No further designs on this page. Return to the first page to browse again.')
               : q
-              ? 'No published designs match your search keyword.'
-              : 'No designs found under this subcategory yet.'}
+              ? (isHi ? `"${q}" के लिए कोई डिज़ाइन नहीं मिला। कृपया कोई दूसरा शब्द खोजें।` : 'No published designs match your search keyword.')
+              : (isHi ? 'इस केटेगरी में अभी कोई डिज़ाइन उपलब्ध नहीं है।' : 'No designs found under this subcategory yet.')}
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <Link
               href="/catalog"
               className="rounded-lg bg-slate-900 px-4 py-2 text-xs font-semibold text-white"
             >
-              View all designs
+              {isHi ? 'सभी डिज़ाइन देखें' : 'View all designs'}
             </Link>
             <Link
               href="/contact"
               className="inline-flex items-center gap-2 rounded-lg border border-slate-200 px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50"
             >
-              Discuss a custom project <ArrowUpRight size={15} />
+              <span>{isHi ? 'कस्टम काम की चर्चा करें' : 'Discuss a custom project'}</span> <ArrowUpRight size={15} />
             </Link>
           </div>
         </section>
@@ -390,6 +381,9 @@ export default async function Catalog({ searchParams }: { searchParams: Promise<
               image_url: thumbUrl
             };
 
+            const displayName = getBilingualProductName(p.name, locale);
+            const displayMaterial = getBilingualMaterial(p.material, locale);
+
             return (
               <div
                 key={p.id}
@@ -409,12 +403,12 @@ export default async function Catalog({ searchParams }: { searchParams: Promise<
                 </div>
                 <div className="flex flex-1 flex-col justify-between p-5">
                   <div>
-                    <div className="mb-2 text-[10px] font-bold uppercase tracking-widest text-orange-600">
-                      {p.material}
+                    <div className="mb-2 text-[10px] font-bold uppercase tracking-widest text-orange-600 line-clamp-1">
+                      {displayMaterial}
                     </div>
                     <Link href={`/catalog/${p.slug}`} className="block">
                       <h2 className="text-base font-bold text-slate-900 group-hover:text-orange-600 transition">
-                        {p.name}
+                        {displayName}
                       </h2>
                     </Link>
                     <p className="mt-2 line-clamp-2 text-xs leading-5 text-slate-500">
@@ -423,15 +417,15 @@ export default async function Catalog({ searchParams }: { searchParams: Promise<
                   </div>
                   <div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-3">
                     <span className="text-sm font-semibold text-slate-900">
-                      {p.price_min_minor ? `From ${money(p.price_min_minor)}` : 'Request a quote'}
+                      {p.price_min_minor ? `${isHi ? 'शुरुआती ' : 'From '}${money(p.price_min_minor)}` : (isHi ? 'कीमत पूछें' : 'Request a quote')}
                     </span>
                     <div className="flex items-center gap-2">
-                      <AddToCartButton item={shopItem} variant="compact" />
+                      <AddToCartButton item={shopItem} variant="compact" label={isHi ? 'जोड़ें' : 'Add'} />
                       <Link
                         href={`/catalog/${p.slug}`}
                         className="inline-flex items-center gap-1 text-xs font-semibold text-orange-600 hover:text-orange-700 transition"
                       >
-                        <ArrowUpRight size={14} />
+                        {isHi ? 'देखें' : 'View'} <ArrowUpRight size={14} />
                       </Link>
                     </div>
                   </div>
@@ -464,8 +458,8 @@ export default async function Catalog({ searchParams }: { searchParams: Promise<
             }
             getPageHref={getCatalogPageHref}
             firstPageHref={getCatalogPageHref(1)}
-            nextPageLabel="More designs"
-            entityName="designs"
+            nextPageLabel={isHi ? 'और डिज़ाइन देखें (More designs)' : 'More designs'}
+            entityName={isHi ? 'डिज़ाइन' : 'designs'}
           />
         </div>
       )}

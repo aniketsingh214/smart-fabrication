@@ -10,6 +10,8 @@ import { catalogConfiguration } from '@/features/catalog/configuration';
 import { ProductConfiguration } from '@/features/catalog/product-configuration';
 import { AddToCartButton } from '@/features/shop/add-to-cart-button';
 import { WishlistButton } from '@/features/shop/wishlist-button';
+import { getBilingualProductName, getBilingualMaterial } from '@/lib/i18n/catalog-bilingual';
+import { getServerLocale } from '@/lib/i18n/server';
 
 export default async function Product({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -26,6 +28,9 @@ export default async function Product({ params }: { params: Promise<{ slug: stri
 
   const choices = await catalogConfiguration(db, productRef.id);
   const p = choices;
+
+  const locale = await getServerLocale();
+  const isHi = locale === 'hi';
 
   const cloud = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
   const firstAsset = p.product_media?.[0]?.media_assets;
@@ -44,10 +49,13 @@ export default async function Product({ params }: { params: Promise<{ slug: stri
     image_url: thumbUrl
   };
 
+  const displayName = getBilingualProductName(p.name, locale);
+  const displayMaterial = getBilingualMaterial(p.material, locale);
+
   return (
-    <div className="mx-auto max-w-7xl px-5 py-12 lg:px-8">
+    <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
       <Link href="/catalog" className="text-xs font-semibold text-slate-500 hover:text-orange-600 transition">
-        ← Back to designs
+        {isHi ? '← वापस सभी डिज़ाइन देखें' : '← Back to designs'}
       </Link>
       <div className="mt-6 grid gap-10 lg:grid-cols-2">
         <div>
@@ -60,21 +68,25 @@ export default async function Product({ params }: { params: Promise<{ slug: stri
           <ProductVideos media={p.product_media} />
         </div>
         <div>
-          <p className="eyebrow text-orange-600">Custom fabrication</p>
-          <h1 className="mt-3 text-4xl font-bold">{p.name}</h1>
-          <p className="mt-6 whitespace-pre-wrap text-sm leading-7 text-slate-500">{p.description}</p>
-          <dl className="my-7 grid grid-cols-2 gap-5 rounded-xl border border-slate-200 bg-white p-5">
+          <p className="eyebrow text-orange-600">
+            {isHi ? 'मजबूत कारीगरी • कस्टम फैब्रिकेशन' : 'Custom fabrication'}
+          </p>
+          <h1 className="mt-3 text-3xl sm:text-4xl font-bold text-slate-900">
+            {displayName}
+          </h1>
+          <p className="mt-5 whitespace-pre-wrap text-sm leading-7 text-slate-600">{p.description}</p>
+          <dl className="my-7 grid grid-cols-2 gap-4 rounded-xl border border-slate-200 bg-white p-5">
             {[
-              ['Material', p.material],
-              ...(p.design_code ? [['Design code', p.design_code]] : []),
-              ...(p.weight_kg ? [['Indicative weight', String(p.weight_kg) + ' kg']] : []),
-              ['Finish', p.finish || 'Discuss with the workshop'],
-              ['Dimensions', p.custom_size ? 'Made to measure' : 'As specified'],
-              ['Indicative starting price', p.price_min_minor ? money(p.price_min_minor) : 'Quotation on request']
+              [isHi ? 'धातु (मटीरियल)' : 'Material', displayMaterial],
+              ...(p.design_code ? [[isHi ? 'डिज़ाइन कोड' : 'Design code', p.design_code]] : []),
+              ...(p.weight_kg ? [[isHi ? 'अनुमानित वजन' : 'Indicative weight', String(p.weight_kg) + ' kg']] : []),
+              [isHi ? 'पेंट / पॉलिश' : 'Finish', p.finish || (isHi ? 'वर्कशॉप से चर्चा करें' : 'Discuss with the workshop')],
+              [isHi ? 'नाप (साइज)' : 'Dimensions', p.custom_size ? (isHi ? 'आपकी नाप के अनुसार (Made to measure)' : 'Made to measure') : (isHi ? 'दिए गए साइज अनुसार' : 'As specified')],
+              [isHi ? 'शुरुआती अनुमानित कीमत' : 'Indicative starting price', p.price_min_minor ? money(p.price_min_minor) : (isHi ? 'नाप के बाद पक्की कीमत' : 'Quotation on request')]
             ].map(([k, v]) => (
               <div key={k}>
-                <dt className="text-xs text-slate-400">{k}</dt>
-                <dd className="mt-2 text-sm font-semibold">{v}</dd>
+                <dt className="text-xs text-slate-400 font-medium">{k}</dt>
+                <dd className="mt-1.5 text-sm font-semibold text-slate-900">{v}</dd>
               </div>
             ))}
           </dl>
@@ -82,24 +94,26 @@ export default async function Product({ params }: { params: Promise<{ slug: stri
           <ProductServices delivery={p.delivery_availability} installation={p.installation_availability} />
           <ProductConfiguration variants={choices.product_variants} options={choices.product_options} />
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            <AddToCartButton item={shopItem} variant="primary" />
+            <AddToCartButton item={shopItem} variant="primary" label={isHi ? 'प्रोजेक्ट कार्ट में जोड़ें' : 'Add to Project Cart'} />
             <WishlistButton item={shopItem} variant="full" />
             <Button asChild variant="outline">
-              <Link href={`/contact?product=${p.id}`}>Request exact quotation</Link>
+              <Link href={`/contact?product=${p.id}`}>
+                {isHi ? 'पक्की कोटेशन मांगें' : 'Request exact quotation'}
+              </Link>
             </Button>
             <Button asChild variant="outline">
-              <Link href={`/estimate?product=${p.id}`}>Get approximate estimate</Link>
+              <Link href={`/estimate?product=${p.id}`}>
+                {isHi ? 'कीमत का अनुमान लगाएं' : 'Get approximate estimate'}
+              </Link>
             </Button>
           </div>
           <p className="mt-4 text-xs leading-6 text-slate-400">
-            Where product photography is unavailable, a concept illustration is shown. Final dimensions and price are confirmed after measurement.
+            {isHi
+              ? '⚡ कारीगर द्वारा घर पर आकर सही नाप लेने के बाद ही पक्की कीमत, मटीरियल और फिटिंग तय की जाएगी।'
+              : 'Where product photography is unavailable, a concept illustration is shown. Final dimensions and price are confirmed after measurement.'}
           </p>
         </div>
       </div>
     </div>
   );
 }
-
-
-
-

@@ -19,8 +19,11 @@ import {
 import { useShop } from '@/features/shop/shop-context';
 import { money } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { useLocale } from '@/lib/i18n/locale-context';
+import { getBilingualProductName, getBilingualMaterial } from '@/lib/i18n/catalog-bilingual';
 
 export default function CartPage() {
+  const { locale, dict } = useLocale();
   const {
     cart,
     removeFromCart,
@@ -44,9 +47,9 @@ export default function CartPage() {
   )}`;
 
   const whatsappMessage = encodeURIComponent(
-    `Hello SmartFabrication! I am interested in getting a quotation for my project cart:\n${cart
+    `नमस्ते SmartFabrication! मुझे अपने प्रोजेक्ट के लिए इन सामानों का कोटेशन चाहिए:\n${cart
       .map(i => `• ${i.name} (${i.material}) × ${i.quantity}`)
-      .join('\n')}\n\nPlease share design catalog and estimate.`
+      .join('\n')}\n\nकृपया डिज़ाइन और खर्च का विवरण भेजें।`
   );
 
   return (
@@ -54,24 +57,26 @@ export default function CartPage() {
       {/* Breadcrumb Navigation */}
       <nav aria-label="Breadcrumb" className="mb-4 flex items-center gap-2 text-xs text-slate-500">
         <Link href="/" className="hover:text-orange-600 transition">
-          Home
+          {dict.nav.home}
         </Link>
         <ChevronRight size={13} className="text-slate-400" />
         <Link href="/catalog" className="hover:text-orange-600 transition">
-          Catalogue
+          {dict.nav.catalog}
         </Link>
         <ChevronRight size={13} className="text-slate-400" />
-        <span className="font-semibold text-slate-900">Project Cart</span>
+        <span className="font-semibold text-slate-900">{dict.cart.title}</span>
       </nav>
 
       <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="eyebrow text-orange-600">Fabrication Order Basket</p>
+          <p className="eyebrow text-orange-600">
+            {locale === 'hi' ? 'चुने हुए सामान की लिस्ट' : 'Fabrication Order Basket'}
+          </p>
           <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
-            Project Cart
+            {dict.cart.title}
           </h1>
           <p className="mt-2 text-sm text-slate-500">
-            Review your selected designs and request a combined workshop quotation.
+            {dict.cart.subtitle}
           </p>
         </div>
         {cart.length > 0 && (
@@ -80,7 +85,7 @@ export default function CartPage() {
             onClick={clearCart}
             className="text-xs font-semibold text-slate-500 hover:text-red-600 transition"
           >
-            Clear all items
+            {dict.cart.clearBtn}
           </button>
         )}
       </div>
@@ -90,18 +95,18 @@ export default function CartPage() {
           <div className="mx-auto grid h-20 w-20 place-items-center rounded-2xl bg-orange-50 text-orange-600 mb-6">
             <ShoppingCart size={36} />
           </div>
-          <h2 className="text-xl font-bold text-slate-900">Your project cart is empty</h2>
+          <h2 className="text-xl font-bold text-slate-900">{dict.cart.emptyTitle}</h2>
           <p className="mt-3 text-sm text-slate-500 max-w-md mx-auto leading-6">
-            Browse our catalogue of modern stainless steel, wrought iron, MS laser cut gates, railings, and security grills. Add designs to your cart to assemble a unified quotation.
+            {dict.cart.emptyMsg}
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Button asChild className="bg-orange-600 hover:bg-orange-700">
               <Link href="/catalog">
-                Explore All Designs <ArrowRight size={15} />
+                {dict.cart.exploreBtn} <ArrowRight size={15} />
               </Link>
             </Button>
             <Button asChild variant="outline">
-              <Link href="/estimate">Try Price Estimator</Link>
+              <Link href="/estimate">{dict.nav.estimate}</Link>
             </Button>
           </div>
         </div>
@@ -109,75 +114,81 @@ export default function CartPage() {
         <div className="grid gap-8 lg:grid-cols-3">
           {/* Cart Items List */}
           <div className="lg:col-span-2 space-y-4">
-            {cart.map(item => (
-              <div
-                key={item.id}
-                className="card flex flex-col sm:flex-row gap-5 p-5 transition hover:border-orange-200"
-              >
-                {/* Thumbnail */}
-                <div className="relative aspect-[4/3] sm:h-28 sm:w-28 shrink-0 overflow-hidden rounded-xl bg-slate-100 border border-slate-100">
-                  {item.image_url ? (
-                    <Image
-                      src={item.image_url}
-                      alt={item.name}
-                      fill
-                      className="object-cover"
-                      sizes="112px"
-                    />
-                  ) : (
-                    <div className="grid h-full w-full place-items-center text-xs font-bold text-slate-400 uppercase">
-                      {item.material}
-                    </div>
-                  )}
-                </div>
-
-                {/* Details */}
-                <div className="flex flex-1 flex-col justify-between">
-                  <div>
-                    <div className="flex items-start justify-between gap-3">
-                      <div>
-                        <span className="inline-block rounded bg-orange-50 px-2 py-0.5 text-[10px] font-bold text-orange-800 uppercase tracking-wide">
-                          {item.material}
-                        </span>
-                        <Link
-                          href={`/catalog/${item.slug}`}
-                          className="mt-1 block text-base font-bold text-slate-900 hover:text-orange-600 transition"
-                        >
-                          {item.name}
-                        </Link>
+            {cart.map(item => {
+              const displayName = getBilingualProductName(item.name, locale);
+              const displayMaterial = getBilingualMaterial(item.material, locale);
+              return (
+                <div
+                  key={item.id}
+                  className="card flex flex-col sm:flex-row gap-5 p-5 transition hover:border-orange-200"
+                >
+                  {/* Thumbnail */}
+                  <div className="relative aspect-[4/3] sm:h-28 sm:w-28 shrink-0 overflow-hidden rounded-xl bg-slate-100 border border-slate-100">
+                    {item.image_url ? (
+                      <Image
+                        src={item.image_url}
+                        alt={item.name}
+                        fill
+                        className="object-cover"
+                        sizes="112px"
+                      />
+                    ) : (
+                      <div className="grid h-full w-full place-items-center text-xs font-bold text-slate-400 uppercase">
+                        {item.material}
                       </div>
-                      <button
-                        type="button"
-                        onClick={() => removeFromCart(item.id)}
-                        className="rounded-lg p-1.5 text-slate-400 hover:bg-red-50 hover:text-red-600 transition"
-                        title="Remove from cart"
-                      >
-                        <Trash2 size={16} />
-                      </button>
-                    </div>
-
-                    <p className="mt-1 text-xs text-slate-500">
-                      Indicative starting rate:{' '}
-                      <strong className="text-slate-800">
-                        {item.price_min_minor ? money(item.price_min_minor) : 'Custom quote'}
-                      </strong>
-                    </p>
+                    )}
                   </div>
 
-                  {/* Quantity Stepper & Subtotal */}
-                  <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 pt-3">
-                    <div className="flex items-center gap-3">
-                      <span className="text-xs font-medium text-slate-500">Quantity:</span>
-                      <div className="flex items-center rounded-lg border border-slate-200 bg-slate-50 p-0.5">
+                  {/* Details */}
+                  <div className="flex flex-1 flex-col justify-between">
+                    <div>
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <span className="inline-block rounded bg-orange-50 px-2 py-0.5 text-[10px] font-bold text-orange-800 uppercase tracking-wide">
+                            {displayMaterial}
+                          </span>
+                          <Link
+                            href={`/catalog/${item.slug}`}
+                            className="mt-1 block text-base font-bold text-slate-900 hover:text-orange-600 transition"
+                          >
+                            {displayName}
+                          </Link>
+                        </div>
                         <button
                           type="button"
-                          onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                          className="flex h-7 w-7 items-center justify-center rounded-md text-slate-600 hover:bg-white hover:text-slate-900 transition"
-                          aria-label="Decrease quantity"
+                          onClick={() => removeFromCart(item.id)}
+                          className="rounded-lg p-1.5 text-slate-400 hover:bg-red-50 hover:text-red-600 transition"
+                          title="Remove from cart"
                         >
-                          <Minus size={14} />
+                          <Trash2 size={16} />
                         </button>
-                        <span className="w-8 text-center text-xs font-bold text-slate-900">
+                      </div>
+
+                      <p className="mt-1 text-xs text-slate-500">
+                        {locale === 'hi' ? 'शुरुआती रेट:' : 'Indicative starting rate:'}{' '}
+                        <strong className="text-slate-800">
+                          {item.price_min_minor ? money(item.price_min_minor) : (locale === 'hi' ? 'कोटेशन पर' : 'Custom quote')}
+                        </strong>
+                      </p>
+                    </div>
+
+                    {/* Quantity Stepper & Subtotal */}
+                    <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 pt-3">
+                      <div className="flex items-center gap-3">
+                        <span className="text-xs font-medium text-slate-500">
+                          {locale === 'hi' ? 'मात्रा (संख्या):' : 'Quantity:'}
+                        </span>
+                        <div className="flex items-center rounded-lg border border-slate-200 bg-slate-50 p-0.5">
+                          <button
+                            type="button"
+                            onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                            className="flex h-7 w-7 items-center justify-center rounded-md text-slate-600 hover:bg-white hover:text-slate-900 transition"
+                            aria-label="Decrease quantity"
+                          >
+                            <Minus size={14} />
+                          </button>
+                          <span className="w-8 text-center text-xs font-bold text-slate-900">
+
                           {item.quantity}
                         </span>
                         <button
@@ -202,7 +213,8 @@ export default function CartPage() {
                   </div>
                 </div>
               </div>
-            ))}
+            );
+          })}
 
             {/* Quality & Service Guarantees */}
             <div className="grid gap-3 sm:grid-cols-2 pt-4">

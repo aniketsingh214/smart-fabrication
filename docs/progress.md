@@ -277,4 +277,49 @@ Expanded local read-only load — 2026-10-17: 60/60 requests passed at concurren
   - Full test suite: 41 test files passed (143/143 tests).
   - `npm run typecheck` passed (0 errors).
   - `npm run build` compiled cleanly with Turbopack (including new `/cart` and `/wishlist` static/dynamic routes).
+## Rural-Friendly Bilingual Website Conversion (Hindi + English) — 2026-10-22
 
+- Converted customer-facing website into a simple, modern, mobile-friendly Hindi + English bilingual application designed for village homeowners, small-town families, farmers building houses, and local contractors:
+  - **Stage 1 (Architecture & Strategy)**:
+    - Authored `docs/localization/implementation-plan.md`, `docs/localization/translation-guide.md`, and `docs/localization/customer-ux.md`.
+    - Selected simple, spoken colloquial Hindi with familiar English terms (गेट, रेलिंग, जाली, स्टील, फीट, इंच, WhatsApp, फोटो).
+    - Preserved all 34 source requirements, 20 phases, REST APIs (`/api/v1/*`), Supabase RLS security, and Cloudinary media configurations.
+  - **Stage 2 (i18n Engine & Switcher)**:
+    - Strongly typed dictionary schema in `src/lib/i18n/types.ts`.
+    - Comprehensive rural Hindi dictionary (`src/lib/i18n/dictionaries/hi.ts`) and clear English dictionary (`src/lib/i18n/dictionaries/en.ts`).
+    - Hydration-safe React context (`src/lib/i18n/locale-context.tsx`) with reactive `useLocale()` hook.
+    - Server-side cookie integration via `getServerLocale()` (`src/lib/i18n/server.ts`) defaulting new visitors to Hindi (`hi`).
+    - Header `हिंदी | English` pill toggle (`src/features/i18n/language-switcher.tsx`) preserving form data across toggles.
+  - **Stage 3 (Homepage Improvement)**:
+    - Rewrote technical marketing jargon into warm, honest craftsmanship copy.
+    - Main heading: "अपने घर के लिए मजबूत और सुंदर गेट बनवाएँ" with accessible fallback name.
+    - 4 primary rural actions: डिज़ाइन देखें (`/catalog`), कीमत जानें (`/estimate`), WhatsApp करें, कॉल करें (`tel:+919876543210`).
+    - Craftsmanship highlights: मजबूत लोहा व 304 स्टील, घर आकर सही नाप, पक्की वेल्डिंग, समय पर डिलीवरी.
+  - **Stage 4 (Catalog & Details)**:
+    - Bilingual design names (e.g. "लोहे का मेन गेट (Iron Main Gate)", "कांच व स्टील रेलिंग", "खिड़की की जाली").
+    - Hindi category mappings and Hindi search query expansion (`src/lib/i18n/catalog-bilingual.ts`), mapping terms like "गेट", "जाली", "रेलिंग", "लोहा", "स्टील", "शटर" to database keywords.
+    - Preserved all 315 published designs, stable IDs, and slugs.
+  - **Stage 5 (Price Calculator & Enquiry)**:
+    - Defaulted Price Calculator (`src/features/estimates/calculator.tsx`) to **Feet + Inches** (`ft_in`) with conversational questions ("गेट की चौड़ाई कितनी है?", "गेट की ऊँचाई कितनी है?").
+    - Synchronized workshop millimeter inputs with two-way conversion for workshop precision and Playwright test selectors.
+    - Clear estimate notice: "अंतिम नाप और पक्का रेट कोटेशन में तय होगा".
+    - Localized Enquiry form (`src/features/leads/enquiry-form.tsx`) with prominent Call and WhatsApp buttons and image upload.
+  - **Stage 6 (Customer Orders & Quotations)**:
+    - Mapped order states to 7 rural milestones (`src/lib/i18n/order-milestones.ts`):
+      1. ऑर्डर मिल गया (Order Placed)
+      2. नाप की जाँच पूरी (Measurement Verified)
+      3. काम शुरू हो गया (Fabrication Started)
+      4. आपका सामान तैयार है (Ready for Dispatch)
+      5. डिलीवरी के लिए निकला (Out for Delivery)
+      6. सामान पहुँच गया (Delivered / On-Site Installation)
+      7. काम पूरा हो गया ✓ (Completed & Handed Over)
+    - 7-stage visual progress stepper on customer order timeline (`src/app/account/orders/[id]/page.tsx`).
+  - **Stage 7 (Cart, Wishlist & Drawers)**:
+    - Localized Cart Drawer, Wishlist Drawer, `/cart`, and `/wishlist` with `useLocale()` and bilingual product formatting.
+  - **Stage 8 & 9 (Verification & Test Coverage)**:
+    - Created `tests/unit/localization.test.ts` (15 new unit tests covering dictionary parity, catalog bilingual naming, material translation, search expansion, and order milestones).
+    - `npm run typecheck`: PASS (0 errors).
+    - `npm test`: PASS (158/158 tests passing across 42 suites).
+    - `npm run docs:check`: PASS (All 34 requirements, 20 phases, byte-identical master source).
+    - `npm run security:check`: PASS (Zero leaked secrets or credentials).
+    - `npm run build`: PASS (Turbopack production build with all 23 static and dynamic routes compiled).
