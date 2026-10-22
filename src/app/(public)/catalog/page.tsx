@@ -14,6 +14,9 @@ export default async function Catalog({ searchParams }: { searchParams: Promise<
   const q = singleQuery(params.q).slice(0, 120);
   const categoryParam = singleQuery(params.category);
   const subParam = singleQuery(params.sub);
+  const pageParam = singleQuery(params.page);
+  const currentPage = pageParam && /^\d+$/.test(pageParam) ? Math.max(1, parseInt(pageParam, 10)) : 1;
+  const catalogPageSize = 9;
 
   let cursor;
   try {
@@ -78,8 +81,7 @@ export default async function Catalog({ searchParams }: { searchParams: Promise<
     )
     .eq('status', 'published')
     .order('created_at', { ascending: false })
-    .order('id', { ascending: false })
-    .limit(publicPageSize + 1);
+    .order('id', { ascending: false });
 
   if (q) {
     query = query.ilike('name', `%${q.replace(/[%_\\]/g, '')}%`);
@@ -98,12 +100,42 @@ export default async function Catalog({ searchParams }: { searchParams: Promise<
     query = query.eq('category_id', categoryParam);
   }
 
+  const from = (currentPage - 1) * catalogPageSize;
+  const to = from + catalogPageSize - 1;
+
   if (cursor) {
-    query = query.or(publicCursorFilter(cursor));
+    query = query.or(publicCursorFilter(cursor)).limit(publicPageSize + 1);
+  } else if (typeof (query as unknown as { range?: unknown }).range === 'function') {
+    query = (query as unknown as { range: (from: number, to: number) => typeof query }).range(from, to);
+  } else {
+    query = query.limit(publicPageSize + 1);
   }
 
-  const { data: rawProducts, count: totalCount, error } = await query;
-  const { items: products, nextCursor } = publicWindow(rawProducts ?? []);
+  const { data: rawProducts, count: totalCountRaw, error } = await query;
+
+  let products: typeof rawProducts = [];
+  let nextCursor: string | null = null;
+  if (cursor || typeof (query as unknown as { range?: unknown }).range !== 'function') {
+    const windowResult = publicWindow(rawProducts ?? []);
+    products = windowResult.items;
+    nextCursor = windowResult.nextCursor;
+  } else {
+    products = rawProducts ?? [];
+  }
+
+  const totalCount = totalCountRaw ?? products.length;
+  const totalPages = Math.max(1, Math.ceil(totalCount / catalogPageSize));
+
+  function getCatalogPageHref(targetPage: number) {
+    const search = new URLSearchParams();
+    if (q) search.set('q', q);
+    const cat = activeParent?.slug ?? categoryParam;
+    if (cat) search.set('category', cat);
+    const sub = activeSub?.slug ?? subParam;
+    if (sub) search.set('sub', sub);
+    if (targetPage > 1) search.set('page', String(targetPage));
+    return `/catalog${search.size ? '?' + search.toString() : ''}`;
+  }
 
   // Title and subtitle
   const pageHeading = activeSub
@@ -293,7 +325,7 @@ export default async function Catalog({ searchParams }: { searchParams: Promise<
       {/* Product Grid Header */}
       <div className="mb-4 flex items-center justify-between text-xs text-slate-500">
         <span>
-          Showing <strong className="font-semibold text-slate-900">{products.length}</strong>
+          Showing <strong className="font-semibold text-slate-900">{totalPages > 1 && totalCount ? `${from + 1}–${Math.min(currentPage * catalogPageSize, totalCount)}` : products.length}</strong>
           {totalCount !== undefined && totalCount !== null && (
             <> of <strong className="font-semibold text-slate-900">{totalCount}</strong></>
           )}{' '}
@@ -378,18 +410,29 @@ export default async function Catalog({ searchParams }: { searchParams: Promise<
         </div>
       )}
 
-      {/* DataTable Pagination */}
-      {products.length > 0 && (cursor || nextCursor) && (
+      {/* DataTable Numbered Pagination */}
+      {products.length > 0 && (totalPages > 1 || cursor || nextCursor) && (
         <div className="mt-10">
           <DataTablePagination
             ariaLabel="Catalog pages"
             currentCount={products.length}
             totalCount={totalCount}
-            pageSize={publicPageSize}
-            hasPreviousPage={!!cursor}
-            hasNextPage={!error && !!nextCursor}
-            firstPageHref={browseHref('/catalog', { q, category: activeParent?.slug ?? categoryParam, sub: activeSub?.slug ?? subParam })}
-            nextPageHref={nextCursor ? browseHref('/catalog', { q, category: activeParent?.slug ?? categoryParam, sub: activeSub?.slug ?? subParam }, nextCursor) : undefined}
+            pageSize={catalogPageSize}
+            currentPage={currentPage}
+            totalPages={totalPages}
+            hasPreviousPage={currentPage > 1 || !!cursor}
+            hasNextPage={currentPage < totalPages || (!error && !!nextCursor)}
+            previousPageHref={currentPage > 1 ? getCatalogPageHref(currentPage - 1) : undefined}
+            nextPageHref={
+              nextCursor
+                ? browseHref('/catalog', { q, category: activeParent?.slug ?? categoryParam, sub: activeSub?.slug ?? subParam }, nextCursor)
+                : currentPage < totalPages
+                ? getCatalogPageHref(currentPage + 1)
+                : undefined
+            }
+            getPageHref={getCatalogPageHref}
+            firstPageHref={getCatalogPageHref(1)}
+            nextPageLabel="More designs"
             entityName="designs"
           />
         </div>

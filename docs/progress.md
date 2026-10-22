@@ -222,3 +222,18 @@ Expanded local read-only load — 2026-10-17: 60/60 requests passed at concurren
   - `npm run api:check` passed (OpenAPI 3.1.0, 292 paths).
   - `npm run calc:review` passed (315 published products).
   - `npm run build` passed cleanly with Turbopack and static generation.
+
+## Numbered 9-Item Grid Pagination & Multi-Unit Dimension Selector — 2026-10-22
+
+- Updated `/catalog` to display exactly 9 designs per page (`catalogPageSize = 9`) in a balanced 3x3 layout.
+- Added numbered pagination buttons (`1, 2, 3, 4, 5... [lastPage]`), `< Previous` button, and `Next >` button.
+- Preserved filter parameters (`q`, `category`, `sub`) across page navigation.
+- Added Multi-Unit Dimension Selector to `Calculator` (`src/features/estimates/calculator.tsx`):
+  - Supported units: `mm` (Millimeters), `ft_in` (Feet + Inches), `ft` (Decimal Feet), `in` (Inches), `m` (Meters).
+  - Real-time automatic dimension conversion (e.g. 10 ft × 6 ft converts to 3,048 mm × 1,829 mm, displaying sq. ft. and m²).
+  - Passes exact millimeter values to `/api/v1/estimates` and quotation enquiry forms.
+- Verification:
+  - Full test suite: 40 test files passed (141/141 tests).
+  - `npm run typecheck` passed (0 errors).
+  - `npm run docs:check` and `npm run security:check` passed.
+  - `npm run build` passed cleanly with Turbopack.
