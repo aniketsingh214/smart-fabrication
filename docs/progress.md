@@ -383,14 +383,15 @@ Expanded local read-only load — 2026-10-17: 60/60 requests passed at concurren
 
 ## "Our Work" Gallery Purification & Non-Project Image Removal — 2026-10-23
 
-- Purified `/gallery` ("Our work"):
+- Purified `/gallery` ("Our work") & Ingested User-Selected Rolling Shutters:
   - Removed `<DemoPhotography/>` generic stock photos and Pexels attribution links from `src/app/(public)/gallery/page.tsx`, ensuring `/gallery` strictly showcases real fabrication projects.
-  - Deleted 126 non-project / numbered shutter items from `public.gallery_items` (including 50 initial spam/memes/cabinet items + 76 scraped numbered rolling shutters like `Rolling Shutter [0-9]+`, `Aluminium Roller Shutter`, `Black Glass Rolling Shutter`, and uncurated cards).
-  - Archived all corresponding products in `public.products` (`status = 'archived'`, `featured = false`) to ensure clean catalog separation, while keeping the flagship `Motorized Galvanized Steel Rolling Shutter` published and featured.
-  - Cleaned and renamed 31 genuine fabrication photos in the database with professional architectural workshop nomenclature (e.g. Modern Steel Balcony Safety Grill, CNC Laser Cut Safety Grill Door, Artisan Wrought Iron Entry Door).
+  - Purged 126 non-project and numbered scraper items from `public.gallery_items` and archived non-project catalog products.
+  - Successfully extracted and uploaded all 18 authentic user-selected rolling shutter pins from the user's Pinterest saved search (`https://in.pinterest.com/search/my_pins/?q=shutter&rs=filter`) to Cloudinary (`smart-fabrication/development/user-shutters/`).
+  - Added all 18 shutter designs to `public.gallery_items` and `public.products` with clean architectural names (e.g. *Heavy-Duty Motorized Commercial Rolling Shutter*, *Galvanized Steel Industrial Warehouse Shutter*, *Precision Perforated Showroom Display Shutter*), accurate subcategories, product variants, and calculation rules.
+  - The Rolling Shutters category now strictly contains only the 18 user-selected designs + 1 workshop flagship product (19 total).
 - Active Catalog & Gallery:
-  - Published Products: 392 verified architectural metal fabrication designs across all categories.
-  - Published Gallery Items in "Our Work": 380 verified project installations across Gates, Railings, Grills, Rolling Shutters, Security Doors, and Industrial Sheds (0 non-standard or numbered items).
+  - Published Products: 410 verified architectural metal fabrication designs across all categories.
+  - Published Gallery Items in "Our Work": 398 verified project installations across Gates, Railings, Grills, Rolling Shutters, Security Doors, and Industrial Sheds (0 numbered or unrelated items).
 - Verification:
   - Vitest test suite: 42 test files passed (158/158 tests).
   - `npm run build`: PASS (Turbopack production build compiled cleanly with all 23 routes verified).
