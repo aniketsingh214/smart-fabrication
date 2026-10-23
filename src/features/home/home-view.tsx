@@ -159,21 +159,35 @@ export function HomeView({
                     href="/catalog?category=main-gates"
                     className="inline-flex items-center gap-1.5 rounded-lg border border-slate-800 bg-slate-900/70 px-3 py-1.5 text-xs font-medium text-slate-200 transition hover:border-orange-500/50 hover:bg-slate-800 hover:text-white"
                   >
-                    <span>🚪 {isHi ? 'मुख्य गेट' : 'Main Gates'} (75+)</span>
+                    <span>🚪 {isHi ? 'मुख्य गेट' : 'Main Gates'} (88+)</span>
                     <ChevronRight size={12} className="text-slate-500" />
                   </Link>
                   <Link
                     href="/catalog?category=railings"
                     className="inline-flex items-center gap-1.5 rounded-lg border border-slate-800 bg-slate-900/70 px-3 py-1.5 text-xs font-medium text-slate-200 transition hover:border-orange-500/50 hover:bg-slate-800 hover:text-white"
                   >
-                    <span>🪜 {isHi ? 'रेलिंग' : 'Railings'} (74+)</span>
+                    <span>🪜 {isHi ? 'स्टील रेलिंग' : 'Railings'} (175+)</span>
                     <ChevronRight size={12} className="text-slate-500" />
                   </Link>
                   <Link
                     href="/catalog?category=window-grills"
                     className="inline-flex items-center gap-1.5 rounded-lg border border-slate-800 bg-slate-900/70 px-3 py-1.5 text-xs font-medium text-slate-200 transition hover:border-orange-500/50 hover:bg-slate-800 hover:text-white"
                   >
-                    <span>🪟 {isHi ? 'खिड़की की जाली' : 'Window Grills'} (76+)</span>
+                    <span>🪟 {isHi ? 'खिड़की जाली' : 'Window Grills'} (76+)</span>
+                    <ChevronRight size={12} className="text-slate-500" />
+                  </Link>
+                  <Link
+                    href="/catalog?category=rolling-shutters"
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-slate-800 bg-slate-900/70 px-3 py-1.5 text-xs font-medium text-slate-200 transition hover:border-orange-500/50 hover:bg-slate-800 hover:text-white"
+                  >
+                    <span>🏬 {isHi ? 'दुकान के शटर' : 'Rolling Shutters'} (101+)</span>
+                    <ChevronRight size={12} className="text-slate-500" />
+                  </Link>
+                  <Link
+                    href="/catalog?category=metal-doors"
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-slate-800 bg-slate-900/70 px-3 py-1.5 text-xs font-medium text-slate-200 transition hover:border-orange-500/50 hover:bg-slate-800 hover:text-white"
+                  >
+                    <span>🛡️ {isHi ? 'सेफ्टी डोर' : 'Security Doors'} (21+)</span>
                     <ChevronRight size={12} className="text-slate-500" />
                   </Link>
                 </div>

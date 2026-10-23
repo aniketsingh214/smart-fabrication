@@ -365,4 +365,21 @@ Expanded local read-only load — 2026-10-17: 60/60 requests passed at concurren
   - `npm test`: PASS (158/158 tests passing across 42 suites).
   - `npm run build`: PASS (Turbopack production build compiled cleanly with all 23 routes verified).
 
+## Homepage Multi-Category Featured Showcase & Title Sanitization — 2026-10-23
+
+- Curated homepage Featured Designs (`Selected by the workshop`) to showcase balanced, high-resolution representative products across all 6 core categories (`scripts/curate-featured-products.mjs`):
+  1. **Main Gates**: Royal SS 304 Mirror & Walnut Double Swing Gate (`GATE-STEEL-001`)
+  2. **Stair & Balcony Railings**: SS 304 Toughened Glass Balcony Railing (`RAIL-SS-002`)
+  3. **Safety Window Grills**: Modern Geometrical Window Safety Grill (`GRILL-MS-003`)
+  4. **Commercial Rolling Shutters**: Motorized Galvanized Steel Rolling Shutter (`SHUTTER-GI-004`)
+  5. **Steel & Security Doors**: Contemporary Steel Front Security Door (`DOOR-SEC-006`)
+  6. **Sheds & Roofing**: Industrial PEB Factory & Warehouse Shed (`SHED-IND-005`)
+- Sanitized product titles in database: cleaned 15 non-standard, spam, or foreign-script titles from scraped pins into clean architectural fabrication terminology (`scripts/cleanup-shutter-titles.mjs`, `scripts/cleanup-all-product-titles.mjs`).
+- Expanded Hero quick category chips in `src/features/home/home-view.tsx` to include Main Gates (88+), Railings (175+), Window Grills (76+), Commercial Shutters (101+), and Security Doors (21+).
+- Verification:
+  - Vitest test suite: 42 test files passed (158/158 tests).
+  - `npm run build`: PASS (Turbopack production build compiled cleanly).
+  - Live homepage verified with 6 distinct category flagship products.
+
+
 
