@@ -395,10 +395,11 @@ Expanded local read-only load — 2026-10-17: 60/60 requests passed at concurren
 - Interactive 6-Slide Hero Banner Carousel:
   - Created `src/components/hero-banner-slider.tsx` featuring 6 high-resolution sliding hero banners across all major architectural metal fabrication specialties (Royal SS 304 Main Gates, Toughened Glass & SS Railings, High-Security Motorized Commercial Shutters, CNC Designer Window Grills, Heavy PEB Industrial Sheds, and Solid Iron Security Front Doors).
   - Integrated into homepage hero visual (`src/features/home/home-view.tsx`), replacing static demo placeholder with automatic 4.5s slide rotation, touch swipe navigation for rural mobile users, play/pause controls, chevron navigation buttons, category badges, and bilingual text.
+- Modern Visual & Conversion Upgrades — 2026-10-23:
+  - Before/After Transformation Slider (`src/components/before-after-transformation.tsx`): Interactive 2-image comparison slider showcasing old weathered rusted iron gate vs Royal SS 304 mirror & walnut gate with drag handle, touch swipe support, quick presets, and instant upgrade CTA.
+  - Workshop Live Reels Showcase (`src/components/workshop-video-reels.tsx`): 4 modern video reel cards highlighting computerized CNC fiber laser cutting, argon TIG welding with mirror grinding, motorized commercial shutter rigor load tests, and 2-layer epoxy zinc protective coating with interactive detail modal.
+  - SmartFabrication vs Local Welding Shop Comparison Matrix (`src/components/fabricator-comparison.tsx`): High-contrast 6-point comparison table analyzing raw steel quality, cutting precision, welding finish, rust barrier, site measurement, and 10-year warranty & GST invoices.
+  - Mobile Sticky Action Bar (`src/components/mobile-sticky-action-bar.tsx`): 1-click mobile bar docked at bottom for instant WhatsApp photo estimate, direct calling, and site measurement booking.
 - Verification:
   - Vitest test suite: 42 test files passed (158/158 tests).
-  - `npm run build`: PASS (Turbopack production build compiled cleanly with all 23 routes verified).
-
-
-
-
+  - `npm run build`: PASS (Turbopack production build compiled cleanly across all 23 routes).

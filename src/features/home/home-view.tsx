@@ -20,6 +20,10 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { HeroBannerSlider } from '@/components/hero-banner-slider';
+import { BeforeAfterTransformation } from '@/components/before-after-transformation';
+import { WorkshopVideoReels } from '@/components/workshop-video-reels';
+import { FabricatorComparison } from '@/components/fabricator-comparison';
+import { MobileStickyActionBar } from '@/components/mobile-sticky-action-bar';
 import { useLocale } from '@/lib/i18n/locale-context';
 
 interface HomeViewProps {
@@ -276,8 +280,14 @@ export function HomeView({
       {/* 3. FEATURED PRODUCTS (Verified by integration tests) */}
       {featuredSection}
 
+      {/* 3.5 BEFORE / AFTER TRANSFORMATION (Interactive Comparison Slider) */}
+      <BeforeAfterTransformation />
+
       {/* 4. CATEGORIES EXPLORER (Verified by integration tests) */}
       {categoriesSection}
+
+      {/* 4.5 WORKSHOP CRAFTSMANSHIP REELS (Interactive Video/Reels Showcase) */}
+      <WorkshopVideoReels />
 
       {/* 5. 4-STEP WORKING ROADMAP (Rural-friendly & transparent) */}
       <section className="bg-slate-900 text-white py-14 sm:py-18">
@@ -327,6 +337,9 @@ export function HomeView({
           </div>
         </div>
       </section>
+
+      {/* 5.5 SMARTFABRICATION VS LOCAL WELDING SHOP COMPARISON */}
+      <FabricatorComparison />
 
       {/* 6. CRAFTSMANSHIP & QUALITY ASSURANCE */}
       <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
@@ -427,6 +440,9 @@ export function HomeView({
 
         {customSections}
       </section>
+
+      {/* Floating 1-Click Action Bar for Mobile Visitors */}
+      <MobileStickyActionBar />
     </div>
   );
 }
