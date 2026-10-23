@@ -323,3 +323,25 @@ Expanded local read-only load — 2026-10-17: 60/60 requests passed at concurren
     - `npm run docs:check`: PASS (All 34 requirements, 20 phases, byte-identical master source).
     - `npm run security:check`: PASS (Zero leaked secrets or credentials).
     - `npm run build`: PASS (Turbopack production build with all 23 static and dynamic routes compiled).
+
+## Pinterest Modern Steel Railing Collection Ingestion — 2026-10-23
+
+- Processed all 147 pins from Pinterest query `steel relling modern design` (`scripts/modern-steel-railings-pins.json`).
+- Uploaded 101 new high-resolution images to Cloudinary under folder `smart-fabrication/development/modern-steel-railings/` with automatic fallback from `/originals/` to `/736x/` and `/474x/`.
+- Reused 46 previously uploaded media assets with matching hash to avoid redundant storage.
+- Created 101 new published products (`RLG-MODERN-001` through `RLG-MODERN-147`) and updated 46 existing products in Supabase PostgreSQL:
+  - Categorized across 4 modern railing subcategories:
+    - `Modern Minimalist Pipe Railings` (`modern-pipe-railings`): 63 total products
+    - `Staircase SS Handrails & Balusters` (`staircase-handrails`): 50 total products
+    - `Glass & Stainless Steel Railings` (`glass-ss-railings`): 36 total products
+    - `Stainless Steel (SS 304) Balcony Railings` (`ss-balcony-railings`): 26 total products
+  - Configured 303 standard sizing variants (10 Rft Balcony, 12 Rft Stair Flight, 20 Rft Extended Terrace) with realistic minor pricing.
+  - Linked BOM versions, published estimation rules, and added gallery items.
+- Total published catalog size reached **416 designs** (175 total steel railings).
+- Total media assets reached **433 items**.
+- Verification:
+  - 147/147 items processed with 0 failures (`scripts/upload-modern-railings.mjs`).
+  - Database counts verified (`scripts/verify-modern-railings-db.mjs`).
+  - `npm test`: PASS (158/158 tests passing across 42 suites).
+  - `npm run build`: PASS (Turbopack production build compiled cleanly with all routes verified).
+
