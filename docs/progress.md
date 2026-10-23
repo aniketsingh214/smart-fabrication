@@ -385,12 +385,12 @@ Expanded local read-only load — 2026-10-17: 60/60 requests passed at concurren
 
 - Purified `/gallery` ("Our work"):
   - Removed `<DemoPhotography/>` generic stock photos and Pexels attribution links from `src/app/(public)/gallery/page.tsx`, ensuring `/gallery` strictly showcases real fabrication projects.
-  - Deleted 77 non-project / user-selected items from `public.gallery_items` (including 50 initial spam/memes/cabinet items + 27 user-specified rolling shutter and uncurated cards like "Right", "Cinema", "Public", "Iykyk").
-  - Archived corresponding products in `public.products` (`status = 'archived'`, `featured = false`) to ensure clean catalog separation.
+  - Deleted 126 non-project / numbered shutter items from `public.gallery_items` (including 50 initial spam/memes/cabinet items + 76 scraped numbered rolling shutters like `Rolling Shutter [0-9]+`, `Aluminium Roller Shutter`, `Black Glass Rolling Shutter`, and uncurated cards).
+  - Archived all corresponding products in `public.products` (`status = 'archived'`, `featured = false`) to ensure clean catalog separation, while keeping the flagship `Motorized Galvanized Steel Rolling Shutter` published and featured.
   - Cleaned and renamed 31 genuine fabrication photos in the database with professional architectural workshop nomenclature (e.g. Modern Steel Balcony Safety Grill, CNC Laser Cut Safety Grill Door, Artisan Wrought Iron Entry Door).
 - Active Catalog & Gallery:
-  - Published Products: 442 verified architectural metal fabrication designs.
-  - Published Gallery Items in "Our Work": 429 verified project installations across Gates, Railings, Grills, Rolling Shutters, Security Doors, and Industrial Sheds (0 non-standard or unrelated items).
+  - Published Products: 392 verified architectural metal fabrication designs across all categories.
+  - Published Gallery Items in "Our Work": 380 verified project installations across Gates, Railings, Grills, Rolling Shutters, Security Doors, and Industrial Sheds (0 non-standard or numbered items).
 - Verification:
   - Vitest test suite: 42 test files passed (158/158 tests).
   - `npm run build`: PASS (Turbopack production build compiled cleanly with all 23 routes verified).
