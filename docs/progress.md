@@ -345,3 +345,24 @@ Expanded local read-only load — 2026-10-17: 60/60 requests passed at concurren
   - `npm test`: PASS (158/158 tests passing across 42 suites).
   - `npm run build`: PASS (Turbopack production build compiled cleanly with all routes verified).
 
+## Pinterest Commercial Rolling Shutters Ingestion — 2026-10-23
+
+- Processed 100 high-quality commercial rolling shutter pins from Pinterest search query `shutter` / `rolling shutter` (`scripts/prepared-shutters.json`).
+- Uploaded 100 high-resolution images to Cloudinary under folder `smart-fabrication/development/commercial-shutters/` with automated fallback from `/originals/` to `/736x/` and `/474x/`.
+- Configured 2-tier subcategory hierarchy under `Commercial Rolling Shutters` (`rolling-shutters`):
+  - `Commercial Shop & Storefront Rolling Shutters` (`commercial-shop-shutters`): 51 total products
+  - `Heavy-Duty Industrial & Warehouse Shutters` (`industrial-rolling-shutters`): 19 total products
+  - `Motorized & Remote Controlled Rolling Shutters` (`motorized-rolling-shutters`): 16 total products
+  - `Perforated & Grill See-Through Shutters` (`perforated-rolling-shutters`): 14 total products
+- Created 100 new published products (`SHT-COM-001` through `SHT-COM-100`) in Supabase PostgreSQL:
+  - 3 sizing variants per product (Standard Retail Shop 10ft x 8ft, Wide Showroom 14ft x 10ft, Heavy Industrial Bay 18ft x 14ft) with realistic minor pricing.
+  - Linked BOM versions (prime CR steel / GI slats + springs + bearings), published estimation calculation rules, and added gallery items.
+- Total published catalog size reached **516 designs** (101 total rolling shutters).
+- Total media assets reached **533 items**.
+- Verification:
+  - 100/100 items processed with 0 failures (`scripts/upload-shutters.mjs`).
+  - Database counts verified (`scripts/verify-shutters-db.mjs`).
+  - `npm test`: PASS (158/158 tests passing across 42 suites).
+  - `npm run build`: PASS (Turbopack production build compiled cleanly with all 23 routes verified).
+
+
