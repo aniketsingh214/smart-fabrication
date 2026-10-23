@@ -385,12 +385,12 @@ Expanded local read-only load — 2026-10-17: 60/60 requests passed at concurren
 
 - Purified `/gallery` ("Our work"):
   - Removed `<DemoPhotography/>` generic stock photos and Pexels attribution links from `src/app/(public)/gallery/page.tsx`, ensuring `/gallery` strictly showcases real fabrication projects.
-  - Deleted 50 confirmed non-project items (toilet memes, dump jokes, outhouses, CakhiaTV streaming, kitchen cabinets, bathroom en-suites, blinds/curtains, wooden railings, and foreign competitor ads with phone numbers) from `public.gallery_items`.
-  - Archived corresponding non-fabrication products in `public.products` (`status = 'archived'`, `featured = false`) to ensure clean catalog separation.
+  - Deleted 77 non-project / user-selected items from `public.gallery_items` (including 50 initial spam/memes/cabinet items + 27 user-specified rolling shutter and uncurated cards like "Right", "Cinema", "Public", "Iykyk").
+  - Archived corresponding products in `public.products` (`status = 'archived'`, `featured = false`) to ensure clean catalog separation.
   - Cleaned and renamed 31 genuine fabrication photos in the database with professional architectural workshop nomenclature (e.g. Modern Steel Balcony Safety Grill, CNC Laser Cut Safety Grill Door, Artisan Wrought Iron Entry Door).
 - Active Catalog & Gallery:
-  - Published Products: 469 verified architectural metal fabrication designs.
-  - Published Gallery Items in "Our Work": 456 verified project installations across Gates, Railings, Grills, Rolling Shutters, Security Doors, and Industrial Sheds (0 non-standard or unrelated items).
+  - Published Products: 442 verified architectural metal fabrication designs.
+  - Published Gallery Items in "Our Work": 429 verified project installations across Gates, Railings, Grills, Rolling Shutters, Security Doors, and Industrial Sheds (0 non-standard or unrelated items).
 - Verification:
   - Vitest test suite: 42 test files passed (158/158 tests).
   - `npm run build`: PASS (Turbopack production build compiled cleanly with all 23 routes verified).
