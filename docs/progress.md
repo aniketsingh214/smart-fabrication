@@ -392,6 +392,9 @@ Expanded local read-only load — 2026-10-17: 60/60 requests passed at concurren
 - Active Catalog & Gallery:
   - Published Products: 410 verified architectural metal fabrication designs across all categories.
   - Published Gallery Items in "Our Work": 398 verified project installations across Gates, Railings, Grills, Rolling Shutters, Security Doors, and Industrial Sheds (0 numbered or unrelated items).
+- Interactive 6-Slide Hero Banner Carousel:
+  - Created `src/components/hero-banner-slider.tsx` featuring 6 high-resolution sliding hero banners across all major architectural metal fabrication specialties (Royal SS 304 Main Gates, Toughened Glass & SS Railings, High-Security Motorized Commercial Shutters, CNC Designer Window Grills, Heavy PEB Industrial Sheds, and Solid Iron Security Front Doors).
+  - Integrated into homepage hero visual (`src/features/home/home-view.tsx`), replacing static demo placeholder with automatic 4.5s slide rotation, touch swipe navigation for rural mobile users, play/pause controls, chevron navigation buttons, category badges, and bilingual text.
 - Verification:
   - Vitest test suite: 42 test files passed (158/158 tests).
   - `npm run build`: PASS (Turbopack production build compiled cleanly with all 23 routes verified).

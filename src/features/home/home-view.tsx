@@ -19,7 +19,7 @@ import {
   Paintbrush
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { DemoHeroPhoto } from '@/components/demo-photography';
+import { HeroBannerSlider } from '@/components/hero-banner-slider';
 import { useLocale } from '@/lib/i18n/locale-context';
 
 interface HomeViewProps {
@@ -194,11 +194,9 @@ export function HomeView({
               </div>
             </div>
 
-            {/* Hero Right Visual */}
+            {/* Hero Right Visual: Interactive 6-Slide Banner Carousel */}
             <div className="relative">
-              <div className="relative overflow-hidden rounded-2xl border border-slate-800/80 bg-slate-900 shadow-2xl shadow-black/70">
-                <DemoHeroPhoto />
-              </div>
+              <HeroBannerSlider />
 
               {/* Floating Badge 1: Site Measurement */}
               <div className="absolute -top-3 -left-3 hidden sm:flex items-center gap-2.5 rounded-xl border border-slate-800 bg-slate-900/95 p-3 shadow-xl backdrop-blur-md">
