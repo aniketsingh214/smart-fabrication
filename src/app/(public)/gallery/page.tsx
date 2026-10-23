@@ -1,4 +1,3 @@
-import { DemoPhotography } from '@/components/demo-photography';
 import Image from 'next/image';
 import Link from 'next/link';
 import { serverClient } from '@/lib/supabase/server';
@@ -32,6 +31,5 @@ export default async function Gallery({ searchParams }: { searchParams: Promise<
         />
       </div>
     )}
-    <DemoPhotography/>
   </section>;
 }

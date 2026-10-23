@@ -381,5 +381,19 @@ Expanded local read-only load — 2026-10-17: 60/60 requests passed at concurren
   - `npm run build`: PASS (Turbopack production build compiled cleanly).
   - Live homepage verified with 6 distinct category flagship products.
 
+## "Our Work" Gallery Purification & Non-Project Image Removal — 2026-10-23
+
+- Purified `/gallery` ("Our work"):
+  - Removed `<DemoPhotography/>` generic stock photos and Pexels attribution links from `src/app/(public)/gallery/page.tsx`, ensuring `/gallery` strictly showcases real fabrication projects.
+  - Deleted 16 unrelated non-project gallery items (memes, restrooms, soccer streaming, and kitchen cabinets) from `public.gallery_items` and archived their records in `public.products` (`scripts/delete-unrelated-items.mjs`, `scripts/archive-unrelated-products.mjs`).
+  - Synchronized all remaining 490 gallery project titles with clean architectural terminology.
+- Active Catalog & Gallery:
+  - Published Products: 500 verified metal fabrication designs.
+  - Published Gallery Items in "Our Work": 490 verified project installations across Gates, Railings, Grills, Rolling Shutters, Security Doors, and Industrial Sheds.
+- Verification:
+  - Vitest test suite: 42 test files passed (158/158 tests).
+  - `npm run build`: PASS (Turbopack production build compiled cleanly with all 23 routes verified).
+
+
 
 
