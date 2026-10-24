@@ -457,5 +457,18 @@ Expanded local read-only load — 2026-10-17: 60/60 requests passed at concurren
   - Vitest test suite: 42 test files passed (158/158 tests).
   - `npm run build`: PASS (Turbopack production build compiled cleanly across all 23 routes).
 
+## Mobile-First Sticky Header Search Architecture — 2026-10-24
+
+- Removed redundant in-page Hero search bar from `src/features/home/home-view.tsx`.
+- Integrated full-width, permanently visible, thumb-friendly search bar into top sticky header for mobile users (`src/components/layout/public-header.tsx`):
+  - Row 1: Brand Logo + Language Switcher + Wishlist/Cart + Request a Quote button.
+  - Row 2: Full-width sticky search input with search icon, live keyword persistence, clear button (✕), and search action button.
+  - Row 3: Main navigation links (`Explore Designs`, `Our Work`, `Price Estimate`, `My Account`).
+- Refactored `GlobalSearchBar` (`src/components/layout/global-search-bar.tsx`) to directly render a unified, high-performance form for both mobile and desktop without modal overlays.
+- Verification:
+  - Vitest test suite: 42 test files passed (158/158 tests).
+  - `npm run build`: PASS (Turbopack production build compiled cleanly across all 23 routes).
+
+
 
 

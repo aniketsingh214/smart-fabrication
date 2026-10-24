@@ -154,37 +154,8 @@ export function HomeView({
                 </a>
               </div>
 
-              {/* Hero Search Bar */}
-              <div className="mt-7 max-w-xl">
-                <form
-                  action="/catalog"
-                  method="GET"
-                  className="flex items-center rounded-2xl border border-slate-700/80 bg-slate-900/90 p-1.5 backdrop-blur-md focus-within:border-orange-500 focus-within:ring-2 focus-within:ring-orange-500/20 shadow-xl transition-all"
-                >
-                  <div className="pl-3.5 text-orange-400">
-                    <Search size={18} />
-                  </div>
-                  <input
-                    name="q"
-                    type="text"
-                    placeholder={
-                      isHi
-                        ? 'गेट, लेज़र कटिंग, रोलिंग शटर, रेलिंग या जाली खोजें...'
-                        : 'Search 430+ laser gates, railings, rolling shutters…'
-                    }
-                    className="w-full bg-transparent px-3 py-2 text-xs sm:text-sm font-medium text-white placeholder:text-slate-400 focus:outline-none"
-                  />
-                  <button
-                    type="submit"
-                    className="rounded-xl bg-orange-600 hover:bg-orange-500 px-4 py-2 text-xs font-bold text-white transition shadow-md shrink-0"
-                  >
-                    {isHi ? 'खोजें' : 'Search'}
-                  </button>
-                </form>
-              </div>
-
               {/* Quick Category Chips */}
-              <div className="mt-7 border-t border-slate-800/80 pt-5">
+              <div className="mt-8 border-t border-slate-800/80 pt-5">
                 <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2.5">
                   {isHi ? 'सीधे केटेगरी चुनें:' : 'Quick categories:'}
                 </p>
