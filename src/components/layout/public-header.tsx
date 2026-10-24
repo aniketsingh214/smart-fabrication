@@ -7,14 +7,16 @@ import { HeaderShopTriggers } from '@/features/shop/header-shop-triggers';
 import { LanguageSwitcher } from '@/features/i18n/language-switcher';
 import { useLocale } from '@/lib/i18n/locale-context';
 
+import { GlobalSearchBar } from './global-search-bar';
+
 export function PublicHeader() {
   const { dict, locale } = useLocale();
 
   return (
     <header className="border-b border-slate-200 bg-white sticky top-0 z-40 backdrop-blur-md bg-white/95">
-      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-3.5 sm:px-6 lg:px-8">
+      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-2.5 sm:gap-3 px-4 py-3 sm:px-6 lg:px-8">
         {/* Brand Logo & Tagline */}
-        <Link href="/" className="flex items-center gap-3 group">
+        <Link href="/" className="flex items-center gap-3 group shrink-0">
           <span className="grid h-10 w-10 place-items-center rounded-xl bg-orange-600 text-white shadow-sm transition group-hover:scale-105">
             <Hammer size={22} />
           </span>
@@ -26,10 +28,15 @@ export function PublicHeader() {
           </span>
         </Link>
 
+        {/* Global Desktop Search Bar */}
+        <div className="hidden md:flex flex-1 max-w-xs lg:max-w-sm xl:max-w-md mx-3">
+          <GlobalSearchBar />
+        </div>
+
         {/* Main Nav Links */}
         <nav
           aria-label="Main navigation"
-          className="order-3 flex w-full justify-center gap-5 text-xs font-semibold text-slate-600 sm:order-none sm:w-auto sm:gap-6"
+          className="order-3 flex w-full justify-center gap-5 text-xs font-semibold text-slate-600 sm:order-none sm:w-auto sm:gap-5"
         >
           <Link href="/catalog" className="hover:text-orange-600 transition py-1">
             {dict.nav.catalog}
@@ -45,8 +52,11 @@ export function PublicHeader() {
           </Link>
         </nav>
 
-        {/* Right Action Bar: Language Switcher, Cart/Wishlist, Quote Button */}
-        <div className="flex items-center gap-2 sm:gap-3">
+        {/* Right Action Bar: Mobile Search Icon, Language Switcher, Cart/Wishlist, Quote Button */}
+        <div className="flex items-center gap-1.5 sm:gap-2.5">
+          <div className="md:hidden">
+            <GlobalSearchBar />
+          </div>
           <LanguageSwitcher />
           <HeaderShopTriggers />
           <Button asChild size="sm" className="bg-orange-600 hover:bg-orange-700 shadow-sm text-xs font-bold">

@@ -428,3 +428,21 @@ Expanded local read-only load — 2026-10-17: 60/60 requests passed at concurren
   - `npm run build`: PASS (Turbopack production build compiled cleanly across all 23 routes).
   - Database counts verified via `scripts/check-laser-db.mjs`.
 
+## Global Header, Catalog, Gallery & Homepage Search Architecture — 2026-10-24
+
+- Implemented Global Header Search Bar (`src/components/layout/global-search-bar.tsx`):
+  - Accessible on all website pages via sticky top navigation (`src/components/layout/public-header.tsx`).
+  - Desktop pill search input with autofocus, instant clear (✕) button, search triggers, and popular search suggestions dropdown (Laser Cut Gates, Main Entrance Gates, Rolling Shutters, SS Railings, Window Grills).
+  - Mobile-responsive search toggle with full-width search overlay and quick category shortcut chips.
+- Enhanced Catalog Search Experience (`src/app/(public)/catalog/page.tsx`):
+  - Preserves active parent category and subcategory filter contexts across search submissions.
+  - Added instant clear button (✕) and active query indicator badge with "Clear search" and "Search in all categories" shortcuts.
+- Added Homepage Hero Search (`src/features/home/home-view.tsx`):
+  - Integrated high-converting search input directly below hero CTA buttons so visitors can instantly search 430+ architectural designs on landing.
+- Added Gallery Project Search (`src/app/(public)/gallery/page.tsx`):
+  - Added keyword search and query filter to "Our Work" gallery across all 420 published workshop installation items.
+- Verification:
+  - Vitest test suite: 42 test files passed (158/158 tests).
+  - `npm run build`: PASS (Turbopack production build compiled cleanly across all 23 routes).
+
+

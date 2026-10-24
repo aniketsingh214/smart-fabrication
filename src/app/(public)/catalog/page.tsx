@@ -1,6 +1,6 @@
 import { DemoPhotography } from '@/components/demo-photography';
 import Link from 'next/link';
-import { Search, ArrowUpRight, ChevronRight, Layers, ArrowRight } from 'lucide-react';
+import { Search, ArrowUpRight, ChevronRight, Layers, ArrowRight, X } from 'lucide-react';
 import { serverClient } from '@/lib/supabase/server';
 import { money } from '@/lib/utils';
 import { ProductVisual } from '@/components/product-visual';
@@ -214,22 +214,70 @@ export default async function Catalog({ searchParams }: { searchParams: Promise<
           </p>
         </div>
 
-        {/* Bilingual Search Form */}
-        <form className="flex w-full max-w-md items-center gap-2">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-3 text-slate-400" size={17} />
-            <input
-              name="q"
-              aria-label="Search designs"
-              placeholder={isHi ? 'गेट, जाली या रेलिंग खोजें...' : 'Search designs by name or code…'}
-              defaultValue={q}
-              className="!pl-9 !py-2 !text-sm"
-            />
-          </div>
-          <button type="submit" className="rounded-lg bg-slate-900 px-4 py-2.5 text-xs font-semibold text-white hover:bg-slate-800 transition">
-            {isHi ? 'खोजें' : 'Search'}
-          </button>
-        </form>
+        {/* Bilingual Search Form with Category Preservation & Clear Button */}
+        <div className="w-full max-w-md">
+          <form className="flex w-full items-center gap-2">
+            {activeParent && <input type="hidden" name="category" value={activeParent.slug} />}
+            {activeSub && <input type="hidden" name="sub" value={activeSub.slug} />}
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-2.5 text-slate-400" size={17} />
+              <input
+                name="q"
+                aria-label="Search designs"
+                placeholder={
+                  activeParent
+                    ? isHi
+                      ? `${activeParent.name} में खोजें...`
+                      : `Search in ${activeParent.name}…`
+                    : isHi
+                    ? 'गेट, जाली, रेलिंग या शटर खोजें...'
+                    : 'Search designs by name or code…'
+                }
+                defaultValue={q}
+                className="!pl-9 !pr-8 !py-2 !text-sm w-full"
+              />
+              {q && (
+                <Link
+                  href={browseHref('/catalog', { category: activeParent?.slug, sub: activeSub?.slug })}
+                  className="absolute right-2.5 top-2.5 text-slate-400 hover:text-slate-600 p-0.5 rounded-full hover:bg-slate-100 transition"
+                  title={isHi ? 'सर्च साफ़ करें' : 'Clear search'}
+                  aria-label="Clear search"
+                >
+                  <X size={15} />
+                </Link>
+              )}
+            </div>
+            <button
+              type="submit"
+              className="rounded-lg bg-slate-900 px-4 py-2.5 text-xs font-semibold text-white hover:bg-slate-800 transition shrink-0"
+            >
+              {isHi ? 'खोजें' : 'Search'}
+            </button>
+          </form>
+
+          {/* Active Search & Category Scope Indicator */}
+          {q && (
+            <div className="mt-2 flex flex-wrap items-center gap-2 text-xs">
+              <span className="text-slate-500">
+                {isHi ? 'सर्च:' : 'Query:'} <strong className="font-semibold text-slate-900">&quot;{q}&quot;</strong>
+              </span>
+              <Link
+                href={browseHref('/catalog', { category: activeParent?.slug, sub: activeSub?.slug })}
+                className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2 py-0.5 text-[11px] font-medium text-slate-700 hover:bg-slate-200 transition"
+              >
+                <span>✕ {isHi ? 'सर्च हटाएं' : 'Clear search'}</span>
+              </Link>
+              {(activeParent || activeSub) && (
+                <Link
+                  href={browseHref('/catalog', { q })}
+                  className="text-[11px] font-medium text-orange-600 hover:underline"
+                >
+                  {isHi ? 'सभी श्रेणियों में खोजें' : 'Search in all categories'}
+                </Link>
+              )}
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Primary Category Filter Pills */}
