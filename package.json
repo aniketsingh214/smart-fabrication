@@ -12,6 +12,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:e2e": "playwright test",
+    "test:measurement-browser": "node --env-file=.env.local scripts/test-measurement-browser.mjs",
     "test:auth": "node --env-file=.env.local scripts/test-authenticated.mjs",
     "test:sessions": "node --experimental-strip-types --env-file=.env.local scripts/test-sessions.mjs",
     "test:concurrency": "node --env-file=.env.local scripts/test-concurrency.mjs",

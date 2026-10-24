@@ -2,6 +2,10 @@
 
 # SmartFabrication progress
 
+### Customer website priorities — 2026-10-25
+
+Implemented responsive header/actions, material/budget/sort filters, public product-photo selection/zoom, measurement visit preferences through the existing lead API, configured-number WhatsApp design enquiries and customer dashboard/expiry polish. 181 unit/integration tests, eight desktop/mobile checks and production build passed. See [scope, workflow and verification](operations/customer-website-enhancements.md). Visit requests require workshop confirmation; page counts/order totals are not full-account totals or unpaid balances. No invented business figures, external message, payment or stock posting was added.
+
 ### Indian mobile format — 2026-10-25
 
 Implemented shared Indian mobile validation, +91 normalization/display and corrected Call/WhatsApp links across admin phone fields and public enquiries. Invalid legacy numbers require correction; no existing records were rewritten. Build, TypeScript, API checks, 174 unit/integration tests and targeted mobile-browser/API validation passed. See [lead module](modules/leads.md) for acceptance and legacy duplicate-matching limits.

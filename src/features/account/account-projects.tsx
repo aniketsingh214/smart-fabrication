@@ -2,12 +2,15 @@ import Link from 'next/link';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { customerOrders, customerQuotations } from '@/features/operations/services';
 import { QuoteResponse } from '@/features/quotations/quote-response';
-import { money } from '@/lib/utils';
+import { money,dateTime } from '@/lib/utils';
 import { getMilestoneInfo } from '@/lib/i18n/order-milestones';
 
 export type AccountFilters = { qcursor?: string; ocursor?: string; quotation?: string };
 
 export async function AccountProjects({ db, filters }: { db: SupabaseClient; filters: AccountFilters }) {
+  // This async server component evaluates expiry once for the current request.
+  // eslint-disable-next-line react-hooks/purity -- Request-time server clock; never a client render clock.
+  const evaluatedAt=Date.now();
   const quoteParams = new URLSearchParams(filters.qcursor && !filters.quotation ? { cursor: filters.qcursor } : {});
   const orderParams = new URLSearchParams(filters.ocursor ? { cursor: filters.ocursor } : {});
   const [quotes, orders] = await Promise.allSettled([
@@ -28,6 +31,17 @@ export async function AccountProjects({ db, filters }: { db: SupabaseClient; fil
   };
 
   return (
+    <>
+    <section aria-label="Project overview" className="mb-6 rounded-xl border border-slate-200 bg-white p-5">
+      <h2 className="text-lg font-bold">Your project overview / आपका प्रोजेक्ट</h2>
+      <p className="mt-2 text-xs text-slate-500">Counts cover the currently displayed pages. Order values are agreed totals, not outstanding payment balances.</p>
+      <dl className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
+        <div><dt className="text-xs text-slate-500">Quotations on this page</dt><dd className="mt-1 text-xl font-bold">{quotes.status==='fulfilled'?quotes.value.items.length:'Unavailable'}</dd></div>
+        <div><dt className="text-xs text-slate-500">Awaiting your decision</dt><dd className="mt-1 text-xl font-bold">{quotes.status==='fulfilled'?quotes.value.items.filter(q=>q.status==='approved'&&new Date(String(q.expires_at)).getTime()>evaluatedAt).length:'Unavailable'}</dd></div>
+        <div><dt className="text-xs text-slate-500">Orders on this page</dt><dd className="mt-1 text-xl font-bold">{orders.status==='fulfilled'?orders.value.items.length:'Unavailable'}</dd></div>
+      </dl>
+      <div className="mt-4 flex flex-wrap gap-4 text-sm font-semibold text-orange-700"><Link href="/contact?measurement=1">Request a site measurement</Link><Link href="/catalog">Explore designs</Link></div>
+    </section>
     <div className="grid gap-6 md:grid-cols-2">
       <section className="card min-w-0 p-6">
         <h2 className="mb-5 text-lg font-bold">
@@ -46,7 +60,8 @@ export async function AccountProjects({ db, filters }: { db: SupabaseClient; fil
             <article id={`quotation-${q.id}`} key={String(q.id)} className="mb-4 border-b border-slate-100 pb-4">
               <h3 className="text-sm font-semibold">{String(q.name)}</h3>
               <p className="my-3 text-xs text-slate-500">{String(q.status)}</p>
-              <QuoteResponse id={String(q.id)} status={String(q.status)} />
+              <p className="mb-3 text-xs text-slate-500">Valid until {dateTime(String(q.expires_at))} (India time)</p>
+              {q.status==='approved'&&new Date(String(q.expires_at)).getTime()<=evaluatedAt?<p className="text-xs text-orange-800">This quotation has expired. Contact the workshop for a revision.</p>:<QuoteResponse id={String(q.id)} status={String(q.status)} />}
               <a
                 className="mt-3 inline-block text-xs font-semibold text-orange-600 hover:text-orange-700"
                 target="_blank"
@@ -112,6 +127,7 @@ export async function AccountProjects({ db, filters }: { db: SupabaseClient; fil
         </nav>
       </section>
     </div>
+    </>
   );
 }
 

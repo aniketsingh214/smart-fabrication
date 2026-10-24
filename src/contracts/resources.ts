@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { indianMobileSchema } from './phone.ts';
+import { measurementRequestSchema,measurementRequirement } from './measurement-request.ts';
 export type Field={key:string;label:string;type:'text'|'textarea'|'email'|'phone'|'number'|'money'|'percent'|'date'|'datetime'|'select'|'boolean'|'reference'|'json';required?:boolean;options?:string[];reference?:string;min?:number;max?:number;default?:string|number|boolean;readOnly?:boolean;mediaFilter?:'public-image'|'public-catalog'};
 export type Resource={slug:string;table:string;title:string;description:string;domain:string;group:string;fields:Field[];columns:string[];readOnly?:boolean;appendOnly?:boolean;public?:boolean;rpc?:string;actions?:string[];writePermission?:string};
 const text=(key:string,label:string,required=true):Field=>({key,label,type:'text',required,max:200});
@@ -80,5 +81,5 @@ export function resourceSchema(resource:Resource,partial=false){
   }
   return z.object(shape).strict();
 }
-export const leadSchema=resourceSchema(resourceMap.leads!).extend({website:z.string().max(0).optional(),selected_variant_id:z.uuid().nullable().optional(),selected_option_ids:z.array(z.uuid()).max(20).refine(ids=>new Set(ids).size===ids.length,'Select each option only once').optional()}).superRefine((v,ctx)=>{if(String(v.name).length<2)ctx.addIssue({code:'custom',path:['name'],message:'Enter your full name'});if(String(v.city).length<2)ctx.addIssue({code:'custom',path:['city'],message:'Enter your city'});if(String(v.requirement).length<10)ctx.addIssue({code:'custom',path:['requirement'],message:'Describe your requirement in at least 10 characters'});});
+export const leadSchema=resourceSchema(resourceMap.leads!).extend({measurement_request:measurementRequestSchema.optional(),website:z.string().max(0).optional(),selected_variant_id:z.uuid().nullable().optional(),selected_option_ids:z.array(z.uuid()).max(20).refine(ids=>new Set(ids).size===ids.length,'Select each option only once').optional()}).superRefine((v,ctx)=>{if(measurementRequirement(String(v.requirement),v.measurement_request).length>2000)ctx.addIssue({code:'custom',path:['requirement'],message:'Shorten the requirement so the measurement details fit within 2000 characters.'});if(String(v.name).length<2)ctx.addIssue({code:'custom',path:['name'],message:'Enter your full name'});if(String(v.city).length<2)ctx.addIssue({code:'custom',path:['city'],message:'Enter your city'});if(String(v.requirement).length<10)ctx.addIssue({code:'custom',path:['requirement'],message:'Describe your requirement in at least 10 characters'});});
 

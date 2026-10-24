@@ -15,7 +15,7 @@ export function PublicHeader() {
     <header className="border-b border-slate-200 bg-white sticky top-0 z-40 backdrop-blur-md bg-white/95">
       <div className="mx-auto max-w-7xl px-3.5 py-2.5 sm:px-6 lg:px-8">
         {/* Top Bar: Brand, Desktop Search, Actions */}
-        <div className="flex items-center justify-between gap-2 sm:gap-3">
+        <div className="flex flex-wrap items-center justify-between gap-2 sm:gap-3">
           {/* Brand Logo & Tagline */}
           <Link href="/" className="flex items-center gap-2 sm:gap-3 group shrink-0">
             <span className="grid h-9 w-9 sm:h-10 sm:w-10 place-items-center rounded-xl bg-orange-600 text-white shadow-sm transition group-hover:scale-105">
@@ -31,14 +31,14 @@ export function PublicHeader() {
           </Link>
 
           {/* Desktop Global Search Bar (Centered, visible md and up) */}
-          <div className="hidden md:flex flex-1 max-w-sm lg:max-w-md xl:max-w-lg mx-3">
+          <div className="hidden md:flex min-w-0 flex-1 basis-40 max-w-sm lg:max-w-md xl:max-w-lg mx-3">
             <GlobalSearchBar />
           </div>
 
           {/* Desktop Nav Links */}
           <nav
             aria-label="Main navigation"
-            className="hidden lg:flex items-center gap-5 text-xs font-semibold text-slate-600 shrink-0"
+            className="hidden xl:flex items-center gap-5 text-xs font-semibold text-slate-600 shrink-0"
           >
             <Link href="/catalog" className="hover:text-orange-600 transition py-1">
               {dict.nav.catalog}
@@ -55,7 +55,7 @@ export function PublicHeader() {
           </nav>
 
           {/* Right Action Bar: Language Switcher, Cart/Wishlist, Quote Button */}
-          <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+          <div className="flex w-full flex-wrap items-center justify-between gap-2 min-[480px]:w-auto min-[480px]:justify-end sm:gap-2.5">
             <LanguageSwitcher />
             <HeaderShopTriggers />
             <Button asChild size="sm" className="bg-orange-600 hover:bg-orange-700 shadow-sm text-xs font-bold px-2.5 sm:px-3">
@@ -79,7 +79,7 @@ export function PublicHeader() {
         {/* Mobile / Tablet Nav Links (Visible below md or lg) */}
         <nav
           aria-label="Mobile navigation"
-          className="lg:hidden mt-2 pt-1.5 border-t border-slate-100 flex w-full justify-around text-xs font-semibold text-slate-600"
+          className="xl:hidden mt-2 pt-1.5 border-t border-slate-100 flex w-full flex-wrap gap-2 justify-around text-xs font-semibold text-slate-600"
         >
           <Link href="/catalog" className="hover:text-orange-600 transition py-0.5">
             {dict.nav.catalog}

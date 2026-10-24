@@ -2,6 +2,7 @@
 import { useRef, useState } from 'react';
 import { MobileInput } from '@/features/contacts/mobile-input';
 import { indianMobileSchema } from '@/contracts/phone';
+import { indiaToday,measurementRequestSchema } from '@/contracts/measurement-request';
 import type { ProductVariant, ProductOption } from '@/contracts/catalog';
 import { Button } from '@/components/ui/button';
 import { referenceUpload } from '@/features/media/reference-upload';
@@ -10,15 +11,18 @@ import { useLocale } from '@/lib/i18n/locale-context';
 export function EnquiryForm({
   product,
   initialRequirement,
+  initialMeasurement=false,
   variants = [],
   options = []
 }: {
   product?: string;
   initialRequirement?: string;
+  initialMeasurement?: boolean;
   variants?: ProductVariant[];
   options?: ProductOption[];
 }) {
-  const { locale, dict } = useLocale();
+  const { locale } = useLocale();
+  const [measurement,setMeasurement]=useState(initialMeasurement);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const [done, setDone] = useState(false);
@@ -64,6 +68,7 @@ export function EnquiryForm({
         );
       }
       const payload = {
+        ...(measurement?{measurement_request:measurementRequestSchema.parse({preferred_date:form.get('preferred_date'),time_window:form.get('time_window'),address:form.get('site_address'),postal_code:form.get('postal_code')})}:{}),
         name: String(form.get('name')).trim(),
         phone: indianMobileSchema.parse(String(form.get('phone'))),
         email: form.get('email') || null,
@@ -236,6 +241,17 @@ export function EnquiryForm({
         </fieldset>
       )}
 
+      <fieldset className="space-y-3 rounded-xl border border-slate-200 p-4">
+        <legend className="px-1 text-sm font-bold">{locale==='hi'?'साइट माप का अनुरोध':'Site measurement request'}</legend>
+        <label className="flex items-center gap-2"><input type="checkbox" checked={measurement} onChange={event=>setMeasurement(event.target.checked)} className="h-4 w-4"/>{locale==='hi'?'मैं साइट पर माप के लिए विज़िट चाहता हूँ':'I would like a site measurement visit'}</label>
+        {measurement&&<div className="grid gap-3 sm:grid-cols-2">
+          <label>Preferred date (India time)<input className="mt-1" type="date" name="preferred_date" min={indiaToday()} required/></label>
+          <label>Preferred time<select className="mt-1" name="time_window" aria-label="Preferred time" defaultValue="any"><option value="any">Any time — please call</option><option value="morning">Morning</option><option value="afternoon">Afternoon</option><option value="evening">Evening</option></select></label>
+          <label className="sm:col-span-2">Site address<textarea className="mt-1" name="site_address" required minLength={10} maxLength={400} rows={2}/></label>
+          <label>PIN code<input className="mt-1" name="postal_code" inputMode="numeric" pattern="[1-9][0-9]{5}" maxLength={6} required/></label>
+          <p className="text-xs text-slate-500 sm:col-span-2">{locale==='hi'?'यह पसंदीदा समय का अनुरोध है। उपलब्धता, क्षेत्र और विज़िट शुल्क की पुष्टि टीम करेगी।':'This is a preferred-time request. Our team must confirm availability, coverage and any visit charge.'}</p>
+        </div>}
+      </fieldset>
       <label className="block text-sm font-semibold text-slate-800">
         {locale === 'hi' ? 'काम का विवरण (Tell us about your requirement)' : 'Tell us about your requirement'}
         <textarea

@@ -1,5 +1,6 @@
-﻿import { type NextRequest } from 'next/server';
+import { type NextRequest } from 'next/server';
 import { z } from 'zod';
+import { measurementRequirement } from '@/contracts/measurement-request';
 import { resourceMap,leadSchema } from '@/contracts/resources';
 import { failure,success,jsonBody,databaseError } from '@/lib/api';
 import { AppError } from '@/lib/errors';
@@ -15,7 +16,7 @@ async function handle(request:NextRequest,context:Context){const requestId=crypt
   if(segments.length>(admin?4:3))throw new AppError('NOT_FOUND','Unknown resource path',404);
   const resource=resourceMap[slug];if(!resource)throw new AppError('NOT_FOUND','Unknown resource',404);
   if(slug==='products'&&action==='preview'&&!admin)throw new AppError('NOT_FOUND','Unknown resource path',404);
-  if(!admin&&slug==='leads'&&request.method==='POST'&&!id){const input=leadSchema.parse(await jsonBody(request));delete input.website;delete input.customer_id;const db=await serverClient();const {data,error}=await db.rpc('submit_lead',{payload:input});if(error?.message==='Enquiry limit reached')throw new AppError('RATE_LIMITED','Please try again later',429);databaseError(error);return success({id:data,uploadToken:enquiryUploadToken(data)},requestId,201);}
+  if(!admin&&slug==='leads'&&request.method==='POST'&&!id){const input=leadSchema.parse(await jsonBody(request));input.requirement=measurementRequirement(String(input.requirement),input.measurement_request);delete input.measurement_request;delete input.website;delete input.customer_id;const db=await serverClient();const {data,error}=await db.rpc('submit_lead',{payload:input});if(error?.message==='Enquiry limit reached')throw new AppError('RATE_LIMITED','Please try again later',429);databaseError(error);return success({id:data,uploadToken:enquiryUploadToken(data)},requestId,201);}
   const isPublic=!admin&&resource.public&&request.method==='GET';
   const customerRead=!admin&&['orders','quotations'].includes(slug)&&request.method==='GET';
   const customerAction=!admin&&slug==='quotations'&&['accept','reject'].includes(action??'');

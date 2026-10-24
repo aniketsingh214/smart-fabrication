@@ -1,7 +1,7 @@
 import 'server-only';
 import { parseCursor } from '@/features/operations/services';
 export const publicPageSize = 48;
-export type BrowseQuery = { q?: string | string[]; category?: string | string[]; sub?: string | string[]; cursor?: string | string[]; page?: string | string[] };
+export type BrowseQuery = { q?: string | string[]; category?: string | string[]; sub?: string | string[]; cursor?: string | string[]; page?: string | string[];material?:string|string[];budget?:string|string[];sort?:string|string[] };
 export const singleQuery = (value: string | string[] | undefined) => Array.isArray(value) ? value[0] ?? '' : value ?? '';
 export function publicCursor(value: string | string[] | undefined) {
   const raw = singleQuery(value); if (!raw) return null;

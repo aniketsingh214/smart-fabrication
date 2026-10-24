@@ -1,11 +1,12 @@
 import { DemoPhotography } from '@/components/demo-photography';
+import { catalogFilters } from '@/features/catalog/filters';
 import Link from 'next/link';
-import { Search, ArrowUpRight, ChevronRight, Layers, ArrowRight, X } from 'lucide-react';
+import { Search, ArrowUpRight, ChevronRight, Layers, X } from 'lucide-react';
 import { serverClient } from '@/lib/supabase/server';
 import { money } from '@/lib/utils';
 import { ProductVisual } from '@/components/product-visual';
 import { DataTablePagination } from '@/components/data-table-pagination';
-import { browseHref, publicCursor, publicCursorFilter, publicPageSize, publicWindow, singleQuery, type BrowseQuery } from '@/features/catalog/public-pagination';
+import { browseHref as baseBrowseHref, publicCursor, publicCursorFilter, publicPageSize, publicWindow, singleQuery, type BrowseQuery } from '@/features/catalog/public-pagination';
 import { WishlistButton } from '@/features/shop/wishlist-button';
 import { AddToCartButton } from '@/features/shop/add-to-cart-button';
 import { getCategoryDisplayName, getBilingualProductName, getBilingualMaterial, expandSearchQuery } from '@/lib/i18n/catalog-bilingual';
@@ -15,6 +16,14 @@ export const metadata = { title: 'Explore fabrication designs & catalogue | Smar
 
 export default async function Catalog({ searchParams }: { searchParams: Promise<BrowseQuery> }) {
   const params = await searchParams;
+  const filters=catalogFilters(params);
+  const browseHref=(path:'/catalog'|'/gallery',values:Parameters<typeof baseBrowseHref>[1],cursor?:string|null)=>{
+    const url=new URL(baseBrowseHref(path,values,cursor),'https://catalog.local');
+    if(filters.material)url.searchParams.set('material',filters.material);
+    if(filters.budget)url.searchParams.set('budget',filters.budget);
+    if(filters.sort!=='recent')url.searchParams.set('sort',filters.sort);
+    return url.pathname+url.search;
+  };
   const q = singleQuery(params.q).slice(0, 120);
   const categoryParam = singleQuery(params.category);
   const subParam = singleQuery(params.sub);
@@ -28,6 +37,8 @@ export default async function Catalog({ searchParams }: { searchParams: Promise<
   let cursor;
   try {
     cursor = publicCursor(params.cursor);
+    // Legacy timestamp cursors only describe the newest-first ordering.
+    if(filters.sort!=='recent')cursor=null;
   } catch {
     return (
       <div className="mx-auto max-w-7xl px-5 py-12">
@@ -85,9 +96,13 @@ export default async function Catalog({ searchParams }: { searchParams: Promise<
       'id,name,slug,description,material,category_id,price_min_minor,price_max_minor,created_at,product_media(alt_text,sort_order,media_assets(public_id,resource_type,visibility))',
       { count: 'exact' }
     )
-    .eq('status', 'published')
-    .order('created_at', { ascending: false })
-    .order('id', { ascending: false });
+    .eq('status', 'published');
+  if(filters.material)query=query.ilike('material',`%${filters.material}%`);
+  if(filters.budget||filters.sort==='price-low'||filters.sort==='price-high')query=query.gt('price_min_minor',0);
+  if(filters.budget)query=query.lte('price_min_minor',Number(filters.budget)*100);
+  if(filters.sort==='price-low'||filters.sort==='price-high')query=query.order('price_min_minor',{ascending:filters.sort==='price-low'});
+  if(filters.sort==='name')query=query.order('name',{ascending:true});
+  query=query.order('created_at',{ascending:false}).order('id',{ascending:false});
 
   if (q) {
     const cleanQ = q.replace(/[%_\\]/g, '');
@@ -140,6 +155,9 @@ export default async function Catalog({ searchParams }: { searchParams: Promise<
 
   function getCatalogPageHref(targetPage: number) {
     const search = new URLSearchParams();
+    if(filters.material)search.set('material',filters.material);
+    if(filters.budget)search.set('budget',filters.budget);
+    if(filters.sort!=='recent')search.set('sort',filters.sort);
     if (q) search.set('q', q);
     const cat = activeParent?.slug ?? categoryParam;
     if (cat) search.set('category', cat);
@@ -216,10 +234,10 @@ export default async function Catalog({ searchParams }: { searchParams: Promise<
 
         {/* Bilingual Search Form with Category Preservation & Clear Button */}
         <div className="w-full max-w-md">
-          <form className="flex w-full items-center gap-2">
+          <form className="flex w-full flex-wrap items-center gap-2">
             {activeParent && <input type="hidden" name="category" value={activeParent.slug} />}
             {activeSub && <input type="hidden" name="sub" value={activeSub.slug} />}
-            <div className="relative flex-1">
+            <div className="relative min-w-0 flex-1 basis-48">
               <Search className="absolute left-3 top-2.5 text-slate-400" size={17} />
               <input
                 name="q"
@@ -253,6 +271,13 @@ export default async function Catalog({ searchParams }: { searchParams: Promise<
             >
               {isHi ? 'खोजें' : 'Search'}
             </button>
+            <div className="grid w-full grid-cols-1 gap-2 sm:grid-cols-3">
+              <label className="text-xs">{isHi?'मटीरियल':'Material contains'}<input name="material" aria-label="Material contains" defaultValue={filters.material} maxLength={80} placeholder="Steel, iron…" className="mt-1 !text-xs"/></label>
+              <label className="text-xs">{isHi?'अधिकतम बजट (₹)':'Max starting price (INR)'}<input name="budget" aria-label="Maximum indicative starting price" type="number" min="1" max="99999999" step="1" defaultValue={filters.budget} className="mt-1 !text-xs"/></label>
+              <label className="text-xs">{isHi?'क्रम':'Sort designs'}<select name="sort" aria-label="Sort designs" defaultValue={filters.sort} className="mt-1 !text-xs"><option value="recent">Newest</option><option value="price-low">Starting price: low first</option><option value="price-high">Starting price: high first</option><option value="name">Name: A–Z</option></select></label>
+            </div>
+            <p className="w-full text-xs text-slate-500">{isHi?'बजट और कीमत क्रम केवल दर्ज शुरुआती कीमतों पर हैं। बिना कीमत वाले डिज़ाइन इसमें शामिल नहीं हैं। अंतिम कोटेशन माप के बाद मिलेगा।':'Budget and price sorting use recorded starting prices only; unpriced designs are excluded. Final quotation follows measurement.'}</p>
+            <Link href="/catalog" className="text-xs underline">{isHi?'सभी फ़िल्टर हटाएँ':'Reset all filters'}</Link>
           </form>
 
           {/* Active Search & Category Scope Indicator */}

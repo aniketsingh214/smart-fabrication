@@ -21873,6 +21873,33 @@ components:
             - whatsapp
             - referral
             - other
+        measurement_request:
+          type: object
+          properties:
+            preferred_date:
+              type: string
+              format: date
+              pattern: ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$
+            time_window:
+              type: string
+              enum:
+                - morning
+                - afternoon
+                - evening
+                - any
+            address:
+              type: string
+              minLength: 10
+              maxLength: 400
+            postal_code:
+              type: string
+              pattern: ^[1-9][0-9]{5}$
+          required:
+            - preferred_date
+            - time_window
+            - address
+            - postal_code
+          additionalProperties: false
         website:
           type: string
           maxLength: 0

@@ -2,6 +2,10 @@
 
 # Leads
 
+## Site measurement visit requests — 2026-10-25
+
+Guest enquiry accepts optional validated preferred date/time, site address and Indian PIN. The server appends these to the private requirement before the existing submit_lead RPC, with a combined 2000-character limit. Staff follow up through the existing assigned-lead workflow. Requests do not reserve or confirm a slot; service coverage and any charge require workshop confirmation. No measurement/order/financial posting is created. See [customer website improvements](../operations/customer-website-enhancements.md).
+
 ## Indian mobile formatting — 2026-10-25
 
 Public/admin mobile fields accept a 10-digit Indian mobile starting 6–9, optional +91/91 or domestic 0 prefix, and spacing/separators. API schemas validate and normalize new/explicitly edited phone values to `+91` plus ten digits. Inputs show a fixed +91 prefix and normalize pasted country codes on blur. Admin lists/details display `+91 98765 43210`; Call and WhatsApp URLs use the canonical number. Invalid legacy records remain unchanged, show `(verify number)` and have no contact links until corrected. No database history or customer number is guessed or bulk rewritten. This validates syntax, not subscriber ownership or OTP verification. Existing exact-string SQL duplicate matching is unchanged; legacy mixed-format duplicates require separate review.

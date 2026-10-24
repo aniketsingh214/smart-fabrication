@@ -17,6 +17,8 @@ The user authorized sequential implementation across phases and later requested 
 
 ### Implemented
 
+2026-10-25 continuation: responsive mobile header, catalog material/budget/sort filters, product image gallery/zoom, measurement visit-request handoff, configured-number WhatsApp design drafts and customer overview/expiry guidance implemented and tested. Details and scope: [customer website improvements](../operations/customer-website-enhancements.md). Existing business/content approval limits remain; no confirmed appointment or externally sent message is claimed.
+
 Responsive public pages, CMS section records, gallery/review moderation records, robots and sitemap exist.
 
 ### Remaining acceptance

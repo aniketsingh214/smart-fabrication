@@ -60214,6 +60214,14 @@ export interface components {
              * @enum {string}
              */
             source: "direct" | "google" | "instagram" | "facebook" | "whatsapp" | "referral" | "other";
+            measurement_request?: {
+                /** Format: date */
+                preferred_date: string;
+                /** @enum {string} */
+                time_window: "morning" | "afternoon" | "evening" | "any";
+                address: string;
+                postal_code: string;
+            };
             website?: string;
             selected_variant_id?: string | null;
             selected_option_ids?: string[];

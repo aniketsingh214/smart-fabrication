@@ -1,4 +1,6 @@
 import { ProductServices } from '@/features/catalog/product-services';
+import { ProductGallery } from '@/features/catalog/product-gallery';
+import { designEnquiryUrl } from '@/features/catalog/design-enquiry';
 import { ProductVideos } from '@/features/catalog/product-videos';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
@@ -51,6 +53,12 @@ export default async function Product({ params }: { params: Promise<{ slug: stri
 
   const displayName = getBilingualProductName(p.name, locale);
   const displayMaterial = getBilingualMaterial(p.material, locale);
+  const photos=p.product_media.slice().sort((a,b)=>(a.sort_order??0)-(b.sort_order??0)).flatMap(item=>{
+    const asset=Array.isArray(item.media_assets)?item.media_assets[0]:item.media_assets;
+    return cloud&&asset?.resource_type==='image'&&asset.visibility==='public'?[{url:`https://res.cloudinary.com/${cloud}/image/upload/f_auto,q_auto,w_1600/${asset.public_id}`,alt:item.alt_text||p.name}]:[];
+  });
+  const {data:contact}=await db.from('site_settings').select('value').eq('name','phone').eq('public',true).maybeSingle();
+  const whatsapp=designEnquiryUrl(contact?.value,process.env.NEXT_PUBLIC_SITE_URL||'https://smartfabrication.vercel.app',p);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
@@ -60,7 +68,7 @@ export default async function Product({ params }: { params: Promise<{ slug: stri
       <div className="mt-6 grid gap-10 lg:grid-cols-2">
         <div>
           <div className="relative overflow-hidden rounded-2xl">
-            <ProductVisual media={p.product_media} alt={p.name} className="w-full rounded-2xl" />
+            {photos.length?<ProductGallery images={photos}/>:<ProductVisual media={p.product_media} alt={p.name} className="w-full rounded-2xl" />}
             <div className="absolute top-4 right-4 z-10">
               <WishlistButton item={shopItem} />
             </div>
@@ -94,6 +102,8 @@ export default async function Product({ params }: { params: Promise<{ slug: stri
           <ProductServices delivery={p.delivery_availability} installation={p.installation_availability} />
           <ProductConfiguration variants={choices.product_variants} options={choices.product_options} />
           <div className="mt-8 flex flex-wrap items-center gap-3">
+            <Button asChild variant="outline"><Link href={`/contact?product=${p.id}&measurement=1`}>{isHi?'साइट माप का अनुरोध':'Request site measurement'}</Link></Button>
+            {whatsapp&&<Button asChild variant="outline"><a href={whatsapp} target="_blank" rel="noopener noreferrer">{isHi?'WhatsApp पर यह डिज़ाइन पूछें':'Enquire about this design on WhatsApp'}</a></Button>}
             <AddToCartButton item={shopItem} variant="primary" label={isHi ? 'प्रोजेक्ट कार्ट में जोड़ें' : 'Add to Project Cart'} />
             <WishlistButton item={shopItem} variant="full" />
             <Button asChild variant="outline">

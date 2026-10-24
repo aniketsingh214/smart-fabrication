@@ -2,6 +2,10 @@
 
 # Products
 
+## Customer design browsing — 2026-10-25
+
+Catalog material, maximum indicative starting price and sorting filters preserve category/search context and pagination. Budget/price sorting excludes unpriced designs. Public product images offer thumbnail selection and keyboard-dismissable enlargement; video/concept fallback remain. Product-specific links carry the design into measurement requests or a WhatsApp draft using only the configured valid workshop number. No price or workshop approval is generated. See [customer website improvements](../operations/customer-website-enhancements.md).
+
 ## Current implementation update — 2026-10-15
 
 Variants/options have staff management screens and published-only public display. Private preview requires catalog read permission; idempotent duplication creates a separate draft and copies unarchived choices as drafts. BOM/rule configuration is deliberately reviewed separately. See [workflow guide](../operations/catalog-procurement-corrections.md) for exact behavior and catalog follow-up work. This is not full Phase 07 acceptance.

@@ -5,7 +5,7 @@ import { catalogConfiguration } from '@/features/catalog/configuration';
 import { EnquiryForm } from '@/features/leads/enquiry-form';
 import { serverClient } from '@/lib/supabase/server';
 import { getServerLocale } from '@/lib/i18n/server';
-import { Phone, MessageCircle, Clock, MapPin } from 'lucide-react';
+import { Phone, MessageCircle } from 'lucide-react';
 
 export const metadata = {
   title: 'Contact & Custom Quotation | SmartFabrication',
@@ -21,12 +21,13 @@ export default async function Contact({
     width_mm?: string;
     height_mm?: string;
     requirement?: string;
+    measurement?: string;
   }>;
 }) {
   const locale = await getServerLocale();
   const isHi = locale === 'hi';
 
-  const { product, inspiration, width_mm, height_mm, requirement } = await searchParams;
+  const { product, inspiration, width_mm, height_mm, requirement,measurement } = await searchParams;
   const demo = demoImages.find(image => image.key === inspiration);
   let initialRequirement =
     requirement ||
@@ -182,6 +183,7 @@ export default async function Contact({
           )}
         </h2>
         <EnquiryForm
+          initialMeasurement={measurement==='1'}
           initialRequirement={initialRequirement}
           product={choices?.id}
           variants={choices?.product_variants}
