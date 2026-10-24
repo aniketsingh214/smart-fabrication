@@ -4,11 +4,12 @@ import { z } from 'zod';
 import { catalogConfiguration } from '@/features/catalog/configuration';
 import { EnquiryForm } from '@/features/leads/enquiry-form';
 import { serverClient } from '@/lib/supabase/server';
+import { getServerLocale } from '@/lib/i18n/server';
 import { Phone, MessageCircle, Clock, MapPin } from 'lucide-react';
 
 export const metadata = {
-  title: 'हमसे बात करें | कोटेशन मांगें | Contact SmartFabrication',
-  description: 'गेट, रेलिंग और जाली बनवाने के लिए अपनी नाप भेजें या सीधे कॉल व WhatsApp पर बात करें।'
+  title: 'Contact & Custom Quotation | SmartFabrication',
+  description: 'Discuss custom fabrication, send dimensions, or call our workshop directly.'
 };
 
 export default async function Contact({
@@ -22,6 +23,9 @@ export default async function Contact({
     requirement?: string;
   }>;
 }) {
+  const locale = await getServerLocale();
+  const isHi = locale === 'hi';
+
   const { product, inspiration, width_mm, height_mm, requirement } = await searchParams;
   const demo = demoImages.find(image => image.key === inspiration);
   let initialRequirement =
@@ -65,40 +69,72 @@ export default async function Contact({
   const rawPhone = phoneSetting.replace(/[^0-9]/g, '');
 
   const steps = [
-    { hi: 'अपनी पसंद या नाप बताएं', en: 'Share your requirement' },
-    { hi: 'घर आकर सही नाप और मटीरियल तय होगा', en: 'Confirm dimensions and measurement' },
-    { hi: 'पक्का कोटेशन और बिल देखें', en: 'Review your exact quotation' }
+    {
+      hi: 'अपनी पसंद या नाप बताएं',
+      detailHi: 'अपनी पसंद का डिज़ाइन, नाप या फोटो हमें शेयर करें',
+      en: 'Share your requirement',
+      detailEn: 'Tell us your preferred design, size or reference photo'
+    },
+    {
+      hi: 'घर आकर सही नाप और मटीरियल तय होगा',
+      detailHi: 'हमारी टीम आपकी साइट पर आकर सटीक नाप लेगी',
+      en: 'Confirm dimensions and measurement',
+      detailEn: 'Our fabrication team verifies site dimensions and steel grade'
+    },
+    {
+      hi: 'पक्का कोटेशन और बिल देखें',
+      detailHi: 'पारदर्शी बिल और पक्का कोटेशन प्राप्त करें',
+      en: 'Review your exact quotation',
+      detailEn: 'Get itemized bill of materials and transparent pricing'
+    }
   ];
 
   return (
     <div className="mx-auto grid max-w-7xl gap-12 px-5 py-14 lg:grid-cols-[1fr_1.4fr] lg:px-8">
       <div>
-        <p className="eyebrow text-orange-600">सीधे वर्कशॉप से बात करें · Start your project</p>
+        <p className="eyebrow text-orange-600">
+          {isHi ? 'सीधे वर्कशॉप से बात करें · Start your project' : 'Direct Workshop Contact · Start Your Project'}
+        </p>
         <h1 className="mt-4 text-3xl sm:text-4xl font-bold leading-tight tracking-tight text-slate-900">
-          आपको क्या बनवाना है?<br />
-          <span className="text-orange-600">हमें बताएं या कॉल करें</span>
+          {isHi ? (
+            <>
+              आपको क्या बनवाना है?<br />
+              <span className="text-orange-600">हमें बताएं या कॉल करें</span>
+            </>
+          ) : (
+            <>
+              What would you like to build?<br />
+              <span className="text-orange-600">Tell us or give us a call</span>
+            </>
+          )}
         </h1>
         <p className="mt-4 max-w-md text-sm leading-7 text-slate-600">
-          चाहे नया लोहे का मेन गेट हो, मजबूत खिड़की की जाली या छत की स्टील रेलिंग — हमें अपनी पसंद बताएं। हम सही नाप, लोहा/स्टील की क्वालिटी और पक्का खर्च बताएंगे।
+          {isHi
+            ? 'चाहे नया लोहे का मेन गेट हो, मजबूत खिड़की की जाली या छत की स्टील रेलिंग — हमें अपनी पसंद बताएं। हम सही नाप, लोहा/स्टील की क्वालिटी और पक्का खर्च बताएंगे।'
+            : 'Whether it is a new iron main gate, durable window safety grill, or stainless steel balcony railing — tell us your needs. We will provide exact measurements, steel specifications, and transparent cost.'}
         </p>
 
-        {/* Quick Call / WhatsApp Bar for rural visitors */}
+        {/* Quick Call / WhatsApp Bar */}
         <div className="mt-6 flex flex-wrap gap-3">
           <a
             href={`tel:${phoneSetting}`}
             className="inline-flex items-center gap-2 rounded-xl bg-orange-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-orange-700 transition"
           >
             <Phone size={16} />
-            <span>कॉल करें: {phoneSetting}</span>
+            <span>{isHi ? `कॉल करें: ${phoneSetting}` : `Call us: ${phoneSetting}`}</span>
           </a>
           <a
-            href={`https://wa.me/${rawPhone}?text=${encodeURIComponent('नमस्ते SmartFabrication, मुझे गेट/रेलिंग बनवाने के बारे में जानकारी चाहिए।')}`}
+            href={`https://wa.me/${rawPhone}?text=${encodeURIComponent(
+              isHi
+                ? 'नमस्ते SmartFabrication, मुझे गेट/रेलिंग बनवाने के बारे में जानकारी चाहिए।'
+                : 'Hello SmartFabrication, I would like to enquire about a custom fabrication project.'
+            )}`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-emerald-700 transition"
           >
             <MessageCircle size={16} />
-            <span>WhatsApp करें</span>
+            <span>{isHi ? 'WhatsApp करें' : 'Chat on WhatsApp'}</span>
           </a>
         </div>
 
@@ -109,8 +145,8 @@ export default async function Contact({
                 {i + 1}
               </span>
               <div>
-                <p className="font-semibold text-slate-900">{s.hi}</p>
-                <p className="text-xs text-slate-400">{s.en}</p>
+                <p className="font-semibold text-slate-900">{isHi ? s.hi : s.en}</p>
+                <p className="text-xs text-slate-400">{isHi ? s.detailHi : s.detailEn}</p>
               </div>
             </li>
           ))}
@@ -118,7 +154,9 @@ export default async function Contact({
 
         {settings && settings.length > 0 && (
           <div className="mt-8 space-y-4 rounded-xl border border-slate-200 bg-slate-50/50 p-5">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">कारखाना संपर्क (Workshop Details)</h3>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">
+              {isHi ? 'कारखाना संपर्क (Workshop Details)' : 'Workshop & Factory Details'}
+            </h3>
             {settings.map(s => (
               <div key={s.name}>
                 <p className="text-xs font-semibold text-slate-600 capitalize">{s.name.replaceAll('_', ' ')}</p>
@@ -131,8 +169,17 @@ export default async function Contact({
 
       <section className="card p-6 sm:p-8">
         <h2 className="mb-6 text-xl font-bold text-slate-900" aria-label="Request a quotation">
-          कोटेशन के लिए जानकारी भेजें{' '}
-          <span className="block text-xs font-normal text-slate-500 mt-0.5">(Request a quotation)</span>
+          {isHi ? (
+            <>
+              कोटेशन के लिए जानकारी भेजें{' '}
+              <span className="block text-xs font-normal text-slate-500 mt-0.5">(Request a quotation)</span>
+            </>
+          ) : (
+            <>
+              Request a Quotation{' '}
+              <span className="block text-xs font-normal text-slate-500 mt-0.5">Fill in your requirements to receive an estimate</span>
+            </>
+          )}
         </h2>
         <EnquiryForm
           initialRequirement={initialRequirement}

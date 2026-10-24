@@ -445,4 +445,17 @@ Expanded local read-only load — 2026-10-17: 60/60 requests passed at concurren
   - Vitest test suite: 42 test files passed (158/158 tests).
   - `npm run build`: PASS (Turbopack production build compiled cleanly across all 23 routes).
 
+## Language Toggle Server Refresh & Search Input Query Retention — 2026-10-24
+
+- Fixed Contact Page Bilingual Rendering (`src/app/(public)/contact/page.tsx`):
+  - Wired `getServerLocale()` into the contact page to replace hardcoded Hindi text with dynamic English/Hindi translations for page headings, subtitles, workshop contact details, and site measurement steps.
+  - Updated `LanguageSwitcher` (`src/features/i18n/language-switcher.tsx`) to trigger `router.refresh()` upon language selection, immediately re-rendering server components with the updated `sf_locale` cookie.
+- Fixed Search Input Query Retention (`src/components/layout/global-search-bar.tsx`):
+  - Synchronized search input state with `?q=` URL parameters on load and browser navigation, ensuring searched terms remain visible inside the search box.
+  - Ensured selecting category/popular search tags displays the selected query in the search bar with clear button (✕) support.
+- Verification:
+  - Vitest test suite: 42 test files passed (158/158 tests).
+  - `npm run build`: PASS (Turbopack production build compiled cleanly across all 23 routes).
+
+
 

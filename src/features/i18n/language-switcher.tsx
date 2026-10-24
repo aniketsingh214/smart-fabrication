@@ -1,11 +1,19 @@
 'use client';
 
 import React from 'react';
+import { useRouter } from 'next/navigation';
 import { useLocale } from '@/lib/i18n/locale-context';
+import type { Locale } from '@/lib/i18n/types';
 import { Languages } from 'lucide-react';
 
 export function LanguageSwitcher({ className = '' }: { className?: string }) {
   const { locale, setLocale } = useLocale();
+  const router = useRouter();
+
+  const handleSwitch = (next: Locale) => {
+    setLocale(next);
+    router.refresh();
+  };
 
   return (
     <div
@@ -15,7 +23,7 @@ export function LanguageSwitcher({ className = '' }: { className?: string }) {
     >
       <button
         type="button"
-        onClick={() => setLocale('hi')}
+        onClick={() => handleSwitch('hi')}
         aria-pressed={locale === 'hi'}
         aria-label="हिंदी भाषा चुनें"
         className={`rounded-full px-2.5 py-1 transition-all duration-150 ${
@@ -29,7 +37,7 @@ export function LanguageSwitcher({ className = '' }: { className?: string }) {
 
       <button
         type="button"
-        onClick={() => setLocale('en')}
+        onClick={() => handleSwitch('en')}
         aria-pressed={locale === 'en'}
         aria-label="Switch to English"
         className={`rounded-full px-2.5 py-1 transition-all duration-150 ${
@@ -46,9 +54,12 @@ export function LanguageSwitcher({ className = '' }: { className?: string }) {
 
 export function CompactLanguageToggle({ className = '' }: { className?: string }) {
   const { locale, setLocale } = useLocale();
+  const router = useRouter();
 
   const toggle = () => {
-    setLocale(locale === 'hi' ? 'en' : 'hi');
+    const next = locale === 'hi' ? 'en' : 'hi';
+    setLocale(next);
+    router.refresh();
   };
 
   return (
