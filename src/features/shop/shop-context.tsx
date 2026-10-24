@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useEffect, useState, useCallback, useMemo } from 'react';
+import React, { createContext, useContext, useEffect, useState, useCallback, useMemo,useRef } from 'react';
 
 export interface WishlistItem {
   id: string;
@@ -59,26 +59,39 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isWishlistOpen, setIsWishlistOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const wishlistRef=useRef<WishlistItem[]>([]);
+  const cartRef=useRef<CartItem[]>([]);
 
   // Load from localStorage after mount
   useEffect(() => {
+    let cancelled=false;
+    queueMicrotask(()=>{
+    if(cancelled)return;
     try {
       const storedWishlist = localStorage.getItem(WISHLIST_STORAGE_KEY);
       if (storedWishlist) {
-        setWishlist(JSON.parse(storedWishlist));
+        const parsed=JSON.parse(storedWishlist);
+        if(Array.isArray(parsed)){
+          const unique=Array.from(new Map(parsed.filter(item=>item&&typeof item.id==='string').map((item:WishlistItem)=>[item.id,item])).values());
+          wishlistRef.current=unique;setWishlist(unique);
+          localStorage.setItem(WISHLIST_STORAGE_KEY,JSON.stringify(unique));
+        }
       }
       const storedCart = localStorage.getItem(CART_STORAGE_KEY);
       if (storedCart) {
-        setCart(JSON.parse(storedCart));
+        const parsed=JSON.parse(storedCart);if(Array.isArray(parsed)){cartRef.current=parsed;setCart(parsed);}
       }
     } catch {
       // Ignore storage read errors
     }
     setMounted(true);
+    });
+    return()=>{cancelled=true;};
   }, []);
 
   // Save wishlist
   const saveWishlist = useCallback((items: WishlistItem[]) => {
+    wishlistRef.current=items;
     setWishlist(items);
     try {
       localStorage.setItem(WISHLIST_STORAGE_KEY, JSON.stringify(items));
@@ -89,6 +102,7 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
 
   // Save cart
   const saveCart = useCallback((items: CartItem[]) => {
+    cartRef.current=items;
     setCart(items);
     try {
       localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
@@ -105,29 +119,29 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
 
   const addToWishlist = useCallback(
     (item: WishlistItem) => {
-      if (!wishlist.some(i => i.id === item.id)) {
-        saveWishlist([...wishlist, item]);
+      if (!wishlistRef.current.some(i => i.id === item.id)) {
+        saveWishlist([...wishlistRef.current, item]);
       }
     },
-    [wishlist, saveWishlist]
+    [saveWishlist]
   );
 
   const removeFromWishlist = useCallback(
     (productId: string) => {
-      saveWishlist(wishlist.filter(item => item.id !== productId));
+      saveWishlist(wishlistRef.current.filter(item => item.id !== productId));
     },
-    [wishlist, saveWishlist]
+    [saveWishlist]
   );
 
   const toggleWishlist = useCallback(
     (item: WishlistItem) => {
-      if (isWishlisted(item.id)) {
+      if (wishlistRef.current.some(saved=>saved.id===item.id)) {
         removeFromWishlist(item.id);
       } else {
         addToWishlist(item);
       }
     },
-    [isWishlisted, removeFromWishlist, addToWishlist]
+    [removeFromWishlist, addToWishlist]
   );
 
   // Cart methods
@@ -138,6 +152,7 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
 
   const addToCart = useCallback(
     (item: Omit<CartItem, 'id' | 'quantity'> & { quantity?: number }) => {
+      const cart=cartRef.current;
       const existingIndex = cart.findIndex(i => i.product_id === item.product_id);
       const addQty = item.quantity ?? 1;
 
@@ -158,14 +173,14 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
       }
       setIsCartOpen(true);
     },
-    [cart, saveCart]
+    [saveCart]
   );
 
   const removeFromCart = useCallback(
     (cartItemId: string) => {
-      saveCart(cart.filter(item => item.id !== cartItemId));
+      saveCart(cartRef.current.filter(item => item.id !== cartItemId));
     },
-    [cart, saveCart]
+    [saveCart]
   );
 
   const updateQuantity = useCallback(
@@ -175,10 +190,10 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
         return;
       }
       saveCart(
-        cart.map(item => (item.id === cartItemId ? { ...item, quantity: Math.min(qty, 99) } : item))
+        cartRef.current.map(item => (item.id === cartItemId ? { ...item, quantity: Math.min(qty, 99) } : item))
       );
     },
-    [cart, saveCart, removeFromCart]
+    [saveCart, removeFromCart]
   );
 
   const clearCart = useCallback(() => {
@@ -186,12 +201,12 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
   }, [saveCart]);
 
   const totalCartItems = useMemo(
-    () => (mounted ? cart.reduce((sum, item) => sum + item.quantity, 0) : 0),
+    () => (mounted ? new Set(cart.map(item=>item.product_id)).size : 0),
     [cart, mounted]
   );
 
   const totalWishlistItems = useMemo(
-    () => (mounted ? wishlist.length : 0),
+    () => (mounted ? new Set(wishlist.map(item=>item.id)).size : 0),
     [wishlist, mounted]
   );
 

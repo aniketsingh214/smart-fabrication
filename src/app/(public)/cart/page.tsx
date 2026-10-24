@@ -241,7 +241,7 @@ export default function CartPage() {
               <div className="border-b border-slate-100 pb-4">
                 <h2 className="text-lg font-bold text-slate-900">Quotation Summary</h2>
                 <p className="mt-1 text-xs text-slate-500">
-                  Total of {totalCartItems} {totalCartItems === 1 ? 'item' : 'items'} in your project plan
+                  Total of {totalCartItems} {totalCartItems === 1 ? 'unique design' : 'unique designs'} in your project plan
                 </p>
               </div>
 

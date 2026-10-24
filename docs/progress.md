@@ -2,6 +2,10 @@
 
 # SmartFabrication progress
 
+### Unique wishlist/cart counts — 2026-10-25
+
+Header wishlist/cart counts now represent distinct product designs, not summed quantities. Quantity edits still affect quantities and subtotal; only a newly added design increases the badge. Persisted wishlist duplicates are consolidated by product ID on load. Synchronous batched additions (Move All to Cart) preserve every design through current-state references. Six desktop/mobile regression checks, production build/TypeScript and targeted lint passed; no database writes or API/schema change. Browser-local saved lists remain browser-local.
+
 ### Customer website priorities — 2026-10-25
 
 Implemented responsive header/actions, material/budget/sort filters, public product-photo selection/zoom, measurement visit preferences through the existing lead API, configured-number WhatsApp design enquiries and customer dashboard/expiry polish. 181 unit/integration tests, eight desktop/mobile checks and production build passed. See [scope, workflow and verification](operations/customer-website-enhancements.md). Visit requests require workshop confirmation; page counts/order totals are not full-account totals or unpaid balances. No invented business figures, external message, payment or stock posting was added.

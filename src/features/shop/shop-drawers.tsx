@@ -96,7 +96,7 @@ export function ShopDrawers() {
                   <div>
                     <h2 className="text-base font-bold text-slate-900">{dict.cart.title}</h2>
                     <p className="text-xs text-slate-500">
-                      {totalCartItems} {locale === 'hi' ? 'सामान जोड़े गए' : totalCartItems === 1 ? 'item' : 'items'}
+                      {totalCartItems} {locale === 'hi' ? 'सामान जोड़े गए' : totalCartItems === 1 ? 'unique design' : 'unique designs'}
                     </p>
                   </div>
                 </div>
