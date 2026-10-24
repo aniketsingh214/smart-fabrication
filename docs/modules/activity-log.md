@@ -1,4 +1,4 @@
-﻿> Version: 0.1 | Owner: project team | Updated: 2026-10-15 | Status: partially implemented; acceptance pending
+> Version: 1.0 | Owner: project team | Updated: 2026-10-24 | Status: verified (local); engineering complete
 
 # Activity Log
 
@@ -8,11 +8,17 @@
 - **Rules / acceptance:** Append-only, redact secrets/PII, retention policy.
 - **Documentation:** module specification, API examples, DB schema changes, permissions, validation, test cases and user instructions must be maintained.
 
-## Implementation contract to refine in owning phase
+## Implementation contract
 
 - Stories and baseline acceptance: [requirements](../requirements.md).
-- Screens/routes, fields/validation, API DTOs, service rules and errors: pending phase specification.
-- Database constraints, migrations, permission/RLS matrix, state transitions and audit events: pending phase specification.
-- Tests: cover permitted and denied access, ownership, invalid inputs, transitions and applicable calculation/concurrency boundaries.
-- UI: responsive layout with loading, empty, error and keyboard-accessible states.
-- Current implementation and remaining acceptance: [phase audit](../progress.md). Actual checks and their limits: [verification evidence](../testing/evidence.md). The source specification is target scope, not a completion claim.
+- Audit model: `audit_events` table capturing `actor_id`, `action`, `resource_type`, `resource_id`, `diff`, `ip_address`, `created_at`.
+- Immutability: Database triggers reject `UPDATE` and `DELETE` queries on `audit_events`, ensuring tamper-evident history.
+- Redaction: Passwords, bearer tokens, API keys, and private customer documents are excluded or redacted prior to insertion.
+- Access control: Strictly accessible only by users with `audit.read` permission (`owner` role).
+
+## Verification record — 2026-10-18
+
+Verified in Phase 18 Dashboards, Reports & Audit acceptance (`npm run test:reporting-audit`, artifact: `test-results/reporting-audit-browser-latest.json`):
+1. Automated audit event generation upon state transitions and critical writes verified.
+2. Immutability guards preventing updates or deletes to audit rows verified.
+3. Owner-only audit review interface on `/admin/audit` verified.

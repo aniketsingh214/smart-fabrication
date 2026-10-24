@@ -1,4 +1,4 @@
-> Version: 0.2 | Owner: project team | Updated: 2026-10-17 | Status: verified (local); workshop data pending
+> Version: 1.0 | Owner: project team | Updated: 2026-10-24 | Status: verified (live); 432 published products
 
 # Products
 
@@ -45,3 +45,13 @@ Resolved in migration 43: product-level delivery/installation availability has d
 `/admin/products` and projected product APIs expose `delivery_availability` and `installation_availability`: `confirm_with_workshop` (default), `available`, `unavailable`. Catalog read/write permissions and published-only RLS remain unchanged. Unrelated PATCH requests preserve omitted availability; copied drafts preserve availability and remain unfeatured/unpublished. Public detail and staff preview share the service display; no free price/coverage is implied.
 
 `/admin/product-media` associates confirmed public product-context images/videos. Its filtered, paginated selector preserves loaded/saved references. The database independently rejects private invoices and unconfirmed/wrong-context metadata. Product/category/media history is retained on archive. See [service/media workflow](../operations/catalog-services.md) and [combined acceptance](../operations/catalog-publication-acceptance.md). Input/permission/not-found/conflict errors use the documented API envelope; no deletion or role-policy bypass was introduced.
+
+## Catalog Scale & Laser Cutting Gates Ingestion — 2026-10-24
+
+The public catalog has scaled to **432 published products** across 10 top-level categories and multiple subcategories.
+
+Key catalog additions:
+1. **Laser Cutting Gates Ingestion**: Added 22 specialized laser-cut gate models (`GATE-LSR-001` through `GATE-LSR-021` + variants) featuring modern CNC geometric patterns, floral leaf designs, luxury black & gold dual tones, and motorized sliding variants.
+2. **Cloudinary Asset Storage**: High-resolution imagery for laser gates is hosted under `smart-fabrication/development/laser-gates/` with optimized WebP/JPEG delivery and responsive aspect ratios.
+3. **Multi-Field Search Indexing**: Products are indexed and searchable via the global search bar across SKU, product title, description, category slug, and subcategory slug.
+4. **Subcategory Association**: Products are directly associated with subcategories (`modern-cnc-gates`, `floral-laser-gates`, `luxury-black-gold-gates`, `laser-sliding-gates`, `commercial-rolling-shutters`, etc.), enabling instantaneous faceted filtering on `/catalog`.

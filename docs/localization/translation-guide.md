@@ -55,3 +55,28 @@
 | `INSTALLATION` | **6. सामान पहुँच गया (फिटिंग जारी)** | Reached your location; installation underway. |
 | `COMPLETED` | **7. काम पूरा हो गया** | Fully erected, tested, and handed over. |
 | `CANCELLED` | **ऑर्डर रद्द किया गया** | Order was cancelled by mutual agreement. |
+
+---
+
+## 4. CNC Laser Cutting & Specialized Fabrication Glossary
+
+| English Term | Recommended Rural Hindi | Notes / Context |
+| :--- | :--- | :--- |
+| **Laser Cutting Gates** | लेज़र कटिंग गेट / सीएनसी कटिंग गेट | Main category for CNC sheet-cut gates |
+| **CNC Sheet Cutting** | सीएनसी शीट कटिंग | Precision plasma/fiber laser sheet designs |
+| **Modern Geometric Gate** | आधुनिक डिज़ाइन गेट | Clean architectural line patterns |
+| **Floral & Nature Pattern** | फूल-पत्ती नक्काशी गेट | Traditional & contemporary organic patterns |
+| **Luxury Black & Gold Gate** | रॉयल ब्लैक और गोल्डन गेट | Dual-tone powder coated premium finish |
+| **Motorized Sliding Gate** | रिमोट वाला स्लाइडिंग गेट | Automatic rolling / sliding driveway gate |
+| **Powder Coating** | पक्का पाउडर कोटिंग पेंट | Rust-proof electrostatic heat-cured finish |
+| **Heavy Gauge Sheet** | भारी चादर (मजबूत गेज) | 12–14 gauge structural iron sheets |
+| **Clear Search** | सर्च हटाएं | Clear search input action |
+
+---
+
+## 5. Dynamic Bilingual Switcher & Server Rendering Architecture
+
+The application implements instantaneous bilingual toggling across English (`en`) and Hindi (`hi`):
+1. **Cookie Persistence**: The active locale is stored in the `sf_locale` cookie (default: `en`).
+2. **Dynamic Server Re-rendering**: When the user toggles languages via `LanguageSwitcher` or `CompactLanguageToggle`, the client updates the cookie and immediately invokes Next.js `router.refresh()`.
+3. **Server Components Localization**: Public pages read `getServerLocale()` directly from cookie headers, rendering server components in the user's selected language on the first pass without hydration mismatch or flashing incorrect text.

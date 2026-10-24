@@ -1,4 +1,4 @@
-> Version: 0.1 | Owner: project team | Updated: 2026-10-18 | Status: done (local)
+> Version: 1.0 | Owner: project team | Updated: 2026-10-24 | Status: done (live on Vercel)
 
 # Phase 03 — Repository, Next.js & Vercel Foundation
 
@@ -11,9 +11,9 @@
 
 ## Execution record
 
-Updated: 2026-10-18. Status: done (local).
+Updated: 2026-10-24. Status: done (live on Vercel).
 
-The user authorized sequential implementation across phases without stopping for permission, restricted to local development; GitHub push and Vercel remote deployment are deferred at the user's explicit request.
+The user authorized GitHub push (`aniketsingh214/smart-fabrication`) and Vercel production deployment (`https://smartfabrication.vercel.app`), which are actively deployed and live.
 
 ### Implemented & Verified Acceptance
 
@@ -24,8 +24,9 @@ The user authorized sequential implementation across phases without stopping for
    - Configured `.env.example`, `.env.local` ignored and guarded by `npm run security:check`.
    - CI workflow defined in `.github/workflows/ci.yml`.
    - Vercel deployment configuration in `vercel.json` with security headers and API routes.
-3. **Local Dev & Preview Smoke:**
-   - Active Next.js dev server serving all public, customer, and admin routes with real data and Cloudinary media assets.
+3. **Live Remote Deployment:**
+   - Active production deployment on Vercel at `https://smartfabrication.vercel.app` backed by Supabase PostgreSQL/Auth and Cloudinary CDN.
+   - Verified live public catalog, customer account, and admin portal.
 
 ### Evidence and dependencies
 

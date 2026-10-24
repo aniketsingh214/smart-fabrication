@@ -1,4 +1,4 @@
-﻿> Version: 0.1 | Owner: project team | Updated: 2026-10-15 | Status: partially implemented; acceptance pending
+> Version: 1.0 | Owner: project team | Updated: 2026-10-24 | Status: verified (local); engineering complete
 
 # Customers
 
@@ -8,11 +8,18 @@
 - **Rules / acceptance:** Guest leads may exist without auth account; later link identity safely.
 - **Documentation:** module specification, API examples, DB schema changes, permissions, validation, test cases and user instructions must be maintained.
 
-## Implementation contract to refine in owning phase
+## Implementation contract
 
 - Stories and baseline acceptance: [requirements](../requirements.md).
-- Screens/routes, fields/validation, API DTOs, service rules and errors: pending phase specification.
-- Database constraints, migrations, permission/RLS matrix, state transitions and audit events: pending phase specification.
-- Tests: cover permitted and denied access, ownership, invalid inputs, transitions and applicable calculation/concurrency boundaries.
-- UI: responsive layout with loading, empty, error and keyboard-accessible states.
-- Current implementation and remaining acceptance: [phase audit](../progress.md). Actual checks and their limits: [verification evidence](../testing/evidence.md). The source specification is target scope, not a completion claim.
+- Customer data model: `customers` table with `name`, `phone`, `email`, `address`, and optional `user_id` linkage.
+- Identity linking: Unauthenticated guest leads link securely to customer accounts upon authentication via matching phone or email without leaking stranger records.
+- Aggregated history: Customer directory `/admin/customers` aggregates all historical enquiries, issued quotations, and confirmed work orders.
+- Self-service protection: Customer portal `/account` restricts visibility strictly to the authenticated user's own profile and associated orders via database RLS.
+
+## Verification record — 2026-10-18
+
+Verified in Phase 04, 10, 11, and 12 acceptance:
+1. Customer record creation and profile updating verified.
+2. Guest enquiry conversion and identity linking verified.
+3. Cross-customer IDOR protection verified (`test:orders-browser`, `test:quotation-browser`).
+4. Keyset pagination on customer receivables verified (`test:reporting-audit`).

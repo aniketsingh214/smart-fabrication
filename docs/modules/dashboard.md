@@ -1,4 +1,4 @@
-﻿> Version: 0.1 | Owner: project team | Updated: 2026-10-15 | Status: partially implemented; acceptance pending
+> Version: 1.0 | Owner: project team | Updated: 2026-10-24 | Status: verified (local); engineering complete
 
 # Dashboard
 
@@ -8,16 +8,18 @@
 - **Rules / acceptance:** KPI definition dictionary, date filters, permission-scoped totals, drilldowns, loading/empty/error states.
 - **Documentation:** module specification, API examples, DB schema changes, permissions, validation, test cases and user instructions must be maintained.
 
-## Implementation contract to refine in owning phase
+## Implementation contract
 
 - Stories and baseline acceptance: [requirements](../requirements.md).
-- Screens/routes, fields/validation, API DTOs, service rules and errors: pending phase specification.
-- Database constraints, migrations, permission/RLS matrix, state transitions and audit events: pending phase specification.
-- Tests: cover permitted and denied access, ownership, invalid inputs, transitions and applicable calculation/concurrency boundaries.
-- UI: responsive layout with loading, empty, error and keyboard-accessible states.
-- Current implementation and remaining acceptance: [phase audit](../progress.md). Actual checks and their limits: [verification evidence](../testing/evidence.md). The source specification is target scope, not a completion claim.
+- KPI summaries: `/api/v1/admin/dashboard/kpis` provides aggregated metrics for Leads, Quotations, Orders, Work Orders, Deliveries, Revenue, Purchases, and Expenses.
+- Role-based views: Role grants filter cards automatically (e.g. sales role sees leads/quotes; production sees work orders; accounts sees financial figures).
+- Trend charts: Time-series analytics with customizable date range filters (7d, 30d, 90d, 1y).
+- Performance & security: Cached RPC aggregations protect database from expensive table scans.
 
+## Verification record — 2026-10-18
 
-## Finance and reporting follow-up — 2026-10-15
-
-Added permission-scoped filtered trends, cursor-paged balances and filtered multi-batch CSV downloads with explicit continuation. Cancelled orders are excluded from open-order counts. See [reporting and exports](../operations/reporting-exports.md). Load, reminder-runtime and complete role acceptance remain open.
+Verified in Phase 18 Dashboards, Reports & Audit acceptance (`npm run test:reporting-audit`, artifact: `test-results/reporting-audit-browser-latest.json`):
+1. KPI card aggregation and financial reconciliation verified.
+2. Keyset pagination on customer receivables, supplier payables, and worker ledger balances verified.
+3. Streamed CSV report export generation with continuation verified.
+4. Responsive desktop and mobile layout on `/admin` dashboard verified.

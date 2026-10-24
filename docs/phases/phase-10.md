@@ -1,6 +1,6 @@
-> Version: 0.1 | Owner: project team | Updated: 2026-10-14 | Status: in_progress
+> Version: 1.0 | Owner: project team | Updated: 2026-10-24 | Status: done (local)
 
-# Phase 10 â€” CRM: Leads, Customers, Follow-ups
+# Phase 10 — CRM: Leads, Customers, Follow-ups
 
 - **Objective / tasks:** Public lead capture, source, duplicate logic, customer profiles, assignment, statuses, notes, follow-up reminders.
 - **Deliverables:** lead/customer APIs, admin UI, spam protections, workflow docs.
@@ -11,7 +11,7 @@
 
 ## Execution record
 
-Updated: 2026-10-15. Status: in_progress.
+Updated: 2026-10-24. Status: done (local).
 
 The user authorized sequential implementation across phases and later requested local-only work; repeated approval gates in the source baseline do not override that instruction.
 

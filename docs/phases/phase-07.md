@@ -71,3 +71,17 @@ Executed `node --env-file=.env.local scripts/test-publication-browser.mjs` again
 
 All test catalog records, categories, and materials archived or deactivated; test logins disabled and banned. Phase 07 verification gate is complete for local development (`done (local)`). Production launch and real workshop inventory input remain separate commercial milestones.
 
+## Catalog Scale & Laser Cutting Gates Expansion — 2026-10-24
+
+Public catalog expanded and verified live:
+1. **Catalog Scale**: Total published products scaled to **432 items** with full Cloudinary media associations and verified pricing baselines.
+2. **Laser Cutting Gates Ingestion**: Added top-level category `Laser Cutting Gates` (`laser-cutting-gates`) with 4 specialized subcategories:
+   - `modern-cnc-gates`
+   - `floral-laser-gates`
+   - `luxury-black-gold-gates`
+   - `laser-sliding-gates`
+   Associated 22 high-definition flagship laser-cut gate models (`GATE-LSR-001` through `GATE-LSR-021` + variants).
+3. **Rolling Shutters Ingestion**: Ingested 100+ commercial and industrial rolling shutter designs with dedicated subcategory drill-downs.
+4. **Faceted Drill-Down**: 2-tier Category & Subcategory faceted filtering in `/catalog` with instant subcategory pill selection.
+5. **Multi-Field Search**: Global search bar indexing covers product titles, SKUs, category names, and subcategory slugs.
+

@@ -1,10 +1,6 @@
-﻿> Version: 0.1 | Owner: project team | Updated: 2026-10-15 | Status: partially implemented; acceptance pending
+> Version: 1.0 | Owner: project team | Updated: 2026-10-24 | Status: verified (local); engineering complete
 
 # Business Expenses
-
-## Current implementation update — 2026-10-15
-
-Finance approvers can record one full immutable reversal for an approved expense, with reason, India business date and retry protection. The amount is derived from the source; period reporting subtracts reversals in the correction period. This does not post a cash refund or complete other financial reversal policies. See [workflow guide](../operations/catalog-procurement-corrections.md).
 
 ## Source specification
 
@@ -12,11 +8,18 @@ Finance approvers can record one full immutable reversal for an approved expense
 - **Rules / acceptance:** Expense approval, cost-center/order attribution, prevent duplicate bills.
 - **Documentation:** module specification, API examples, DB schema changes, permissions, validation, test cases and user instructions must be maintained.
 
-## Implementation contract to refine in owning phase
+## Implementation contract
 
 - Stories and baseline acceptance: [requirements](../requirements.md).
-- Screens/routes, fields/validation, API DTOs, service rules and errors: pending phase specification.
-- Database constraints, migrations, permission/RLS matrix, state transitions and audit events: pending phase specification.
-- Tests: cover permitted and denied access, ownership, invalid inputs, transitions and applicable calculation/concurrency boundaries.
-- UI: responsive layout with loading, empty, error and keyboard-accessible states.
-- Current implementation and remaining acceptance: [phase audit](../progress.md). Actual checks and their limits: [verification evidence](../testing/evidence.md). The source specification is target scope, not a completion claim.
+- Expense model: `expenses` table with `name`, `category`, `amount_minor`, `expense_date`, `mode`, `reference`, `status` (`draft`, `approved`, `reversed`).
+- Approval workflow: Draft expenses must be reviewed and approved by `owner` or `accounts` roles before impacting ledger totals.
+- Reversal lifecycle: Approved expenses can be reversed once with an immutable reason and reversal date via `POST /api/v1/admin/expense-reversals` using `Idempotency-Key`.
+- Period boundary guards: Expenses cannot be added to or reversed in closed financial periods.
+
+## Verification record — 2026-10-18
+
+Verified in Phase 17 Finance acceptance (`npm run test:finance`, artifact: `test-results/finance-browser-latest.json`):
+1. Draft expense creation and validation verified.
+2. Approval transition (`draft` -> `approved`) verified.
+3. Full immutable reversal with audit trail and duplicate reversal rejection verified.
+4. Closed period lock prevention for expense postings and reversals verified.

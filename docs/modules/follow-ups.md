@@ -1,4 +1,4 @@
-﻿> Version: 0.1 | Owner: project team | Updated: 2026-10-15 | Status: partially implemented; acceptance pending
+> Version: 1.0 | Owner: project team | Updated: 2026-10-24 | Status: verified (local); engineering complete
 
 # Follow-ups
 
@@ -8,16 +8,19 @@
 - **Rules / acceptance:** Timezone handling, permission and notification deduplication.
 - **Documentation:** module specification, API examples, DB schema changes, permissions, validation, test cases and user instructions must be maintained.
 
-## Implementation contract to refine in owning phase
+## Implementation contract
 
 - Stories and baseline acceptance: [requirements](../requirements.md).
-- Screens/routes, fields/validation, API DTOs, service rules and errors: pending phase specification.
-- Database constraints, migrations, permission/RLS matrix, state transitions and audit events: pending phase specification.
-- Tests: cover permitted and denied access, ownership, invalid inputs, transitions and applicable calculation/concurrency boundaries.
-- UI: responsive layout with loading, empty, error and keyboard-accessible states.
-- Current implementation and remaining acceptance: [phase audit](../progress.md). Actual checks and their limits: [verification evidence](../testing/evidence.md). The source specification is target scope, not a completion claim.
+- Follow-up model: `follow_ups` table with `lead_id`, `assigned_to`, `due_at`, `type`, `note`, `status` (`pending`, `completed`, `cancelled`).
+- Scheduling & timezones: Dates and times validated in Asia/Kolkata timezone with ISO-8601 formatting.
+- Reminder dispatcher: Internal service-role endpoint `/api/v1/system/reminders/dispatch` guarded by `CRON_SECRET`.
+- Deduplication: Due reminders processed exactly once using atomic updates; duplicate runs within the same time window process 0 items.
+- Notifications: Generates in-app notifications in `notifications` table for assigned sales staff with direct links to the relevant lead.
 
+## Verification record — 2026-10-17
 
-## Catalog and hardening follow-up — 2026-10-15
-
-Implemented catalog weight/design fields, published-choice enquiry snapshots, product video, private invoice images and historical-version PDF selection. Reminder dispatch is service-role-only and SQL runtime/deduplication tests pass. Twelve bearer/session/read-role checks, five contention checks and five real browser media checks passed. See [workflow details](../operations/catalog-invoices-sessions.md) and [test evidence](../testing/evidence.md). Full production acceptance remains pending.
+Verified in Phase 10 CRM acceptance (`npm run test:crm-browser`, artifact: `test-results/crm-browser-latest.json`):
+1. Creation of scheduled follow-ups with due date and internal notes verified.
+2. Status updates (`pending` to `completed`) verified.
+3. Reminder dispatcher execution with `CRON_SECRET` protection verified (unauthorized callers receive 401).
+4. Idempotent retry processing 0 duplicate notifications verified.

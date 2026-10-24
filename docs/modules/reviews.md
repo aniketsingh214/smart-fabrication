@@ -1,4 +1,4 @@
-﻿> Version: 0.1 | Owner: project team | Updated: 2026-10-15 | Status: partially implemented; acceptance pending
+> Version: 1.0 | Owner: project team | Updated: 2026-10-24 | Status: verified (local); engineering complete
 
 # Reviews
 
@@ -8,11 +8,17 @@
 - **Rules / acceptance:** Moderation, spam prevention, verified order optional.
 - **Documentation:** module specification, API examples, DB schema changes, permissions, validation, test cases and user instructions must be maintained.
 
-## Implementation contract to refine in owning phase
+## Implementation contract
 
 - Stories and baseline acceptance: [requirements](../requirements.md).
-- Screens/routes, fields/validation, API DTOs, service rules and errors: pending phase specification.
-- Database constraints, migrations, permission/RLS matrix, state transitions and audit events: pending phase specification.
-- Tests: cover permitted and denied access, ownership, invalid inputs, transitions and applicable calculation/concurrency boundaries.
-- UI: responsive layout with loading, empty, error and keyboard-accessible states.
-- Current implementation and remaining acceptance: [phase audit](../progress.md). Actual checks and their limits: [verification evidence](../testing/evidence.md). The source specification is target scope, not a completion claim.
+- Review model: `reviews` table tracking `customer_name`, `rating` (1–5), `review_text`, `status` (`pending`, `approved`, `rejected`), `verified_order_id`, and timestamps.
+- Moderation workflow: New reviews default to `pending` status. Only authorized staff with `content.write` permission can approve or reject reviews.
+- Public display: Public endpoints and homepage testimonial components query strictly with RLS guard `status = 'approved'`.
+- Verified badge: When linked to an actual completed order (`orders.id`), displays a "Verified Installation" trust badge.
+
+## Verification record — 2026-10-17
+
+Verified in Phase 06 CMS & Public website acceptance:
+1. Public review submission and moderation queue verified.
+2. Moderation action (`pending` -> `approved`) and public publication verified.
+3. Strict RLS hiding of unapproved reviews from anonymous visitors verified.

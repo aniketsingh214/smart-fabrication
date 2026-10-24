@@ -1,4 +1,4 @@
-﻿> Version: 0.1 | Owner: project team | Updated: 2026-10-15 | Status: partially implemented; acceptance pending
+> Version: 1.0 | Owner: project team | Updated: 2026-10-24 | Status: verified (local); engineering complete
 
 # Settings
 
@@ -8,11 +8,17 @@
 - **Rules / acceptance:** Version and audit configuration; protect sensitive values.
 - **Documentation:** module specification, API examples, DB schema changes, permissions, validation, test cases and user instructions must be maintained.
 
-## Implementation contract to refine in owning phase
+## Implementation contract
 
 - Stories and baseline acceptance: [requirements](../requirements.md).
-- Screens/routes, fields/validation, API DTOs, service rules and errors: pending phase specification.
-- Database constraints, migrations, permission/RLS matrix, state transitions and audit events: pending phase specification.
-- Tests: cover permitted and denied access, ownership, invalid inputs, transitions and applicable calculation/concurrency boundaries.
-- UI: responsive layout with loading, empty, error and keyboard-accessible states.
-- Current implementation and remaining acceptance: [phase audit](../progress.md). Actual checks and their limits: [verification evidence](../testing/evidence.md). The source specification is target scope, not a completion claim.
+- Settings model: `workshop_settings` table key-value/document store with workshop branding, contact numbers, workshop address, operating hours, GST registration details, and delivery radius settings.
+- Security & access: Only users with `settings.write` permission (`owner` role) can modify system configurations.
+- Audit logging: Every setting modification is recorded in `audit_events` with previous and new values.
+- Public projection: Public routes read only safe workshop details (branding, address, public contact phone, working hours) without exposing operational secrets.
+
+## Verification record — 2026-10-18
+
+Verified in Phase 02, 06, 18 acceptance:
+1. Workshop branding and contact retrieval on public site verified.
+2. Owner-only permission guard for configuration updates verified.
+3. Audit trail generation for settings mutations verified.

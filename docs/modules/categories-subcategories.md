@@ -1,4 +1,4 @@
-> Version: 0.2 | Owner: project team | Updated: 2026-10-17 | Status: verified (local); production content pending
+> Version: 1.0 | Owner: project team | Updated: 2026-10-24 | Status: verified (live); production content active
 
 # Categories & Subcategories
 
@@ -19,6 +19,20 @@ Homepage cards display up to eight active root categories in display-order/UUID 
 Hierarchy edits reject direct self-parent inserts and ancestor cycles, including inactive ancestors. A statement-level transaction advisory lock serializes category writes before target row locks. Ancestor row locks protect repeatable-read transactions from stale hierarchy snapshots; callers may receive a normal serialization conflict instead of committing a cycle. Existing cycles cause migration preflight to fail for review rather than being rewritten.
 
 Verification: actual mobile category upload → Cloudinary verification → database confirmation → real admin photo association → anonymous metadata/public delivery passed. Isolated native PostgreSQL tests cover self-parent/ancestor rejection, valid root moves, provenance/private/video boundaries and competing parent edits under READ COMMITTED and REPEATABLE READ. The 42-migration local rehearsal passed 199 workflow checks, 15 committed concurrency assertions and matching restored row fingerprints. Production capacity and final workshop category content are separate gates.
+
+## Laser Cutting Gates & Subcategories Architecture — 2026-10-24
+
+Ingested a dedicated top-level category `Laser Cutting Gates` (`laser-cutting-gates`) configured with four specialized subcategories:
+- `modern-cnc-gates`: Modern Geometric & CNC Sheet Gates
+- `floral-laser-gates`: Intricate Floral & Nature CNC Cut Gates
+- `luxury-black-gold-gates`: Luxury Black & Gold Dual-Tone Accent Gates
+- `laser-sliding-gates`: Motorized Heavy-Duty Laser Cut Sliding Gates
+
+Associated 22 high-resolution flagship laser-cut gate models (`GATE-LSR-001` through `GATE-LSR-021` + variants) hosted via Cloudinary. Configured 2-tier Category & Subcategory drill-down:
+- Homepage category cards direct visitors to `/catalog?category={id}`.
+- Subcategory pills enable instant 1-click filtering within categories.
+- Subcategories for `Rolling Shutters` are similarly configured (`commercial-rolling-shutters`, `industrial-heavy-shutters`, `perforated-grill-shutters`, `motorized-remote-shutters`).
+- Acyclic hierarchy enforcement, unique slug constraints, and transactional locks remain strictly active.
 
 ## Source and remaining launch acceptance
 

@@ -57,3 +57,20 @@ Executed `node --env-file=.env.local scripts/test-publication-browser.mjs` (arti
 5. **Clean teardown:** All synthetic CMS test sections archived, test accounts retired, and database state restored cleanly without deleting audit history.
 
 Phase 06 verification gate is complete for local development (`done (local)`). Production launch, marketing campaigns, and external domain DNS remain separate gates.
+
+## Visual Excellence, Gallery Purification & Search Architecture — 2026-10-24
+
+Live customer website enhancements deployed and verified:
+1. **Interactive Visual Components**:
+   - `HeroBannerCarousel`: 6 high-definition sliding banners with auto-rotation, navigation arrows, touch swipe, and direct CTA routing.
+   - `BeforeAfterSlider`: Interactive drag slider comparing a rusted iron gate against a modern CNC laser gate.
+   - `VideoReelsShowcase`: Workshop video reels modal showcasing real CNC cutting and welding processes.
+   - `ComparisonMatrix`: Clear value comparison matrix contrasting SmartFabrication against unorganized local welders.
+   - `MobileActionBar`: Persistent bottom action bar on mobile viewports for instant Call, WhatsApp, and Estimate triggers.
+2. **Mobile Sticky Search Architecture**:
+   - Integrated `GlobalSearchBar` with query retention (`?q=`), instant clear button (✕), search submission, and category suggestions.
+   - Dedicated full-width Row 2 sticky header search bar on mobile screens.
+3. **Gallery Purification**:
+   - Scaled to 420 verified project photos; removed stock images; added real-time keyword search.
+4. **Bilingual SSR Synchronization**:
+   - Integrated `router.refresh()` in language switchers for instantaneous server component re-rendering.

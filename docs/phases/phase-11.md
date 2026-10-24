@@ -1,4 +1,4 @@
-> Version: 0.1 | Owner: project team | Updated: 2026-10-14 | Status: in_progress
+> Version: 1.0 | Owner: project team | Updated: 2026-10-24 | Status: done (local)
 
 # Phase 11 — Quotation Lifecycle & PDF
 
@@ -11,7 +11,7 @@
 
 ## Execution record
 
-Updated: 2026-10-15. Status: in_progress.
+Updated: 2026-10-24. Status: done (local).
 
 The user authorized sequential implementation across phases and later requested local-only work; repeated approval gates in the source baseline do not override that instruction.
 

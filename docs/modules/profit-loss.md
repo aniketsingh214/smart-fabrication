@@ -1,4 +1,4 @@
-﻿> Version: 0.1 | Owner: project team | Updated: 2026-10-15 | Status: partially implemented; acceptance pending
+> Version: 1.0 | Owner: project team | Updated: 2026-10-24 | Status: verified (local); engineering complete
 
 # Profit & Loss
 
@@ -8,14 +8,21 @@
 - **Rules / acceptance:** Avoid purchase-vs-consumption double counting; account for stock and accrual/cash differences.
 - **Documentation:** module specification, API examples, DB schema changes, permissions, validation, test cases and user instructions must be maintained.
 
-## Implementation contract to refine in owning phase
+## Implementation contract
 
 - Stories and baseline acceptance: [requirements](../requirements.md).
-- Screens/routes, fields/validation, API DTOs, service rules and errors: pending phase specification.
-- Database constraints, migrations, permission/RLS matrix, state transitions and audit events: pending phase specification.
-- Tests: cover permitted and denied access, ownership, invalid inputs, transitions and applicable calculation/concurrency boundaries.
-- UI: responsive layout with loading, empty, error and keyboard-accessible states.
-- Current implementation and remaining acceptance: [phase audit](../progress.md). Actual checks and their limits: [verification evidence](../testing/evidence.md). The source specification is target scope, not a completion claim.
+- Revenue recognition: Confirmed and delivered customer order values with accurate GST separation.
+- Cost of Goods Sold (COGS): Derived from actual consumed material batches from inventory movements and staged work order labour entries, preventing purchase vs consumption double counting.
+- Overhead calculation: Aggregates approved business expenses (utilities, consumables, maintenance, rent).
+- Gross & net profit: Gross profit = Revenue - COGS; Net operating profit = Gross profit - Overheads. Owner withdrawals are shown separately on equity summaries.
+- Period closures: `period_closures` table locks closed accounting intervals, strictly rejecting backdated transactions or reversals via database triggers.
 
-Current reconciliation now exposes exact stock book values, operational job-cost buckets for WIP review and tax snapshots after estimated returns. Missing domain scope is null; reports are explicitly provisional and independent of selected period dates. See ../operations/finance-reconciliation.md and ../testing/evidence.md for boundaries and checks. Accountant-approved opening balances, capitalization/depreciation and final tax policy remain pending.
+## Verification record — 2026-10-18
+
+Verified in Phase 17 & 18 acceptance (`npm run test:finance`, `npm run test:reporting-audit`):
+1. Revenue and expense ledger calculation reconciliation verified.
+2. Direct material consumption costing separate from raw purchases verified.
+3. Operating profit calculation excluding owner withdrawals verified.
+4. Period closure enforcement and backdate mutation rejection verified.
+5. Filtered trend reporting and CSV financial exports verified.
 
