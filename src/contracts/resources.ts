@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { indianMobileSchema } from './phone.ts';
 export type Field={key:string;label:string;type:'text'|'textarea'|'email'|'phone'|'number'|'money'|'percent'|'date'|'datetime'|'select'|'boolean'|'reference'|'json';required?:boolean;options?:string[];reference?:string;min?:number;max?:number;default?:string|number|boolean;readOnly?:boolean;mediaFilter?:'public-image'|'public-catalog'};
 export type Resource={slug:string;table:string;title:string;description:string;domain:string;group:string;fields:Field[];columns:string[];readOnly?:boolean;appendOnly?:boolean;public?:boolean;rpc?:string;actions?:string[];writePermission?:string};
 const text=(key:string,label:string,required=true):Field=>({key,label,type:'text',required,max:200});
@@ -68,7 +69,7 @@ export function resourceSchema(resource:Resource,partial=false){
     else if(f.type==='select')s=z.enum(f.options as [string,...string[]]);
     else if(f.type==='json')s=z.record(z.string(),z.unknown());
     else if(f.type==='email')s=z.email().max(254);
-    else if(f.type==='phone')s=z.string().regex(/^\+?[0-9]{10,15}$/,'Enter 10â€“15 digits');
+    else if(f.type==='phone')s=indianMobileSchema;
     else if(f.type==='date')s=z.iso.date();
     else if(f.type==='datetime')s=z.iso.datetime({offset:true});
     else {let str=z.string().trim().min(f.required?1:0).max(f.max??200);if(f.key==='slug')str=str.regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/,'Use a lowercase URL slug');s=str;}

@@ -2,6 +2,12 @@
 
 # Leads
 
+## Indian mobile formatting — 2026-10-25
+
+Public/admin mobile fields accept a 10-digit Indian mobile starting 6–9, optional +91/91 or domestic 0 prefix, and spacing/separators. API schemas validate and normalize new/explicitly edited phone values to `+91` plus ten digits. Inputs show a fixed +91 prefix and normalize pasted country codes on blur. Admin lists/details display `+91 98765 43210`; Call and WhatsApp URLs use the canonical number. Invalid legacy records remain unchanged, show `(verify number)` and have no contact links until corrected. No database history or customer number is guessed or bulk rewritten. This validates syntax, not subscriber ownership or OTP verification. Existing exact-string SQL duplicate matching is unchanged; legacy mixed-format duplicates require separate review.
+
+Verification: 174 unit/integration tests across 43 files, production build/TypeScript and API contract checks passed. Real local mobile-browser validation checked valid/invalid inputs and pasted prefixes; an invalid-phone API request returned 422 without creating a lead.
+
 ## Source specification
 
 - **Functional scope:** Name, mobile/WhatsApp, email, city/area/address, product, dimensions, material, requirement, uploaded design, source Google/Instagram/Facebook/WhatsApp/direct/referral/other; status, notes, assigned staff, call/WhatsApp, conversion.

@@ -18450,7 +18450,7 @@ components:
           maxLength: 200
         phone:
           type: string
-          pattern: ^\+?[0-9]{10,15}$
+          pattern: ^(?:(?:\+91|91|0)[\s()-]*)?[6-9](?:[\s()-]*[0-9]){9}$
         email:
           anyOf:
             - type: string
@@ -18506,7 +18506,7 @@ components:
           maxLength: 200
         phone:
           type: string
-          pattern: ^\+?[0-9]{10,15}$
+          pattern: ^(?:(?:\+91|91|0)[\s()-]*)?[6-9](?:[\s()-]*[0-9]){9}$
         email:
           anyOf:
             - type: string
@@ -18555,7 +18555,7 @@ components:
           maxLength: 200
         phone:
           type: string
-          pattern: ^\+?[0-9]{10,15}$
+          pattern: ^(?:(?:\+91|91|0)[\s()-]*)?[6-9](?:[\s()-]*[0-9]){9}$
         email:
           anyOf:
             - type: string
@@ -18589,7 +18589,7 @@ components:
           maxLength: 200
         phone:
           type: string
-          pattern: ^\+?[0-9]{10,15}$
+          pattern: ^(?:(?:\+91|91|0)[\s()-]*)?[6-9](?:[\s()-]*[0-9]){9}$
         email:
           anyOf:
             - type: string
@@ -19198,7 +19198,7 @@ components:
           maxLength: 200
         phone:
           type: string
-          pattern: ^\+?[0-9]{10,15}$
+          pattern: ^(?:(?:\+91|91|0)[\s()-]*)?[6-9](?:[\s()-]*[0-9]){9}$
         address:
           anyOf:
             - type: string
@@ -19225,7 +19225,7 @@ components:
           maxLength: 200
         phone:
           type: string
-          pattern: ^\+?[0-9]{10,15}$
+          pattern: ^(?:(?:\+91|91|0)[\s()-]*)?[6-9](?:[\s()-]*[0-9]){9}$
         address:
           anyOf:
             - type: string
@@ -19421,7 +19421,7 @@ components:
           maxLength: 200
         phone:
           type: string
-          pattern: ^\+?[0-9]{10,15}$
+          pattern: ^(?:(?:\+91|91|0)[\s()-]*)?[6-9](?:[\s()-]*[0-9]){9}$
         work_type:
           type: string
           minLength: 1
@@ -19447,7 +19447,7 @@ components:
           maxLength: 200
         phone:
           type: string
-          pattern: ^\+?[0-9]{10,15}$
+          pattern: ^(?:(?:\+91|91|0)[\s()-]*)?[6-9](?:[\s()-]*[0-9]){9}$
         work_type:
           type: string
           minLength: 1
@@ -21834,7 +21834,7 @@ components:
           maxLength: 200
         phone:
           type: string
-          pattern: ^\+?[0-9]{10,15}$
+          pattern: ^(?:(?:\+91|91|0)[\s()-]*)?[6-9](?:[\s()-]*[0-9]){9}$
         email:
           anyOf:
             - type: string

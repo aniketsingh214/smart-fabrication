@@ -2,6 +2,10 @@
 
 # SmartFabrication progress
 
+### Indian mobile format — 2026-10-25
+
+Implemented shared Indian mobile validation, +91 normalization/display and corrected Call/WhatsApp links across admin phone fields and public enquiries. Invalid legacy numbers require correction; no existing records were rewritten. Build, TypeScript, API checks, 174 unit/integration tests and targeted mobile-browser/API validation passed. See [lead module](modules/leads.md) for acceptance and legacy duplicate-matching limits.
+
 ### Colour palette update — 2026-10-25
 
 Applied the user-selected Graphite + Sage Green palette to shared Tailwind colours, page background, forms, cards, buttons and admin navigation: graphite `#202522`, sage `#A3B18A`, canvas `#F7F7F2`, muted text `#626B63`. Darker sage shades support readable links and white-label controls; operational success/warning/error indicators retain their meaning. Production build and TypeScript passed. This entry records a local source change, not a new deployment.

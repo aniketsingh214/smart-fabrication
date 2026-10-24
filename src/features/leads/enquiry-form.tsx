@@ -1,5 +1,7 @@
 'use client';
 import { useRef, useState } from 'react';
+import { MobileInput } from '@/features/contacts/mobile-input';
+import { indianMobileSchema } from '@/contracts/phone';
 import type { ProductVariant, ProductOption } from '@/contracts/catalog';
 import { Button } from '@/components/ui/button';
 import { referenceUpload } from '@/features/media/reference-upload';
@@ -63,7 +65,7 @@ export function EnquiryForm({
       }
       const payload = {
         name: String(form.get('name')).trim(),
-        phone: String(form.get('phone')).replace(/[\s()-]/g, ''),
+        phone: indianMobileSchema.parse(String(form.get('phone'))),
         email: form.get('email') || null,
         city: form.get('city'),
         requirement: form.get('requirement'),
@@ -171,16 +173,7 @@ export function EnquiryForm({
         </label>
         <label className="text-sm font-semibold text-slate-800">
           {locale === 'hi' ? 'मोबाइल / WhatsApp नंबर' : 'Mobile / WhatsApp'}
-          <input
-            className="mt-2"
-            name="phone"
-            aria-label="Mobile / WhatsApp"
-            type="tel"
-            required
-            pattern="[+0-9 ()-]{10,20}"
-            autoComplete="tel"
-            placeholder={locale === 'hi' ? '10 अंकों का मोबाइल नंबर' : '10-digit number'}
-          />
+          <div className="mt-2"><MobileInput name="phone" ariaLabel="Mobile / WhatsApp" required/></div>
         </label>
         <label className="text-sm font-semibold text-slate-800">
           {locale === 'hi' ? 'ईमेल (वैकल्पिक)' : 'Email (optional)'}
