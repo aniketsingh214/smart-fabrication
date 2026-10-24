@@ -2,6 +2,10 @@
 
 # SmartFabrication progress
 
+### Colour palette update — 2026-10-25
+
+Applied the user-selected Graphite + Sage Green palette to shared Tailwind colours, page background, forms, cards, buttons and admin navigation: graphite `#202522`, sage `#A3B18A`, canvas `#F7F7F2`, muted text `#626B63`. Darker sage shades support readable links and white-label controls; operational success/warning/error indicators retain their meaning. Production build and TypeScript passed. This entry records a local source change, not a new deployment.
+
 All 20 phases are preserved. All phases are not complete. Implemented code, verified checks and outstanding business/launch requirements are distinguished below.
 
 ## Authorized operating scope
