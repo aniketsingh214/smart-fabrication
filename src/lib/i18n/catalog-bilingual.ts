@@ -5,6 +5,10 @@ export const CATEGORY_TRANSLATIONS: Record<string, { hi: string; en: string }> =
     hi: 'मुख्य गेट (Main Gates)',
     en: 'Main Gates & Entry Gates'
   },
+  'laser-cutting-gates': {
+    hi: 'लेज़र कटिंग गेट (Laser Cutting Gates)',
+    en: 'Laser Cutting Gates'
+  },
   railings: {
     hi: 'रेलिंग (Stair & Balcony Railings)',
     en: 'Stair & Balcony Railings'
@@ -50,6 +54,9 @@ export function getBilingualProductName(name: string, locale: Locale): string {
   const lower = name.toLowerCase();
 
   if (lower.includes('gate')) {
+    if (lower.includes('laser') || lower.includes('cnc')) {
+      return `लेज़र कटिंग गेट (${name})`;
+    }
     if (lower.includes('ss') || lower.includes('stainless') || lower.includes('steel')) {
       return `स्टील का मेन गेट (${name})`;
     }

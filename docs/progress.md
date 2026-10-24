@@ -403,3 +403,28 @@ Expanded local read-only load — 2026-10-17: 60/60 requests passed at concurren
 - Verification:
   - Vitest test suite: 42 test files passed (158/158 tests).
   - `npm run build`: PASS (Turbopack production build compiled cleanly across all 23 routes).
+
+## Laser Cutting Gates Category & Flagship Design Ingestion — 2026-10-24
+
+- Added new top-level category: **Laser Cutting Gates** (`laser-cutting-gates` / हिंदी: "लेज़र कटिंग गेट") with 4 structured subcategories:
+  - `Modern CNC Geometric Laser Gates` (`modern-cnc-gates`)
+  - `Floral & Botanical Laser Cut Gates` (`floral-laser-gates`)
+  - `Luxury Matte Black & Gold Laser Gates` (`luxury-black-gold-gates`)
+  - `Motorized Laser Cut Sliding Gates` (`laser-sliding-gates`)
+- Extracted and curated 22 flagship laser-cutting iron gate designs from user's Pinterest query:
+  - 7 direct pins from user profile `anirajpoot789`
+  - 15 architectural CNC laser-cut iron and steel main gate designs
+- Processed and uploaded 21 new images to Cloudinary (`smart-fabrication/development/laser-gates/`) with fallback resolution handling, registering all 22 media assets under verified upload intents.
+- Ingested 21 new published products (`GATE-LSR-001` through `GATE-LSR-021`) + 1 existing laser gate product:
+  - Configured 3 sizing variants per product (Standard Double Swing 10ft x 7ft, Wide Compound Gate 14ft x 8ft, Heavy Luxury Gate 18ft x 9ft).
+  - Attached BOM versions (High-Precision CNC cut MS / GI sheet + steel tubular frame + primer/paint coating).
+  - Linked calculation rules and published 22 items into `public.gallery_items`.
+- Updated bilingual translation dictionary `src/lib/i18n/catalog-bilingual.ts` with `'laser-cutting-gates'` and automatic laser/cnc gate title handling.
+- Added quick access chip `⚡ लेज़र कटिंग गेट (22+)` on the homepage hero section (`src/features/home/home-view.tsx`).
+- Total Published Products: **432 designs** (22 Laser Cutting Gates).
+- Total Published Gallery Items: **420 items**.
+- Verification:
+  - Vitest test suite: 42 test files passed (158/158 tests).
+  - `npm run build`: PASS (Turbopack production build compiled cleanly across all 23 routes).
+  - Database counts verified via `scripts/check-laser-db.mjs`.
+

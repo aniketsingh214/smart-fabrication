@@ -167,6 +167,13 @@ export function HomeView({
                     <ChevronRight size={12} className="text-slate-500" />
                   </Link>
                   <Link
+                    href="/catalog?category=laser-cutting-gates"
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-orange-500/30 bg-orange-950/40 px-3 py-1.5 text-xs font-medium text-orange-300 transition hover:border-orange-500/60 hover:bg-orange-900/50 hover:text-white"
+                  >
+                    <span>⚡ {isHi ? 'लेज़र कटिंग गेट' : 'Laser Cut Gates'} (22+)</span>
+                    <ChevronRight size={12} className="text-orange-400" />
+                  </Link>
+                  <Link
                     href="/catalog?category=railings"
                     className="inline-flex items-center gap-1.5 rounded-lg border border-slate-800 bg-slate-900/70 px-3 py-1.5 text-xs font-medium text-slate-200 transition hover:border-orange-500/50 hover:bg-slate-800 hover:text-white"
                   >
