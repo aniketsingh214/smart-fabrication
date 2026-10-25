@@ -78,3 +78,5 @@ Guest `POST /leads` accepts optional `measurement_request` with preferred_date (
 
 Phone write schemas now require an Indian mobile starting 6–9 with ten national digits. National, +91/91 and domestic 0-prefixed input with separators is accepted and canonicalized to `+91` plus ten digits. Invalid input returns 422. Existing read responses/history are not bulk rewritten. OpenAPI input patterns regenerated; syntax validation does not establish ownership/OTP verification.
 
+
+2026-10-25: Existing admin PATCH validates partial product/variant price bounds against their RLS-visible stored counterpart and rejects review ratings above five before update. Listing removal reuses documented archive/active/hidden PATCH fields; no DELETE endpoint or permission change. See [admin list policy](../operations/admin-list-workflows.md).

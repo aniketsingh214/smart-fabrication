@@ -1,0 +1,16 @@
+import { expect,it,vi } from 'vitest';
+import { renderToStaticMarkup } from 'react-dom/server';
+import { DataTablePagination } from '@/components/data-table-pagination';
+import { AdminCollection } from '@/components/admin-collection';
+import { ResourceWorkspace } from '@/features/operations/resource-workspace';
+import { resourceMap } from '@/contracts/resources';
+import { updateRecord } from '@/features/operations/services';
+import type { SupabaseClient } from '@supabase/supabase-js';
+
+it('shows the real cursor page and correct ordinal range without inventing a total',()=>{const html=renderToStaticMarkup(<DataTablePagination currentCount={7} currentPage={3} pageSize={25} hasPreviousPage hasNextPage={false} onPreviousPage={()=>{}}/>);expect(html).toContain('Page 3');expect(html).toContain('51–57');expect(html).not.toContain('of <strong');});
+it('preserves the unknown-page label for legacy cursor consumers',()=>{expect(renderToStaticMarkup(<DataTablePagination currentCount={25} hasPreviousPage hasNextPage/>)).toContain('Page 2+');});
+it('renders inventory serials and permitted source links without editable derived stock',()=>{const html=renderToStaticMarkup(<AdminCollection kind="inventory" canReadMaterial initial={[{material_id:'ef86881f-6e0e-4658-a279-8e8cc06139c7',name:'Steel',unit:'kg',available:10,reorder_level:20}]}/>);expect(html).toContain('S.No.');expect(html).toContain('Reorder');expect(html).toContain('/admin/materials?record=');expect(html).toContain('View Steel');expect(html).toContain('Remove Steel');expect(html).toContain('disabled');});
+it('renders staff account status and explicit actions',()=>{const html=renderToStaticMarkup(<AdminCollection kind="staff" initial={[{id:'account',display_name:'Staff',disabled:true,user_roles:[{role_id:'sales'}]}]}/>);expect(html).toContain('S.No.');expect(html).toContain('Disabled');expect(html).toContain('View Staff');expect(html).toContain('Edit Staff');expect(renderToStaticMarkup(<AdminCollection kind="staff" initial={[{id:'blank',display_name:''}]}/>)).toContain('Unnamed account');});
+it('keeps shared resource create actions permission-aware',()=>{const html=renderToStaticMarkup(<ResourceWorkspace resource={resourceMap.categories!} permissions={['catalog.read']}/>);expect(html).toContain('Rows per page');expect(html).not.toContain('Add categorie');});
+it('blocks an excessive review rating before a database write',async()=>{const from=vi.fn();await expect(updateRecord({from} as unknown as SupabaseClient,resourceMap.reviews!,'ef86881f-6e0e-4658-a279-8e8cc06139c7',{rating:6})).rejects.toMatchObject({code:'VALIDATION_ERROR'});expect(from).not.toHaveBeenCalled();});
+it('compares a partial price edit against the current RLS-visible counterpart',async()=>{const update=vi.fn(),maybeSingle=vi.fn().mockResolvedValue({data:{price_min_minor:10000,price_max_minor:20000},error:null}),eq=vi.fn(()=>({maybeSingle})),select=vi.fn(()=>({eq})),from=vi.fn(()=>({select,update}));await expect(updateRecord({from} as unknown as SupabaseClient,resourceMap.products!,'ef86881f-6e0e-4658-a279-8e8cc06139c7',{price_min_minor:30000})).rejects.toMatchObject({code:'VALIDATION_ERROR'});expect(select).toHaveBeenCalledWith('price_min_minor,price_max_minor');expect(update).not.toHaveBeenCalled();});

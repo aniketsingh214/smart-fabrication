@@ -2,6 +2,10 @@
 
 # SmartFabrication progress
 
+### Admin list actions, validation and tables - 2026-10-25
+
+Updated registered resource lists plus staff, inventory, notifications, finance balance lists and the role matrix with consistent serials, explicit eye/edit/remove controls and bounded pagination. Previous-page history, page size, exact page labels/ranges and validation are improved. Supported listing removal is reversible archive/deactivation with confirmation; financial/stock history remains protected and staff removal uses existing disable-account controls. No destructive DELETE, RLS relaxation or migration. Partial price edits and review ratings are checked on the server. 205 unit/integration tests, seven local authenticated browser checks (mocked operational writes), production build/TypeScript, targeted lint, API/docs checks and secret scan passed. Generated browser accounts were retired. Browser harness selectors were corrected during verification; only the final seven-check run is counted as passing. See [behavior, removal whitelist and verification limits](operations/admin-list-workflows.md).
+
 ### Daily-work admin dashboard — 2026-10-25
 
 Live dashboard tabs/scopes, matching task links and mobile layout verified. All six production functional checks completed; a lost cleanup response was independently reconciled against the generated account's disabled/zero-owner-role/banned state. The original transport failure remains in the raw test artifact; no business record was written by browser verification.

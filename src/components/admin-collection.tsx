@@ -1,0 +1,42 @@
+'use client';
+import Link from 'next/link';
+import { useRef, useState } from 'react';
+import { Eye, Pencil, Trash2, X, RefreshCw } from 'lucide-react';
+import { DataTablePagination } from './data-table-pagination';
+import { Button } from './ui/button';
+import { RoleEditor } from '@/features/auth/role-editor';
+import { AccountStatus } from '@/features/auth/account-status';
+import { ReadNotification } from '@/features/notifications/read-notification';
+import { dateTime } from '@/lib/utils';
+
+type Row = { id?: string; material_id?: string; name?: string; display_name?: string; disabled?: boolean; created_at?: string; user_roles?: {role_id:string}[]; body?: string|null; read_at?: string|null; unit?: string; on_hand?: number; reserved?: number; available?: number; reorder_level?: number };
+type Props = { kind:'staff'|'inventory'|'notifications'; initial:Row[]; nextCursor?:string|null; initialCursor?:string|null; canWrite?:boolean; canReadMaterial?:boolean };
+export function AdminCollection({kind,initial,nextCursor=null,initialCursor=null,canWrite=false,canReadMaterial=false}:Props) {
+  const [rows,setRows]=useState(initial),[next,setNext]=useState(nextCursor),[trail,setTrail]=useState<(string|null)[]>([initialCursor]),[index,setIndex]=useState(0),[size,setSize]=useState(25),[busy,setBusy]=useState(false),[error,setError]=useState(''),[selected,setSelected]=useState<Row|null>(null),[edit,setEdit]=useState(false),[query,setQuery]=useState('');
+  const running=useRef(false),dialog=useRef<HTMLDialogElement>(null);
+  const inventory=kind==='inventory',title=kind==='staff'?'Staff':inventory?'Inventory':'Notifications';
+  const endpoint=kind==='staff'?'/api/v1/admin/users':inventory?'/api/v1/inventory/balances':'/api/v1/notifications';
+  const filtered=inventory?rows.filter(row=>(row.name??'').toLowerCase().includes(query.toLowerCase())):rows;
+  const visible=inventory?filtered.slice(index*size,(index+1)*size):rows;
+  async function load(cursor:string|null,page:number,pageSize=size) {
+    if(running.current)return;running.current=true;setBusy(true);setError('');
+    try { const response=await fetch(endpoint+'?'+new URLSearchParams({limit:String(pageSize),...(cursor?{cursor}:{})}));const body=await response.json();if(!response.ok)throw new Error(body.error?.message??'Records could not be loaded');setRows(body.data);setNext(body.meta?.nextCursor??null);setIndex(page);setSize(pageSize);setTrail(previous=>page===0?[cursor]:[...previous.slice(0,page),cursor]); }
+    catch(error){setError(error instanceof Error?error.message:'Records could not be loaded');}finally{running.current=false;setBusy(false);}
+  }
+  function open(row:Row,editing=false){setSelected(row);setEdit(editing);dialog.current?.showModal();}
+  const previous=()=>inventory?setIndex(index-1):void load(trail[index-1],index-1);
+  const advance=()=>inventory?setIndex(index+1):void load(next,index+1);
+  return <section className="card admin-data-table overflow-hidden">
+    <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 p-4">
+      {inventory?<input aria-label="Search inventory" placeholder="Search materials…" value={query} onChange={event=>{setQuery(event.target.value);setIndex(0);}} className="!w-auto max-w-full"/>:<p className="text-sm font-semibold">{title} records</p>}
+      <div className="flex items-center gap-3"><label className="flex items-center gap-2 text-xs">Rows<select aria-label={`${title} rows per page`} className="!w-20 !py-1.5" value={size} disabled={busy} onChange={event=>{const value=Number(event.target.value);if(inventory){setSize(value);setIndex(0);}else void load(null,0,value);}}>{[10,25,50,100].map(value=><option key={value}>{value}</option>)}</select></label><Button variant="ghost" size="sm" aria-label={`Refresh ${title}`} disabled={busy} onClick={()=>void load(inventory?null:trail[index],inventory?0:index)}><RefreshCw size={16}/></Button></div>
+    </div>
+    {error&&<p role="alert" className="p-4 text-sm text-red-700">{error}</p>}
+    <div className="overflow-x-auto" aria-busy={busy}><table aria-label={`${title} records`}><thead><tr><th>S.No.</th><th>{inventory?'Material':kind==='staff'?'Account':'Notification'}</th>{inventory?<><th>Unit</th><th>On hand</th><th>Reserved</th><th>Available</th><th>Stock level</th></>:kind==='staff'?<><th>Roles</th><th>Status</th></>:<><th>Created</th><th>Status</th></>}<th className="sticky right-0 bg-white text-right">Actions</th></tr></thead>
+      <tbody>{visible.map((row,i)=><tr key={row.id??row.material_id}><td className="tabular-nums text-slate-500">{index*size+i+1}</td><td className="font-semibold"><span className="block max-w-64 truncate">{row.name||row.display_name||'Unnamed account'}</span></td>{inventory?<><td>{row.unit}</td><td>{row.on_hand}</td><td>{row.reserved}</td><td>{row.available}</td><td><span className={`status ${Number(row.available)<=Number(row.reorder_level)?'status-orange':'status-green'}`}>{Number(row.available)<=Number(row.reorder_level)?'Reorder':'Available'}</span></td></>:kind==='staff'?<><td>{row.user_roles?.map(role=>role.role_id).join(', ')||'—'}</td><td><span className={`status ${row.disabled?'status-orange':'status-green'}`}>{row.disabled?'Disabled':'Active'}</span></td></>:<><td>{dateTime(row.created_at!)}</td><td><span className="status">{row.read_at?'Read':'Unread'}</span></td></>}
+        <td className="sticky right-0 bg-white"><div className="flex justify-end gap-1"><button className="table-icon" aria-label={`View ${row.name||row.display_name||'account'}`} title="View details" onClick={()=>open(row)}><Eye size={17}/></button>{inventory&&canReadMaterial?<Link className="table-icon" title="Edit material master" aria-label={`Edit ${row.name}`} href={`/admin/materials?record=${row.material_id}`}><Pencil size={17}/></Link>:<button className="table-icon" aria-label={`Edit ${row.name||row.display_name||'account'}`} title={kind==='staff'&&canWrite?'Edit roles and account access':'This derived record is read-only'} disabled={kind!=='staff'||!canWrite} onClick={()=>open(row,true)}><Pencil size={17}/></button>}<button className="table-icon" aria-label={`Remove ${row.name||row.display_name||'account'}`} title={kind==='staff'&&canWrite?'Manage account access (disable; preserve history)':'History is preserved; use the documented adjustment or workflow'} disabled={kind!=='staff'||!canWrite} onClick={()=>open(row,true)}><Trash2 size={17}/></button></div></td>
+      </tr>)}</tbody></table>{!visible.length&&<p className="p-10 text-center text-sm text-slate-500">No matching records.</p>}</div>
+    <DataTablePagination ariaLabel={`${title} table pagination`} currentCount={visible.length} currentPage={index+1} pageSize={size} totalCount={inventory?filtered.length:undefined} onPageChange={inventory?number=>setIndex(number-1):undefined} hasPreviousPage={index>0&&!busy} hasNextPage={!busy&&(inventory?(index+1)*size<filtered.length:Boolean(next))} onFirstPage={()=>inventory?setIndex(0):void load(null,0)} onPreviousPage={previous} onNextPage={advance} entityName={title.toLowerCase()} nextPageLabel="Next page" className="rounded-none border-0 border-t shadow-none"/>
+    <dialog ref={dialog} aria-label={`${title} details`} className="fixed inset-0 m-auto max-h-[90dvh] w-[calc(100vw_-_24px)] max-w-2xl overflow-auto rounded-2xl border border-slate-200 bg-white p-6 shadow-xl backdrop:bg-slate-950/50"><div className="mb-5 flex items-center justify-between gap-3"><h2 className="text-xl font-bold">{selected?.name||selected?.display_name||title}</h2><button aria-label="Close details" className="table-icon" onClick={()=>dialog.current?.close()}><X size={17}/></button></div>{selected&&<><dl className="space-y-3">{Object.entries(selected).map(([key,value])=><div key={key} className="grid grid-cols-[100px_1fr] gap-3 border-b border-slate-100 pb-3 text-sm"><dt className="capitalize text-slate-500">{key.replaceAll('_',' ')}</dt><dd className="break-words">{value==null?'—':typeof value==='object'?JSON.stringify(value):String(value)}</dd></div>)}</dl>{kind==='staff'&&edit&&canWrite&&<><p className="mt-5 text-xs text-slate-500">Disable access instead of deleting account history. Owner protections are enforced by the server.</p><RoleEditor id={selected.id!} current={selected.user_roles?.map(role=>role.role_id)??[]}/><AccountStatus id={selected.id!} disabled={Boolean(selected.disabled)}/></>}{kind==='notifications'&&!selected.read_at&&<div className="mt-5"><ReadNotification id={selected.id!}/></div>}</>}</dialog>
+  </section>;
+}

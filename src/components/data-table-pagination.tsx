@@ -43,7 +43,7 @@ export function DataTablePagination({
   totalCount,
   currentCount,
   pageSize = 9,
-  currentPage = 1,
+  currentPage: requestedPage,
   totalPages,
   hasPreviousPage,
   hasNextPage,
@@ -59,12 +59,13 @@ export function DataTablePagination({
   entityName = 'designs',
   className
 }: DataTablePaginationProps) {
+  const currentPage = requestedPage ?? 1;
   const nextLabel = nextPageLabel || (entityName === 'projects' ? 'More projects' : 'More designs');
-  const computedTotalPages = totalPages ?? (totalCount && pageSize ? Math.max(1, Math.ceil(totalCount / pageSize)) : undefined);
+  const computedTotalPages = totalPages ?? (totalCount != null && pageSize ? Math.max(1, Math.ceil(totalCount / pageSize)) : undefined);
   const visiblePages = computedTotalPages && computedTotalPages > 1 ? getVisiblePages(currentPage, computedTotalPages) : null;
 
   const startRecord = (currentPage - 1) * pageSize + 1;
-  const endRecord = totalCount !== null && totalCount !== undefined ? Math.min(currentPage * pageSize, totalCount) : currentCount;
+  const endRecord = totalCount !== null && totalCount !== undefined ? Math.min(currentPage * pageSize, totalCount) : (currentPage - 1) * pageSize + currentCount;
 
   return (
     <nav
@@ -83,7 +84,7 @@ export function DataTablePagination({
           <span>
             Showing{' '}
             <strong className="font-semibold text-slate-900">
-              {computedTotalPages && totalCount ? `${startRecord}–${endRecord}` : currentCount}
+              {currentCount && (computedTotalPages || requestedPage) ? `${startRecord}–${endRecord}` : currentCount}
             </strong>
             {totalCount !== undefined && totalCount !== null && (
               <>
@@ -102,6 +103,7 @@ export function DataTablePagination({
 
       {/* Right: Controls & Numbered Pages */}
       <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2">
+        {onFirstPage && onPreviousPage && !visiblePages && <button type="button" title="First page" onClick={onFirstPage} disabled={!hasPreviousPage} className="inline-flex h-8 items-center gap-1 rounded-lg border border-slate-200 px-2.5 text-xs font-semibold disabled:cursor-not-allowed disabled:opacity-40"><ChevronsLeft size={14}/><span className="hidden sm:inline">First</span></button>}
         {/* Previous Page Button */}
         {previousPageHref ? (
           hasPreviousPage ? (
@@ -241,7 +243,7 @@ export function DataTablePagination({
         ) : (
           /* Simple Mode Pill for Cursor / Infinite pagination */
           <span className="inline-flex h-8 items-center rounded-lg border border-orange-200 bg-orange-50/70 px-3 text-xs font-bold text-orange-700">
-            {hasPreviousPage ? 'Page 2+' : 'Page 1'}
+            {requestedPage ? `Page ${currentPage}` : hasPreviousPage ? 'Page 2+' : 'Page 1'}
           </span>
         )}
 

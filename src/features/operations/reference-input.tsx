@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import type { Field } from '@/contracts/resources';
 import { Button } from '@/components/ui/button';
 type Choice = { id: string; name?: string; heading?: string; code?: string; public_id?: string; version?: number; context?: string; visibility?: string; resource_type?: string; format?: string };
-export function ReferenceInput({ field, initial, initialOptions = [], publicList = false, onSelectionChange }: { field: Field; initial?: unknown; initialOptions?: Choice[]; publicList?: boolean; onSelectionChange?: (id: string) => void }) {
+export function ReferenceInput({ field, initial, initialOptions = [], publicList = false, onSelectionChange, invalid, describedBy }: { field: Field; initial?: unknown; initialOptions?: Choice[]; publicList?: boolean; onSelectionChange?: (id: string) => void; invalid?: boolean; describedBy?: string }) {
   const [selected, setSelected] = useState(String(initial ?? '')), [options, setOptions] = useState<Choice[]>(initialOptions), [next, setNext] = useState<string | null>(null), [error, setError] = useState(''), [busy, setBusy] = useState(true);
   const loadingMore = useRef(false);
   const latest = useRef(0), [refresh, setRefresh] = useState(0);
@@ -23,7 +23,7 @@ export function ReferenceInput({ field, initial, initialOptions = [], publicList
     return () => { controller.abort(); generation.current++; window.removeEventListener('smartfabrication:media-updated', reload); };
   }, [endpoint, refresh]);
   return <>
-    <select name={field.key} id={field.key} required={field.required} value={selected} onChange={event => { setSelected(event.target.value); onSelectionChange?.(event.target.value); }}>
+    <select aria-invalid={invalid||undefined} aria-describedby={describedBy} name={field.key} id={field.key} required={field.required} value={selected} onChange={event => { setSelected(event.target.value); onSelectionChange?.(event.target.value); }}>
       <option value="">Select {field.label.toLowerCase()}</option>
       {selected && !choices.some(option => option.id === selected) && <option value={selected}>Saved selection (not in loaded options)</option>}
       {choices.map(option => <option key={option.id} value={option.id}>{option.name ?? option.heading ?? option.code ?? option.public_id ?? option.id}{option.version ? ` · v${option.version}` : ''}</option>)}

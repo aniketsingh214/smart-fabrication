@@ -50,7 +50,8 @@
     "test:delivery-installation": "node --env-file=.env.local scripts/test-delivery-installation-browser.mjs",
     "test:finance": "node --env-file=.env.local scripts/test-finance-browser.mjs",
     "test:reporting-audit": "node --env-file=.env.local scripts/test-reporting-audit-browser.mjs",
-    "seed:website": "node --env-file=.env.local scripts/seed-customer-website.mjs"
+    "seed:website": "node --env-file=.env.local scripts/seed-customer-website.mjs",
+    "test:admin-tables-browser": "node --env-file=.env.local scripts/test-admin-tables-browser.mjs"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",

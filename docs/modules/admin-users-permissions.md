@@ -32,3 +32,7 @@ GET /api/v1/admin/users now returns the same data array with meta.nextCursor, st
 ## Expanded role matrix — 2026-10-16
 
 The rerun of test:sessions passed all 18 top-level bearer/session checks. Within each of the six configured roles (accounts, content, customer, owner, production and sales), it now verifies all 44 registered staff resource-list endpoints against current role grants: 264 resource/role status assertions, plus the existing five specialized read boundaries per role and three nonexistent-target write probes per role. Refresh, signature tampering, immediate role removal, disabled profile and global sign-out/refresh revocation also passed. Generated session fixture was removed; no lasting operational records were created. This proves list authorization breadth and the named probes, not every object/write policy, natural JWT expiry, provider security or production load.
+
+## Admin collection presentation ? 2026-10-25
+
+Staff and notification collections use serial/action tables and bounded reversible cursor paging. Staff trash opens account-disable controls and preserves identity history; owner protections remain server enforced. Role-matrix search/pagination does not change grants. See [admin table workflows and validation](../operations/admin-list-workflows.md).
