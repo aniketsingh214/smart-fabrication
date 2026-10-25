@@ -2,6 +2,10 @@
 
 # SmartFabrication progress
 
+### Reference-style admin redesign - 2026-10-25
+
+Implemented navy grouped navigation, a working module-search header, compact blue/white panels, eight permission-filtered KPI cards, action-workload bars, scoped order-status donut, recent activity samples and a role-gated low-stock panel. The Dashboard heading retains daily/business tabs and all scoped task/exact-record workflows. Screenshot revenue/growth/top-selling numbers were not copied. Inventory explicitly uses all permitted records independently of the dashboard demo scope. Header search resets list/query state even within the same module. Production build/TypeScript, 205 unit/integration tests, seven expanded authenticated browser checks, targeted lint, API/docs checks and secret scan passed. Loaded 320/390/768/1440 layouts and desktop/mobile screenshots were verified. A first exact-record check exceeded its short timeout; the final run passed with an appropriate network wait and query/record/new-intent remount keys. Generated test logins were retired; no business record was written. See [definitions and limits](operations/daily-work-dashboard.md).
+
 ### Edit dialog sizing - 2026-10-25
 
 Record add/edit dialogs use an adaptive width up to 960px, two-column desktop fields, single-column mobile fields and full-width long text/JSON fields. The header and Save/Cancel footer remain outside the scrolling field area. View/confirmation and staff dialogs share viewport limits with a pinned header. Verified a real product form at 1440px and 390px: dialog stayed within the viewport, fields scrolled independently, footer stayed visible and no horizontal overflow occurred. Seven existing local browser checks, production build/TypeScript, targeted lint and docs checks passed. Test business updates were mocked and the temporary login was retired. API/permissions and business data are unchanged.

@@ -23,3 +23,11 @@ Verified in Phase 18 Dashboards, Reports & Audit acceptance (`npm run test:repor
 2. Keyset pagination on customer receivables, supplier payables, and worker ledger balances verified.
 3. Streamed CSV report export generation with continuation verified.
 4. Responsive desktop and mobile layout on `/admin` dashboard verified.
+
+## Reference-style admin workspace - 2026-10-25
+
+The admin shell now uses a navy grouped sidebar, compact white header, blue navigation/actions and a responsive panel grid based on the supplied reference. The default heading is Dashboard; daily-work and business-overview tabs remain available. Eight role-filtered operational metrics, action workload bars, scoped order-status donut, stage-sample order preview, recent enquiry/quotation activity samples and an optional low-stock panel reuse existing data. No screenshot values, revenue/growth trends or top-selling claims were invented.
+
+The inventory panel reuses inventory_balances only with inventory.read, displays up to five materials at/below their reorder threshold and clearly uses all permitted inventory (including test stock), independently of dashboard demo scope. Error/empty/outside-role states remain distinct. The operational charts retain existing scope predicates; independent action categories may overlap and are not a financial or time-series chart. Recent tables are samples of the bounded activity response, not complete module collections.
+
+Header search selects an authorized module (enquiries/orders/customers/products), submits q to that module and initializes its existing API search. A changed query remounts the list to reset cursors, selected forms and search state, including navigation within the same module. Notification/account/sign-out controls are real links/actions; there are no fabricated unread badges or fake profile dropdowns. Existing exact-record links, scoped task drilldowns, edit sizing, RLS and APIs are preserved.

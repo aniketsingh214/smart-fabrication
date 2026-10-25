@@ -31,7 +31,7 @@ try{
    await check(`${viewport} ${fixture.role}: real login reaches account`,async()=>{await page.waitForURL('**/account',{timeout:30000});await page.getByRole('heading',{name:/Welcome,/}).waitFor();});
    await check(`${viewport} ${fixture.role}: server identity and permissions`,async()=>{const response=await context.request.get('/api/v1/me');assert.equal(response.status(),200);const {data}=await response.json();assert.equal(data.id,fixture.id);assert.equal(data.permissions.includes('users.write'),fixture.role==='owner');});
    if(fixture.role==='owner'){
-    await page.goto('/admin');await page.getByRole('heading',{name:'Aaj ka kaam',exact:true}).waitFor();
+    await page.goto('/admin');await page.getByRole('heading',{name:'Dashboard',exact:true}).waitFor();
     await check(`${viewport} owner: quotation workspace and privileged API accessible`,async()=>{await page.goto('/admin/quotations');await page.getByRole('heading',{name:'Quotations',exact:true}).waitFor();const response=await context.request.get('/api/v1/admin/permissions');assert.equal(response.status(),200);});
     // UI request payloads are simulated here; matching real SQL revision behavior is covered by test:db.
     const quote={id:crypto.randomUUID(),name:'Browser quotation fixture',status:'draft',customer_id:crypto.randomUUID(),expires_at:new Date(Date.now()+86400000).toISOString(),created_at:new Date().toISOString()};
