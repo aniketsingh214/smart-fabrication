@@ -2,6 +2,10 @@
 
 # SmartFabrication progress
 
+### Header design and icons — 2026-10-25
+
+Redesigned the public header with a graphite/sage brand mark, unified borderless search input, icon-led navigation with active-page state, language icon and high-contrast quote action. Wide screens use a balanced single row; smaller screens use separate search/navigation rows without clipping cart or wishlist controls. Removed hard-coded design counts from the search placeholder. Production build/TypeScript and two desktop/mobile header scenarios across 320/390/768/1440 widths passed; desktop/mobile screenshots reviewed. Existing unique-design counters are preserved.
+
 ### Unique wishlist/cart counts — 2026-10-25
 
 Header wishlist/cart counts now represent distinct product designs, not summed quantities. Quantity edits still affect quantities and subtotal; only a newly added design increases the badge. Persisted wishlist duplicates are consolidated by product ID on load. Synchronous batched additions (Move All to Cart) preserve every design through current-state references. Six desktop/mobile regression checks, production build/TypeScript and targeted lint passed; no database writes or API/schema change. Browser-local saved lists remain browser-local.

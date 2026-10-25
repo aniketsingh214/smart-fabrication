@@ -19,8 +19,9 @@ export function LanguageSwitcher({ className = '' }: { className?: string }) {
     <div
       role="group"
       aria-label="Language selector"
-      className={`inline-flex items-center rounded-full border border-slate-200 bg-slate-50 p-0.5 text-xs font-semibold shadow-2xs ${className}`}
+      className={`inline-flex shrink-0 items-center rounded-xl border border-slate-200 bg-white p-1 text-xs font-semibold shadow-sm ${className}`}
     >
+      <Languages size={15} aria-hidden="true" className="mx-1 text-slate-500"/>
       <button
         type="button"
         onClick={() => handleSwitch('hi')}

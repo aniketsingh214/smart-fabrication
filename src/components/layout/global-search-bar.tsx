@@ -98,7 +98,8 @@ export function GlobalSearchBar({ className = '' }: { className?: string }) {
       {/* Search Input Form */}
       <form
         onSubmit={handleSubmit}
-        className="flex items-center relative w-full rounded-xl sm:rounded-full border border-slate-300 sm:border-slate-200 bg-slate-50 hover:bg-white hover:border-orange-500/50 focus-within:bg-white focus-within:border-orange-500 focus-within:ring-2 focus-within:ring-orange-500/20 transition-all shadow-xs"
+        role="search"
+        className="relative flex h-12 w-full min-w-0 items-center rounded-2xl border border-slate-200 bg-white/80 p-1 shadow-sm transition focus-within:border-orange-500 focus-within:ring-4 focus-within:ring-orange-100"
       >
         <div className="pl-3 sm:pl-3.5 text-slate-400 shrink-0">
           <Search size={16} />
@@ -109,8 +110,9 @@ export function GlobalSearchBar({ className = '' }: { className?: string }) {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => setIsOpen(true)}
-          placeholder={isHi ? '430+ गेट, रेलिंग, लेज़र या शटर खोजें...' : 'Search 430+ gates, railings, shutters…'}
-          className="w-full bg-transparent px-2.5 sm:px-3 py-2 sm:py-2 text-xs sm:text-sm font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none"
+          aria-label="Search fabrication designs"
+          placeholder={isHi ? 'गेट, रेलिंग या डिज़ाइन खोजें…' : 'Search gates, railings, designs…'}
+          className="h-full min-w-0 flex-1 !rounded-none !border-0 !bg-transparent !px-3 !py-2 !text-sm !outline-none font-medium text-slate-900 placeholder:text-slate-400"
         />
         {query && (
           <button
@@ -125,9 +127,9 @@ export function GlobalSearchBar({ className = '' }: { className?: string }) {
         )}
         <button
           type="submit"
-          className="mr-1 sm:mr-1.5 px-3.5 sm:px-4 py-1.5 sm:py-1 bg-orange-600 hover:bg-orange-700 text-white rounded-lg sm:rounded-full text-xs font-semibold transition shadow-xs shrink-0"
+          className="flex h-9 shrink-0 items-center gap-1.5 rounded-xl bg-graphite px-3 text-xs font-semibold text-white transition hover:bg-slate-700 sm:px-4"
         >
-          {isHi ? 'खोजें' : 'Search'}
+          {isHi ? 'खोजें' : 'Search'}<ArrowRight size={14} aria-hidden="true"/>
         </button>
       </form>
 

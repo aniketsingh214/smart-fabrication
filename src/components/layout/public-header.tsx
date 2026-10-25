@@ -1,7 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { Hammer, ArrowUpRight } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import { Hammer, ArrowUpRight, LayoutGrid, Images, Calculator, UserRound, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { HeaderShopTriggers } from '@/features/shop/header-shop-triggers';
 import { LanguageSwitcher } from '@/features/i18n/language-switcher';
@@ -10,90 +11,60 @@ import { GlobalSearchBar } from './global-search-bar';
 
 export function PublicHeader() {
   const { dict, locale } = useLocale();
+  const pathname = usePathname();
+  const links = [
+    { href: '/catalog', label: dict.nav.catalog, icon: LayoutGrid },
+    { href: '/gallery', label: dict.nav.gallery, icon: Images },
+    { href: '/estimate', label: dict.nav.estimate, icon: Calculator },
+    { href: '/account', label: dict.nav.account, icon: UserRound }
+  ];
 
   return (
-    <header className="border-b border-slate-200 bg-white sticky top-0 z-40 backdrop-blur-md bg-white/95">
-      <div className="mx-auto max-w-7xl px-3.5 py-2.5 sm:px-6 lg:px-8">
-        {/* Top Bar: Brand, Desktop Search, Actions */}
-        <div className="flex flex-wrap items-center justify-between gap-2 sm:gap-3">
-          {/* Brand Logo & Tagline */}
-          <Link href="/" className="flex items-center gap-2 sm:gap-3 group shrink-0">
-            <span className="grid h-9 w-9 sm:h-10 sm:w-10 place-items-center rounded-xl bg-orange-600 text-white shadow-sm transition group-hover:scale-105">
-              <Hammer size={20} className="sm:hidden" />
-              <Hammer size={22} className="hidden sm:block" />
+    <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-canvas/95 shadow-[0_4px_24px_#20252206] backdrop-blur-xl">
+      <div className="mx-auto grid max-w-[1600px] grid-cols-2 items-center gap-x-4 gap-y-3 px-4 pb-2 pt-3 sm:px-6 lg:grid-cols-[auto_minmax(14rem,1fr)_auto] lg:py-3 2xl:grid-cols-[auto_minmax(14rem,1fr)_auto_auto] lg:gap-x-6">
+        <Link href="/" aria-label="SmartFabrication home" className="group flex min-w-0 items-center gap-2.5 lg:gap-3">
+          <span className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-graphite text-sage shadow-sm ring-1 ring-white/20 ring-inset transition-transform group-hover:-rotate-6 lg:h-12 lg:w-12">
+            <Hammer size={23} strokeWidth={1.7} aria-hidden="true"/>
+          </span>
+          <span className="min-w-0 text-[13px] font-bold tracking-tight text-graphite sm:text-base lg:text-lg">
+            SmartFabrication
+            <span className="mt-0.5 hidden text-[11px] font-normal tracking-normal text-slate-500 sm:block">
+              {locale === 'hi' ? 'आपकी जगह, आपकी पसंद।' : 'Crafted in steel. Built to last.'}
             </span>
-            <span className="text-sm sm:text-base font-bold tracking-tight text-slate-900 leading-tight">
-              SmartFabrication
-              <span className="block text-[10px] font-medium tracking-normal text-slate-500 hidden sm:block">
-                {locale === 'hi' ? 'मजबूत लोहा और स्टील • सालों-साल चले' : 'Crafted in steel. Built to last.'}
-              </span>
-            </span>
-          </Link>
+          </span>
+        </Link>
 
-          {/* Desktop Global Search Bar (Centered, visible md and up) */}
-          <div className="hidden md:flex min-w-0 flex-1 basis-40 max-w-sm lg:max-w-md xl:max-w-lg mx-3">
-            <GlobalSearchBar />
-          </div>
+        <div className="col-span-2 row-start-3 min-w-0 lg:col-span-1 lg:col-start-2 lg:row-start-1">
+          <GlobalSearchBar/>
+        </div>
 
-          {/* Desktop Nav Links */}
-          <nav
-            aria-label="Main navigation"
-            className="hidden xl:flex items-center gap-5 text-xs font-semibold text-slate-600 shrink-0"
-          >
-            <Link href="/catalog" className="hover:text-orange-600 transition py-1">
-              {dict.nav.catalog}
-            </Link>
-            <Link href="/gallery" className="hover:text-orange-600 transition py-1">
-              {dict.nav.gallery}
-            </Link>
-            <Link href="/estimate" className="hover:text-orange-600 transition py-1">
-              {dict.nav.estimate}
-            </Link>
-            <Link href="/account" className="hover:text-orange-600 transition py-1">
-              {dict.nav.account}
-            </Link>
-          </nav>
+        <nav aria-label="Main navigation" className="col-span-2 grid grid-cols-4 gap-1 border-t border-slate-200/70 pt-2 lg:col-span-3 lg:flex lg:justify-center lg:gap-2 2xl:col-span-1 2xl:col-start-3 2xl:row-start-1 2xl:border-0 2xl:p-0">
+          {links.map(({href,label,icon:Icon})=>{
+            const active=pathname===href||pathname.startsWith(href+'/');
+            return <Link key={href} href={href} aria-current={active?'page':undefined} className={`flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl px-1 py-2 text-center text-[10px] font-semibold transition-colors sm:flex-row sm:gap-2 sm:px-3 sm:text-xs lg:px-4 lg:py-2.5 2xl:px-2.5 ${active?'bg-orange-100 text-orange-800':'text-slate-600 hover:bg-white hover:text-graphite'}`}>
+              <Icon size={17} strokeWidth={1.8} aria-hidden="true" className={active?'text-orange-700':'text-slate-500'}/>
+              <span className="leading-tight">{label}</span>
+            </Link>;
+          })}
+        </nav>
 
-          {/* Right Action Bar: Language Switcher, Cart/Wishlist, Quote Button */}
-          <div className="flex w-full flex-wrap items-center justify-between gap-2 min-[480px]:w-auto min-[480px]:justify-end sm:gap-2.5">
-            <LanguageSwitcher />
-            <HeaderShopTriggers />
-            <Button asChild size="sm" className="bg-orange-600 hover:bg-orange-700 shadow-sm text-xs font-bold px-2.5 sm:px-3">
-              <Link
-                href="/contact"
-                aria-label="Request a quote"
-                title={locale === 'hi' ? 'कीमत पूछें / Request a quote' : 'Request a quote'}
-              >
-                <span>{dict.nav.quote}</span>
-                <ArrowUpRight size={14} />
-              </Link>
+        <div className="col-start-2 row-start-1 justify-self-end lg:col-start-3 2xl:col-start-4">
+          <div className="flex items-center gap-2 lg:gap-3">
+            <div className="hidden lg:block"><LanguageSwitcher/></div>
+            <span aria-hidden="true" className="hidden h-7 w-px bg-slate-200 lg:block"/>
+            <HeaderShopTriggers/>
+            <Button asChild className="hidden h-11 gap-2 rounded-xl bg-graphite px-4 text-xs font-semibold text-white shadow-sm hover:bg-slate-800 lg:inline-flex">
+              <Link href="/contact" aria-label="Request a quote"><FileText size={16} aria-hidden="true"/><span>{dict.nav.quote}</span><ArrowUpRight size={15} aria-hidden="true"/></Link>
             </Button>
           </div>
         </div>
 
-        {/* Mobile Full-Width Search Bar (Permanently visible & sticky on mobile) */}
-        <div className="block md:hidden mt-2 pt-0.5">
-          <GlobalSearchBar />
+        <div className="col-span-2 row-start-2 flex items-center justify-between gap-3 lg:hidden">
+          <LanguageSwitcher/>
+          <Button asChild size="sm" className="gap-2 rounded-xl bg-graphite px-3 text-xs text-white hover:bg-slate-800">
+            <Link href="/contact" aria-label="Request a quote"><FileText size={15} aria-hidden="true"/><span>{dict.nav.quote}</span><ArrowUpRight size={14} aria-hidden="true"/></Link>
+          </Button>
         </div>
-
-        {/* Mobile / Tablet Nav Links (Visible below md or lg) */}
-        <nav
-          aria-label="Mobile navigation"
-          className="xl:hidden mt-2 pt-1.5 border-t border-slate-100 flex w-full flex-wrap gap-2 justify-around text-xs font-semibold text-slate-600"
-        >
-          <Link href="/catalog" className="hover:text-orange-600 transition py-0.5">
-            {dict.nav.catalog}
-          </Link>
-          <Link href="/gallery" className="hover:text-orange-600 transition py-0.5">
-            {dict.nav.gallery}
-          </Link>
-          <Link href="/estimate" className="hover:text-orange-600 transition py-0.5">
-            {dict.nav.estimate}
-          </Link>
-          <Link href="/account" className="hover:text-orange-600 transition py-0.5">
-            {dict.nav.account}
-          </Link>
-        </nav>
       </div>
     </header>
   );
