@@ -4,6 +4,8 @@
 
 ### Daily-work admin dashboard — 2026-10-25
 
+Live dashboard tabs/scopes, matching task links and mobile layout verified. All six production functional checks completed; a lost cleanup response was independently reconciled against the generated account's disabled/zero-owner-role/banned state. The original transport failure remains in the raw test artifact; no business record was written by browser verification.
+
 Replaced the mixed overview with Aaj ka kaam and Business overview tabs, India-time due/overdue tasks, matching card drilldowns, exact record links, quick-create forms and a scoped order-stage board. Recognized demo/test markers are excluded by default and inspectable in a separate data view; unmarked records still require review. Pending installations are separate from today's scheduled deliveries. Finance values and historical records were not rewritten. Migration 47 is applied (read-only invoker functions; 58 tables/134 RLS policies unchanged). 188 unit/integration tests, 12 SQL/RLS checks and six real authenticated browser checks passed. API now documents 293 paths / 34 explicit methods. See [workflow, definitions and limits](operations/daily-work-dashboard.md).
 
 ### Header design and icons — 2026-10-25
