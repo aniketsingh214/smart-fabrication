@@ -46,3 +46,12 @@
 .admin-data-table .status[data-status=out_for_delivery],.admin-data-table .status[data-status=dispatched],.admin-data-table .status[data-status=installation]{color:#0e7490;background:#ecfeff;border-color:#a5f3fc}
 .admin-data-table .status[data-status=lost],.admin-data-table .status[data-status=cancelled],.admin-data-table .status[data-status=rejected]{color:#be123c;background:#fff1f2;border-color:#fecdd3}
 .admin-data-table .status[data-status=archived],.admin-data-table .status[data-status=hidden]{color:#475569;background:#f1f5f9;border-color:#cbd5e1}
+
+/* Keep record headers/actions visible; only the form fields scroll. */
+.admin-record-dialog{position:fixed;inset:0;margin:auto;width:calc(100vw - 32px);max-width:672px;max-height:calc(100dvh - 32px);min-width:0;padding:0;overflow:hidden;border:1px solid #dbe4f0;border-radius:18px;background:white;box-shadow:0 24px 80px #0f172a30}
+.admin-record-dialog[open]{display:flex;flex-direction:column}
+.admin-record-dialog-wide{max-width:960px}
+.admin-record-dialog::backdrop{background:#0f172a80}
+.admin-record-form-body{scrollbar-gutter:stable}
+.admin-record-form-body input,.admin-record-form-body select,.admin-record-form-body textarea{min-width:0;max-width:100%}
+@media(max-width:639px){.admin-record-dialog{width:calc(100vw - 16px);max-height:calc(100dvh - 16px);border-radius:14px}}

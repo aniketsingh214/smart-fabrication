@@ -41,3 +41,9 @@ Production acceptance: all seven browser checks passed against `https://smartfab
 ## Colour update - 2026-10-25
 
 Shared admin collections now use soft blue/violet headers and row accents, blue view, amber edit and rose remove controls, colourful page controls and labelled status-specific badges. Disabled actions remain neutral and all authorization/archival behavior is preserved. Seven existing local browser checks passed with mocked writes; desktop/mobile previews were reviewed. No public colour palette, API or database change.
+
+## Edit form layout - 2026-10-25
+
+Shared record forms adapt to 960px maximum width with viewport gutters, two desktop columns and one mobile column. Long text and JSON span the desktop columns. The header and Save/Cancel footer remain visible while only fields scroll. Details/confirmation and staff dialogs use the same viewport-bounded shell with an independently scrolling body. Required-field validation, saving guards and existing read/write restrictions are unchanged. No API or database change.
+
+Sizing acceptance: real product form inspected at 1440x844 (960x812 dialog, 16px vertical gutters) and 390x844 (374x828 dialog, 8px gutters). Both had independently scrollable fields, visible footer controls and no horizontal overflow. Seven existing browser checks passed with mocked business updates and fixture retirement; build/TypeScript, targeted lint and docs checks passed. No actual product changes were saved.

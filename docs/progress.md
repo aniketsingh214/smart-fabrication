@@ -2,6 +2,10 @@
 
 # SmartFabrication progress
 
+### Edit dialog sizing - 2026-10-25
+
+Record add/edit dialogs use an adaptive width up to 960px, two-column desktop fields, single-column mobile fields and full-width long text/JSON fields. The header and Save/Cancel footer remain outside the scrolling field area. View/confirmation and staff dialogs share viewport limits with a pinned header. Verified a real product form at 1440px and 390px: dialog stayed within the viewport, fields scrolled independently, footer stayed visible and no horizontal overflow occurred. Seven existing local browser checks, production build/TypeScript, targeted lint and docs checks passed. Test business updates were mocked and the temporary login was retired. API/permissions and business data are unchanged.
+
 ### Colourful admin collections - 2026-10-25
 
 Added indigo/blue table headers, softly tinted rows and serials, blue view / amber edit / rose remove controls, colourful pagination and status-specific blue/amber/violet/cyan/rose badges across shared admin collections. Disabled actions stay neutral, status labels remain visible, and public website colours/permissions/workflows are unchanged. Seven existing local authenticated browser checks passed with mocked business writes; desktop/mobile screenshots were reviewed. Production build/TypeScript, targeted lint and documentation checks passed.
