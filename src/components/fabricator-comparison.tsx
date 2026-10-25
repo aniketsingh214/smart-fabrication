@@ -5,9 +5,20 @@ import Link from 'next/link';
 import { Check, X, ShieldAlert, Sparkles, ArrowRight, Phone, MessageCircle, Award, CheckCircle2 } from 'lucide-react';
 import { useLocale } from '@/lib/i18n/locale-context';
 
-export function FabricatorComparison() {
+interface FabricatorComparisonProps {
+  phone?: string;
+  whatsapp?: string;
+}
+
+export function FabricatorComparison({
+  phone = '+91 98765 43210',
+  whatsapp = '919876543210'
+}: FabricatorComparisonProps = {}) {
   const { locale } = useLocale();
   const isHi = locale === 'hi';
+
+  const cleanPhone = phone.replace(/[^0-9+]/g, '');
+  const cleanWa = whatsapp.replace(/[^0-9]/g, '');
 
   const COMPARISON_ROWS = [
     {
@@ -61,7 +72,7 @@ export function FabricatorComparison() {
   ];
 
   const whatsappUrl =
-    'https://wa.me/919876543210?text=' +
+    `https://wa.me/${cleanWa || '919876543210'}?text=` +
     encodeURIComponent(
       isHi
         ? 'नमस्ते SmartFabrication! मुझे अपने घर के काम के लिए असली टाटा/जिंदल स्टील और सही एस्टीमेट के बारे में जानकारी चाहिए।'
@@ -201,11 +212,11 @@ export function FabricatorComparison() {
               </a>
 
               <a
-                href="tel:+919876543210"
+                href={`tel:${cleanPhone || '+919876543210'}`}
                 className="inline-flex items-center gap-2 rounded-xl border border-slate-700 bg-slate-800 hover:bg-slate-700 px-5 py-3 text-xs sm:text-sm font-bold text-white transition"
               >
                 <Phone size={15} />
-                <span>{isHi ? 'कॉल करें (+91 98765 43210)' : 'Call +91 98765 43210'}</span>
+                <span>{isHi ? `कॉल करें (${phone})` : `Call ${phone}`}</span>
               </a>
             </div>
           </div>

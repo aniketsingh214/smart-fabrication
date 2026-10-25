@@ -32,19 +32,26 @@ interface HomeViewProps {
   featuredSection?: React.ReactNode;
   categoriesSection?: React.ReactNode;
   customSections?: React.ReactNode;
+  phone?: string;
+  whatsapp?: string;
 }
 
 export function HomeView({
   totalDesigns,
   featuredSection,
   categoriesSection,
-  customSections
+  customSections,
+  phone = '+91 98765 43210',
+  whatsapp = '+91 98765 43210'
 }: HomeViewProps) {
   const { locale, dict } = useLocale();
 
   const isHi = locale === 'hi';
 
-  const whatsappUrl = `https://wa.me/919876543210?text=${encodeURIComponent(
+  const cleanPhone = phone.replace(/[^0-9+]/g, '');
+  const cleanWa = whatsapp.replace(/[^0-9]/g, '');
+
+  const whatsappUrl = `https://wa.me/${cleanWa || '919876543210'}?text=${encodeURIComponent(
     isHi
       ? 'नमस्ते SmartFabrication! मुझे अपने घर के लिए गेट / रेलिंग / जाली का काम करवाना है। कृपया डिज़ाइन और कोटेशन शेयर करें।'
       : 'Hello SmartFabrication! I am looking for fabrication work for my home. Please share designs and quotation.'
@@ -146,7 +153,7 @@ export function HomeView({
 
                 {/* 4. Call Us */}
                 <a
-                  href="tel:+919876543210"
+                  href={`tel:${cleanPhone || '+919876543210'}`}
                   className="inline-flex items-center gap-2 rounded-xl border border-slate-700 bg-slate-900/80 px-4 py-2.5 text-xs sm:text-sm font-bold text-slate-300 transition hover:bg-slate-800 hover:text-white"
                 >
                   <Phone size={15} className="text-orange-400" />
@@ -289,7 +296,7 @@ export function HomeView({
       {featuredSection}
 
       {/* 3.5 BEFORE / AFTER TRANSFORMATION (Interactive Comparison Slider) */}
-      <BeforeAfterTransformation />
+      <BeforeAfterTransformation whatsapp={cleanWa} />
 
       {/* 4. CATEGORIES EXPLORER (Verified by integration tests) */}
       {categoriesSection}
@@ -347,7 +354,7 @@ export function HomeView({
       </section>
 
       {/* 5.5 SMARTFABRICATION VS LOCAL WELDING SHOP COMPARISON */}
-      <FabricatorComparison />
+      <FabricatorComparison phone={phone} whatsapp={cleanWa} />
 
       {/* 6. CRAFTSMANSHIP & QUALITY ASSURANCE */}
       <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
@@ -428,11 +435,11 @@ export function HomeView({
 
           <div className="relative mt-6 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 md:mt-0">
             <a
-              href="tel:+919876543210"
+              href={`tel:${cleanPhone || '+919876543210'}`}
               className="inline-flex items-center justify-center gap-2 rounded-xl bg-orange-600 hover:bg-orange-500 px-5 py-3 text-xs sm:text-sm font-bold text-white shadow-md transition"
             >
               <Phone size={15} />
-              <span>{isHi ? 'सीधे कॉल करें (+91 98765 43210)' : 'Call +91 98765 43210'}</span>
+              <span>{isHi ? `सीधे कॉल करें (${phone})` : `Call ${phone}`}</span>
             </a>
             <a
               href={whatsappUrl}
@@ -450,7 +457,7 @@ export function HomeView({
       </section>
 
       {/* Floating 1-Click Action Bar for Mobile Visitors */}
-      <MobileStickyActionBar />
+      <MobileStickyActionBar phone={cleanPhone} whatsapp={cleanWa} />
     </div>
   );
 }

@@ -6,7 +6,13 @@ import Link from 'next/link';
 import { Sparkles, ArrowRight, CheckCircle2, XCircle, ArrowLeftRight, Phone, MessageCircle } from 'lucide-react';
 import { useLocale } from '@/lib/i18n/locale-context';
 
-export function BeforeAfterTransformation() {
+interface BeforeAfterTransformationProps {
+  whatsapp?: string;
+}
+
+export function BeforeAfterTransformation({
+  whatsapp = '919876543210'
+}: BeforeAfterTransformationProps = {}) {
   const { locale } = useLocale();
   const isHi = locale === 'hi';
   const cloud = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || 'kz4iyauy';
@@ -36,8 +42,10 @@ export function BeforeAfterTransformation() {
     handleMove(e.clientX);
   };
 
+  const cleanWa = whatsapp.replace(/[^0-9]/g, '');
+
   const whatsappUrl =
-    'https://wa.me/919876543210?text=' +
+    `https://wa.me/${cleanWa || '919876543210'}?text=` +
     encodeURIComponent(
       isHi
         ? 'नमस्ते SmartFabrication! मुझे अपने पुराने गेट को बदलकर नया रॉयल एसएस 304 गेट बनवाना है। कृपया नाप और खर्च बताएं।'

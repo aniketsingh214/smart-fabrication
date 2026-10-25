@@ -5,12 +5,23 @@ import Link from 'next/link';
 import { Phone, MessageCircle, Ruler } from 'lucide-react';
 import { useLocale } from '@/lib/i18n/locale-context';
 
-export function MobileStickyActionBar() {
+interface MobileStickyActionBarProps {
+  phone?: string;
+  whatsapp?: string;
+}
+
+export function MobileStickyActionBar({
+  phone = '+919876543210',
+  whatsapp = '919876543210'
+}: MobileStickyActionBarProps = {}) {
   const { locale } = useLocale();
   const isHi = locale === 'hi';
 
+  const cleanPhone = phone.replace(/[^0-9+]/g, '');
+  const cleanWa = whatsapp.replace(/[^0-9]/g, '');
+
   const whatsappUrl =
-    'https://wa.me/919876543210?text=' +
+    `https://wa.me/${cleanWa || '919876543210'}?text=` +
     encodeURIComponent(
       isHi
         ? 'नमस्ते SmartFabrication! मुझे अपने घर के लिए गेट / रेलिंग / जाली का काम करवाना है। कृपया डिज़ाइन और कोटेशन शेयर करें।'
@@ -33,7 +44,7 @@ export function MobileStickyActionBar() {
 
         {/* Call Button */}
         <a
-          href="tel:+919876543210"
+          href={`tel:${cleanPhone || '+919876543210'}`}
           className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-xl bg-orange-600 px-3 py-2.5 text-xs font-bold text-white shadow-md active:scale-95 transition"
         >
           <Phone size={14} />

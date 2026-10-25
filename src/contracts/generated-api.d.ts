@@ -58732,6 +58732,212 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/dashboard": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Permission/RLS-scoped daily tasks and order progress; recognized demo markers excluded by default */
+        get: {
+            parameters: {
+                query?: {
+                    scope?: "business" | "demo" | "all";
+                    task?: "all" | "new" | "followup" | "approval" | "delivery";
+                    page?: number;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Narrow dashboard DTO; inaccessible metrics null; tasks paged ten per page */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: date-time */
+                                as_of: string;
+                                /** Format: date-time */
+                                day_start: string;
+                                /** Format: date-time */
+                                day_end: string;
+                                /** @enum {string} */
+                                scope: "business" | "demo" | "all";
+                                /** @enum {string} */
+                                task: "all" | "new" | "followup" | "approval" | "delivery";
+                                page: number;
+                                /** @constant */
+                                page_size: 10;
+                                metrics: {
+                                    new_leads: number | null;
+                                    active_leads: number | null;
+                                    followups_due: number | null;
+                                    overdue_followups: number | null;
+                                    approvals: number | null;
+                                    open_orders: number | null;
+                                    deliveries_today: number | null;
+                                    pending_installations: number | null;
+                                };
+                                task_total: number;
+                                tasks: {
+                                    /** @enum {string} */
+                                    kind: "new" | "followup" | "approval" | "delivery";
+                                    /** Format: uuid */
+                                    id: string;
+                                    title: string;
+                                    /** Format: date-time */
+                                    due_at: string;
+                                    status: string;
+                                    priority: number;
+                                    action: string;
+                                    href: string;
+                                }[];
+                                board: {
+                                    /** @enum {string} */
+                                    key: "confirmed" | "production" | "ready" | "delivery" | "completed";
+                                    count: number;
+                                    items: {
+                                        /** Format: uuid */
+                                        id: string;
+                                        name: string;
+                                        status: string;
+                                        due_at: string | null;
+                                        href: string;
+                                    }[];
+                                }[];
+                                activity: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    title: string;
+                                    label: string;
+                                    /** Format: date-time */
+                                    happened_at: string;
+                                    href: string;
+                                }[];
+                            };
+                            meta: {
+                                nextCursor?: string | null;
+                            };
+                            /** Format: uuid */
+                            requestId: string;
+                        };
+                    };
+                };
+                /** @description HTTP 400; sanitized error envelope */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 401; sanitized error envelope */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 403; sanitized error envelope */
+                403: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 404; sanitized error envelope */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 409; sanitized error envelope */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 413; sanitized error envelope */
+                413: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 415; sanitized error envelope */
+                415: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 422; sanitized error envelope */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 429; sanitized error envelope */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 500; sanitized error envelope */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 503; sanitized error envelope */
+                503: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
