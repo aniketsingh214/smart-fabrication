@@ -2,6 +2,10 @@
 
 # SmartFabrication progress
 
+### Colourful admin collections - 2026-10-25
+
+Added indigo/blue table headers, softly tinted rows and serials, blue view / amber edit / rose remove controls, colourful pagination and status-specific blue/amber/violet/cyan/rose badges across shared admin collections. Disabled actions stay neutral, status labels remain visible, and public website colours/permissions/workflows are unchanged. Seven existing local authenticated browser checks passed with mocked business writes; desktop/mobile screenshots were reviewed. Production build/TypeScript, targeted lint and documentation checks passed.
+
 ### Admin list actions, validation and tables - 2026-10-25
 
 Updated registered resource lists plus staff, inventory, notifications, finance balance lists and the role matrix with consistent serials, explicit eye/edit/remove controls and bounded pagination. Previous-page history, page size, exact page labels/ranges and validation are improved. Supported listing removal is reversible archive/deactivation with confirmation; financial/stock history remains protected and staff removal uses existing disable-account controls. No destructive DELETE, RLS relaxation or migration. Partial price edits and review ratings are checked on the server. 205 unit/integration tests, seven local authenticated browser checks (mocked operational writes), production build/TypeScript, targeted lint, API/docs checks and secret scan passed. The same seven checks also passed on the live Vercel site after commit 076a9fd; operational edits/deactivation remained intercepted. Generated browser accounts were retired. Browser harness selectors were corrected during verification; only the final seven-check run is counted as passing. See [behavior, removal whitelist and verification limits](operations/admin-list-workflows.md).

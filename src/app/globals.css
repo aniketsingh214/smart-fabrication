@@ -16,3 +16,33 @@
 
 /* Admin tables: compact controls, restrained sage accents, keyboard focus. */
 .admin-data-table{border-radius:18px;box-shadow:0 4px 20px #20252206}.admin-data-table thead{background:#f7f7f2}.admin-data-table td{height:64px}.admin-data-table tbody tr:last-child td{border-bottom:0}.table-icon{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border:1px solid #dce0d5;border-radius:10px;background:white;color:#4e6241;transition:background .15s,border-color .15s;cursor:pointer}.table-icon:hover:not(:disabled){background:#e5eadb;border-color:#a3b18a}.table-icon:focus-visible{outline:2px solid #4e6241;outline-offset:2px}.table-icon:disabled{opacity:.3;cursor:not-allowed}
+
+/* Colour cues are scoped to admin collections; labels and permissions remain visible. */
+.admin-data-table{border-color:#dbe4f0;border-top:3px solid #6366f1;box-shadow:0 6px 24px #4338ca09}
+.admin-data-table>div:first-child{background:linear-gradient(110deg,#eff6ff,#f5f3ff 65%,#f0fdfa)}
+.admin-data-table thead{background:#eef2ff}
+.admin-data-table th{color:#4338ca;border-bottom-color:#dbeafe}
+.admin-data-table th.sticky{background:#eef2ff}
+.admin-data-table tbody tr:nth-child(even){background:#f8faff}
+.admin-data-table tbody tr:hover{background:#eef6ff}
+.admin-data-table tbody td:first-child{color:#6d28d9;font-weight:700;background:#f5f3ff80;border-right:1px solid #ede9fe}
+.admin-data-table .table-icon:has(.lucide-eye){color:#1d4ed8;background:#eff6ff;border-color:#bfdbfe}
+.admin-data-table .table-icon:has(.lucide-pencil){color:#92400e;background:#fffbeb;border-color:#fde68a}
+.admin-data-table .table-icon:has(.lucide-trash2){color:#be123c;background:#fff1f2;border-color:#fecdd3}
+.admin-data-table .table-icon:hover:not(:disabled):has(.lucide-eye){background:#dbeafe;border-color:#60a5fa}
+.admin-data-table .table-icon:hover:not(:disabled):has(.lucide-pencil){background:#fef3c7;border-color:#fbbf24}
+.admin-data-table .table-icon:hover:not(:disabled):has(.lucide-trash2){background:#ffe4e6;border-color:#fb7185}
+.admin-data-table .table-icon:disabled{color:#64748b;background:#f1f5f9;border-color:#e2e8f0;opacity:.5}
+.admin-data-table .table-icon:focus-visible{outline-color:#4f46e5}
+.admin-data-table nav{background:linear-gradient(110deg,#f8faff,#faf5ff)}
+.admin-data-table nav [aria-current=page]{background:#4f46e5;color:white}
+.admin-data-table nav .border-orange-200{background:#eef2ff;border-color:#c7d2fe;color:#4338ca}
+.admin-data-table nav [title="Next page"]:not(:disabled){background:linear-gradient(120deg,#2563eb,#4f46e5);border-color:#4f46e5;color:white}
+.admin-data-table nav [title="Previous page"]:not(:disabled){background:#eff6ff;border-color:#bfdbfe;color:#1d4ed8}
+.admin-data-table .status{border:1px solid transparent;border-radius:999px}
+.admin-data-table .status[data-status=new],.admin-data-table .status[data-status=confirmed],.admin-data-table .status[data-status=scheduled]{color:#1d4ed8;background:#eff6ff;border-color:#bfdbfe}
+.admin-data-table .status[data-status=draft],.admin-data-table .status[data-status=pending],.admin-data-table .status[data-status=measurement_pending]{color:#92400e;background:#fffbeb;border-color:#fde68a}
+.admin-data-table .status[data-status=production_started],.admin-data-table .status[data-status=fabrication],.admin-data-table .status[data-status=finishing],.admin-data-table .status[data-status=quality_check]{color:#6d28d9;background:#f5f3ff;border-color:#ddd6fe}
+.admin-data-table .status[data-status=out_for_delivery],.admin-data-table .status[data-status=dispatched],.admin-data-table .status[data-status=installation]{color:#0e7490;background:#ecfeff;border-color:#a5f3fc}
+.admin-data-table .status[data-status=lost],.admin-data-table .status[data-status=cancelled],.admin-data-table .status[data-status=rejected]{color:#be123c;background:#fff1f2;border-color:#fecdd3}
+.admin-data-table .status[data-status=archived],.admin-data-table .status[data-status=hidden]{color:#475569;background:#f1f5f9;border-color:#cbd5e1}

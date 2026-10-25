@@ -37,3 +37,7 @@ The focused suite covers permissions/immutability, draft-only UI editing, the re
 Final local acceptance: 205 unit/integration tests, seven authenticated browser checks, production build/TypeScript, targeted lint, API/docs checks and secret scan passed. The browser harness initially needed accessible-label and table-scoping selector fixes; failed attempts were not counted as passes. Generated logins were retired after each attempt. The final ignored report is `test-results/admin-tables-browser-latest.json`. Actual run results are recorded in [progress](../progress.md). This change does not complete accountant/business launch approvals.
 
 Production acceptance: all seven browser checks passed against `https://smartfabrication.vercel.app` after source commit `076a9fd`. The run exited successfully, including generated-login retirement. Synthetic category edits/removal and stock-history responses stayed intercepted; staff/inventory/notification SSR and read APIs were real. No operational write or deletion was performed on production.
+
+## Colour update - 2026-10-25
+
+Shared admin collections now use soft blue/violet headers and row accents, blue view, amber edit and rose remove controls, colourful page controls and labelled status-specific badges. Disabled actions remain neutral and all authorization/archival behavior is preserved. Seven existing local browser checks passed with mocked writes; desktop/mobile previews were reviewed. No public colour palette, API or database change.
