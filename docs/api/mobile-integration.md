@@ -2,6 +2,8 @@
 
 # Mobile integration draft
 
+Operational dashboard: `GET /api/v1/dashboard?scope=business&task=all&page=1` supports bearer authentication and uses the same RLS-scoped response as `/admin`. Use generated types from `/dashboard`; null metrics mean outside the role, not zero. Task identifiers/kinds support native navigation; relative hrefs are web drilldowns. Today/overdue use Asia/Kolkata database response time. Marker-based demo separation is not business certification. See [definitions and limits](../operations/daily-work-dashboard.md).
+
 ## 7. API-first architecture for web and future mobile
 
 **Permanent rule:** ALL customer/mobile-relevant capabilities must have stable documented HTTP APIs under `/api/v1`. A mobile app must never depend on HTML parsing, Next.js Server Actions, browser cookies, internal React types or direct privileged Supabase table access. Next.js remains the only application backend. Browser SSR can call server services directly, but any mobile-required business action must also be available through REST handlers calling the SAME service.

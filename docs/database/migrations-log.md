@@ -48,5 +48,6 @@
 | 202610170044_estimate_rate_provenance.sql | 2026-10-17T07:35:36.011Z | dbbe92ebdac4b9d84a1ca939745309db3fc040609c397929accca18099387f5b |
 | 202610170045_draft_calculation_preview.sql | 2026-10-17T07:45:06.703Z | a6cfe26511605d353bb7eb5a30e55629ccf1839bd7d58b538e40e7c1fe433d21 |
 | 202610170046_bom_customer_visibility.sql | 2026-10-17T07:50:09.436Z | 7f92dc50ec8c72a2d45732bd45e578da50a78b439e262120d96699a512e78d3e |
+| 202610250047_workshop_dashboard.sql | 2026-10-25T10:53:36.832Z | b16f1a4fb7a03c059950501d27cd7d03e3d5c1f6fed368772e7c82b560bfd203 |
 
 Applied migrations are immutable. Add forward fixes. No destructive changes performed. Production migration approval and backup remain launch gates.

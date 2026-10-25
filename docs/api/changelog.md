@@ -68,6 +68,10 @@ Product create/update/read/configuration DTOs include delivery_availability and 
 Protected `/admin/estimate-history` and `/estimate-history` resource reads use materials.read; exports use materials.export. Legacy stored result JSON retains its original shape. New requests create history once per submitted calculation; there is no automatic write replay. See [typed cookie-independent example](../../examples/mobile/calculation.ts) and [workshop configuration](../operations/calculation-configuration.md). Generated contracts currently cover 292 paths / 33 explicit methods and 45 registered resource lists. Broader native-app/operational acceptance remains separate.
 # Indian mobile inputs — 2026-10-25
 
+## Daily operational dashboard — 2026-10-25
+
+Added `GET /dashboard` with scope (business/demo/all), task (all/new/followup/approval/delivery) and bounded one-based page. One operational read grant is required; underlying source RLS remains authoritative. Explicit DTO returns nullable permission-scoped metrics, ten-row matching task pages, bounded order-stage samples and recent activity. No financial balances, contact addresses or private actor fields are exposed. India-time boundaries and recognized marker classification are documented in [daily-work dashboard](../operations/daily-work-dashboard.md). OpenAPI now covers 293 paths / 34 explicit methods.
+
 ## Measurement preferences — 2026-10-25
 
 Guest `POST /leads` accepts optional `measurement_request` with preferred_date (ISO date, today/future in Asia/Kolkata), time_window (morning/afternoon/evening/any), address (10–400 characters) and postal_code (six-digit Indian PIN). Validated preferences are appended to the private lead requirement and excluded as a separate RPC property. Combined requirement must fit 2000 characters; invalid requests return 422 before a write. Existing 201/upload capability response and anti-spam/RLS remain intact. This requests a visit; it does not confirm a slot. OpenAPI/generated types are synchronized. See [customer website workflow](../operations/customer-website-enhancements.md).

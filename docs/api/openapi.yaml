@@ -17441,6 +17441,300 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+  /dashboard:
+    get:
+      summary: Permission/RLS-scoped daily tasks and order progress; recognized demo
+        markers excluded by default
+      security: *a1
+      x-permission: any operational read permission
+      responses:
+        "200":
+          description: Narrow dashboard DTO; inaccessible metrics null; tasks paged ten
+            per page
+          content:
+            application/json:
+              schema:
+                type: object
+                required: *a2
+                properties:
+                  data:
+                    $schema: https://json-schema.org/draft/2020-12/schema
+                    type: object
+                    properties:
+                      as_of:
+                        type: string
+                        format: date-time
+                        pattern: ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z|([+-](?:[01]\d|2[0-3]):[0-5]\d)))$
+                      day_start:
+                        type: string
+                        format: date-time
+                        pattern: ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z|([+-](?:[01]\d|2[0-3]):[0-5]\d)))$
+                      day_end:
+                        type: string
+                        format: date-time
+                        pattern: ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z|([+-](?:[01]\d|2[0-3]):[0-5]\d)))$
+                      scope:
+                        type: string
+                        enum:
+                          - business
+                          - demo
+                          - all
+                      task:
+                        type: string
+                        enum:
+                          - all
+                          - new
+                          - followup
+                          - approval
+                          - delivery
+                      page:
+                        type: integer
+                        exclusiveMinimum: 0
+                        maximum: 9007199254740991
+                      page_size:
+                        type: number
+                        const: 10
+                      metrics:
+                        type: object
+                        properties:
+                          new_leads:
+                            anyOf:
+                              - type: integer
+                                minimum: 0
+                                maximum: 9007199254740991
+                              - type: "null"
+                          active_leads:
+                            anyOf:
+                              - type: integer
+                                minimum: 0
+                                maximum: 9007199254740991
+                              - type: "null"
+                          followups_due:
+                            anyOf:
+                              - type: integer
+                                minimum: 0
+                                maximum: 9007199254740991
+                              - type: "null"
+                          overdue_followups:
+                            anyOf:
+                              - type: integer
+                                minimum: 0
+                                maximum: 9007199254740991
+                              - type: "null"
+                          approvals:
+                            anyOf:
+                              - type: integer
+                                minimum: 0
+                                maximum: 9007199254740991
+                              - type: "null"
+                          open_orders:
+                            anyOf:
+                              - type: integer
+                                minimum: 0
+                                maximum: 9007199254740991
+                              - type: "null"
+                          deliveries_today:
+                            anyOf:
+                              - type: integer
+                                minimum: 0
+                                maximum: 9007199254740991
+                              - type: "null"
+                          pending_installations:
+                            anyOf:
+                              - type: integer
+                                minimum: 0
+                                maximum: 9007199254740991
+                              - type: "null"
+                        required:
+                          - new_leads
+                          - active_leads
+                          - followups_due
+                          - overdue_followups
+                          - approvals
+                          - open_orders
+                          - deliveries_today
+                          - pending_installations
+                        additionalProperties: false
+                      task_total:
+                        type: integer
+                        minimum: 0
+                        maximum: 9007199254740991
+                      tasks:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            kind:
+                              type: string
+                              enum:
+                                - new
+                                - followup
+                                - approval
+                                - delivery
+                            id:
+                              type: string
+                              format: uuid
+                              pattern: ^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$
+                            title:
+                              type: string
+                            due_at:
+                              type: string
+                              format: date-time
+                              pattern: ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z|([+-](?:[01]\d|2[0-3]):[0-5]\d)))$
+                            status:
+                              type: string
+                            priority:
+                              type: integer
+                              minimum: -9007199254740991
+                              maximum: 9007199254740991
+                            action:
+                              type: string
+                            href:
+                              type: string
+                              pattern: ^\/admin\/[a-z-]+\?record=[0-9a-f-]{36}$
+                          required:
+                            - kind
+                            - id
+                            - title
+                            - due_at
+                            - status
+                            - priority
+                            - action
+                            - href
+                          additionalProperties: false
+                      board:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            key:
+                              type: string
+                              enum:
+                                - confirmed
+                                - production
+                                - ready
+                                - delivery
+                                - completed
+                            count:
+                              type: integer
+                              minimum: 0
+                              maximum: 9007199254740991
+                            items:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    format: uuid
+                                    pattern: ^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$
+                                  name:
+                                    type: string
+                                  status:
+                                    type: string
+                                  due_at:
+                                    anyOf:
+                                      - type: string
+                                        format: date-time
+                                        pattern: ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z|([+-](?:[01]\d|2[0-3]):[0-5]\d)))$
+                                      - type: "null"
+                                  href:
+                                    type: string
+                                    pattern: ^\/admin\/[a-z-]+\?record=[0-9a-f-]{36}$
+                                required:
+                                  - id
+                                  - name
+                                  - status
+                                  - due_at
+                                  - href
+                                additionalProperties: false
+                          required:
+                            - key
+                            - count
+                            - items
+                          additionalProperties: false
+                      activity:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              format: uuid
+                              pattern: ^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$
+                            title:
+                              type: string
+                            label:
+                              type: string
+                            happened_at:
+                              type: string
+                              format: date-time
+                              pattern: ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z|([+-](?:[01]\d|2[0-3]):[0-5]\d)))$
+                            href:
+                              type: string
+                              pattern: ^\/admin\/[a-z-]+\?record=[0-9a-f-]{36}$
+                          required:
+                            - id
+                            - title
+                            - label
+                            - happened_at
+                            - href
+                          additionalProperties: false
+                    required:
+                      - as_of
+                      - day_start
+                      - day_end
+                      - scope
+                      - task
+                      - page
+                      - page_size
+                      - metrics
+                      - task_total
+                      - tasks
+                      - board
+                      - activity
+                    additionalProperties: false
+                  meta: *a3
+                  requestId: *a4
+        "400": *a5
+        "401": *a6
+        "403": *a7
+        "404": *a8
+        "409": *a9
+        "413": *a10
+        "415": *a11
+        "422": *a12
+        "429": *a13
+        "500": *a14
+        "503": *a15
+      parameters:
+        - name: scope
+          in: query
+          schema:
+            type: string
+            enum:
+              - business
+              - demo
+              - all
+            default: business
+        - name: task
+          in: query
+          schema:
+            type: string
+            enum:
+              - all
+              - new
+              - followup
+              - approval
+              - delivery
+            default: all
+        - name: page
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 10000
+            default: 1
 components:
   securitySchemes:
     bearerAuth:

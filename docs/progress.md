@@ -2,6 +2,10 @@
 
 # SmartFabrication progress
 
+### Daily-work admin dashboard — 2026-10-25
+
+Replaced the mixed overview with Aaj ka kaam and Business overview tabs, India-time due/overdue tasks, matching card drilldowns, exact record links, quick-create forms and a scoped order-stage board. Recognized demo/test markers are excluded by default and inspectable in a separate data view; unmarked records still require review. Pending installations are separate from today's scheduled deliveries. Finance values and historical records were not rewritten. Migration 47 is applied (read-only invoker functions; 58 tables/134 RLS policies unchanged). 188 unit/integration tests, 12 SQL/RLS checks and six real authenticated browser checks passed. API now documents 293 paths / 34 explicit methods. See [workflow, definitions and limits](operations/daily-work-dashboard.md).
+
 ### Header design and icons — 2026-10-25
 
 Redesigned the public header with a graphite/sage brand mark, unified borderless search input, icon-led navigation with active-page state, language icon and high-contrast quote action. Wide screens use a balanced single row; smaller screens use separate search/navigation rows without clipping cart or wishlist controls. Removed hard-coded design counts from the search placeholder. Production build/TypeScript and two desktop/mobile header scenarios across 320/390/768/1440 widths passed; desktop/mobile screenshots reviewed. Existing unique-design counters are preserved.

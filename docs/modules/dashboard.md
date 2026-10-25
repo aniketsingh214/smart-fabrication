@@ -11,10 +11,10 @@
 ## Implementation contract
 
 - Stories and baseline acceptance: [requirements](../requirements.md).
-- KPI summaries: `/api/v1/admin/dashboard/kpis` provides aggregated metrics for Leads, Quotations, Orders, Work Orders, Deliveries, Revenue, Purchases, and Expenses.
+- Current operational dashboard: `/api/v1/dashboard` provides permission/RLS-scoped daily tasks, counts, order stages and recent activity. `/admin` has daily-work and business-overview tabs; finance remains on finance/report pages. [Definitions and acceptance](../operations/daily-work-dashboard.md).
 - Role-based views: Role grants filter cards automatically (e.g. sales role sees leads/quotes; production sees work orders; accounts sees financial figures).
 - Trend charts: Time-series analytics with customizable date range filters (7d, 30d, 90d, 1y).
-- Performance & security: Cached RPC aggregations protect database from expensive table scans.
+- Performance & security: one SECURITY INVOKER SQL response supplies scoped aggregations and a ten-row task page; denied metrics are null. No privileged database client or persistent aggregate cache is used for this dashboard.
 
 ## Verification record — 2026-10-18
 

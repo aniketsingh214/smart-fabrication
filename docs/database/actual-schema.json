@@ -1,5 +1,5 @@
 {
-  "captured_at": "2026-10-18T09:31:40.807Z",
+  "captured_at": "2026-10-25T11:13:31.232Z",
   "tables": [
     {
       "name": "audit_logs",
@@ -4795,6 +4795,11 @@
       "name": "202610170046_bom_customer_visibility.sql",
       "sha256": "7f92dc50ec8c72a2d45732bd45e578da50a78b439e262120d96699a512e78d3e",
       "applied_at": "2026-10-17T07:50:09.436Z"
+    },
+    {
+      "name": "202610250047_workshop_dashboard.sql",
+      "sha256": "b16f1a4fb7a03c059950501d27cd7d03e3d5c1f6fed368772e7c82b560bfd203",
+      "applied_at": "2026-10-25T10:53:36.832Z"
     }
   ],
   "constraints": [
