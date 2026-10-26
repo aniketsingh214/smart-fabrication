@@ -3,6 +3,10 @@
 # SmartFabrication progress
 
 
+### Admin palette correction - 2026-10-26
+
+Kept the approved dual-sidebar structure and replaced the copied orange accent with an independent navy/teal admin identity: navy #142339 sidebar, teal #0f766e active navigation/buttons/icons, pale teal #e6f5f2 selected sections and cool #f4f7fb canvas. Focus states and selected record-tab borders follow the same accent. Public website colors and semantic status/action colors are unchanged. CSS-only change; no API, business data or permission changes.
+
 ### Two-sidebar reference layout - 2026-10-26
 
 Replaced horizontal workspace tabs with an independent white section sidebar beside the dark main navigation. The current workspace shows its permitted primary pages and an all-lists/history link; both main and section rails have collapse controls. Small screens keep the main drawer and a compact scrollable section strip rather than squeezing content between two rails. Added orange active states, icon backgrounds, a dashboard welcome panel and seven permission-filtered management shortcuts for an owner. Existing record tabs, all 45 resource mappings, old URLs, search, APIs and financial rules are retained. Screenshot dummy revenue, user identities and activity values were not copied. Production build, TypeScript, 218 unit/integration tests, targeted lint, docs and secret checks passed. Eight existing authenticated workspace/API/record/mobile checks passed, plus the new targeted browser check for seven dashboard tiles, independent section rail, both collapse controls and body overflow at 320/390/768/1440px. Both generated owner accounts were retired; no business records were written.
@@ -530,3 +534,5 @@ Expanded local read-only load — 2026-10-17: 60/60 requests passed at concurren
 Production release verification - 2026-10-26: source commit 04f1cb7 was pushed and the new workspace stylesheet was observed on the live site. Three real Auth/browser/read smoke checks passed for direct/indirect context APIs and hidden-parent rejection, eight-entry workspace/legacy record tabs, and nested-create cancellation/mobile scrolling. Generated test login retirement completed; no operational record was written. This supplements the eight local acceptance checks and 218 unit/integration tests.
 
 Live verification - 2026-10-26: commit 819f77e deployed to https://smartfabrication.vercel.app. New stylesheet detected and authenticated production browser check passed for seven management shortcuts, independent section rail, both collapse controls and overflow at 320/390/768/1440px. Generated owner retired; business data unchanged.
+
+Palette validation: production build (including TypeScript), documentation checks and diff review passed. Runtime workflows were not rerun for this CSS-only update.

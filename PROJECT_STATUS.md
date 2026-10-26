@@ -4,7 +4,7 @@ Updated: 2026-10-26 (Asia/Kolkata)
 
 ## Current answer
 
-The application is implemented in the existing Next.js/Supabase/Cloudinary codebase and has an authorized GitHub/Vercel production deployment. The latest work adds the requested dark main sidebar, independent white workspace sidebar, orange active styling and dashboard management tiles, retaining the eight-workspace mapping and contextual record tabs. It preserves prior resource URLs and business workflows. Current implementation/tests and deployment acceptance are recorded below; this is not a fresh certification of every historical business workflow.
+The application is implemented in the existing Next.js/Supabase/Cloudinary codebase and has an authorized GitHub/Vercel production deployment. The latest work adds the requested dark main sidebar, independent white workspace sidebar, teal active styling and dashboard management tiles, retaining the eight-workspace mapping and contextual record tabs. It preserves prior resource URLs and business workflows. Current implementation/tests and deployment acceptance are recorded below; this is not a fresh certification of every historical business workflow.
 
 The previous cumulative report mixed old local-only snapshots and later engineering-completion statements. It is retained as a [superseded audit archive](docs/testing/project-status-before-navigation-2026-10-26.txt). This document and the [current progress register](docs/progress.md) are the current summary.
 
@@ -14,7 +14,7 @@ The previous cumulative report mixed old local-only snapshots and later engineer
 | --- | --- |
 | Admin navigation | Eight main entries; six permission-filtered workspace directories, vertical section navigation and complete mapping of all 45 resources. Notifications and public shortcuts in header; staff permissions inside Settings. |
 | Record experience | Enquiry notes/follow-ups/measurements/quotes; product images/variants/options/BOM/pricing; order production/quality/delivery/installation; purchase items/invoice/payments/returns; worker rates/work/payments; BOM material lines. |
-| Admin presentation | Dark/orange reference-style shell, working module search, eight operational KPI cards, workload/order-stage charts, activity/low-stock panels, colourful tables, serials, cursor navigation and validated forms. |
+| Admin presentation | Navy/teal admin shell, working module search, eight operational KPI cards, workload/order-stage charts, activity/low-stock panels, colourful tables, serials, cursor navigation and validated forms. |
 | Dialogs | Desktop/mobile viewport sizing, two-column edit forms, fixed edit header/footer, independently scrolling bodies and protected save/cancel behavior. |
 | Record/API safety | Parent-bound contextual reads, allowlisted direct/indirect relations, parent read permission and RLS-visible parent checks, strict projection, immutable history and existing write/action controls. Supported listing removal is archive/deactivation, not destructive deletion. |
 | Public/customer experience | Existing catalog/search/filter/gallery, bilingual content, measurement enquiry, WhatsApp enquiry, customer account/order/quotation views, responsive header and distinct-design wishlist/cart counts. |
