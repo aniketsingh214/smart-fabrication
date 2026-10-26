@@ -116,3 +116,7 @@ Use existing authenticated admin PATCH endpoints with the same write permissions
 ### Parent-record collections - 2026-10-26
 
 Staff mobile clients can reuse GET /api/v1/admin/{child}?context={parent}&context_id={uuid}. Both parameters must travel with pagination cursors. Child and parent read grants plus parent RLS visibility are required; 422 invalid relationship/UUID, 403 parent permission denial, 404 hidden/missing parent. Responses remain safe data arrays plus meta.nextCursor. These are staff-only read filters, not a new write capability. See [allowlist and indirect relations](../operations/admin-workspace-navigation.md).
+
+## Visitor contact registration
+
+GET /visitor-contact returns data.registered only. POST /visitor-contact accepts {name,phone,intent: welcome|call|message,page,website?: empty} and creates a staff lead through submit_lead. Mobile is normalized to +91. Returns 201 and a signed HttpOnly seven-day cookie, or 200 for an existing valid cookie. Preserve cookies for subsequent status checks. Validation 422, rate limit 429 and configured-service errors never return registered success. This cookie is not a user login or mobile ownership proof; external dialler/chat actions remain client behavior.

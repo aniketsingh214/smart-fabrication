@@ -18027,6 +18027,85 @@ paths:
             minimum: 1
             maximum: 10000
             default: 1
+  /visitor-contact:
+    get:
+      summary: Check signed visitor registration cookie
+      security: []
+      x-permission: authenticated actor with object ownership
+      responses:
+        "200":
+          description: Boolean status only; no contact PII
+          content:
+            application/json:
+              schema:
+                type: object
+                required: *a2
+                properties:
+                  data: &a25
+                    type: object
+                    required:
+                      - registered
+                    properties:
+                      registered:
+                        type: boolean
+                  meta: *a3
+                  requestId: *a4
+        "400": *a5
+        "401": *a6
+        "403": *a7
+        "404": *a8
+        "409": *a9
+        "413": *a10
+        "415": *a11
+        "422": *a12
+        "429": *a13
+        "500": *a14
+        "503": *a15
+    post:
+      summary: Capture visitor name/mobile into staff-only Leads and set 7-day
+        HttpOnly signed cookie
+      security: []
+      x-permission: authenticated actor with object ownership
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VisitorContact"
+      responses:
+        "200":
+          description: Previously registered cookie; no duplicate created
+          content:
+            application/json:
+              schema:
+                type: object
+                required: *a2
+                properties:
+                  data: *a25
+                  meta: *a3
+                  requestId: *a4
+        "201":
+          description: Registered and signed cookie set
+          content:
+            application/json:
+              schema:
+                type: object
+                required: *a2
+                properties:
+                  data: *a25
+                  meta: *a3
+                  requestId: *a4
+        "400": *a5
+        "401": *a6
+        "403": *a7
+        "404": *a8
+        "409": *a9
+        "413": *a10
+        "415": *a11
+        "422": *a12
+        "429": *a13
+        "500": *a14
+        "503": *a15
 components:
   securitySchemes:
     bearerAuth:
@@ -22593,4 +22672,35 @@ components:
         - id
         - to_status
         - created_at
+      additionalProperties: false
+    VisitorContact:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 2
+          maxLength: 120
+        phone:
+          type: string
+          pattern: ^(?:(?:\+91|91|0)[\s()-]*)?[6-9](?:[\s()-]*[0-9]){9}$
+        intent:
+          type: string
+          enum:
+            - welcome
+            - call
+            - message
+        page:
+          default: /
+          type: string
+          maxLength: 500
+          pattern: ^\/(?!\/)
+        website:
+          type: string
+          maxLength: 0
+      required:
+        - name
+        - phone
+        - intent
+        - page
       additionalProperties: false

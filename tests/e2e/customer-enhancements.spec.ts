@@ -1,4 +1,6 @@
 import { test,expect } from '@playwright/test';
+// Unrelated browsing tests exercise the explicitly dismissed welcome state.
+test.beforeEach(async({context})=>{await context.addInitScript(()=>sessionStorage.setItem('sf:visitor-dismissed','1'));});
 test.beforeEach(async({context,baseURL})=>{await context.addCookies([{name:'sf_locale',value:'en',url:baseURL!}]);});
 test('header actions and navigation fit narrow and desktop screens',async({page})=>{
  for(const width of [320,390,768,1440]){

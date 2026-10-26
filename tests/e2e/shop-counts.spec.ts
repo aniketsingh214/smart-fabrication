@@ -1,4 +1,6 @@
 import { test,expect } from '@playwright/test';
+// Unrelated browsing tests exercise the explicitly dismissed welcome state.
+test.beforeEach(async({context})=>{await context.addInitScript(()=>sessionStorage.setItem('sf:visitor-dismissed','1'));});
 async function setup({context,request,baseURL}:{context:import('@playwright/test').BrowserContext;request:import('@playwright/test').APIRequestContext;baseURL?:string},withCart=false){
  const response=await request.get('/api/v1/products?limit=2');expect(response.ok()).toBe(true);const {data}=await response.json();expect(data.length).toBe(2);const [a,b]=data;
  const wishlist=[a,{...a},b];const cart=withCart?[{...a,id:'test-cart-line',product_id:a.id,quantity:1}]:[];

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { VisitorContact } from '@/features/contacts/visitor-contact';
 import { PublicHeader } from '@/components/layout/public-header';
 import { ShopProvider } from '@/features/shop/shop-context';
 import { ShopDrawers } from '@/features/shop/shop-drawers';
@@ -13,12 +14,14 @@ export default async function PublicLayout({ children }: { children: React.React
   return (
     <LocaleProvider initialLocale={initialLocale}>
       <ShopProvider>
+        <VisitorContact>
         <a href="#content" className="sr-only focus:not-sr-only focus:fixed focus:z-50 focus:bg-white focus:p-3">
           Skip to content
         </a>
         <PublicHeader />
         <main id="content">{children}</main>
         <ShopDrawers />
+
         <footer className="border-t border-slate-200 bg-white">
           <div className="mx-auto flex max-w-7xl flex-wrap justify-between gap-6 px-5 py-8 lg:px-8">
             <div>
@@ -41,6 +44,7 @@ export default async function PublicLayout({ children }: { children: React.React
             </div>
           </div>
         </footer>
+        </VisitorContact>
       </ShopProvider>
     </LocaleProvider>
   );

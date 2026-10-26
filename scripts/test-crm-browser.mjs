@@ -33,7 +33,7 @@ async function openLead(page){await page.goto('/admin/leads');await page.getByRo
 try{
  await db.connect();owner=await user('owner');sales=await user('sales');
  browser=await chromium.launch({channel:process.env.TEST_BROWSER_CHANNEL??'msedge',headless:true});
- const guest=await browser.newContext({...devices['iPhone 13'],baseURL:base});guest.setDefaultTimeout(30000);const publicPage=await guest.newPage();
+ const guest=await browser.newContext({...devices['iPhone 13'],baseURL:base});guest.setDefaultTimeout(30000);await guest.addInitScript(()=>sessionStorage.setItem('sf:visitor-dismissed','1'));const publicPage=await guest.newPage();
  await check('Guest browser creates enquiry and privately uploads a real reference image',async()=>{
   await publicPage.goto('/contact');
   await expect(publicPage.getByRole('heading',{name:'Request a quotation',exact:true})).toBeVisible({timeout:30000});

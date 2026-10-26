@@ -81,7 +81,7 @@ try {
   const owner = await newUser('owner', ownerAuth); ownerToken = owner.token; const sales = cmsOnly || calculatorOnly ? null : await newUser('sales', salesAuth); salesToken = sales?.token;
   browser = await chromium.launch({ channel: process.env.TEST_BROWSER_CHANNEL ?? 'msedge', headless: true });
   const staff = await browser.newContext({ ...devices['iPhone 13'], baseURL: base }), visitor = await browser.newContext({ ...devices['iPhone 13'], baseURL: base });
-  staff.setDefaultTimeout(30000); visitor.setDefaultTimeout(30000); const page = await staff.newPage(), publicPage = await visitor.newPage();
+  staff.setDefaultTimeout(30000); visitor.setDefaultTimeout(30000);await visitor.addInitScript(()=>sessionStorage.setItem('sf:visitor-dismissed','1')); const page = await staff.newPage(), publicPage = await visitor.newPage();
   await page.goto('/login'); await page.getByLabel('Email', { exact: true }).fill(owner.email); await page.getByLabel('Password', { exact: true }).fill(owner.password); await page.getByRole('button', { name: 'Sign in', exact: true }).click(); await page.waitForURL('**/account');
   if (!catalogOnly) {
   fixture.sectionId = (await api('/admin/site-sections', 'POST', { name: 'process', heading, body: 'TEST ONLY - publication acceptance. Not a workshop claim.', sort_order: 9999, status: 'draft' })).id;

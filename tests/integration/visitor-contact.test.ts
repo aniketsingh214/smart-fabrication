@@ -1,0 +1,20 @@
+import { afterEach,beforeEach,expect,it,vi } from 'vitest';
+import { NextRequest } from 'next/server';
+import { GET,POST } from '@/app/api/v1/visitor-contact/route';
+import { serverClient } from '@/lib/supabase/server';
+import { registeredVisitor,visitorToken,visitorCookie } from '@/lib/visitor-contact';
+import { contactAction } from '@/contracts/visitor-contact';
+vi.mock('@/lib/supabase/server',()=>({serverClient:vi.fn()}));
+const id='ef86881f-6e0e-4658-a279-8e8cc06139c7';
+beforeEach(()=>vi.stubEnv('VISITOR_CONTACT_SECRET','test-only-contact-signing-secret'));
+afterEach(()=>{vi.unstubAllEnvs();vi.useRealTimers();vi.resetAllMocks();});
+function request(data:unknown,headers:Record<string,string>={}){return new NextRequest('https://example.com/api/v1/visitor-contact',{method:'POST',headers:{'Content-Type':'application/json',...headers},body:JSON.stringify(data)});}
+const payload={name:'Visitor Name',phone:'9876543210',intent:'call',page:'/catalog'};
+it('recognizes only configured contact protocols and exact WhatsApp hosts',()=>{for(const link of ['tel:+919876543210','sms:+919876543210','mailto:workshop@example.com','https://wa.me/919876543210','https://api.whatsapp.com/send'])expect(contactAction(link)).toBeTruthy();for(const link of ['/catalog','https://wa.me.evil.com','javascript:alert(1)','https://example.com/tel:123'])expect(contactAction(link)).toBeNull();});
+it('signs registration with expiry and rejects tampering',()=>{const token=visitorToken(id);expect(registeredVisitor(token)).toBe(true);expect(registeredVisitor(token+'x')).toBe(false);expect(registeredVisitor()).toBe(false);vi.useFakeTimers();vi.setSystemTime(Date.now()+8*86400000);expect(registeredVisitor(token)).toBe(false);});
+it('returns only a registration boolean, never contact details',async()=>{const response=await GET(new NextRequest('https://example.com/api/v1/visitor-contact'));expect((await response.json()).data).toEqual({registered:false});expect(response.headers.get('cache-control')).toBe('no-store');});
+it('normalizes mobile and submits a staff lead via the public limited RPC',async()=>{const rpc=vi.fn().mockResolvedValue({data:id,error:null});vi.mocked(serverClient).mockResolvedValue({rpc} as never);const response=await POST(request(payload,{origin:'https://example.com'}));expect(response.status).toBe(201);expect(rpc).toHaveBeenCalledWith('submit_lead',{payload:expect.objectContaining({name:payload.name,phone:'+919876543210',city:'Not provided',source:'direct'})});expect((await response.json()).data).toEqual({registered:true});const cookie=response.headers.get('set-cookie');expect(cookie).toContain('HttpOnly');expect(cookie).toContain('SameSite=lax');expect(cookie).not.toContain(payload.phone);});
+it('rejects invalid names, numbers, bot fields and outside page URLs before database access',async()=>{for(const patch of [{name:'a'},{phone:'1234567890'},{website:'bot.example'},{page:'//evil.example'},{intent:'delete'}])expect((await POST(request({...payload,...patch}))).status).toBe(422);expect(serverClient).not.toHaveBeenCalled();});
+it('rejects cross-origin browser submissions',async()=>{expect((await POST(request(payload,{origin:'https://evil.example'}))).status).toBe(403);expect(serverClient).not.toHaveBeenCalled();});
+it('reuses a valid registration cookie instead of creating another lead',async()=>{const response=await POST(request(payload,{cookie:visitorCookie+'='+visitorToken(id)}));expect(response.status).toBe(200);expect(serverClient).not.toHaveBeenCalled();});
+it('preserves server-side rate limits and does not issue a cookie on failure',async()=>{const rpc=vi.fn().mockResolvedValue({data:null,error:{message:'Enquiry limit reached'}});vi.mocked(serverClient).mockResolvedValue({rpc} as never);const response=await POST(request(payload));expect(response.status).toBe(429);expect(response.headers.get('set-cookie')).toBeNull();});

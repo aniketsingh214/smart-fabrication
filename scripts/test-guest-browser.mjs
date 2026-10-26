@@ -11,7 +11,7 @@ let browser,lead,checks=0;
 async function check(name,action){await action();checks++;console.log(`PASS: ${name}`);}
 try{
  await db.connect();browser=await chromium.launch({channel:'chrome',headless:true});const context=await browser.newContext({baseURL:base}),page=await context.newPage();
- await page.goto('/contact?inspiration=gate');await expect(page.getByLabel('Tell us about your requirement')).toHaveValue(/Decorative entrance gate/);
+ await context.addInitScript(()=>sessionStorage.setItem('sf:visitor-dismissed','1'));await page.goto('/contact?inspiration=gate');await expect(page.getByLabel('Tell us about your requirement')).toHaveValue(/Decorative entrance gate/);
  await page.getByLabel('Your name',{exact:true}).fill('Synthetic guest browser fixture');await page.getByLabel('Mobile / WhatsApp',{exact:true}).fill(phone);await page.getByLabel('Email (optional)',{exact:true}).fill(email);await page.getByLabel('City / area',{exact:true}).fill('Acceptance test city');
  const image=await sharp({create:{width:32,height:32,channels:3,background:'#ea580c'}}).png().toBuffer();await page.getByLabel('Reference design (optional)').setInputFiles({name:'synthetic-reference.png',mimeType:'image/png',buffer:image});
  const submitted=page.waitForResponse(response=>new URL(response.url()).pathname==='/api/v1/leads'&&response.request().method()==='POST');
