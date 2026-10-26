@@ -80,3 +80,5 @@ Phone write schemas now require an Indian mobile starting 6–9 with ten nationa
 
 
 2026-10-25: Existing admin PATCH validates partial product/variant price bounds against their RLS-visible stored counterpart and rejects review ratings above five before update. Listing removal reuses documented archive/active/hidden PATCH fields; no DELETE endpoint or permission change. See [admin list policy](../operations/admin-list-workflows.md).
+
+2026-10-26: Staff resource-list GET accepts paired context/context_id for twenty allowlisted parent-child relationships. Parent permission and RLS visibility are checked before child filtering/pagination; indirect joins stay under RLS and are removed from response projection. Public/customer/detail/action GET paths reject context filters. No mutation permission, schema migration or new API route. OpenAPI/types regenerated (293 paths / 34 explicit methods). See [navigation/API contract](../operations/admin-workspace-navigation.md).

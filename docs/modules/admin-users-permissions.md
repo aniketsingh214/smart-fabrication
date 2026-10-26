@@ -36,3 +36,7 @@ The rerun of test:sessions passed all 18 top-level bearer/session checks. Within
 ## Admin collection presentation ? 2026-10-25
 
 Staff and notification collections use serial/action tables and bounded reversible cursor paging. Staff trash opens account-disable controls and preserves identity history; owner protections remain server enforced. Role-matrix search/pagination does not change grants. See [admin table workflows and validation](../operations/admin-list-workflows.md).
+
+## Navigation update - 2026-10-26
+
+The eight-entry sidebar, section directories and parent-record tabs replace the long resource menu. All legacy routes and role boundaries remain available. See [full mapping and verification](../operations/admin-workspace-navigation.md).

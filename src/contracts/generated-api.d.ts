@@ -20,6 +20,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -748,6 +752,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -1476,6 +1484,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -2204,6 +2216,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -3182,6 +3198,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -3910,6 +3930,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -5134,6 +5158,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -6358,6 +6386,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -7582,6 +7614,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -8806,6 +8842,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -10030,6 +10070,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -11254,6 +11298,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -12478,6 +12526,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -13702,6 +13754,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -15218,6 +15274,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -16442,6 +16502,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -17416,6 +17480,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -18640,6 +18708,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -19614,6 +19686,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -22389,6 +22465,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -23409,6 +23489,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -24633,6 +24717,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -25607,6 +25695,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -26831,6 +26923,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -28055,6 +28151,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -29279,6 +29379,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -30503,6 +30607,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -32009,6 +32117,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -33233,6 +33345,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -33961,6 +34077,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -34935,6 +35055,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -36159,6 +36283,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -37133,6 +37261,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -38111,6 +38243,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -39623,6 +39759,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -40847,6 +40987,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -42367,6 +42511,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -43591,6 +43739,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -44569,6 +44721,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -45547,6 +45703,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -46525,6 +46685,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -48031,6 +48195,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -49009,6 +49177,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -50233,6 +50405,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;
@@ -50961,6 +51137,10 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
+                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
+                    context_id?: string;
                 };
                 header?: never;
                 path?: never;

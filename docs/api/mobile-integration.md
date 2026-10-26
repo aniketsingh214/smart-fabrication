@@ -112,3 +112,7 @@ Protected `/admin/estimate-history` and `/estimate-history` resource reads use m
 ### Admin listing removal and partial edit validation
 
 Use existing authenticated admin PATCH endpoints with the same write permissions for supported archive/deactivation payloads. There is no generic DELETE endpoint. Financial/stock history requires workflow corrections. Partial product/variant price updates are compared against the stored RLS-visible opposite bound; invalid rating or price bounds return 422. See [whitelist and behavior](../operations/admin-list-workflows.md).
+
+### Parent-record collections - 2026-10-26
+
+Staff mobile clients can reuse GET /api/v1/admin/{child}?context={parent}&context_id={uuid}. Both parameters must travel with pagination cursors. Child and parent read grants plus parent RLS visibility are required; 422 invalid relationship/UUID, 403 parent permission denial, 404 hidden/missing parent. Responses remain safe data arrays plus meta.nextCursor. These are staff-only read filters, not a new write capability. See [allowlist and indirect relations](../operations/admin-workspace-navigation.md).

@@ -1,13 +1,15 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import type { RecordContext } from '@/contracts/record-context';
 import type { Field } from '@/contracts/resources';
 import { Button } from '@/components/ui/button';
 type Choice = { id: string; name?: string; heading?: string; code?: string; public_id?: string; version?: number; context?: string; visibility?: string; resource_type?: string; format?: string };
-export function ReferenceInput({ field, initial, initialOptions = [], publicList = false, onSelectionChange, invalid, describedBy }: { field: Field; initial?: unknown; initialOptions?: Choice[]; publicList?: boolean; onSelectionChange?: (id: string) => void; invalid?: boolean; describedBy?: string }) {
+export function ReferenceInput({ field, initial, initialOptions = [], publicList = false, onSelectionChange, invalid, describedBy, context }: { field: Field; initial?: unknown; initialOptions?: Choice[]; publicList?: boolean; onSelectionChange?: (id: string) => void; invalid?: boolean; describedBy?: string; context?: RecordContext }) {
   const [selected, setSelected] = useState(String(initial ?? '')), [options, setOptions] = useState<Choice[]>(initialOptions), [next, setNext] = useState<string | null>(null), [error, setError] = useState(''), [busy, setBusy] = useState(true);
   const loadingMore = useRef(false);
   const latest = useRef(0), [refresh, setRefresh] = useState(0);
-  const endpoint = field.reference === 'media-assets' ? '/api/v1/uploads/mine?limit=100' : `/api/v1/${publicList ? '' : 'admin/'}${field.reference}?limit=100`;
+  const baseEndpoint = field.reference === 'media-assets' ? '/api/v1/uploads/mine?limit=100' : `/api/v1/${publicList ? '' : 'admin/'}${field.reference}?limit=100`;
+  const endpoint=baseEndpoint+(context?'&'+new URLSearchParams({context:context.parent,context_id:context.id}):'');
   const choices = field.mediaFilter ? options.filter(option => option.context === 'product' && option.visibility === 'public' && ((option.resource_type === 'image' && ['jpg','jpeg','png','webp'].includes(option.format ?? '')) || (field.mediaFilter === 'public-catalog' && option.resource_type === 'video' && ['mp4','webm','mov'].includes(option.format ?? '')))) : options;
   useEffect(() => {
     const controller = new AbortController();

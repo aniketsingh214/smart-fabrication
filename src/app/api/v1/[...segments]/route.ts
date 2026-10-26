@@ -15,6 +15,7 @@ async function handle(request:NextRequest,context:Context){const requestId=crypt
   const {segments}=await context.params;const admin=segments[0]==='admin';const [slug,id,action]=admin?segments.slice(1):segments;
   if(segments.length>(admin?4:3))throw new AppError('NOT_FOUND','Unknown resource path',404);
   const resource=resourceMap[slug];if(!resource)throw new AppError('NOT_FOUND','Unknown resource',404);
+  if(request.method==='GET'&&(request.nextUrl.searchParams.has('context')||request.nextUrl.searchParams.has('context_id'))&&(!admin||id||action))throw new AppError('INVALID_CONTEXT','Context filters are supported only on staff collections',422);
   if(slug==='products'&&action==='preview'&&!admin)throw new AppError('NOT_FOUND','Unknown resource path',404);
   if(!admin&&slug==='leads'&&request.method==='POST'&&!id){const input=leadSchema.parse(await jsonBody(request));input.requirement=measurementRequirement(String(input.requirement),input.measurement_request);delete input.measurement_request;delete input.website;delete input.customer_id;const db=await serverClient();const {data,error}=await db.rpc('submit_lead',{payload:input});if(error?.message==='Enquiry limit reached')throw new AppError('RATE_LIMITED','Please try again later',429);databaseError(error);return success({id:data,uploadToken:enquiryUploadToken(data)},requestId,201);}
   const isPublic=!admin&&resource.public&&request.method==='GET';

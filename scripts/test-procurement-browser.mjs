@@ -49,6 +49,7 @@ try {
     return attempts === 1 ? route.abort('failed') : route.fulfill({ response });
   });
   await page.getByRole('button', { name: `View details of ${title}`, exact: true }).click();
+  await page.getByRole('tab',{name:'Invoice',exact:true}).click();
   const panel = page.locator('section').filter({ has: page.getByRole('heading', { name: 'Private invoices', exact: true }) });
   await check('Real PDF upload, provider verification and committed association recover a lost response', async () => {
     const pdf = await renderToBuffer(createElement(Document, null, createElement(Page, null, createElement(Text, null, 'TEST ONLY - synthetic zero-value draft invoice. Not a supplier bill.'))));

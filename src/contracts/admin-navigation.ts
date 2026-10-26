@@ -1,0 +1,18 @@
+import { resourceMap } from './resources';
+
+export type WorkspaceLink={slug:string;label:string;permission:string;path:string};
+export type Workspace={key:string;label:string;description:string;resources:string[];primary:string[];special?:WorkspaceLink[]};
+export const adminWorkspaces:Workspace[]=[
+ {key:'sales',label:'Sales & Customers',description:'Enquiries, customer conversations and quotations.',resources:['leads','customers','lead-notes','follow-ups','measurements','quotations'],primary:['leads','customers','quotations','follow-ups','measurements']},
+ {key:'operations',label:'Orders & Workshop',description:'Orders, job cards, workers, delivery and installation.',resources:['orders','work-orders','quality-checks','deliveries','installations','workers','labour-rates','work-entries'],primary:['orders','work-orders','workers','deliveries']},
+ {key:'inventory',label:'Inventory & Purchases',description:'Material stock, suppliers and procurement.',resources:['materials','material-rates','suppliers','purchases','purchase-items','purchase-returns','stock-movements','stock-reservations'],primary:['materials','suppliers','purchases'],special:[{slug:'inventory',label:'Stock overview',path:'/admin/inventory',permission:'inventory.read'}]},
+ {key:'catalog',label:'Products & Website',description:'Designs, configuration, media and website publishing.',resources:['products','product-variants','product-options','product-media','categories','bom-versions','bom-items','calculation-rules','estimate-history','gallery','site-sections','reviews','media-assets'],primary:['products','categories','site-sections','gallery','reviews','media-assets']},
+ {key:'finance',label:'Finance',description:'Receipts, payments, expenses and reviewed corrections.',resources:['customer-payments','supplier-payments','labour-payments','expenses','owner-withdrawals','financial-adjustments','finance-period-closures','expense-reversals'],primary:['customer-payments','supplier-payments','expenses','financial-adjustments']},
+ {key:'settings',label:'Settings',description:'Business configuration, staff access and audit history.',resources:['settings','audit-logs'],primary:['settings','audit-logs'],special:[{slug:'users',label:'Staff & permissions',path:'/admin/users',permission:'users.read'}]},
+];
+export function workspaceLinks(workspace:Workspace,permissions:string[],primaryOnly=false):WorkspaceLink[]{
+ const slugs=primaryOnly?workspace.primary:workspace.resources;
+ return [...(workspace.special??[]),...slugs.flatMap(slug=>{const resource=resourceMap[slug];return resource?[{slug,label:resource.title,permission:resource.domain+'.read',path:'/admin/'+slug}]:[];})].filter(link=>permissions.includes(link.permission));
+}
+export function workspaceForPath(pathname:string){return adminWorkspaces.find(workspace=>pathname==='/admin/workspaces/'+workspace.key||workspace.resources.some(slug=>pathname==='/admin/'+slug||pathname.startsWith('/admin/'+slug+'/'))||workspace.special?.some(link=>pathname===link.path));}
+export const primaryParents:Record<string,string>={'lead-notes':'leads','labour-rates':'workers','work-entries':'workers','quality-checks':'work-orders',installations:'deliveries','material-rates':'materials','purchase-items':'purchases','purchase-returns':'purchases','stock-movements':'inventory','stock-reservations':'inventory','product-variants':'products','product-options':'products','product-media':'products','bom-versions':'products','bom-items':'products','calculation-rules':'products','estimate-history':'products','labour-payments':'supplier-payments','expense-reversals':'financial-adjustments','finance-period-closures':'financial-adjustments','owner-withdrawals':'expenses'};

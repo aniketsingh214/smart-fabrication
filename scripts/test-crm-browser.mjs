@@ -73,7 +73,7 @@ try{
  });
  const salesContext=await browser.newContext({...devices['iPhone 13'],baseURL:base});salesContext.setDefaultTimeout(30000);const salesPage=await salesContext.newPage();await login(salesPage,sales);
  await check('Assigned sales browser adds an internal note and opens the verified private reference',async()=>{
-  await openLead(salesPage);await salesPage.getByLabel('Internal note',{exact:true}).fill('TEST ONLY CRM contacted; follow-up scheduled.');await salesPage.getByRole('button',{name:'Add note',exact:true}).click();await expect(salesPage.getByText('Internal note added.',{exact:true})).toBeVisible();
+  await openLead(salesPage);await salesPage.getByRole('tab',{name:'Notes',exact:true}).click();await salesPage.getByLabel('Internal note',{exact:true}).fill('TEST ONLY CRM contacted; follow-up scheduled.');await salesPage.getByRole('button',{name:'Add note',exact:true}).click();await expect(salesPage.getByText('Internal note added.',{exact:true})).toBeVisible();
   await expect(salesPage.getByRole('button',{name:'View private image 1',exact:true})).toBeVisible();const delivery=await api('/uploads/'+fixture.mediaId,'GET',undefined,sales);assert.equal(delivery.expiresIn,300);const image=await salesContext.request.get(delivery.url);assert.equal(image.status(),200);assert.ok((await image.body()).length>0);
   const lead=await api('/admin/leads/'+fixture.leadId,'GET',undefined,sales);await api(`/admin/leads/${fixture.leadId}/transitions`,'POST',{status:'CONTACTED',version:lead.version},sales);
   assert.ok((await api(`/leads/${fixture.leadId}/notes`,'GET',undefined,sales)).some(n=>n.note==='TEST ONLY CRM contacted; follow-up scheduled.'));
