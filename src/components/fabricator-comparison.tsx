@@ -75,8 +75,8 @@ export function FabricatorComparison({
     `https://wa.me/${cleanWa || '919876543210'}?text=` +
     encodeURIComponent(
       isHi
-        ? 'नमस्ते SmartFabrication! मुझे अपने घर के काम के लिए असली टाटा/जिंदल स्टील और सही एस्टीमेट के बारे में जानकारी चाहिए।'
-        : 'Hello SmartFabrication! I would like to consult regarding certified prime materials and quotation for my home fabrication.'
+        ? 'नमस्ते GateWala! मुझे अपने घर के काम के लिए असली टाटा/जिंदल स्टील और सही एस्टीमेट के बारे में जानकारी चाहिए।'
+        : 'Hello GateWala! I would like to consult regarding certified prime materials and quotation for my home fabrication.'
     );
 
   return (
@@ -105,7 +105,7 @@ export function FabricatorComparison({
               </>
             ) : (
               <>
-                SmartFabrication vs{' '}
+                GateWala vs{' '}
                 <span className="bg-gradient-to-r from-orange-400 via-amber-300 to-orange-500 bg-clip-text text-transparent">
                   Local Welding Shops
                 </span>
@@ -129,7 +129,7 @@ export function FabricatorComparison({
             <div className="md:col-span-4 p-4 sm:p-5 bg-orange-950/30 text-orange-400 border-l border-r border-orange-500/20 flex items-center justify-between">
               <span className="flex items-center gap-2">
                 <CheckCircle2 size={16} className="text-orange-400" />
-                <span>SmartFabrication (स्मार्ट फैब्रिकेशन)</span>
+                <span>GateWala (गेटवाला)</span>
               </span>
               <span className="hidden sm:inline-block rounded-full bg-orange-600 px-2 py-0.5 text-[10px] font-extrabold text-white">
                 RECOMMENDED

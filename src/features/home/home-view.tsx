@@ -53,8 +53,8 @@ export function HomeView({
 
   const whatsappUrl = `https://wa.me/${cleanWa || '919876543210'}?text=${encodeURIComponent(
     isHi
-      ? 'नमस्ते SmartFabrication! मुझे अपने घर के लिए गेट / रेलिंग / जाली का काम करवाना है। कृपया डिज़ाइन और कोटेशन शेयर करें।'
-      : 'Hello SmartFabrication! I am looking for fabrication work for my home. Please share designs and quotation.'
+      ? 'नमस्ते GateWala! मुझे अपने घर के लिए गेट / रेलिंग / जाली का काम करवाना है। कृपया डिज़ाइन और कोटेशन शेयर करें।'
+      : 'Hello GateWala! I am looking for custom fabrication work for my home. Please share designs and quotation.'
   )}`;
 
   return (

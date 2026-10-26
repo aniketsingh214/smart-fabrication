@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { VisitorContact } from '@/features/contacts/visitor-contact';
 import { PublicHeader } from '@/components/layout/public-header';
 import { ShopProvider } from '@/features/shop/shop-context';
@@ -24,14 +25,24 @@ export default async function PublicLayout({ children }: { children: React.React
 
         <footer className="border-t border-slate-200 bg-white">
           <div className="mx-auto flex max-w-7xl flex-wrap justify-between gap-6 px-5 py-8 lg:px-8">
-            <div>
-              <p className="text-sm font-bold text-slate-900">SmartFabrication</p>
-              <p className="mt-1.5 text-xs text-slate-500 max-w-sm leading-5">
-                लोहे और स्टील के मजबूत गेट, खिड़की की जाली और रेलिंग। नाप से लेकर आपके घर पर फिटिंग तक।
-              </p>
-              <p className="mt-1 text-[11px] text-slate-400">
-                Custom fabrication, from first measurement to final installation.
-              </p>
+            <div className="flex items-start gap-3.5">
+              <Image
+                src="/logo.jpg"
+                alt="GateWala Logo"
+                width={48}
+                height={48}
+                className="h-12 w-12 shrink-0 rounded-xl object-cover shadow-sm ring-1 ring-slate-200"
+              />
+              <div>
+                <p className="text-base font-extrabold text-slate-900">GateWala</p>
+                <p className="text-[11px] font-semibold text-orange-600">Welding & Fabrication Works</p>
+                <p className="mt-1 text-xs text-slate-500 max-w-sm leading-5">
+                  मजबूती भी, खूबसूरती भी। लोहे और स्टील के मजबूत गेट, खिड़की की जाली, रेलिंग और शेड्स। नाप से लेकर आपके घर पर फिटिंग तक।
+                </p>
+                <p className="mt-1 text-[11px] text-slate-400">
+                  Custom gates, grills, railings, doors, windows & sheds from measurement to installation.
+                </p>
+              </div>
             </div>
             <div className="flex flex-wrap gap-5 text-xs text-slate-600">
               <Link href="/about" className="hover:text-orange-600 transition">About & process</Link>

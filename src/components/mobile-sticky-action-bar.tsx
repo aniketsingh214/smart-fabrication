@@ -24,8 +24,8 @@ export function MobileStickyActionBar({
     `https://wa.me/${cleanWa || '919876543210'}?text=` +
     encodeURIComponent(
       isHi
-        ? 'नमस्ते SmartFabrication! मुझे अपने घर के लिए गेट / रेलिंग / जाली का काम करवाना है। कृपया डिज़ाइन और कोटेशन शेयर करें।'
-        : 'Hello SmartFabrication! I would like to enquire about custom fabrication for my home.'
+        ? 'नमस्ते GateWala! मुझे अपने घर के लिए गेट / रेलिंग / जाली का काम करवाना है। कृपया डिज़ाइन और कोटेशन शेयर करें।'
+        : 'Hello GateWala! I would like to enquire about custom fabrication for my home.'
     );
 
   return (

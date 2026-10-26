@@ -48,8 +48,8 @@ export function BeforeAfterTransformation({
     `https://wa.me/${cleanWa || '919876543210'}?text=` +
     encodeURIComponent(
       isHi
-        ? 'नमस्ते SmartFabrication! मुझे अपने पुराने गेट को बदलकर नया रॉयल एसएस 304 गेट बनवाना है। कृपया नाप और खर्च बताएं।'
-        : 'Hello SmartFabrication! I would like to upgrade my entrance gate to a Royal SS 304 gate. Please advise on measurement and quotation.'
+        ? 'नमस्ते GateWala! मुझे अपने पुराने गेट को बदलकर नया रॉयल एसएस 304 गेट बनवाना है। कृपया नाप और खर्च बताएं।'
+        : 'Hello GateWala! I would like to upgrade my entrance gate to a Royal SS 304 gate. Please advise on measurement and quotation.'
     );
 
   return (
@@ -88,7 +88,7 @@ export function BeforeAfterTransformation({
           <p className="mt-3 text-xs sm:text-sm text-slate-300 leading-relaxed max-w-2xl mx-auto">
             {isHi
               ? 'स्लाइडर को बीच से उंगली या माउस से बाएँ-दाएँ खींचकर देखें कि नया गेट लगने के बाद मकान की शान और कीमत कैसे बदल जाती है।'
-              : 'Drag the slider left and right to witness how a custom SmartFabrication gate transforms the look and value of your entrance.'}
+              : 'Drag the slider left and right to witness how a custom GateWala gate transforms the look and value of your entrance.'}
           </p>
         </div>
 

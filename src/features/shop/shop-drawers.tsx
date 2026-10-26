@@ -64,11 +64,11 @@ export function ShopDrawers() {
     .join('\n');
 
   const contactCartHref = `/contact?requirement=${encodeURIComponent(
-    `Hello SmartFabrication team,\n\nI would like to request an official quotation for the following items in my project cart:\n\n${cartRequirementText}\n\nPlease contact me regarding dimensions, material specifications, and delivery/installation timeline.`
+    `Hello GateWala team,\n\nI would like to request an official quotation for the following items in my project cart:\n\n${cartRequirementText}\n\nPlease contact me regarding dimensions, material specifications, and delivery/installation timeline.`
   )}`;
 
   const whatsappMessage = encodeURIComponent(
-    `नमस्ते SmartFabrication! मुझे अपने प्रोजेक्ट के लिए इन सामानों का कोटेशन चाहिए:\n${cart
+    `नमस्ते GateWala! मुझे अपने प्रोजेक्ट के लिए इन सामानों का कोटेशन चाहिए:\n${cart
       .map(i => `• ${i.name} (${i.material}) × ${i.quantity}`)
       .join('\n')}\n\nकृपया डिज़ाइन और खर्च का विवरण भेजें।`
   );

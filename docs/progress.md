@@ -3,6 +3,14 @@
 # SmartFabrication progress
 
 
+### GateWala logo and visual identity integration - 2026-10-26
+
+Integrated the official workshop brand identity and logo provided by the owner: **GateWala (Welding & Fabrication Works)** with the tagline **"मजबूती भी, खूबसूरती भी।"**.
+- Added high-resolution logo assets (`/logo.jpg`, `/gatewala-logo.jpg`, `src/app/icon.jpg`, `public/favicon.ico`).
+- Integrated brand avatar and logo into the sticky public header (`public-header.tsx`), public layout footer (`(public)/layout.tsx`), dark admin sidebar navigation (`admin-navigation.tsx`), user authentication pages (`auth-form.tsx`), root metadata and quotation PDF generation (`quotationPdf`).
+- Aligned default WhatsApp inquiry templates, mobile action bar, comparison table, and transformation slider with the GateWala identity.
+- Verified: TypeScript `tsc --noEmit` (0 errors), 242/242 vitest unit/integration tests passing across 54 suites, `docs:check` (pass), `api:check` (pass), `security:check` (pass), and full production Next.js Turbopack build (27/27 static/dynamic pages compiled cleanly).
+
 ### Rate limits across database-related forms - 2026-10-26
 
 Implemented distributed server-side quotas for all /api/v1 write methods, public enquiries/visitor capture, estimates/previews, media and verified-user mutations, with stricter shared sensitive-action budgets. Login/signup/reset/password-update now use a protected same-origin Auth API; Supabase session/RLS controls remain in place. Added isolated atomic quota storage and forward timestamp correction (migrations 48/49), HMAC identities, fail-closed 503 behavior and standard 429 Retry-After feedback. No business data/history was rewritten. Full thresholds, scope/exclusions, trusted-IP policy, storage/grants and tests: [form rate limits](security/rate-limits.md).

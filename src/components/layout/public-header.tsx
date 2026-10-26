@@ -2,7 +2,8 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Hammer, ArrowUpRight, LayoutGrid, Images, Calculator, UserRound, FileText } from 'lucide-react';
+import Image from 'next/image';
+import { ArrowUpRight, LayoutGrid, Images, Calculator, UserRound, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { HeaderShopTriggers } from '@/features/shop/header-shop-triggers';
 import { LanguageSwitcher } from '@/features/i18n/language-switcher';
@@ -22,14 +23,19 @@ export function PublicHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-canvas/95 shadow-[0_4px_24px_#20252206] backdrop-blur-xl">
       <div className="mx-auto grid max-w-[1600px] grid-cols-2 items-center gap-x-4 gap-y-3 px-4 pb-2 pt-3 sm:px-6 lg:grid-cols-[auto_minmax(14rem,1fr)_auto] lg:py-3 2xl:grid-cols-[auto_minmax(14rem,1fr)_auto_auto] lg:gap-x-6">
-        <Link href="/" aria-label="SmartFabrication home" className="group flex min-w-0 items-center gap-2.5 lg:gap-3">
-          <span className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-graphite text-sage shadow-sm ring-1 ring-white/20 ring-inset transition-transform group-hover:-rotate-6 lg:h-12 lg:w-12">
-            <Hammer size={23} strokeWidth={1.7} aria-hidden="true"/>
-          </span>
-          <span className="min-w-0 text-[13px] font-bold tracking-tight text-graphite sm:text-base lg:text-lg">
-            SmartFabrication
-            <span className="mt-0.5 hidden text-[11px] font-normal tracking-normal text-slate-500 sm:block">
-              {locale === 'hi' ? 'आपकी जगह, आपकी पसंद।' : 'Crafted in steel. Built to last.'}
+        <Link href="/" aria-label="GateWala home" className="group flex min-w-0 items-center gap-2.5 lg:gap-3">
+          <Image
+            src="/logo.jpg"
+            alt="GateWala Logo"
+            width={48}
+            height={48}
+            className="h-10 w-10 shrink-0 rounded-xl object-cover shadow-sm ring-1 ring-slate-200 transition-transform group-hover:scale-105 lg:h-12 lg:w-12"
+            priority
+          />
+          <span className="min-w-0 text-[14px] font-extrabold tracking-tight text-graphite sm:text-base lg:text-lg">
+            GateWala
+            <span className="mt-0.5 hidden text-[11px] font-medium tracking-normal text-slate-500 sm:block">
+              {locale === 'hi' ? 'मजबूती भी, खूबसूरती भी।' : 'Welding & Fabrication Works'}
             </span>
           </span>
         </Link>

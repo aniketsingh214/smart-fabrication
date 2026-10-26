@@ -127,8 +127,8 @@ export default async function Contact({
           <a
             href={`https://wa.me/${rawPhone}?text=${encodeURIComponent(
               isHi
-                ? 'नमस्ते SmartFabrication, मुझे गेट/रेलिंग बनवाने के बारे में जानकारी चाहिए।'
-                : 'Hello SmartFabrication, I would like to enquire about a custom fabrication project.'
+                ? 'नमस्ते GateWala, मुझे गेट/रेलिंग बनवाने के बारे में जानकारी चाहिए।'
+                : 'Hello GateWala, I would like to enquire about a custom fabrication project.'
             )}`}
             target="_blank"
             rel="noopener noreferrer"
