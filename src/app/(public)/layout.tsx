@@ -27,12 +27,12 @@ export default async function PublicLayout({ children }: { children: React.React
           <div className="mx-auto flex max-w-7xl flex-wrap justify-between gap-6 px-5 py-8 lg:px-8">
             <div className="flex flex-col gap-2">
               <Image
-                src="/gatewala-brand-horizontal.png"
-                alt="GateWala - Welding & Fabrication Works"
+                src="/gatewala-logo-transparent.png"
+                alt="GateWala - मजबूती भी, खूबसूरती भी।"
                 width={260}
-                height={46}
+                height={82}
                 unoptimized
-                className="h-10 w-auto object-contain"
+                className="h-12 w-auto object-contain"
               />
               <p className="mt-1 text-xs text-slate-500 max-w-sm leading-5">
                 मजबूती भी, खूबसूरती भी। लोहे और स्टील के मजबूत गेट, खिड़की की जाली, रेलिंग और शेड्स। नाप से लेकर आपके घर पर फिटिंग तक।

@@ -23,19 +23,16 @@ export function PublicHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-canvas/95 shadow-[0_4px_24px_#20252206] backdrop-blur-xl">
       <div className="mx-auto grid max-w-[1600px] grid-cols-2 items-center gap-x-4 gap-y-3 px-4 pb-2 pt-3 sm:px-6 lg:grid-cols-[auto_minmax(14rem,1fr)_auto] lg:py-3 2xl:grid-cols-[auto_minmax(14rem,1fr)_auto_auto] lg:gap-x-6">
-        <Link href="/" aria-label="GateWala home" className="group flex min-w-0 flex-col items-start justify-center">
+        <Link href="/" aria-label="GateWala home" className="group flex min-w-0 items-center">
           <Image
-            src="/gatewala-brand-horizontal.png"
-            alt="GateWala - Welding & Fabrication Works"
-            width={280}
-            height={50}
+            src="/gatewala-logo-transparent.png"
+            alt="GateWala - मजबूती भी, खूबसूरती भी।"
+            width={320}
+            height={100}
             unoptimized
             priority
-            className="h-9 w-auto max-w-[200px] object-contain transition-transform group-hover:scale-[1.02] sm:h-11 sm:max-w-[250px] lg:h-12 lg:max-w-[290px]"
+            className="h-11 w-auto max-w-[210px] object-contain transition-transform group-hover:scale-[1.02] sm:h-14 sm:max-w-[270px] lg:h-16 lg:max-w-[310px]"
           />
-          <span className="mt-0.5 text-[10px] font-bold tracking-tight text-orange-600 sm:text-[11px]">
-            {locale === 'hi' ? 'मजबूती भी, खूबसूरती भी।' : 'Precision Fabrication & Welding'}
-          </span>
         </Link>
 
         <div className="col-span-2 row-start-3 min-w-0 lg:col-span-1 lg:col-start-2 lg:row-start-1">
