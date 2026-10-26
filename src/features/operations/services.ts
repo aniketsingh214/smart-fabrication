@@ -1,4 +1,5 @@
 ﻿import 'server-only';
+import { readSort,sortCursor,sortFilter } from '@/lib/api-sort';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { type Resource,resourceSchema,resourceMap } from '@/contracts/resources';
 import { parseRecordContext,recordRelation } from '@/contracts/record-context';
@@ -22,14 +23,15 @@ export async function listRecords(db:SupabaseClient,resource:Resource,params:URL
     const {data:parentRow,error:parentError}=await db.from(parent.table).select('id').eq('id',context.id).maybeSingle();databaseError(parentError);if(!parentRow)throw new AppError('NOT_FOUND','Parent record not found',404);
     if(relation.via)projection+=`,__context_parent:${resourceMap[relation.via]!.table}!inner(${relation.viaColumn})`;
   }
-  let query=db.from(resource.table).select(projection).order('created_at',{ascending:false}).order('id',{ascending:false}).limit(limit+1);
+  const sort=readSort(params,[...resource.columns,'created_at']);
+  let query=db.from(resource.table).select(projection).order(sort.key,{ascending:sort.ascending,nullsFirst:false}).order('id',{ascending:sort.ascending}).limit(limit+1);
   if(context&&relation)query=relation.column?query.eq(relation.column,context.id):query.eq('__context_parent.'+relation.viaColumn,context.id);
   if(publicOnly){if(resource.slug==='categories')query=query.eq('active',true);else query=query.eq('status','published');}
   const q=params.get('q');if(q){const searchKey=resource.fields.some(f=>f.key==='name')?'name':resource.fields.some(f=>f.key==='heading')?'heading':resource.slug==='media-assets'?'public_id':resource.slug==='audit-logs'?'entity_type':null;if(!searchKey)throw new AppError('UNSUPPORTED_FILTER','This resource does not support text search',422);const safe=q.replace(/[%_\\]/g,'').slice(0,120);query=query.ilike(searchKey,`%${safe}%`);}
   if(params.get('status')&&!publicOnly)query=query.eq('status',params.get('status'));
-  if(params.get('cursor')){const c=parseCursor(params.get('cursor')!);query=query.or(`created_at.lt.${c.created_at},and(created_at.eq.${c.created_at},id.lt.${c.id})`);}
+  if(params.get('cursor')){if(sort.explicit)query=query.or(sortFilter(params.get('cursor')!,sort));else{const c=parseCursor(params.get('cursor')!);query=query.or(`created_at.lt.${c.created_at},and(created_at.eq.${c.created_at},id.lt.${c.id})`);}}
   const {data,error}=await query;databaseError(error);const rows=(data??[]) as unknown as Record<string,unknown>[],hasMore=rows.length>limit;const items=rows.slice(0,limit),last=items.at(-1);
-  return {items:items.map(row=>{const safe={...row};delete safe.__context_parent;return safe;}),nextCursor:hasMore&&last?Buffer.from(JSON.stringify({created_at:last.created_at,id:last.id})).toString('base64url'):null};
+  return {items:items.map(row=>{const safe={...row};delete safe.__context_parent;return safe;}),nextCursor:hasMore&&last?(sort.explicit?sortCursor(last,sort):Buffer.from(JSON.stringify({created_at:last.created_at,id:last.id})).toString('base64url')):null};
 }
 export async function createRecord(db:SupabaseClient,resource:Resource,input:unknown,idempotencyKey?:string|null){
   if(resource.readOnly)throw new AppError('METHOD_NOT_ALLOWED','Use the workflow action for this resource',405);

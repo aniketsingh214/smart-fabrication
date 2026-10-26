@@ -1,5 +1,5 @@
 {
-  "captured_at": "2026-10-26T12:51:18.966Z",
+  "captured_at": "2026-10-26T18:28:19.746Z",
   "tables": [
     {
       "name": "audit_logs",
@@ -4810,6 +4810,11 @@
       "name": "202610260049_quota_timestamp_fix.sql",
       "sha256": "e13345de0eb877e2981e7f9ac339d19641b4fbfa6adc4c2f5ee9f1a05f741363",
       "applied_at": "2026-10-26T12:50:22.934Z"
+    },
+    {
+      "name": "202610260050_sorted_report_pages.sql",
+      "sha256": "d695fdc4249bcdfd80d926acd452f0c3290edf80f63e781c3d07b7ff91847fc8",
+      "applied_at": "2026-10-26T18:17:26.350Z"
     }
   ],
   "constraints": [

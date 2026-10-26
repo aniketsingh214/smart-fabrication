@@ -24,6 +24,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "product_id" | "formula_version" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -326,6 +329,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "product_id" | "formula_version" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -781,6 +787,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "kind" | "source_id" | "amount_minor" | "posting_date" | "reference" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -1083,6 +1092,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "kind" | "source_id" | "amount_minor" | "posting_date" | "reference" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -1538,6 +1550,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "closed_through" | "reason" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -1840,6 +1855,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "closed_through" | "reason" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -2295,6 +2313,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "expense_id" | "amount_minor" | "reversal_date" | "reason" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -2727,6 +2748,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "expense_id" | "amount_minor" | "reversal_date" | "reason" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -3312,6 +3336,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "purchase_item_id" | "quantity" | "amount_minor" | "reason" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -3614,6 +3641,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "purchase_item_id" | "quantity" | "amount_minor" | "reason" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -4069,6 +4099,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "sku" | "colour" | "price_min_minor" | "status" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -4629,6 +4662,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "sku" | "colour" | "price_min_minor" | "status" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -5342,6 +5378,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "option_group" | "extra_cost_minor" | "status" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -5902,6 +5941,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "option_group" | "extra_cost_minor" | "status" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -6615,6 +6657,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "sku" | "material" | "price_min_minor" | "status" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -7175,6 +7220,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "sku" | "material" | "price_min_minor" | "status" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -7888,6 +7936,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "slug" | "active" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -8448,6 +8499,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "slug" | "active" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -9161,6 +9215,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "product_id" | "media_id" | "alt_text" | "sort_order" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -9721,6 +9778,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "product_id" | "media_id" | "alt_text" | "sort_order" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -10434,6 +10494,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "alt_text" | "status" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -10994,6 +11057,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "alt_text" | "status" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -11707,6 +11773,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "heading" | "status" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -12267,6 +12336,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "heading" | "status" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -12980,6 +13052,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "rating" | "body" | "status" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -13540,6 +13615,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "rating" | "body" | "status" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -14253,6 +14331,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "phone" | "city" | "source" | "status" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -14813,6 +14894,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "phone" | "city" | "source" | "status" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -15828,6 +15912,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "phone" | "email" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -16388,6 +16475,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "phone" | "email" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -17101,6 +17191,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "lead_id" | "note" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -17531,6 +17624,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "lead_id" | "note" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -18114,6 +18210,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "lead_id" | "due_at" | "note" | "status" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -18674,6 +18773,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "lead_id" | "due_at" | "note" | "status" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -19387,6 +19489,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "lead_id" | "width_mm" | "height_mm" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -19817,6 +19922,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "lead_id" | "width_mm" | "height_mm" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -20400,6 +20508,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "customer_id" | "expires_at" | "status" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -23279,6 +23390,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "total_minor" | "due_at" | "status" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -24338,6 +24452,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "code" | "unit" | "reorder_level" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -24898,6 +25015,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "code" | "unit" | "reorder_level" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -25611,6 +25731,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "material_id" | "purchase_minor" | "selling_minor" | "effective_at" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -26041,6 +26164,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "material_id" | "purchase_minor" | "selling_minor" | "effective_at" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -26624,6 +26750,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "product_id" | "version" | "status" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -27184,6 +27313,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "product_id" | "version" | "status" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -27897,6 +28029,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "bom_id" | "material_id" | "quantity_per_sq_m" | "wastage_percent" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -28457,6 +28592,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "bom_id" | "material_id" | "quantity_per_sq_m" | "wastage_percent" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -29170,6 +29308,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "product_id" | "version" | "margin_bps" | "status" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -29730,6 +29871,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "product_id" | "version" | "margin_bps" | "status" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -30443,6 +30587,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "phone" | "gst_number" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -31003,6 +31150,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "phone" | "gst_number" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -31716,6 +31866,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "bill_number" | "bill_date" | "total_minor" | "status" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -32276,6 +32429,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "bill_number" | "bill_date" | "total_minor" | "status" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -33281,6 +33437,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "purchase_id" | "quantity" | "rate_minor" | "discount_minor" | "tax_bps" | "total_minor" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -33841,6 +34000,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "purchase_id" | "quantity" | "rate_minor" | "discount_minor" | "tax_bps" | "total_minor" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -34554,6 +34716,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "material_id" | "quantity" | "kind" | "unit_cost_minor" | "book_value_minor" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -34856,6 +35021,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "material_id" | "quantity" | "kind" | "unit_cost_minor" | "book_value_minor" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -35311,6 +35479,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "material_id" | "work_order_id" | "quantity" | "consumed_quantity" | "status" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -35741,6 +35912,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "material_id" | "work_order_id" | "quantity" | "consumed_quantity" | "status" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -36324,6 +36498,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "phone" | "work_type" | "active" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -36884,6 +37061,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "phone" | "work_type" | "active" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -37597,6 +37777,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "worker_id" | "unit" | "rate_minor" | "effective_at" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -38027,6 +38210,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "worker_id" | "unit" | "rate_minor" | "effective_at" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -38610,6 +38796,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "worker_id" | "quantity" | "rate_minor" | "amount_minor" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -39042,6 +39231,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "worker_id" | "quantity" | "rate_minor" | "amount_minor" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -39627,6 +39819,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "order_id" | "planned_weight_kg" | "status" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -40187,6 +40382,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "order_id" | "planned_weight_kg" | "status" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -41198,6 +41396,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "work_order_id" | "passed" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -41758,6 +41959,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "work_order_id" | "passed" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -42471,6 +42675,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "scheduled_at" | "crew" | "status" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -43031,6 +43238,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "scheduled_at" | "crew" | "status" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -44050,6 +44260,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "delivery_id" | "customer_confirmed" | "status" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -44610,6 +44823,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "delivery_id" | "customer_confirmed" | "status" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -45323,6 +45539,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "order_id" | "amount_minor" | "mode" | "reference" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -45755,6 +45974,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "order_id" | "amount_minor" | "mode" | "reference" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -46340,6 +46562,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "purchase_id" | "amount_minor" | "mode" | "reference" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -46772,6 +46997,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "purchase_id" | "amount_minor" | "mode" | "reference" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -47357,6 +47585,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "worker_id" | "amount_minor" | "mode" | "reference" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -47789,6 +48020,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "worker_id" | "amount_minor" | "mode" | "reference" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -48374,6 +48608,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "category" | "amount_minor" | "expense_date" | "status" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -48934,6 +49171,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "category" | "amount_minor" | "expense_date" | "status" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -49939,6 +50179,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "amount_minor" | "withdrawal_date" | "reason" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -50371,6 +50614,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "amount_minor" | "withdrawal_date" | "reason" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -50956,6 +51202,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "value" | "public" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -51516,6 +51765,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "value" | "public" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -52229,6 +52481,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "public_id" | "resource_type" | "visibility" | "bytes" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -52531,6 +52786,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "public_id" | "resource_type" | "visibility" | "bytes" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -52986,6 +53244,9 @@ export interface paths {
                     context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "action" | "entity_type" | "entity_id" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -53288,6 +53549,9 @@ export interface paths {
                     /** @description Text search on resources with a name/heading field */
                     q?: string;
                     status?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "action" | "entity_type" | "entity_id" | "created_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -55514,6 +55778,9 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "created_at" | "read_at";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -55825,6 +56092,9 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "display_name" | "disabled" | "created_at" | "roles";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -58152,12 +58422,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** Reconciled receivables balance report; data is a page array and meta.nextCursor is the next UUID */
+        /** Reconciled balance report; follow the opaque meta.nextCursor with the same sort parameters */
         get: {
             parameters: {
                 query?: {
                     limit?: number;
                     cursor?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "total_minor" | "earned_minor" | "paid_minor" | "returned_minor" | "outstanding_minor";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -58290,12 +58563,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** Reconciled payables balance report; data is a page array and meta.nextCursor is the next UUID */
+        /** Reconciled balance report; follow the opaque meta.nextCursor with the same sort parameters */
         get: {
             parameters: {
                 query?: {
                     limit?: number;
                     cursor?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "total_minor" | "earned_minor" | "paid_minor" | "returned_minor" | "outstanding_minor";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -58428,12 +58704,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** Reconciled workers balance report; data is a page array and meta.nextCursor is the next UUID */
+        /** Reconciled balance report; follow the opaque meta.nextCursor with the same sort parameters */
         get: {
             parameters: {
                 query?: {
                     limit?: number;
                     cursor?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "name" | "total_minor" | "earned_minor" | "paid_minor" | "returned_minor" | "outstanding_minor";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path?: never;
@@ -60036,8 +60315,11 @@ export interface paths {
         get: {
             parameters: {
                 query?: {
-                    /** @description Opaque statement cursor; 25 events per page. Summary covers all posted history. */
+                    limit?: number;
                     cursor?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "created_at" | "kind" | "reference" | "delta_minor";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path: {
@@ -60176,8 +60458,11 @@ export interface paths {
         get: {
             parameters: {
                 query?: {
-                    /** @description Opaque statement cursor; 25 events per page. Summary covers all posted history. */
+                    limit?: number;
                     cursor?: string;
+                    /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
+                    sort?: "created_at" | "kind" | "reference" | "delta_minor";
+                    direction?: "asc" | "desc";
                 };
                 header?: never;
                 path: {

@@ -1,0 +1,54 @@
+import assert from 'node:assert/strict';
+import crypto from 'node:crypto';
+import fs from 'node:fs/promises';
+import { chromium,expect } from '@playwright/test';
+import { createClient } from '@supabase/supabase-js';
+import { resources } from '../src/contracts/resources.ts';
+import { databaseClient } from './db-client.mjs';
+import { retirePublicationFixture } from './retire-publication-fixture.mjs';
+const base=process.env.TEST_BASE_URL??'http://localhost:3000';assert.ok(['localhost','127.0.0.1','smartfabrication.vercel.app'].includes(new URL(base).hostname));
+const options={auth:{persistSession:false,autoRefreshToken:false}},admin=createClient(process.env.NEXT_PUBLIC_SUPABASE_URL,process.env.SUPABASE_SECRET_KEY,options),auth=createClient(process.env.NEXT_PUBLIC_SUPABASE_URL,process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,options),db=databaseClient();
+const run=crypto.randomUUID(),email='sf-publication-owner-'+run+'@example.invalid',password=crypto.randomBytes(32).toString('base64url');let user,browser,token;const checks=[];
+async function check(label,fn){await fn();checks.push(label);console.log('PASS: '+label);}
+async function api(path){let r=await fetch(base+'/api/v1'+path,{signal:AbortSignal.timeout(30000),headers:{Authorization:'Bearer '+token}});if(r.status===401){const renewed=await auth.auth.refreshSession();assert.equal(renewed.error,null,'Fixture refresh failed');token=renewed.data.session.access_token;r=await fetch(base+'/api/v1'+path,{signal:AbortSignal.timeout(30000),headers:{Authorization:'Bearer '+token}});}assert.ok((r.headers.get('content-type')??'').includes('application/json'),path+': expected JSON, received HTTP '+r.status);const b=await r.json();assert.equal(r.status,200,path+': '+JSON.stringify(b.error));return b;}
+try{
+ await db.connect();const created=await admin.auth.admin.createUser({email,password,email_confirm:true});assert.equal(created.error,null);user={id:created.data.user.id,email,password,auth};await db.query("insert into public.user_roles(user_id,role_id) values($1,'owner')",[user.id]);await db.query("select set_config('request.jwt.claim.sub',$1,false)",[user.id]);const signed=await auth.auth.signInWithPassword({email,password});assert.equal(signed.error,null);token=signed.data.session.access_token;
+ if(!process.argv.includes('--skip-matrix'))await check('All 45 resource lists sort each visible column in both directions against PostgreSQL',async()=>{
+ let queries=0;
+ for(const r of resources.slice(Math.max(0,resources.findIndex(r=>r.slug===process.argv.find(arg=>arg.startsWith('--from='))?.slice(7))))){for(const key of r.columns){for(const direction of ['asc','desc']){
+  const expected=await db.query('select id from public."'+r.table+'" order by "'+key+'" '+direction+' nulls last,id '+direction+' limit 3');
+  const result=await api('/admin/'+r.slug+'?limit=3&sort='+key+'&direction='+direction);assert.deepEqual(result.data.map(row=>row.id),expected.rows.map(row=>row.id),r.slug+'/'+key+'/'+direction);queries++;
+ }}console.log('Verified '+r.slug);}
+ console.log('Compared '+queries+' ordered API/database pairs');
+ });
+ await check('Sorted cursors page without repeats and reject column/direction changes',async()=>{
+ const first=await api('/admin/leads?limit=2&sort=name&direction=asc');assert.ok(first.meta.nextCursor);const second=await api('/admin/leads?limit=2&sort=name&direction=asc&cursor='+first.meta.nextCursor);assert.equal(new Set([...first.data,...second.data].map(r=>r.id)).size,first.data.length+second.data.length);
+ const expected=await db.query('select id from public.leads order by name asc nulls last,id asc limit 4');assert.deepEqual([...first.data,...second.data].map(r=>r.id),expected.rows.map(r=>r.id));
+ for(const query of ['sort=name&direction=desc','sort=phone&direction=asc']){const r=await fetch(base+'/api/v1/admin/leads?'+query+'&cursor='+first.meta.nextCursor,{headers:{Authorization:'Bearer '+token}});assert.equal(r.status,422);}
+ });
+ await check('Staff and notification APIs sort before paging including derived staff roles',async()=>{
+ for(const direction of ['asc','desc']){for(const key of ['display_name','disabled','created_at']){const result=await api('/admin/users?limit=3&sort='+key+'&direction='+direction),expected=await db.query('select id from public.profiles order by "'+key+'" '+direction+' nulls last,id '+direction+' limit 3');assert.deepEqual(result.data.map(r=>r.id),expected.rows.map(r=>r.id));}
+ const roles=await api('/admin/users?limit=2&sort=roles&direction='+direction);assert.ok(roles.data.length);if(roles.meta.nextCursor)assert.ok((await api('/admin/users?limit=2&sort=roles&direction='+direction+'&cursor='+roles.meta.nextCursor)).data.length);
+ for(const key of ['name','created_at','read_at'])await api('/notifications?limit=2&sort='+key+'&direction='+direction);
+ }
+ });
+ await check('Finance sorting uses full derived balances and statement totals stay unchanged',async()=>{
+ for(const [report,fn,idKey] of [['receivables','receivable_balances','order_id'],['payables','payable_balances','purchase_id'],['workers','worker_balances','worker_id']]){for(const key of ['name',report==='workers'?'earned_minor':'total_minor','paid_minor','outstanding_minor'])for(const direction of ['asc','desc']){
+ const expected=await db.query('select '+idKey+' id from public.'+fn+'() order by "'+key+'" '+direction+' nulls last,'+idKey+' asc limit 2'),result=await api('/finance/'+report+'?limit=2&sort='+key+'&direction='+direction);assert.deepEqual(result.data.map(r=>r[idKey]),expected.rows.map(r=>r.id));if(result.meta.nextCursor)await api('/finance/'+report+'?limit=2&sort='+key+'&direction='+direction+'&cursor='+result.meta.nextCursor);
+ }}
+ const suppliers=await db.query('select id from public.suppliers limit 1');if(suppliers.rows.length){const path='/admin/suppliers/'+suppliers.rows[0].id+'/statement',original=await api(path);for(const key of ['created_at','kind','reference','delta_minor'])for(const direction of ['asc','desc']){const result=await api(path+'?sort='+key+'&direction='+direction);assert.deepEqual(result.data.summary,original.data.summary);}}
+ });
+ await check('Sorting RPC denies anonymous and unprivileged callers',async()=>{
+ const anonymous=createClient(process.env.NEXT_PUBLIC_SUPABASE_URL,process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,options);assert.equal((await anonymous.rpc('sorted_report_page',{report_name:'receivables',sort_key:'name',sort_direction:'asc'})).error?.code,'42501');
+ await db.query('begin');try{await db.query('set local role authenticated');await db.query("select set_config('request.jwt.claim.sub',$1,true)",[crypto.randomUUID()]);await assert.rejects(db.query("select public.sorted_report_page('staff','roles','asc')"),e=>e.code==='42501');}finally{await db.query('rollback');}
+ });
+ browser=await chromium.launch({channel:'chrome',headless:true});const context=await browser.newContext({viewport:{width:1440,height:1000}}),page=await context.newPage();await page.goto(base+'/login');await page.getByLabel('Email',{exact:true}).fill(email);await page.getByLabel('Password',{exact:true}).fill(password);await page.getByRole('button',{name:'Sign in',exact:true}).click();await page.waitForURL('**/account');
+ await check('Browser headers toggle ascending/descending, reset cursor pagination and keep sorting on refresh',async()=>{
+ await page.goto(base+'/admin/leads');await expect(page.locator('tbody tr').first()).toBeVisible();const pager=page.getByRole('navigation',{name:'Leads table pagination'});await pager.getByRole('button',{name:'Next',exact:true}).click();await expect(pager.getByText('Page 2',{exact:true})).toBeVisible();await page.getByRole('columnheader',{name:'name',exact:true}).getByRole('button').click();await expect(pager.getByText('Page 1',{exact:true})).toBeVisible();await expect(page.locator('th[aria-sort=ascending]')).toContainText('name');await page.getByRole('columnheader',{name:'name',exact:true}).getByRole('button').click();await expect(page.locator('th[aria-sort=descending]')).toContainText('name');await page.getByRole('button',{name:'Refresh records',exact:true}).click();await expect(page.locator('th[aria-sort=descending]')).toContainText('name');
+ });
+ await check('Inventory sorts numerically over all rows before local pagination, including mobile',async()=>{
+ const rows=Array.from({length:31},(_,i)=>({material_id:crypto.randomUUID(),name:'Sorting material '+i,unit:'kg',on_hand:i,reserved:0,available:31-i,reorder_level:0}));await page.route('**/api/v1/inventory/balances**',route=>route.fulfill({json:{data:rows}}));await page.goto(base+'/admin/inventory');await page.getByRole('button',{name:'Refresh Inventory',exact:true}).click();await expect(page.locator('tbody tr')).toHaveCount(25);await page.getByRole('columnheader',{name:'Available',exact:true}).getByRole('button').click();await expect(page.locator('tbody tr').first().locator('td').nth(5)).toHaveText('1');await page.getByRole('columnheader',{name:'Available',exact:true}).getByRole('button').click();await expect(page.locator('tbody tr').first().locator('td').nth(5)).toHaveText('31');await page.setViewportSize({width:390,height:844});assert.equal(await page.locator('main').evaluate(n=>n.scrollWidth<=n.clientWidth),true);await page.screenshot({path:'test-results/table-sorting-mobile.png',caret:'initial'});
+ });
+ await fs.mkdir('test-results',{recursive:true});await fs.writeFile('test-results/table-sorting.json',JSON.stringify({base,checks,date:new Date().toISOString()},null,2));
+}catch(error){console.error('Sorting verification failed: '+error.message);await browser?.contexts()[0]?.pages()[0]?.screenshot({path:'test-results/table-sorting-failure.png',caret:'initial'}).catch(()=>{});process.exitCode=1;}
+finally{await browser?.close();if(user)await retirePublicationFixture({...user,admin});await db.end();}

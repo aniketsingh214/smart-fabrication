@@ -44,3 +44,7 @@ The eight-entry sidebar, section directories and parent-record tabs replace the 
 ## Request rate limits - 2026-10-26
 
 Auth forms now use same-origin POST /api/v1/auth/form, with shared IP and email-attempt quotas; password update requires an active verified session. Authorized record/profile/permission mutations also consume per-actor quotas. Existing disabled-user checks, owner protections, CSRF and RLS remain authoritative. Service-role access is limited to the isolated quota RPC, not business operations. See [complete limits and runtime verification](../security/rate-limits.md).
+
+## Table sorting follow-up - 2026-10-27
+
+Staff account/status/roles lists sort on the server before pagination. Roles are alphabetically aggregated under users.read with invoker rights; the API keeps the existing safe profile DTO. The complete permitted permission matrix sorts by permission ID or role grant before its 25-row pages. Sort headers expose aria-sort and keyboard controls; source permission mutation protections are unchanged. See [sorting contract and checks](../operations/table-sorting.md).

@@ -12,6 +12,7 @@ The previous cumulative report mixed old local-only snapshots and later engineer
 
 | Area | Implemented behavior |
 | --- | --- |
+| Table sorting | Accessible ascending/descending controls across existing table renderers; full server sorting for paginated resources/staff/finance/statements, snapshot sorting before local pagination. See [contract and verification](docs/operations/table-sorting.md). |
 | Admin navigation | Eight main entries; six permission-filtered workspace directories, vertical section navigation and complete mapping of all 45 resources. Notifications and public shortcuts in header; staff permissions inside Settings. |
 | Record experience | Enquiry notes/follow-ups/measurements/quotes; product images/variants/options/BOM/pricing; order production/quality/delivery/installation; purchase items/invoice/payments/returns; worker rates/work/payments; BOM material lines. |
 | Admin presentation | Navy/teal admin shell, working module search, eight operational KPI cards, workload/order-stage charts, activity/low-stock panels, colourful tables, serials, cursor navigation and validated forms. |

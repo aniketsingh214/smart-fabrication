@@ -1,4 +1,5 @@
 'use client';
+import { SnapshotTable } from '@/components/snapshot-table';
 import { ReferenceInput } from '@/features/operations/reference-input';
 import { useRef, useState } from 'react';
 import Link from 'next/link';
@@ -439,7 +440,7 @@ export function Calculator({ products, selected }: { products: { id: string; nam
               {result.area_sq_m} m² · {locale === 'hi' ? 'अनुमानित मटीरियल वजन:' : 'Approximate material weight:'} {result.weight_kg} kg
             </p>
             <div className="mt-6 overflow-x-auto">
-              <table>
+              <SnapshotTable>
                 <thead>
                   <tr>
                     <th>{locale === 'hi' ? 'सामान (Material)' : 'Material'}</th>
@@ -451,14 +452,14 @@ export function Calculator({ products, selected }: { products: { id: string; nam
                   {result.materials.map((m, i) => (
                     <tr key={i}>
                       <td>{m.name}</td>
-                      <td>
+                      <td data-sort-value={m.quantity}>
                         {m.quantity} {m.unit}
                       </td>
-                      <td>{money(m.amount_minor)}</td>
+                      <td data-sort-value={m.amount_minor}>{money(m.amount_minor)}</td>
                     </tr>
                   ))}
                 </tbody>
-              </table>
+              </SnapshotTable>
             </div>
             {!result.materials.length && (
               <p className="mt-3 text-sm text-slate-500">

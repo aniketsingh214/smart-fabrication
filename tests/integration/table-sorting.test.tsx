@@ -1,0 +1,17 @@
+import { describe,it,expect } from 'vitest';
+import { renderToStaticMarkup } from 'react-dom/server';
+import { readSort,sortCursor,sortFilter,readSortCursor } from '@/lib/api-sort';
+import { nextSort,sortedRows } from '@/lib/table-sort';
+import { SortHeading } from '@/components/sort-heading';
+const id='ef86881f-6e0e-4658-a279-8e8cc06139c7';
+describe('table sorting',()=>{
+ it('sorts raw numeric amounts and keeps blanks last in either direction without mutation',()=>{const rows=[{n:1000},{n:9},{n:null},{n:-2}];expect(sortedRows(rows,{key:'n',direction:'asc'},r=>r.n).map(r=>r.n)).toEqual([-2,9,1000,null]);expect(sortedRows(rows,{key:'n',direction:'desc'},r=>r.n).map(r=>r.n)).toEqual([1000,9,-2,null]);expect(rows[0].n).toBe(1000);});
+ it('toggles direction, starts a different column ascending and uses natural text order',()=>{expect(nextSort({key:'name',direction:'asc'},'name')).toEqual({key:'name',direction:'desc'});expect(nextSort({key:'name',direction:'desc'},'amount')).toEqual({key:'amount',direction:'asc'});expect(sortedRows(['Item 10','Item 2'],{key:'name',direction:'asc'},r=>r)).toEqual(['Item 2','Item 10']);});
+ it('rejects hidden columns, expression injection and invalid direction',()=>{for(const query of ['sort=password','sort=name.desc','sort=name&direction=sideways'])expect(()=>readSort(new URLSearchParams(query),['name','created_at'])).toThrow();});
+ it('keeps the default date cursor contract when no sort was requested',()=>expect(readSort(new URLSearchParams(),['created_at'])).toEqual({key:'created_at',ascending:false,explicit:false}));
+ it('binds sorted cursors to a column and direction',()=>{const sort=readSort(new URLSearchParams('sort=name&direction=asc'),['name']);const cursor=sortCursor({id,name:'Gate'},sort);expect(readSortCursor(cursor,sort).value).toBe('Gate');expect(()=>readSortCursor(cursor,{...sort,ascending:false})).toThrow();expect(()=>readSortCursor(cursor,{...sort,key:'phone'})).toThrow();expect(()=>readSortCursor('bad!',sort)).toThrow();});
+ it('uses UUID tie breakers and advances through nulls last',()=>{const sort={key:'name',ascending:true,explicit:true};expect(sortFilter(sortCursor({id,name:null},sort),sort)).toBe('and(name.is.null,id.gt.'+id+')');const filter=sortFilter(sortCursor({id,name:'Same'},sort),sort);expect(filter).toContain('name.gt."Same"');expect(filter).toContain('id.gt.'+id);expect(filter.endsWith('name.is.null')).toBe(true);});
+ it('pages an unread-first notification group into read records without reintroducing nulls',()=>{const sort={key:'read_at',ascending:false,explicit:true,nullsFirst:true};expect(sortFilter(sortCursor({id,read_at:null},sort),sort)).toBe('and(read_at.is.null,id.lt.'+id+'),read_at.not.is.null');expect(sortFilter(sortCursor({id,read_at:'2026-10-26T00:00:00Z'},sort),sort)).not.toContain(',read_at.is.null');});
+ it('quotes PostgREST punctuation and backslashes as literal text',()=>{const sort={key:'name',ascending:false,explicit:true};const filter=sortFilter(sortCursor({id,name:'a,b("x")\\z'},sort),sort);expect(filter).toContain('name.lt."a,b(\\"x\\")\\\\z"');});
+ it('announces the active direction and leaves actions outside sort controls',()=>{const html=renderToStaticMarkup(<SortHeading column="name" sort={{key:'name',direction:'desc'}} onSort={()=>{}}>Name</SortHeading>);expect(html).toContain('aria-sort="descending"');expect(html).toContain('type="button"');expect(html).toContain('Sort Name ascending');});
+});
