@@ -4,7 +4,7 @@ Updated: 2026-10-26 (Asia/Kolkata)
 
 ## Sidebar and route coverage
 
-The owner sidebar has exactly eight main entries. Other roles see only their permitted workspaces. There are no nested sidebar resource menus; section links live inside each workspace. Notifications remain in the header. Staff/permissions live inside Settings. Calculator and customer-site shortcuts moved into the header. All prior resource URLs remain valid.
+The owner sidebar has exactly eight main entries. Other roles see only their permitted workspaces. Main navigation stays at eight entries; the selected workspace now opens a separate white secondary sidebar, replacing the horizontal section-tab bar. Notifications remain in the header. Staff/permissions live inside Settings. Calculator and customer-site shortcuts moved into the header. All prior resource URLs remain valid.
 
 | Sidebar entry | Workspace / retained pages |
 | --- | --- |
@@ -17,7 +17,7 @@ The owner sidebar has exactly eight main entries. Other roles see only their per
 | Reports | /admin/reports; existing reports, balances and export tools |
 | Settings | /admin/workspaces/settings; settings, /admin/users, audit-logs |
 
-Every resource slug above retains /admin/{slug}. Workspace main tabs expose frequent destinations; All lists & history retains every authorized collection. Child routes highlight their owning primary section. A role without a primary-list permission gets accessible fallback cards and its permitted all-list directory, rather than a dead workspace. A registry coverage test requires all 45 registered resources to be mapped exactly once; special inventory/users/report/dashboard routes are separately retained.
+Every resource slug above retains /admin/{slug}. Workspace secondary-sidebar links expose frequent destinations; All lists & history retains every authorized collection. Child routes highlight their owning primary section. A role without a primary-list permission gets accessible fallback cards and its permitted all-list directory, rather than a dead workspace. A registry coverage test requires all 45 registered resources to be mapped exactly once; special inventory/users/report/dashboard routes are separately retained.
 
 ## Record tabs
 
@@ -57,3 +57,9 @@ Local acceptance: 218 unit/integration tests, production build/TypeScript, targe
 Production release verification - 2026-10-26: source commit 04f1cb7 was pushed and the new workspace stylesheet was observed on the live site. Three real Auth/browser/read smoke checks passed for direct/indirect context APIs and hidden-parent rejection, eight-entry workspace/legacy record tabs, and nested-create cancellation/mobile scrolling. Generated test login retirement completed; no operational record was written. This supplements the eight local acceptance checks and 218 unit/integration tests.
 
 Advanced retained pages: calculation preview remains at /admin/calculation-preview from Pricing-rule details; product preview remains at /admin/products/{id}/preview. Account/profile and notifications retain their existing header routes. These tools do not add extra sidebar entries. Nested dialog scroll locks use a shared reference count so parent-first unmounts cannot leave the page locked.
+
+## Reference layout revision ? 2026-10-26
+
+Dark main navigation and white section navigation form two levels. Both rails can collapse on desktop. At widths below 1024px the main navigation remains an Escape-dismissible drawer and the section menu becomes a collapsible horizontal strip above the content. Dashboard has no section rail; its welcome panel and authorized management shortcut cards open existing workspaces. Literal scoped orange colors apply only to admin navigation and primary controls; action/status colors remain semantic. No dummy account or financial data is introduced. The all-list/history anchor preserves every authorized global list. Record-level tabs remain inside the existing dialogs.
+
+Verification: Production build, TypeScript, 218 unit/integration tests, targeted lint, docs and secret checks passed. Eight existing authenticated workspace/API/record/mobile checks passed, plus the new targeted browser check for seven dashboard tiles, independent section rail, both collapse controls and body overflow at 320/390/768/1440px. Both generated owner accounts were retired; no business records were written.

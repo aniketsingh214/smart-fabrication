@@ -4,7 +4,7 @@ Updated: 2026-10-26 (Asia/Kolkata)
 
 ## Current answer
 
-The application is implemented in the existing Next.js/Supabase/Cloudinary codebase and has an authorized GitHub/Vercel production deployment. The latest work reorganizes the admin into eight workspaces and contextual record tabs. It preserves prior resource URLs and business workflows. Current implementation/tests and deployment acceptance are recorded below; this is not a fresh certification of every historical business workflow.
+The application is implemented in the existing Next.js/Supabase/Cloudinary codebase and has an authorized GitHub/Vercel production deployment. The latest work adds the requested dark main sidebar, independent white workspace sidebar, orange active styling and dashboard management tiles, retaining the eight-workspace mapping and contextual record tabs. It preserves prior resource URLs and business workflows. Current implementation/tests and deployment acceptance are recorded below; this is not a fresh certification of every historical business workflow.
 
 The previous cumulative report mixed old local-only snapshots and later engineering-completion statements. It is retained as a [superseded audit archive](docs/testing/project-status-before-navigation-2026-10-26.txt). This document and the [current progress register](docs/progress.md) are the current summary.
 
@@ -12,9 +12,9 @@ The previous cumulative report mixed old local-only snapshots and later engineer
 
 | Area | Implemented behavior |
 | --- | --- |
-| Admin navigation | Eight main entries; six permission-filtered workspace directories, section tabs and complete mapping of all 45 resources. Notifications and public shortcuts in header; staff permissions inside Settings. |
+| Admin navigation | Eight main entries; six permission-filtered workspace directories, vertical section navigation and complete mapping of all 45 resources. Notifications and public shortcuts in header; staff permissions inside Settings. |
 | Record experience | Enquiry notes/follow-ups/measurements/quotes; product images/variants/options/BOM/pricing; order production/quality/delivery/installation; purchase items/invoice/payments/returns; worker rates/work/payments; BOM material lines. |
-| Admin presentation | Navy/blue reference-style shell, working module search, eight operational KPI cards, workload/order-stage charts, activity/low-stock panels, colourful tables, serials, cursor navigation and validated forms. |
+| Admin presentation | Dark/orange reference-style shell, working module search, eight operational KPI cards, workload/order-stage charts, activity/low-stock panels, colourful tables, serials, cursor navigation and validated forms. |
 | Dialogs | Desktop/mobile viewport sizing, two-column edit forms, fixed edit header/footer, independently scrolling bodies and protected save/cancel behavior. |
 | Record/API safety | Parent-bound contextual reads, allowlisted direct/indirect relations, parent read permission and RLS-visible parent checks, strict projection, immutable history and existing write/action controls. Supported listing removal is archive/deactivation, not destructive deletion. |
 | Public/customer experience | Existing catalog/search/filter/gallery, bilingual content, measurement enquiry, WhatsApp enquiry, customer account/order/quotation views, responsive header and distinct-design wishlist/cart counts. |
@@ -77,3 +77,7 @@ The statuses below are the existing phase register, retained with current API/sc
 - [Database schema](docs/database/schema-dictionary.md)
 
 Production release verification - 2026-10-26: source commit 04f1cb7 was pushed and the new workspace stylesheet was observed on the live site. Three real Auth/browser/read smoke checks passed for direct/indirect context APIs and hidden-parent rejection, eight-entry workspace/legacy record tabs, and nested-create cancellation/mobile scrolling. Generated test login retirement completed; no operational record was written. This supplements the eight local acceptance checks and 218 unit/integration tests.
+
+### Two-sidebar reference layout - 2026-10-26
+
+Replaced horizontal workspace tabs with an independent white section sidebar beside the dark main navigation. The current workspace shows its permitted primary pages and an all-lists/history link; both main and section rails have collapse controls. Small screens keep the main drawer and a compact scrollable section strip rather than squeezing content between two rails. Added orange active states, icon backgrounds, a dashboard welcome panel and seven permission-filtered management shortcuts for an owner. Existing record tabs, all 45 resource mappings, old URLs, search, APIs and financial rules are retained. Screenshot dummy revenue, user identities and activity values were not copied. Production build, TypeScript, 218 unit/integration tests, targeted lint, docs and secret checks passed. Eight existing authenticated workspace/API/record/mobile checks passed, plus the new targeted browser check for seven dashboard tiles, independent section rail, both collapse controls and body overflow at 320/390/768/1440px. Both generated owner accounts were retired; no business records were written.
