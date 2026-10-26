@@ -1,6 +1,6 @@
 # Applied database relationship diagram
 
-Generated from PostgreSQL catalog metadata captured at 2026-10-25T11:13:31.232Z. 58 public tables, 96 foreign keys, 47 applied migrations. No application records are included.
+Generated from PostgreSQL catalog metadata captured at 2026-10-26T12:51:18.966Z. 58 public tables, 96 foreign keys, 49 applied migrations. No application records are included.
 
 Arrows point from referencing table to referenced table. Labels preserve the ordered child and parent columns, including composite foreign keys. External referenced tables are included explicitly. Cardinality is not inferred from names; exact nullability, uniqueness, checks, referential actions and validation state are recorded in the schema dictionary and constraint table below.
 

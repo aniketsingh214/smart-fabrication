@@ -92,11 +92,27 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
         "429": &a13
-          description: HTTP 429; sanitized error envelope
+          description: Request quota exceeded. Retry-After is seconds; form values are
+            retained.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+                minimum: 1
+            X-RateLimit-Limit:
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix epoch seconds
         "500": &a14
           description: HTTP 500; sanitized error envelope
           content:
@@ -791,6 +807,8 @@ paths:
           schema:
             type: string
             format: uuid
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/expense-reversals/{id}:
     get:
       summary: Read Expense reversals record
@@ -890,6 +908,8 @@ paths:
           schema:
             type: string
             format: uuid
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /expense-reversals/{id}:
     get:
       summary: Read Expense reversals record
@@ -1246,6 +1266,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/product-variants/{id}:
     get:
       summary: Read Product variants record
@@ -1306,6 +1328,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /product-variants:
     get:
       summary: List Product variants
@@ -1367,6 +1391,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /product-variants/{id}:
     get:
       summary: Read Product variants record
@@ -1427,6 +1453,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /reports/product-variants/export:
     get:
       summary: Export Product variants in cursor-paged CSV batches (maximum 500 rows
@@ -1556,6 +1584,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/product-options/{id}:
     get:
       summary: Read Product options record
@@ -1616,6 +1646,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /product-options:
     get:
       summary: List Product options
@@ -1677,6 +1709,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /product-options/{id}:
     get:
       summary: Read Product options record
@@ -1737,6 +1771,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /reports/product-options/export:
     get:
       summary: Export Product options in cursor-paged CSV batches (maximum 500 rows
@@ -1866,6 +1902,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/products/{id}:
     get:
       summary: Read Products record
@@ -1926,6 +1964,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /products:
     get:
       summary: List Products
@@ -1987,6 +2027,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /products/{id}:
     get:
       summary: Read Products record
@@ -2047,6 +2089,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /reports/products/export:
     get:
       summary: Export Products in cursor-paged CSV batches (maximum 500 rows per
@@ -2176,6 +2220,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/categories/{id}:
     get:
       summary: Read Categories record
@@ -2236,6 +2282,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /categories:
     get:
       summary: List Categories
@@ -2297,6 +2345,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /categories/{id}:
     get:
       summary: Read Categories record
@@ -2357,6 +2407,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /reports/categories/export:
     get:
       summary: Export Categories in cursor-paged CSV batches (maximum 500 rows per
@@ -2486,6 +2538,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/product-media/{id}:
     get:
       summary: Read Product images record
@@ -2546,6 +2600,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /product-media:
     get:
       summary: List Product images
@@ -2607,6 +2663,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /product-media/{id}:
     get:
       summary: Read Product images record
@@ -2667,6 +2725,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /reports/product-media/export:
     get:
       summary: Export Product images in cursor-paged CSV batches (maximum 500 rows per
@@ -2796,6 +2856,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/gallery/{id}:
     get:
       summary: Read Gallery record
@@ -2856,6 +2918,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /gallery:
     get:
       summary: List Gallery
@@ -2917,6 +2981,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /gallery/{id}:
     get:
       summary: Read Gallery record
@@ -2977,6 +3043,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /reports/gallery/export:
     get:
       summary: Export Gallery in cursor-paged CSV batches (maximum 500 rows per
@@ -3106,6 +3174,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/site-sections/{id}:
     get:
       summary: Read Website content record
@@ -3166,6 +3236,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /site-sections:
     get:
       summary: List Website content
@@ -3227,6 +3299,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /site-sections/{id}:
     get:
       summary: Read Website content record
@@ -3287,6 +3361,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /reports/site-sections/export:
     get:
       summary: Export Website content in cursor-paged CSV batches (maximum 500 rows
@@ -3416,6 +3492,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/reviews/{id}:
     get:
       summary: Read Reviews record
@@ -3476,6 +3554,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /reviews:
     get:
       summary: List Reviews
@@ -3537,6 +3617,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /reviews/{id}:
     get:
       summary: Read Reviews record
@@ -3597,6 +3679,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /reports/reviews/export:
     get:
       summary: Export Reviews in cursor-paged CSV batches (maximum 500 rows per
@@ -3726,6 +3810,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/leads/{id}:
     get:
       summary: Read Leads record
@@ -3786,6 +3872,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /leads:
     get:
       summary: List Leads
@@ -3847,6 +3935,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /leads/{id}:
     get:
       summary: Read Leads record
@@ -3907,6 +3997,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /leads/{id}/transitions:
     post:
       summary: lead-transition
@@ -3956,6 +4048,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/leads/{id}/transitions:
     post:
       summary: lead-transition
@@ -4005,6 +4099,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /reports/leads/export:
     get:
       summary: Export Leads in cursor-paged CSV batches (maximum 500 rows per response)
@@ -4133,6 +4229,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/customers/{id}:
     get:
       summary: Read Customers record
@@ -4193,6 +4291,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /customers:
     get:
       summary: List Customers
@@ -4254,6 +4354,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /customers/{id}:
     get:
       summary: Read Customers record
@@ -4314,6 +4416,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /reports/customers/export:
     get:
       summary: Export Customers in cursor-paged CSV batches (maximum 500 rows per
@@ -4443,6 +4547,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/lead-notes/{id}:
     get:
       summary: Read Lead notes record
@@ -4535,6 +4641,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /lead-notes/{id}:
     get:
       summary: Read Lead notes record
@@ -4695,6 +4803,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/follow-ups/{id}:
     get:
       summary: Read Follow-ups record
@@ -4755,6 +4865,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /follow-ups:
     get:
       summary: List Follow-ups
@@ -4816,6 +4928,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /follow-ups/{id}:
     get:
       summary: Read Follow-ups record
@@ -4876,6 +4990,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /reports/follow-ups/export:
     get:
       summary: Export Follow-ups in cursor-paged CSV batches (maximum 500 rows per
@@ -5005,6 +5121,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/measurements/{id}:
     get:
       summary: Read Measurements record
@@ -5097,6 +5215,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /measurements/{id}:
     get:
       summary: Read Measurements record
@@ -5257,6 +5377,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/quotations/{id}:
     get:
       summary: Read Quotations record
@@ -5317,6 +5439,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /quotations:
     get:
       summary: List Quotations
@@ -5382,6 +5506,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /quotations/{id}:
     get:
       summary: Read Quotations record
@@ -5444,6 +5570,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /quotations/{id}/versions:
     post:
       summary: quote-version
@@ -5515,6 +5643,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
     get:
       summary: List quotation version snapshots
       security: *a1
@@ -5569,6 +5699,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /quotations/{id}/accept:
     post:
       summary: quote-accept
@@ -5600,6 +5732,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /quotations/{id}/reject:
     post:
       summary: quote-reject
@@ -5631,6 +5765,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /quotations/{id}/convert:
     post:
       summary: quote-convert
@@ -5662,6 +5798,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/quotations/{id}/versions:
     post:
       summary: quote-version
@@ -5733,6 +5871,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/quotations/{id}/approve:
     post:
       summary: quote-approve
@@ -5764,6 +5904,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/quotations/{id}/accept:
     post:
       summary: quote-accept
@@ -5795,6 +5937,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/quotations/{id}/reject:
     post:
       summary: quote-reject
@@ -5826,6 +5970,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/quotations/{id}/convert:
     post:
       summary: quote-convert
@@ -5857,6 +6003,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /reports/quotations/export:
     get:
       summary: Export Quotations in cursor-paged CSV batches (maximum 500 rows per
@@ -6108,6 +6256,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/orders/{id}/transitions:
     post:
       summary: order-transition
@@ -6157,6 +6307,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /reports/orders/export:
     get:
       summary: Export Orders in cursor-paged CSV batches (maximum 500 rows per response)
@@ -6285,6 +6437,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/materials/{id}:
     get:
       summary: Read Material library record
@@ -6345,6 +6499,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /materials:
     get:
       summary: List Material library
@@ -6406,6 +6562,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /materials/{id}:
     get:
       summary: Read Material library record
@@ -6466,6 +6624,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /reports/materials/export:
     get:
       summary: Export Material library in cursor-paged CSV batches (maximum 500 rows
@@ -6595,6 +6755,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/material-rates/{id}:
     get:
       summary: Read Material rates record
@@ -6687,6 +6849,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /material-rates/{id}:
     get:
       summary: Read Material rates record
@@ -6847,6 +7011,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/bom-versions/{id}:
     get:
       summary: Read Product BOM record
@@ -6907,6 +7073,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /bom-versions:
     get:
       summary: List Product BOM
@@ -6968,6 +7136,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /bom-versions/{id}:
     get:
       summary: Read Product BOM record
@@ -7028,6 +7198,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /reports/bom-versions/export:
     get:
       summary: Export Product BOM in cursor-paged CSV batches (maximum 500 rows per
@@ -7157,6 +7329,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/bom-items/{id}:
     get:
       summary: Read BOM line items record
@@ -7217,6 +7391,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /bom-items:
     get:
       summary: List BOM line items
@@ -7278,6 +7454,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /bom-items/{id}:
     get:
       summary: Read BOM line items record
@@ -7338,6 +7516,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /reports/bom-items/export:
     get:
       summary: Export BOM line items in cursor-paged CSV batches (maximum 500 rows per
@@ -7467,6 +7647,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/calculation-rules/{id}:
     get:
       summary: Read Pricing rules record
@@ -7527,6 +7709,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /calculation-rules:
     get:
       summary: List Pricing rules
@@ -7588,6 +7772,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /calculation-rules/{id}:
     get:
       summary: Read Pricing rules record
@@ -7648,6 +7834,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /reports/calculation-rules/export:
     get:
       summary: Export Pricing rules in cursor-paged CSV batches (maximum 500 rows per
@@ -7777,6 +7965,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/suppliers/{id}:
     get:
       summary: Read Suppliers record
@@ -7837,6 +8027,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /suppliers:
     get:
       summary: List Suppliers
@@ -7898,6 +8090,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /suppliers/{id}:
     get:
       summary: Read Suppliers record
@@ -7958,6 +8152,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /reports/suppliers/export:
     get:
       summary: Export Suppliers in cursor-paged CSV batches (maximum 500 rows per
@@ -8087,6 +8283,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/purchases/{id}:
     get:
       summary: Read Purchases record
@@ -8147,6 +8345,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /purchases:
     get:
       summary: List Purchases
@@ -8208,6 +8408,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /purchases/{id}:
     get:
       summary: Read Purchases record
@@ -8268,6 +8470,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /purchases/{id}/receive:
     post:
       summary: purchase-receive
@@ -8299,6 +8503,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/purchases/{id}/receive:
     post:
       summary: purchase-receive
@@ -8330,6 +8536,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /reports/purchases/export:
     get:
       summary: Export Purchases in cursor-paged CSV batches (maximum 500 rows per
@@ -8459,6 +8667,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/purchase-items/{id}:
     get:
       summary: Read Purchase items record
@@ -8519,6 +8729,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /purchase-items:
     get:
       summary: List Purchase items
@@ -8580,6 +8792,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /purchase-items/{id}:
     get:
       summary: Read Purchase items record
@@ -8640,6 +8854,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /reports/purchase-items/export:
     get:
       summary: Export Purchase items in cursor-paged CSV batches (maximum 500 rows per
@@ -8965,6 +9181,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/stock-reservations/{id}:
     get:
       summary: Read Stock reservations record
@@ -9057,6 +9275,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /stock-reservations/{id}:
     get:
       summary: Read Stock reservations record
@@ -9217,6 +9437,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/workers/{id}:
     get:
       summary: Read Workers record
@@ -9277,6 +9499,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /workers:
     get:
       summary: List Workers
@@ -9338,6 +9562,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /workers/{id}:
     get:
       summary: Read Workers record
@@ -9398,6 +9624,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /reports/workers/export:
     get:
       summary: Export Workers in cursor-paged CSV batches (maximum 500 rows per
@@ -9527,6 +9755,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/labour-rates/{id}:
     get:
       summary: Read Labour rates record
@@ -9619,6 +9849,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /labour-rates/{id}:
     get:
       summary: Read Labour rates record
@@ -9786,6 +10018,8 @@ paths:
           schema:
             type: string
             format: uuid
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/work-entries/{id}:
     get:
       summary: Read Work entries record
@@ -9885,6 +10119,8 @@ paths:
           schema:
             type: string
             format: uuid
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /work-entries/{id}:
     get:
       summary: Read Work entries record
@@ -10045,6 +10281,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/work-orders/{id}:
     get:
       summary: Read Production record
@@ -10105,6 +10343,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /work-orders:
     get:
       summary: List Production
@@ -10166,6 +10406,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /work-orders/{id}:
     get:
       summary: Read Production record
@@ -10226,6 +10468,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /work-orders/{id}/transitions:
     post:
       summary: production-transition
@@ -10266,6 +10510,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/work-orders/{id}/transitions:
     post:
       summary: production-transition
@@ -10306,6 +10552,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /reports/work-orders/export:
     get:
       summary: Export Production in cursor-paged CSV batches (maximum 500 rows per
@@ -10435,6 +10683,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/quality-checks/{id}:
     get:
       summary: Read Quality checks record
@@ -10495,6 +10745,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /quality-checks:
     get:
       summary: List Quality checks
@@ -10556,6 +10808,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /quality-checks/{id}:
     get:
       summary: Read Quality checks record
@@ -10616,6 +10870,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /reports/quality-checks/export:
     get:
       summary: Export Quality checks in cursor-paged CSV batches (maximum 500 rows per
@@ -10745,6 +11001,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/deliveries/{id}:
     get:
       summary: Read Delivery record
@@ -10805,6 +11063,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /deliveries:
     get:
       summary: List Delivery
@@ -10866,6 +11126,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /deliveries/{id}:
     get:
       summary: Read Delivery record
@@ -10926,6 +11188,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /deliveries/{id}/transitions:
     post:
       summary: delivery-transition
@@ -10970,6 +11234,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/deliveries/{id}/transitions:
     post:
       summary: delivery-transition
@@ -11014,6 +11280,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /reports/deliveries/export:
     get:
       summary: Export Delivery in cursor-paged CSV batches (maximum 500 rows per
@@ -11143,6 +11411,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/installations/{id}:
     get:
       summary: Read Installation record
@@ -11203,6 +11473,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /installations:
     get:
       summary: List Installation
@@ -11264,6 +11536,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /installations/{id}:
     get:
       summary: Read Installation record
@@ -11324,6 +11598,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /reports/installations/export:
     get:
       summary: Export Installation in cursor-paged CSV batches (maximum 500 rows per
@@ -11460,6 +11736,8 @@ paths:
           schema:
             type: string
             format: uuid
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/customer-payments/{id}:
     get:
       summary: Read Customer receipts record
@@ -11559,6 +11837,8 @@ paths:
           schema:
             type: string
             format: uuid
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /customer-payments/{id}:
     get:
       summary: Read Customer receipts record
@@ -11726,6 +12006,8 @@ paths:
           schema:
             type: string
             format: uuid
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/supplier-payments/{id}:
     get:
       summary: Read Supplier payments record
@@ -11825,6 +12107,8 @@ paths:
           schema:
             type: string
             format: uuid
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /supplier-payments/{id}:
     get:
       summary: Read Supplier payments record
@@ -11992,6 +12276,8 @@ paths:
           schema:
             type: string
             format: uuid
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/labour-payments/{id}:
     get:
       summary: Read Labour payments record
@@ -12091,6 +12377,8 @@ paths:
           schema:
             type: string
             format: uuid
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /labour-payments/{id}:
     get:
       summary: Read Labour payments record
@@ -12251,6 +12539,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/expenses/{id}:
     get:
       summary: Read Business expenses record
@@ -12311,6 +12601,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /expenses:
     get:
       summary: List Business expenses
@@ -12372,6 +12664,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /expenses/{id}:
     get:
       summary: Read Business expenses record
@@ -12432,6 +12726,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /expenses/{id}/approve:
     post:
       summary: expense-approve
@@ -12463,6 +12759,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/expenses/{id}/approve:
     post:
       summary: expense-approve
@@ -12494,6 +12792,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /reports/expenses/export:
     get:
       summary: Export Business expenses in cursor-paged CSV batches (maximum 500 rows
@@ -12630,6 +12930,8 @@ paths:
           schema:
             type: string
             format: uuid
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/owner-withdrawals/{id}:
     get:
       summary: Read Owner withdrawals record
@@ -12729,6 +13031,8 @@ paths:
           schema:
             type: string
             format: uuid
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /owner-withdrawals/{id}:
     get:
       summary: Read Owner withdrawals record
@@ -12889,6 +13193,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/settings/{id}:
     get:
       summary: Read Settings record
@@ -12949,6 +13255,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /settings:
     get:
       summary: List Settings
@@ -13010,6 +13318,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /settings/{id}:
     get:
       summary: Read Settings record
@@ -13070,6 +13380,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /reports/settings/export:
     get:
       summary: Export Settings in cursor-paged CSV batches (maximum 500 rows per
@@ -13613,6 +13925,8 @@ paths:
           schema:
             type: string
             format: uuid
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /finance/periods/close:
     post:
       summary: Close a reviewed past finance period; monotonic cutoff and no reopening
@@ -13667,6 +13981,8 @@ paths:
           schema:
             type: string
             format: uuid
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /health:
     get:
       summary: Sanitized health status
@@ -13855,6 +14171,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /estimates:
     post:
       summary: Approximate server-authoritative configured estimate
@@ -13910,6 +14228,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /inventory/balances:
     get:
       summary: Ledger-reconciled inventory balances
@@ -14004,6 +14324,8 @@ paths:
           schema:
             type: string
             format: uuid
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /quotations/{id}/pdf:
     get:
       summary: Immutable selected or latest quotation PDF
@@ -14203,6 +14525,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/users:
     get:
       summary: List profiles and assigned roles
@@ -14319,6 +14643,8 @@ paths:
         "500": *a14
         "503": *a15
       parameters: *a20
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /uploads/sign:
     post:
       summary: Sign authenticated Cloudinary upload; private invoice PDF only
@@ -14412,6 +14738,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /uploads/confirm:
     post:
       summary: Verify Cloudinary provenance and record asset metadata
@@ -14487,11 +14815,27 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
         "429":
-          description: HTTP 429; sanitized error envelope
+          description: Request quota exceeded. Retry-After is seconds; form values are
+            retained.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+                minimum: 1
+            X-RateLimit-Limit:
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix epoch seconds
         "500":
           description: HTTP 500; sanitized error envelope
           content:
@@ -14504,6 +14848,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /uploads/mine:
     get:
       summary: List own verified asset metadata
@@ -14806,11 +15152,27 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
         "429":
-          description: HTTP 429; sanitized error envelope
+          description: Request quota exceeded. Retry-After is seconds; form values are
+            retained.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+                minimum: 1
+            X-RateLimit-Limit:
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix epoch seconds
         "500":
           description: HTTP 500; sanitized error envelope
           content:
@@ -14829,6 +15191,8 @@ paths:
           required: true
           schema:
             type: string
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /uploads/guest/confirm:
     post:
       summary: Enquiry-scoped private design upload confirm
@@ -14902,11 +15266,27 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
         "429":
-          description: HTTP 429; sanitized error envelope
+          description: Request quota exceeded. Retry-After is seconds; form values are
+            retained.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+                minimum: 1
+            X-RateLimit-Limit:
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix epoch seconds
         "500":
           description: HTTP 500; sanitized error envelope
           content:
@@ -14925,6 +15305,8 @@ paths:
           required: true
           schema:
             type: string
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /leads/{id}/assign:
     post:
       summary: Assign an accessible lead to active sales staff
@@ -15000,11 +15382,27 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
         "429":
-          description: HTTP 429; sanitized error envelope
+          description: Request quota exceeded. Retry-After is seconds; form values are
+            retained.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+                minimum: 1
+            X-RateLimit-Limit:
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix epoch seconds
         "500":
           description: HTTP 500; sanitized error envelope
           content:
@@ -15024,6 +15422,8 @@ paths:
           schema:
             type: string
             format: uuid
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /leads/{id}/attachments:
     get:
       summary: List private design attachments for an accessible lead
@@ -15274,11 +15674,27 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
         "429":
-          description: HTTP 429; sanitized error envelope
+          description: Request quota exceeded. Retry-After is seconds; form values are
+            retained.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+                minimum: 1
+            X-RateLimit-Limit:
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix epoch seconds
         "500":
           description: HTTP 500; sanitized error envelope
           content:
@@ -15298,6 +15714,8 @@ paths:
           schema:
             type: string
             format: uuid
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /customers/{id}/link:
     post:
       summary: Link a customer to a confirmed existing account
@@ -15373,11 +15791,27 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
         "429":
-          description: HTTP 429; sanitized error envelope
+          description: Request quota exceeded. Retry-After is seconds; form values are
+            retained.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+                minimum: 1
+            X-RateLimit-Limit:
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix epoch seconds
         "500":
           description: HTTP 500; sanitized error envelope
           content:
@@ -15397,6 +15831,8 @@ paths:
           schema:
             type: string
             format: uuid
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/users/{id}/status:
     post:
       summary: Disable or enable another account
@@ -15471,11 +15907,27 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
         "429":
-          description: HTTP 429; sanitized error envelope
+          description: Request quota exceeded. Retry-After is seconds; form values are
+            retained.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+                minimum: 1
+            X-RateLimit-Limit:
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix epoch seconds
         "500":
           description: HTTP 500; sanitized error envelope
           content:
@@ -15495,6 +15947,8 @@ paths:
           schema:
             type: string
             format: uuid
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/permissions:
     get:
       summary: Read effective role permission matrix
@@ -15659,11 +16113,27 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
         "429":
-          description: HTTP 429; sanitized error envelope
+          description: Request quota exceeded. Retry-After is seconds; form values are
+            retained.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+                minimum: 1
+            X-RateLimit-Limit:
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix epoch seconds
         "500":
           description: HTTP 500; sanitized error envelope
           content:
@@ -15676,6 +16146,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /finance/receivables:
     get:
       summary: Reconciled receivables balance report; data is a page array and
@@ -16042,11 +16514,27 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
         "429":
-          description: HTTP 429; sanitized error envelope
+          description: Request quota exceeded. Retry-After is seconds; form values are
+            retained.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+                minimum: 1
+            X-RateLimit-Limit:
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix epoch seconds
         "500":
           description: HTTP 500; sanitized error envelope
           content:
@@ -16066,6 +16554,8 @@ paths:
           schema:
             type: string
             format: uuid
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /stock-reservations/{id}/release:
     post:
       summary: Release unused or partially consumed reservation without changing
@@ -16144,11 +16634,27 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
         "429":
-          description: HTTP 429; sanitized error envelope
+          description: Request quota exceeded. Retry-After is seconds; form values are
+            retained.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+                minimum: 1
+            X-RateLimit-Limit:
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix epoch seconds
         "500":
           description: HTTP 500; sanitized error envelope
           content:
@@ -16168,6 +16674,8 @@ paths:
           schema:
             type: string
             format: uuid
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/stock-reservations/{id}/release:
     post:
       summary: Release unused or partially consumed reservation without changing
@@ -16246,11 +16754,27 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
         "429":
-          description: HTTP 429; sanitized error envelope
+          description: Request quota exceeded. Retry-After is seconds; form values are
+            retained.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+                minimum: 1
+            X-RateLimit-Limit:
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix epoch seconds
         "500":
           description: HTTP 500; sanitized error envelope
           content:
@@ -16270,6 +16794,8 @@ paths:
           schema:
             type: string
             format: uuid
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /quotations/{id}/revise:
     post:
       summary: Supersede an unaccepted issued quotation and create a separate draft
@@ -16352,11 +16878,27 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
         "429":
-          description: HTTP 429; sanitized error envelope
+          description: Request quota exceeded. Retry-After is seconds; form values are
+            retained.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+                minimum: 1
+            X-RateLimit-Limit:
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix epoch seconds
         "500":
           description: HTTP 500; sanitized error envelope
           content:
@@ -16382,6 +16924,8 @@ paths:
           schema:
             type: string
             format: uuid
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/quotations/{id}/revise:
     post:
       summary: Supersede an unaccepted issued quotation and create a separate draft
@@ -16464,11 +17008,27 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
         "429":
-          description: HTTP 429; sanitized error envelope
+          description: Request quota exceeded. Retry-After is seconds; form values are
+            retained.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+                minimum: 1
+            X-RateLimit-Limit:
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix epoch seconds
         "500":
           description: HTTP 500; sanitized error envelope
           content:
@@ -16494,6 +17054,8 @@ paths:
           schema:
             type: string
             format: uuid
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /products/{id}/duplicate:
     post:
       summary: Duplicate details, media and choices as a new draft; BOM and pricing
@@ -16584,11 +17146,27 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
         "429":
-          description: HTTP 429; sanitized error envelope
+          description: Request quota exceeded. Retry-After is seconds; form values are
+            retained.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+                minimum: 1
+            X-RateLimit-Limit:
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix epoch seconds
         "500":
           description: HTTP 500; sanitized error envelope
           content:
@@ -16614,6 +17192,8 @@ paths:
           schema:
             type: string
             format: uuid
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /products/{id}/configuration:
     get:
       summary: Read published product variants and options; draft children are
@@ -16790,11 +17370,27 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
         "429":
-          description: HTTP 429; sanitized error envelope
+          description: Request quota exceeded. Retry-After is seconds; form values are
+            retained.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+                minimum: 1
+            X-RateLimit-Limit:
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix epoch seconds
         "500":
           description: HTTP 500; sanitized error envelope
           content:
@@ -16820,6 +17416,8 @@ paths:
           schema:
             type: string
             format: uuid
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /admin/products/{id}/configuration:
     get:
       summary: Read published product variants and options; draft children are
@@ -17355,11 +17953,27 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
         "429":
-          description: HTTP 429; sanitized error envelope
+          description: Request quota exceeded. Retry-After is seconds; form values are
+            retained.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+                minimum: 1
+            X-RateLimit-Limit:
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix epoch seconds
         "500":
           description: HTTP 500; sanitized error envelope
           content:
@@ -17379,6 +17993,8 @@ paths:
           schema:
             type: string
             format: uuid
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /finance/reconciliation:
     get:
       summary: Current scoped inventory/job-cost/purchase-tax reconciliation
@@ -17733,6 +18349,8 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /dashboard:
     get:
       summary: Permission/RLS-scoped daily tasks and order progress; recognized demo
@@ -18106,6 +18724,39 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
+  /auth/form:
+    post:
+      summary: Rate-limited same-origin login/signup/reset/password-update form
+      security: []
+      x-permission: authenticated actor with object ownership
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthForm"
+      responses:
+        "200":
+          description: Success envelope
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Envelope"
+        "400": *a5
+        "401": *a6
+        "403": *a7
+        "404": *a8
+        "409": *a9
+        "413": *a10
+        "415": *a11
+        "422": *a12
+        "429": *a13
+        "500": *a14
+        "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
 components:
   securitySchemes:
     bearerAuth:
@@ -22704,3 +23355,76 @@ components:
         - intent
         - page
       additionalProperties: false
+    AuthForm:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      oneOf:
+        - type: object
+          properties:
+            mode:
+              type: string
+              const: login
+            email:
+              type: string
+              maxLength: 254
+              format: email
+              pattern: ^(?:[A-Za-z0-9_'+\-]+\.)*[A-Za-z0-9_'+\-]*[A-Za-z0-9_+-]@(?:[A-Za-z0-9][A-Za-z0-9\-]*\.)+[A-Za-z]{2,}$
+            password:
+              type: string
+              minLength: 8
+              maxLength: 256
+          required:
+            - mode
+            - email
+            - password
+          additionalProperties: false
+        - type: object
+          properties:
+            mode:
+              type: string
+              const: signup
+            email:
+              type: string
+              maxLength: 254
+              format: email
+              pattern: ^(?:[A-Za-z0-9_'+\-]+\.)*[A-Za-z0-9_'+\-]*[A-Za-z0-9_+-]@(?:[A-Za-z0-9][A-Za-z0-9\-]*\.)+[A-Za-z]{2,}$
+            password:
+              type: string
+              minLength: 8
+              maxLength: 256
+            name:
+              type: string
+              minLength: 2
+              maxLength: 120
+          required:
+            - mode
+            - email
+            - password
+            - name
+          additionalProperties: false
+        - type: object
+          properties:
+            mode:
+              type: string
+              const: reset
+            email:
+              type: string
+              maxLength: 254
+              format: email
+              pattern: ^(?:[A-Za-z0-9_'+\-]+\.)*[A-Za-z0-9_'+\-]*[A-Za-z0-9_+-]@(?:[A-Za-z0-9][A-Za-z0-9\-]*\.)+[A-Za-z]{2,}$
+          required:
+            - mode
+            - email
+          additionalProperties: false
+        - type: object
+          properties:
+            mode:
+              type: string
+              const: password
+            password:
+              type: string
+              minLength: 8
+              maxLength: 256
+          required:
+            - mode
+            - password
+          additionalProperties: false

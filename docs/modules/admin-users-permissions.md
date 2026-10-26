@@ -40,3 +40,7 @@ Staff and notification collections use serial/action tables and bounded reversib
 ## Navigation update - 2026-10-26
 
 The eight-entry sidebar, section directories and parent-record tabs replace the long resource menu. All legacy routes and role boundaries remain available. See [full mapping and verification](../operations/admin-workspace-navigation.md).
+
+## Request rate limits - 2026-10-26
+
+Auth forms now use same-origin POST /api/v1/auth/form, with shared IP and email-attempt quotas; password update requires an active verified session. Authorized record/profile/permission mutations also consume per-actor quotas. Existing disabled-user checks, owner protections, CSRF and RLS remain authoritative. Service-role access is limited to the isolated quota RPC, not business operations. See [complete limits and runtime verification](../security/rate-limits.md).

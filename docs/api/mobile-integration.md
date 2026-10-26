@@ -120,3 +120,7 @@ Staff mobile clients can reuse GET /api/v1/admin/{child}?context={parent}&contex
 ## Visitor contact registration
 
 GET /visitor-contact returns data.registered only. POST /visitor-contact accepts {name,phone,intent: welcome|call|message,page,website?: empty} and creates a staff lead through submit_lead. Mobile is normalized to +91. Returns 201 and a signed HttpOnly seven-day cookie, or 200 for an existing valid cookie. Preserve cookies for subsequent status checks. Validation 422, rate limit 429 and configured-service errors never return registered success. This cookie is not a user login or mobile ownership proof; external dialler/chat actions remain client behavior.
+
+## Form/API rate limits
+
+Every POST/PUT/PATCH/DELETE under /api/v1 uses distributed request quotas; authenticated mutations also use verified actor quotas. Respect HTTP 429 and Retry-After seconds; retain draft data and original idempotency keys, do not auto-resubmit non-idempotent posts. HTTP 503 means quota storage/configuration is unavailable and no application business mutation was executed. Same-origin web login/signup/reset/password-update use POST /auth/form; direct Supabase Auth clients retain provider limits. Thresholds, response headers and exemptions: [rate limits](../security/rate-limits.md).

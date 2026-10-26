@@ -1,5 +1,5 @@
 {
-  "captured_at": "2026-10-25T11:13:31.232Z",
+  "captured_at": "2026-10-26T12:51:18.966Z",
   "tables": [
     {
       "name": "audit_logs",
@@ -4800,6 +4800,16 @@
       "name": "202610250047_workshop_dashboard.sql",
       "sha256": "b16f1a4fb7a03c059950501d27cd7d03e3d5c1f6fed368772e7c82b560bfd203",
       "applied_at": "2026-10-25T10:53:36.832Z"
+    },
+    {
+      "name": "202610260048_request_rate_limits.sql",
+      "sha256": "7ccfde0df5575268665c591c5b7e4ab51a4f209fded4bddebe6119cc753102de",
+      "applied_at": "2026-10-26T12:43:41.204Z"
+    },
+    {
+      "name": "202610260049_quota_timestamp_fix.sql",
+      "sha256": "e13345de0eb877e2981e7f9ac339d19641b4fbfa6adc4c2f5ee9f1a05f741363",
+      "applied_at": "2026-10-26T12:50:22.934Z"
     }
   ],
   "constraints": [

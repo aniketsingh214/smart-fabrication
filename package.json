@@ -53,7 +53,8 @@
     "seed:website": "node --env-file=.env.local scripts/seed-customer-website.mjs",
     "test:admin-tables-browser": "node --env-file=.env.local scripts/test-admin-tables-browser.mjs",
     "test:workspaces-browser": "node --experimental-strip-types --env-file=.env.local scripts/test-workspaces-browser.mjs",
-    "test:visitor-contact-browser": "node --env-file=.env.local scripts/test-visitor-contact-browser.mjs"
+    "test:visitor-contact-browser": "node --env-file=.env.local scripts/test-visitor-contact-browser.mjs",
+    "test:rate-limits": "node --env-file=.env.local scripts/test-rate-limits.mjs"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",

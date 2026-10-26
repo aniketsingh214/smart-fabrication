@@ -1,4 +1,5 @@
 import 'server-only';
+import { enforceActorLimit } from '@/lib/rate-limit';
 import { serverClient } from '@/lib/supabase/server';
 import { AppError } from '@/lib/errors';
 import type { NextRequest } from 'next/server';
@@ -17,5 +18,6 @@ export async function requestContext(request:NextRequest,permission?:string|stri
   const {data:profile,error:profileError}=await db.from('profiles').select('id,display_name,disabled').eq('id',user.id).single();
   if(profileError||!profile||profile.disabled)throw new AppError('ACCOUNT_DISABLED','Account is not active',403);
   if(permission){const permissions=Array.isArray(permission)?permission:[permission];const checks=await Promise.all(permissions.map(requested=>db.rpc('has_permission',{requested})));if(!checks.some(result=>!result.error&&result.data))throw new AppError('FORBIDDEN','You do not have permission for this action',403);}
+  await enforceActorLimit(request,user.id);
   return {db,user,profile};
 }

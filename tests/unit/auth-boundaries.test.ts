@@ -2,6 +2,7 @@ import { describe,it,expect,vi,beforeEach,afterEach } from 'vitest';
 import { NextRequest } from 'next/server';
 import { serverClient } from '@/lib/supabase/server';
 import { requestContext } from '@/lib/auth/request';
+vi.mock('@/lib/rate-limit',()=>({enforceActorLimit:vi.fn().mockResolvedValue(undefined)}));
 vi.mock('@/lib/supabase/server',()=>({serverClient:vi.fn()}));
 const userId='c79bd6d8-03bc-48f2-80f8-5d7d4df6b120';
 function client({user=true,disabled=false,allowed=true}:{user?:boolean;disabled?:boolean;allowed?:boolean}={}){

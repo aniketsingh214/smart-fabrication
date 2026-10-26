@@ -119,9 +119,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -263,9 +268,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -411,9 +421,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -555,9 +570,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -699,9 +719,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -851,9 +876,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -995,9 +1025,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -1143,9 +1178,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -1287,9 +1327,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -1431,9 +1476,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -1583,9 +1633,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -1727,9 +1782,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -1875,9 +1935,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -2019,9 +2084,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -2163,9 +2233,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -2315,9 +2390,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -2442,9 +2522,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -2584,9 +2669,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -2732,9 +2822,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -2859,9 +2954,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -3001,9 +3101,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -3145,9 +3250,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -3297,9 +3407,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -3441,9 +3556,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -3589,9 +3709,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -3733,9 +3858,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -3877,9 +4007,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -4029,9 +4164,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -4154,9 +4294,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -4296,9 +4441,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -4427,9 +4577,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -4569,9 +4724,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -4694,9 +4854,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -4836,9 +5001,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -4967,9 +5137,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -5105,9 +5280,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -5257,9 +5437,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -5382,9 +5567,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -5524,9 +5714,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -5655,9 +5850,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -5797,9 +5997,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -5922,9 +6127,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -6064,9 +6274,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -6195,9 +6410,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -6333,9 +6553,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -6485,9 +6710,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -6610,9 +6840,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -6752,9 +6987,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -6883,9 +7123,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -7025,9 +7270,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -7150,9 +7400,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -7292,9 +7547,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -7423,9 +7683,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -7561,9 +7826,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -7713,9 +7983,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -7838,9 +8113,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -7980,9 +8260,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -8111,9 +8396,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -8253,9 +8543,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -8378,9 +8673,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -8520,9 +8820,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -8651,9 +8956,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -8789,9 +9099,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -8941,9 +9256,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -9066,9 +9386,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -9208,9 +9533,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -9339,9 +9669,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -9481,9 +9816,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -9606,9 +9946,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -9748,9 +10093,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -9879,9 +10229,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -10017,9 +10372,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -10169,9 +10529,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -10294,9 +10659,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -10436,9 +10806,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -10567,9 +10942,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -10709,9 +11089,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -10834,9 +11219,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -10976,9 +11366,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -11107,9 +11502,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -11245,9 +11645,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -11397,9 +11802,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -11522,9 +11932,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -11664,9 +12079,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -11795,9 +12215,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -11937,9 +12362,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -12062,9 +12492,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -12204,9 +12639,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -12335,9 +12775,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -12473,9 +12918,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -12625,9 +13075,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -12750,9 +13205,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -12892,9 +13352,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -13023,9 +13488,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -13165,9 +13635,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -13290,9 +13765,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -13432,9 +13912,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -13563,9 +14048,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -13701,9 +14191,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -13853,9 +14348,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -13978,9 +14478,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -14120,9 +14625,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -14251,9 +14761,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -14393,9 +14908,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -14518,9 +15038,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -14660,9 +15185,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -14791,9 +15321,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -14933,9 +15468,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -15079,9 +15619,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -15221,9 +15766,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -15373,9 +15923,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -15498,9 +16053,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -15640,9 +16200,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -15771,9 +16336,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -15913,9 +16483,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -16038,9 +16613,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -16180,9 +16760,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -16311,9 +16896,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -16449,9 +17039,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -16601,9 +17196,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -16726,9 +17326,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -16868,9 +17473,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -17016,9 +17626,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -17141,9 +17756,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -17283,9 +17903,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -17427,9 +18052,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -17579,9 +18209,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -17704,9 +18339,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -17846,9 +18486,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -17977,9 +18622,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -18119,9 +18769,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -18244,9 +18899,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -18386,9 +19046,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -18517,9 +19182,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -18655,9 +19325,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -18807,9 +19482,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -18932,9 +19612,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -19074,9 +19759,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -19222,9 +19912,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -19347,9 +20042,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -19489,9 +20189,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -19633,9 +20338,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -19785,9 +20495,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -19910,9 +20625,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -20052,9 +20772,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -20183,9 +20908,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -20325,9 +21055,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -20450,9 +21185,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -20592,9 +21332,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -20723,9 +21468,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -20854,9 +21604,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -20991,9 +21746,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -21132,9 +21892,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -21273,9 +22038,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -21414,9 +22184,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -21555,9 +22330,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -21706,9 +22486,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -21847,9 +22632,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -21988,9 +22778,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -22129,9 +22924,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -22270,9 +23070,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -22412,9 +23217,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -22564,9 +23374,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -22708,9 +23523,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -22856,9 +23676,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -23000,9 +23825,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -23148,9 +23978,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -23294,9 +24129,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -23436,9 +24276,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -23588,9 +24433,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -23713,9 +24563,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -23855,9 +24710,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -23986,9 +24846,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -24128,9 +24993,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -24253,9 +25123,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -24395,9 +25270,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -24526,9 +25406,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -24664,9 +25549,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -24816,9 +25706,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -24941,9 +25836,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -25083,9 +25983,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -25231,9 +26136,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -25356,9 +26266,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -25498,9 +26413,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -25642,9 +26562,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -25794,9 +26719,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -25919,9 +26849,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -26061,9 +26996,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -26192,9 +27132,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -26334,9 +27279,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -26459,9 +27409,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -26601,9 +27556,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -26732,9 +27692,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -26870,9 +27835,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -27022,9 +27992,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -27147,9 +28122,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -27289,9 +28269,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -27420,9 +28405,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -27562,9 +28552,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -27687,9 +28682,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -27829,9 +28829,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -27960,9 +28965,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -28098,9 +29108,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -28250,9 +29265,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -28375,9 +29395,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -28517,9 +29542,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -28648,9 +29678,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -28790,9 +29825,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -28915,9 +29955,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -29057,9 +30102,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -29188,9 +30238,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -29326,9 +30381,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -29478,9 +30538,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -29603,9 +30668,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -29745,9 +30815,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -29876,9 +30951,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -30018,9 +31098,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -30143,9 +31228,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -30285,9 +31375,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -30416,9 +31511,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -30554,9 +31654,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -30706,9 +31811,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -30831,9 +31941,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -30973,9 +32088,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -31104,9 +32224,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -31246,9 +32371,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -31371,9 +32501,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -31513,9 +32648,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -31644,9 +32784,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -31781,9 +32926,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -31922,9 +33072,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -32064,9 +33219,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -32216,9 +33376,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -32341,9 +33506,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -32483,9 +33653,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -32614,9 +33789,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -32756,9 +33936,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -32881,9 +34066,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -33023,9 +34213,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -33154,9 +34349,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -33292,9 +34492,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -33444,9 +34649,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -33588,9 +34798,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -33736,9 +34951,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -33880,9 +35100,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -34024,9 +35249,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -34176,9 +35406,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -34301,9 +35536,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -34443,9 +35683,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -34591,9 +35836,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -34716,9 +35966,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -34858,9 +36113,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -35002,9 +36262,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -35154,9 +36419,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -35279,9 +36549,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -35421,9 +36696,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -35552,9 +36832,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -35694,9 +36979,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -35819,9 +37109,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -35961,9 +37256,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -36092,9 +37392,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -36230,9 +37535,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -36382,9 +37692,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -36507,9 +37822,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -36649,9 +37969,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -36797,9 +38122,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -36922,9 +38252,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -37064,9 +38399,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -37208,9 +38548,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -37360,9 +38705,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -37487,9 +38837,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -37629,9 +38984,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -37777,9 +39137,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -37904,9 +39269,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -38046,9 +39416,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -38190,9 +39565,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -38342,9 +39722,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -38467,9 +39852,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -38609,9 +39999,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -38740,9 +40135,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -38882,9 +40282,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -39007,9 +40412,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -39149,9 +40559,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -39280,9 +40695,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -39420,9 +40840,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -39564,9 +40989,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -39706,9 +41136,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -39858,9 +41293,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -39983,9 +41423,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -40125,9 +41570,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -40256,9 +41706,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -40398,9 +41853,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -40523,9 +41983,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -40665,9 +42130,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -40796,9 +42266,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -40934,9 +42409,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -41086,9 +42566,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -41211,9 +42696,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -41353,9 +42843,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -41484,9 +42979,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -41626,9 +43126,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -41751,9 +43256,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -41893,9 +43403,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -42024,9 +43539,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -42168,9 +43688,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -42316,9 +43841,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -42458,9 +43988,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -42610,9 +44145,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -42735,9 +44275,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -42877,9 +44422,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -43008,9 +44558,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -43150,9 +44705,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -43275,9 +44835,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -43417,9 +44982,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -43548,9 +45118,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -43686,9 +45261,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -43838,9 +45418,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -43965,9 +45550,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -44107,9 +45697,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -44255,9 +45850,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -44382,9 +45982,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -44524,9 +46129,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -44668,9 +46278,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -44820,9 +46435,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -44947,9 +46567,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -45089,9 +46714,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -45237,9 +46867,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -45364,9 +46999,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -45506,9 +47146,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -45650,9 +47295,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -45802,9 +47452,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -45929,9 +47584,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -46071,9 +47731,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -46219,9 +47884,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -46346,9 +48016,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -46488,9 +48163,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -46632,9 +48312,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -46784,9 +48469,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -46909,9 +48599,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -47051,9 +48746,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -47182,9 +48882,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -47324,9 +49029,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -47449,9 +49159,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -47591,9 +49306,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -47722,9 +49442,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -47859,9 +49584,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -48000,9 +49730,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -48142,9 +49877,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -48294,9 +50034,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -48421,9 +50166,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -48563,9 +50313,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -48711,9 +50466,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -48838,9 +50598,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -48980,9 +50745,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -49124,9 +50894,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -49276,9 +51051,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -49401,9 +51181,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -49543,9 +51328,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -49674,9 +51464,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -49816,9 +51611,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -49941,9 +51741,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -50083,9 +51888,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -50214,9 +52024,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -50352,9 +52167,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -50504,9 +52324,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -50648,9 +52473,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -50796,9 +52626,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -50940,9 +52775,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -51084,9 +52924,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -51236,9 +53081,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -51380,9 +53230,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -51528,9 +53383,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -51672,9 +53532,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -51816,9 +53681,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -51973,9 +53843,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -52120,9 +53995,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -52253,9 +54133,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -52391,9 +54276,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -52547,9 +54437,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -52689,9 +54584,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -52836,9 +54736,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -52969,9 +54874,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -53121,9 +55031,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -53259,9 +55174,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -53396,9 +55316,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -53534,9 +55459,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -53687,9 +55617,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -53837,9 +55772,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -53990,9 +55930,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -54137,9 +56082,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -54294,9 +56244,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -54436,9 +56391,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -54876,9 +56836,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -55020,9 +56985,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -55164,9 +57134,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -55565,9 +57540,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -55709,9 +57689,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -55852,9 +57837,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -56119,9 +58109,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -56675,9 +58670,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -56818,9 +58818,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -56961,9 +58966,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -57108,9 +59118,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -57255,9 +59270,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -57402,9 +59422,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -57686,9 +59711,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -58509,9 +60539,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -58680,9 +60715,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -58877,9 +60917,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -59081,9 +61126,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -59225,9 +61275,14 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -59377,9 +61432,158 @@ export interface paths {
                         "application/json": components["schemas"]["Error"];
                     };
                 };
-                /** @description HTTP 429; sanitized error envelope */
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
                 429: {
                     headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 500; sanitized error envelope */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 503; sanitized error envelope */
+                503: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/auth/form": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Rate-limited same-origin login/signup/reset/password-update form */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["AuthForm"];
+                };
+            };
+            responses: {
+                /** @description Success envelope */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Envelope"];
+                    };
+                };
+                /** @description HTTP 400; sanitized error envelope */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 401; sanitized error envelope */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 403; sanitized error envelope */
+                403: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 404; sanitized error envelope */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 409; sanitized error envelope */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 413; sanitized error envelope */
+                413: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 415; sanitized error envelope */
+                415: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 422; sanitized error envelope */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
+                429: {
+                    headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
                         [name: string]: unknown;
                     };
                     content: {
@@ -60942,6 +63146,29 @@ export interface components {
             /** @default / */
             page: string;
             website?: string;
+        };
+        AuthForm: {
+            /** @constant */
+            mode: "login";
+            /** Format: email */
+            email: string;
+            password: string;
+        } | {
+            /** @constant */
+            mode: "signup";
+            /** Format: email */
+            email: string;
+            password: string;
+            name: string;
+        } | {
+            /** @constant */
+            mode: "reset";
+            /** Format: email */
+            email: string;
+        } | {
+            /** @constant */
+            mode: "password";
+            password: string;
         };
     };
     responses: never;

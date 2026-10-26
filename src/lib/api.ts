@@ -1,11 +1,12 @@
 import { NextResponse } from 'next/server';
 import { ZodError } from 'zod';
+import { RateLimitError } from '@/lib/rate-limit';
 import { AppError } from '@/lib/errors';
 export function success(data:unknown,requestId:string,status=200,meta?:unknown){return NextResponse.json({data,meta:meta??{},requestId},{status,headers:{'X-Request-ID':requestId,'Cache-Control':'no-store'}});}
 export function failure(error:unknown,requestId:string){
   const e=error instanceof AppError?error:error instanceof ZodError?new AppError('VALIDATION_ERROR','Please check the submitted fields',422,error.issues.map(i=>({field:i.path.join('.'),message:i.message}))):new AppError('INTERNAL_ERROR','The request could not be completed',500);
   if(e.status>=500)console.error(JSON.stringify({requestId,code:e.code,status:e.status}));
-  return NextResponse.json({error:{code:e.code,message:e.message,details:e.details},requestId},{status:e.status,headers:{'X-Request-ID':requestId,'Cache-Control':'no-store'}});
+  return NextResponse.json({error:{code:e.code,message:e.message,details:e.details},requestId},{status:e.status,headers:{'X-Request-ID':requestId,'Cache-Control':'no-store',...(error instanceof RateLimitError?{'Retry-After':String(error.retryAfter),'X-RateLimit-Limit':String(error.limit),'X-RateLimit-Remaining':'0','X-RateLimit-Reset':String(error.resetAt)}:e.status===429?{'Retry-After':'3600'}:{})}});
 }
 export async function jsonBody(request:Request){
   if(request.headers.get('content-type')?.split(';')[0].trim().toLowerCase()!=='application/json')throw new AppError('UNSUPPORTED_MEDIA_TYPE','Send JSON data',415);

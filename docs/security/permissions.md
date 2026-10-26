@@ -42,3 +42,5 @@ Finance corrections and period closure require finance.approve. Customer cancell
 
 Scheduler execute is explicitly revoked from PUBLIC, anon and authenticated; new functions opt into API-role execution. Invoice attachments require purchases and finance permissions.
 
+
+Write authorization now also applies verified-user form quotas after existing identity/permission checks. See [rate-limit policies](rate-limits.md). The service-only quota RPC grants no access to business records; existing business RLS remains unchanged.

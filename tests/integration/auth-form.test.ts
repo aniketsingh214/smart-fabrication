@@ -1,0 +1,11 @@
+import { afterEach,expect,it,vi } from 'vitest';
+import { NextRequest } from 'next/server';
+import { POST } from '@/app/api/v1/auth/form/route';
+import { serverClient } from '@/lib/supabase/server';
+import { consumeQuota } from '@/lib/rate-limit';
+vi.mock('@/lib/supabase/server',()=>({serverClient:vi.fn()}));
+vi.mock('@/lib/rate-limit',async(importOriginal)=>({...await importOriginal<typeof import('@/lib/rate-limit')>(),consumeQuota:vi.fn().mockResolvedValue({}),enforceActorLimit:vi.fn()}));
+afterEach(()=>vi.clearAllMocks());
+const request=(body:unknown,origin='https://example.com')=>new NextRequest('https://example.com/api/v1/auth/form',{method:'POST',headers:{'Content-Type':'application/json',origin},body:JSON.stringify(body)});
+it('routes login through account quotas and the session-cookie Supabase client',async()=>{const signInWithPassword=vi.fn().mockResolvedValue({error:null});vi.mocked(serverClient).mockResolvedValue({auth:{signInWithPassword}} as never);const response=await POST(request({mode:'login',email:'person@example.com',password:'long-password'}));expect(response.status).toBe(200);expect(consumeQuota).toHaveBeenCalledWith('email:person@example.com',expect.objectContaining({limit:5}));expect(signInWithPassword).toHaveBeenCalledOnce();});
+it('rejects invalid and cross-site auth forms before authentication',async()=>{expect((await POST(request({mode:'login',email:'bad'}))).status).toBe(422);expect((await POST(request({mode:'login',email:'person@example.com',password:'long-password'},'https://evil.example'))).status).toBe(403);expect(serverClient).not.toHaveBeenCalled();});
