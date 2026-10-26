@@ -139,3 +139,9 @@
 .admin-shell .record-context-tabs [aria-selected=true]{border-color:var(--admin-accent)}
 .admin-shell input:focus,.admin-shell select:focus,.admin-shell textarea:focus{outline-color:var(--admin-accent)}
 .admin-shell .record-context-tabs button:focus-visible{outline-color:var(--admin-accent)}
+/* Full-screen admin record pages: shared by add, edit and record details. */
+.admin-record-dialog,.admin-record-dialog-wide{inset:0;margin:0;width:100vw;max-width:100vw;height:100dvh;max-height:100dvh;border:0;border-radius:0;box-shadow:none}
+.admin-record-dialog>div:first-child{padding-top:max(16px,env(safe-area-inset-top));padding-left:max(20px,env(safe-area-inset-left));padding-right:max(20px,env(safe-area-inset-right))}
+.admin-record-dialog .admin-record-form-body{padding-bottom:24px}
+.admin-record-dialog form>div:last-child{padding-bottom:max(16px,env(safe-area-inset-bottom))}
+.admin-record-dialog .record-context-tabs{position:sticky;top:0;z-index:1;background:white}

@@ -71,3 +71,9 @@ Live verification - 2026-10-26: commit 819f77e deployed to https://smartfabricat
 Kept the approved dual-sidebar structure and replaced the copied orange accent with an independent navy/teal admin identity: navy #142339 sidebar, teal #0f766e active navigation/buttons/icons, pale teal #e6f5f2 selected sections and cool #f4f7fb canvas. Focus states and selected record-tab borders follow the same accent. Public website colors and semantic status/action colors are unchanged. CSS-only change; no API, business data or permission changes.
 
 Palette validation: production build (including TypeScript), documentation checks and diff review passed. Runtime workflows were not rerun for this CSS-only update.
+
+### Full-screen admin forms and details - 2026-10-26
+
+All shared admin record dialogs now fill the viewport instead of a centered 672/960px popup: Add/Edit forms, record details and staff/notification detail dialogs. Header and form actions stay fixed while the body scrolls. Nested related forms retain independent modal focus and scroll locks; public product-photo zoom is unchanged. No validation, permissions or posting logic changed. Browser acceptance now asserts full form width/height, no horizontal overflow and reachable Save at 320/390/768/1440/1920px.
+
+Validation: production build/TypeScript, docs and diff checks passed. Three authenticated local smoke checks passed, including full-screen nested Add form bounds, visible Save/Cancel and no horizontal overflow at 320/390/768/1440/1920px; cancellation and parent scroll locking were preserved. Temporary owner retired; no business records written.
