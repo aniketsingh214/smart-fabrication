@@ -31,6 +31,7 @@ export default async function PublicLayout({ children }: { children: React.React
                 alt="GateWala Logo"
                 width={48}
                 height={48}
+                unoptimized
                 className="h-12 w-12 shrink-0 rounded-xl object-cover shadow-sm ring-1 ring-slate-200"
               />
               <div>

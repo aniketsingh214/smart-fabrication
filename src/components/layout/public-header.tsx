@@ -29,8 +29,9 @@ export function PublicHeader() {
             alt="GateWala Logo"
             width={48}
             height={48}
-            className="h-10 w-10 shrink-0 rounded-xl object-cover shadow-sm ring-1 ring-slate-200 transition-transform group-hover:scale-105 lg:h-12 lg:w-12"
+            unoptimized
             priority
+            className="h-10 w-10 shrink-0 rounded-xl object-cover shadow-sm ring-1 ring-slate-200 transition-transform group-hover:scale-105 lg:h-12 lg:w-12"
           />
           <span className="min-w-0 text-[14px] font-extrabold tracking-tight text-graphite sm:text-base lg:text-lg">
             GateWala
