@@ -2,6 +2,10 @@
 
 # SmartFabrication progress
 
+### Sorting across existing tables - 2026-10-26
+
+Added shared accessible ascending/descending column controls across resource lists, staff, notifications, inventory, permission matrix, derived finance balances, supplier statements, dashboard samples and estimate breakdowns. Server-paginated collections order the full permitted dataset before limiting; local snapshot tables sort raw values before local pagination. Sort changes reset page/cursor; search/refresh keep the active sort. Additive read-only migration 50 is applied; permissions/RLS, posting formulas and existing legacy URLs/cursors are preserved. Production build and 8 new sorting tests passed; full database/browser matrix verification is in progress. Details/API contract and scope: [table sorting](operations/table-sorting.md).
+
 
 ### Supplied GateWala logo replacement - 2026-10-26
 
@@ -593,4 +597,13 @@ GateWala Quality & Services Section Redesign — 2026-10-26:
 
 
 Live logo verification - 2026-10-26: release 14f2806 serves the new logo in the login page, and the production PNG SHA-256 matches the supplied asset byte-for-byte. Header/footer/login responsive browser checks and compact admin logo styling passed locally.
+
+Admin Record Detail Workspace Page Alignment — 2026-10-26:
+- Converted record details (`?record=<id>` and row inspection) across all admin modules from screen-covering modal dialogs into standard workspace pages (`admin-form-page`), matching the exact layout of the add/edit pages (`?new=1` / `?edit=...`).
+- Retained full admin shell layout (primary sidebar with GateWala branding, workspace navigation rail, top header).
+- Added breadcrumbs (`[Workspace] / [Resource] / [Record Name]`), page title, description, and "Back to list" button.
+- Rendered record details in an `.admin-form-card` with section heading `● Record details` and responsive 2-column key-value grid, preserving module actions, context tabs, and sticky action buttons.
+- Removed the 100vw/100dvh modal override from `.admin-record-dialog` in `globals.css` so that modal dialogs remain centered modals with backdrops.
+- Added integration test in `tests/integration/admin-tables.test.tsx` and updated browser test assertions. Passed 255/255 test suite and Next.js production build.
+
 
