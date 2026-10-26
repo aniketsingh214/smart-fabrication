@@ -25,10 +25,10 @@ export function PublicHeader() {
       <div className="mx-auto grid max-w-[1600px] grid-cols-2 items-center gap-x-4 gap-y-3 px-4 pb-2 pt-3 sm:px-6 lg:grid-cols-[auto_minmax(14rem,1fr)_auto] lg:py-3 2xl:grid-cols-[auto_minmax(14rem,1fr)_auto_auto] lg:gap-x-6">
         <Link href="/" aria-label="GateWala home" className="group flex min-w-0 items-center">
           <Image
-            src="/gatewala-logo-transparent.png"
+            src="/gatewala-brand-logo.png"
             alt="GateWala - मजबूती भी, खूबसूरती भी।"
-            width={320}
-            height={100}
+            width={2172}
+            height={724}
             unoptimized
             priority
             className="h-11 w-auto max-w-[210px] object-contain transition-transform group-hover:scale-[1.02] sm:h-14 sm:max-w-[270px] lg:h-16 lg:max-w-[310px]"

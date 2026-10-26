@@ -3,6 +3,10 @@
 # SmartFabrication progress
 
 
+### Supplied GateWala logo replacement - 2026-10-26
+
+Replaced public header/footer, login and admin sidebar branding with the exact owner-supplied GateWala_ Strength Meets Beauty.png asset (2172x724), published as /gatewala-brand-logo.png. Preserved the original image, white background and 3:1 ratio. Desktop/mobile logo sizing is retained; compact admin navigation uses a readable GW fallback. Build/TypeScript and 13 existing workspace/permission tests passed. Browser checks confirmed image decoding and no horizontal overflow at 320/390/768/1440px, plus footer/login visibility. No backend/database changes.
+
 ### GateWala logo and visual identity integration - 2026-10-26
 
 Integrated the official workshop brand identity and logo provided by the owner: **GateWala (Welding & Fabrication Works)** with the tagline **"मजबूती भी, खूबसूरती भी।"**.

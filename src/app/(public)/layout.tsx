@@ -27,10 +27,10 @@ export default async function PublicLayout({ children }: { children: React.React
           <div className="mx-auto flex max-w-7xl flex-wrap justify-between gap-6 px-5 py-8 lg:px-8">
             <div className="flex flex-col gap-2">
               <Image
-                src="/gatewala-logo-transparent.png"
+                src="/gatewala-brand-logo.png"
                 alt="GateWala - मजबूती भी, खूबसूरती भी।"
-                width={260}
-                height={82}
+                width={2172}
+                height={724}
                 unoptimized
                 className="h-12 w-auto object-contain"
               />
