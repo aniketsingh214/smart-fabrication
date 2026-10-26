@@ -591,3 +591,6 @@ GateWala Quality & Services Section Redesign — 2026-10-26:
 - Applied Dark Green, Cream, and White aesthetic with responsive dual layout (desktop matrix + mobile cards).
 - Added comprehensive bilingual integration test (`tests/integration/fabricator-comparison.test.tsx`). Passed 244/244 test suite and Next.js production build.
 
+
+Live logo verification - 2026-10-26: release 14f2806 serves the new logo in the login page, and the production PNG SHA-256 matches the supplied asset byte-for-byte. Header/footer/login responsive browser checks and compact admin logo styling passed locally.
+
