@@ -528,3 +528,5 @@ Expanded local read-only load — 2026-10-17: 60/60 requests passed at concurren
 
 
 Production release verification - 2026-10-26: source commit 04f1cb7 was pushed and the new workspace stylesheet was observed on the live site. Three real Auth/browser/read smoke checks passed for direct/indirect context APIs and hidden-parent rejection, eight-entry workspace/legacy record tabs, and nested-create cancellation/mobile scrolling. Generated test login retirement completed; no operational record was written. This supplements the eight local acceptance checks and 218 unit/integration tests.
+
+Live verification - 2026-10-26: commit 819f77e deployed to https://smartfabrication.vercel.app. New stylesheet detected and authenticated production browser check passed for seven management shortcuts, independent section rail, both collapse controls and overflow at 320/390/768/1440px. Generated owner retired; business data unchanged.
