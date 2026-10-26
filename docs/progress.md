@@ -3,6 +3,14 @@
 # SmartFabrication progress
 
 
+### Save/remove action toasts - 2026-10-26
+
+Added a shared, accessible green success/red error toast host with icons, dismiss controls, automatic expiry and a three-message queue. Popover presentation keeps notices above modal content. Confirmed shared create/edit saves, archive/remove operations, transitions and customer linking now emit action feedback; validation/transport failures emit errors. Staff roles/permissions/account status, profile, stock posting, reviewed finance corrections/period close, material returns, quotation versions/revisions, lead notes/assignment, product copying, media upload/invoice attachment and notification-read actions also emit success feedback. Reloading workflows persist a one-use, 30-second flash notice in session storage; regular page navigation retains the root host. Archive wording accurately says removed/history preserved rather than claiming hard deletion. No network request is intercepted and no financial/permission behavior changed.
+
+### Workspace Add/Edit pages (reference correction) - 2026-10-26
+
+Supersedes the top-level full-screen form presentation: shared Add/Edit now renders as a normal page inside the existing admin header and two-sidebar shell. Forms have workspace/list breadcrumbs, page title, Back to list, a bordered Record details card and Save/Cancel actions. Add uses the existing ?new=1 URL; Edit uses a UUID-validated ?edit={id} URL, reloads the RLS-visible record and enforces existing edit rules. Save/Cancel return to the list. Contextual child forms remain modal so their selected parent, locked references and nested workflow are preserved; detail/confirmation dialogs remain unchanged. Server API validation, idempotency and mutation rules are unchanged.
+
 ### Full-screen admin forms and details - 2026-10-26
 
 All shared admin record dialogs now fill the viewport instead of a centered 672/960px popup: Add/Edit forms, record details and staff/notification detail dialogs. Header and form actions stay fixed while the body scrolls. Nested related forms retain independent modal focus and scroll locks; public product-photo zoom is unchanged. No validation, permissions or posting logic changed. Browser acceptance now asserts full form width/height, no horizontal overflow and reachable Save at 320/390/768/1440/1920px.
@@ -542,3 +550,5 @@ Live verification - 2026-10-26: commit 819f77e deployed to https://smartfabricat
 Palette validation: production build (including TypeScript), documentation checks and diff review passed. Runtime workflows were not rerun for this CSS-only update.
 
 Validation: production build/TypeScript, docs and diff checks passed. Three authenticated local smoke checks passed, including full-screen nested Add form bounds, visible Save/Cancel and no horizontal overflow at 320/390/768/1440/1920px; cancellation and parent scroll locking were preserved. Temporary owner retired; no business records written.
+
+Validation - 2026-10-26: 221 unit/integration tests, production build/TypeScript, targeted lint, documentation and secret checks passed. Eight authenticated browser checks passed with mocked category edit/remove transport and real permitted read pages: populated Edit page, validation blocking with red toast, successful save returning to list with green toast, removal confirmation with green toast, cursor navigation, immutable stock restrictions, four create-page routes at 320/390/768/1440px and staff/inventory/notification lists. Generated owner retired; no operational mutation reached the backend. One intermediate run exceeded the original 5-second route assertion; the final test allows 30 seconds for server navigation.

@@ -1,0 +1,5 @@
+import { afterEach,expect,it,vi } from 'vitest';
+import { notify } from '@/lib/notify';
+afterEach(()=>vi.unstubAllGlobals());
+it('dispatches action notices without persisting routine navigation messages',()=>{const dispatchEvent=vi.fn(),setItem=vi.fn();vi.stubGlobal('window',{dispatchEvent});vi.stubGlobal('sessionStorage',{setItem});notify('Saved');expect(dispatchEvent).toHaveBeenCalledOnce();expect(dispatchEvent.mock.calls[0][0].detail).toEqual({message:'Saved',kind:'success'});expect(setItem).not.toHaveBeenCalled();});
+it('persists a confirmed success for reload and falls back if storage is unavailable',()=>{const dispatchEvent=vi.fn(),setItem=vi.fn();vi.stubGlobal('window',{dispatchEvent});vi.stubGlobal('sessionStorage',{setItem});notify('Role saved','success',true);expect(JSON.parse(setItem.mock.calls[0][1])).toMatchObject({message:'Role saved',kind:'success'});expect(dispatchEvent).not.toHaveBeenCalled();setItem.mockImplementation(()=>{throw new Error('Blocked');});notify('Save failed','error',true);expect(dispatchEvent.mock.calls[0][0].detail.kind).toBe('error');});

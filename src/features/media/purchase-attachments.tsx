@@ -1,4 +1,5 @@
 'use client';
+import { notify } from '@/lib/notify';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { uploadInvoice } from './upload';
@@ -57,9 +58,10 @@ export function PurchaseAttachments({ purchaseId, canAttach }: { purchaseId: str
       try {
         const file = data.get('file');
         await command.current.post(endpoint, file instanceof File ? file : null, String(data.get('note') ?? ''), uploadInvoice);
+        notify('Invoice attached successfully.');
         form.reset();
         await load();
-      } catch (e) { setError(e instanceof Error ? e.message : 'Invoice could not be attached'); }
+      } catch (e) { notify(e instanceof Error ? e.message : 'Invoice could not be attached','error');setError(e instanceof Error ? e.message : 'Invoice could not be attached'); }
       finally { setPending(command.current.pending); setBusy(false); }
     }}>
       <label className="block text-sm">Invoice image or PDF<input name="file" type="file" accept="image/jpeg,image/png,image/webp,application/pdf" disabled={busy || pending} required={!pending} className="mt-2" /></label>

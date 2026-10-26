@@ -1,4 +1,5 @@
 'use client';
+import { notify } from '@/lib/notify';
 import { useCallback,useEffect,useRef,useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { money,dateTime } from '@/lib/utils';
@@ -12,13 +13,13 @@ export function QuotationWorkspace({id,status,canWrite,canRevise,onChanged}:{id:
  useEffect(()=>{const controller=new AbortController();load(controller.signal).then(data=>{if(!controller.signal.aborted)setVersions(data);}).catch(e=>{if(!controller.signal.aborted)setError(e.message);}).finally(()=>{if(!controller.signal.aborted)setLoading(false);});return()=>controller.abort();},[load]);
  async function save(payload:QuoteInput){
   const r=await fetch(`/api/v1/admin/quotations/${id}/versions`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(quoteVersionSchema.parse(payload))});
-  const body=await r.json();if(!r.ok)throw new Error(body.error?.message??'Unable to save version');setVersions(await load());setMessage('New immutable version saved. Previous versions remain available.');
+  const body=await r.json();if(!r.ok)throw new Error(body.error?.message??'Unable to save version');setVersions(await load());notify('Quotation version saved successfully.');setMessage('New immutable version saved. Previous versions remain available.');
  }
  async function revise(form:FormData){setBusy(true);setError('');try{
   revisionKey.current??=crypto.randomUUID();
   const r=await fetch(`/api/v1/admin/quotations/${id}/revise`,{method:'POST',headers:{'Content-Type':'application/json','Idempotency-Key':revisionKey.current},body:JSON.stringify({expires_at:new Date(String(form.get('expires_at'))).toISOString(),reason:form.get('reason')})});
-  const body=await r.json();if(!r.ok)throw new Error(body.error?.message??'Unable to create revision');onChanged();
- }catch(e){setError(e instanceof Error?e.message:'Unable to create revision');}finally{setBusy(false);}}
+  const body=await r.json();if(!r.ok)throw new Error(body.error?.message??'Unable to create revision');notify('Quotation revision saved successfully.');onChanged();
+ }catch(e){notify(e instanceof Error?e.message:'Unable to complete the action.','error');setError(e instanceof Error?e.message:'Unable to create revision');}finally{setBusy(false);}}
  async function copyLink(){const url=`${location.origin}/account?quotation=${id}#quotation-${id}`;setShare(url);try{await navigator.clipboard.writeText(url);setMessage('Customer account link copied. Only the linked customer or permitted staff can access the quotation.');}catch{setMessage('Copy the customer account link below.');}}
  return <section className="mt-6 space-y-4 border-t border-slate-100 pt-5" aria-label="Quotation versions">
   <h3 className="font-semibold">Price versions</h3>
@@ -38,7 +39,7 @@ function Totals({input}:{input:QuoteInput}){let totals;try{totals=quotationTotal
 export function QuoteVersionForm({initial,onSubmit}:{initial?:QuoteInput;onSubmit:(payload:QuoteInput)=>Promise<void>}){
  const [lines,setLines]=useState(initial?.items??[{description:'',quantity:1,unit_minor:0}]),[discount,setDiscount]=useState(initial?.discount_minor??0),[tax,setTax]=useState(initial?.tax_bps??0),[busy,setBusy]=useState(false),[error,setError]=useState('');
  const input={items:lines,discount_minor:discount,tax_bps:tax};
- async function submit(){setBusy(true);setError('');try{const parsed=quoteVersionSchema.safeParse(input);if(!parsed.success)throw new Error(parsed.error.issues[0]?.message??'Check the quotation fields');await onSubmit(parsed.data);}catch(e){setError(e instanceof Error?e.message:'Unable to save version');}finally{setBusy(false);}}
+ async function submit(){setBusy(true);setError('');try{const parsed=quoteVersionSchema.safeParse(input);if(!parsed.success)throw new Error(parsed.error.issues[0]?.message??'Check the quotation fields');await onSubmit(parsed.data);}catch(e){notify(e instanceof Error?e.message:'Unable to complete the action.','error');setError(e instanceof Error?e.message:'Unable to save version');}finally{setBusy(false);}}
  return <form className="space-y-4 rounded-lg bg-slate-50 p-4" onSubmit={e=>{e.preventDefault();void submit();}}><h4 className="text-sm font-semibold">{initial?'Revise draft prices':'Create price version'}</h4>{lines.map((line,i)=><fieldset key={i} className="min-w-0 space-y-2 border-b border-slate-200 pb-3"><legend className="text-xs text-slate-500">Item {i+1}</legend><label className="block text-sm">Description<input aria-label={`Item ${i+1} description`} required maxLength={200} value={line.description} onChange={e=>setLines(lines.map((l,j)=>j===i?{...l,description:e.target.value}:l))}/></label><div className="grid grid-cols-2 gap-3"><label className="text-sm">Quantity<input aria-label={`Item ${i+1} quantity`} type="number" required min="0.001" max="1000000" step="any" value={line.quantity} onChange={e=>setLines(lines.map((l,j)=>j===i?{...l,quantity:Number(e.target.value)}:l))}/></label><label className="text-sm">Rate (INR)<input aria-label={`Item ${i+1} rate in rupees`} type="number" required min="0" max="10000000000" step="0.01" value={line.unit_minor/100} onChange={e=>setLines(lines.map((l,j)=>j===i?{...l,unit_minor:Math.round(Number(e.target.value)*100)}:l))}/></label></div>{lines.length>1&&<Button type="button" variant="ghost" size="sm" onClick={()=>setLines(lines.filter((_,j)=>j!==i))}>Remove item {i+1}</Button>}</fieldset>)}<div className="grid grid-cols-2 gap-3"><label className="text-sm">Discount (INR)<input type="number" required min="0" step="0.01" value={discount/100} onChange={e=>setDiscount(Math.round(Number(e.target.value)*100))}/></label><label className="text-sm">Tax (%)<input type="number" required min="0" max="100" step="0.01" value={tax/100} onChange={e=>setTax(Math.round(Number(e.target.value)*100))}/></label></div><Totals input={input}/>{error&&<p role="alert" className="text-sm text-red-600">{error}</p>}<div className="flex flex-wrap gap-2"><Button type="button" size="sm" variant="outline" disabled={busy||lines.length>=100} onClick={()=>setLines([...lines,{description:'',quantity:1,unit_minor:0}])}>Add item</Button><Button size="sm" disabled={busy}>{busy?'Savingâ€¦':'Save version'}</Button></div></form>;
 }
 

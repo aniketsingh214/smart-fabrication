@@ -1,4 +1,5 @@
 ﻿'use client';
+import { notify } from '@/lib/notify';
 import { useState } from 'react';
 import { uploadMedia } from './upload';
 import { Button } from '@/components/ui/button';
@@ -12,7 +13,7 @@ export function MediaUploader({contexts=['product','gallery','customer_design','
         const file=f.get('file');
         if(!(file instanceof File)||!file.size)throw new Error('Choose a file');
         const asset=await uploadMedia(file,String(f.get('context')));
-        setMessage(`Verified asset ready: ${asset.id}`);
+        notify('Image uploaded and verified successfully.');setMessage(`Verified asset ready: ${asset.id}`);
         window.dispatchEvent(new Event('smartfabrication:media-updated'));form.reset();
       } catch(e) {setMessage(e instanceof Error?e.message:'Upload failed');}
       finally {setBusy(false);}
