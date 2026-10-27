@@ -2,9 +2,10 @@
 import { useEffect, useRef, useState } from 'react';
 import type { RecordContext } from '@/contracts/record-context';
 import type { Field } from '@/contracts/resources';
+import { FollowupStaffInput } from './followup-staff-input';
 import { Button } from '@/components/ui/button';
 type Choice = { id: string; name?: string; heading?: string; code?: string; public_id?: string; version?: number; context?: string; visibility?: string; resource_type?: string; format?: string };
-export function ReferenceInput({ field, initial, initialOptions = [], publicList = false, onSelectionChange, invalid, describedBy, context }: { field: Field; initial?: unknown; initialOptions?: Choice[]; publicList?: boolean; onSelectionChange?: (id: string) => void; invalid?: boolean; describedBy?: string; context?: RecordContext }) {
+function CollectionReferenceInput({ field, initial, initialOptions = [], publicList = false, onSelectionChange, invalid, describedBy, context }: { field: Field; initial?: unknown; initialOptions?: Choice[]; publicList?: boolean; onSelectionChange?: (id: string) => void; invalid?: boolean; describedBy?: string; context?: RecordContext }) {
   const [selected, setSelected] = useState(String(initial ?? '')), [options, setOptions] = useState<Choice[]>(initialOptions), [next, setNext] = useState<string | null>(null), [error, setError] = useState(''), [busy, setBusy] = useState(true);
   const loadingMore = useRef(false);
   const latest = useRef(0), [refresh, setRefresh] = useState(0);
@@ -46,3 +47,5 @@ export function ReferenceInput({ field, initial, initialOptions = [], publicList
     {error && !next && <Button type="button" variant="outline" size="sm" className="mt-2" disabled={busy} onClick={() => { setBusy(true); setError(''); setRefresh(value => value + 1); }}>Retry {field.label.toLowerCase()} options</Button>}
   </>;
 }
+
+export function ReferenceInput(props:Parameters<typeof CollectionReferenceInput>[0]){return props.field.reference==='followup-staff'?<FollowupStaffInput field={props.field} initial={props.initial}/>:<CollectionReferenceInput {...props}/>;}

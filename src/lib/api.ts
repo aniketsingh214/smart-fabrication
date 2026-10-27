@@ -19,6 +19,7 @@ export async function jsonBody(request:Request){
 }
 export function databaseError(error:{code?:string;message?:string}|null,fields:readonly string[]=[]){
   if(!error)return;
+  if(fields.includes('assigned_to')&&error.message==='An active sales or owner assignee is required')throw new AppError('VALIDATION_ERROR','Choose an active assignee or clear the previous assignment.',422,[{field:'assigned_to',message:'This staff account is inactive or no longer eligible. Choose active staff, or clear the assignment to use the lead owner.'}]);
   if(error.code==='23505'){
     const constraint=error.message?.match(/constraint "([^"]+)"/)?.[1]??'';
     const field=fields.find(field=>constraint.endsWith('_'+field+'_key'));

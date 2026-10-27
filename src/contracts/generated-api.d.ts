@@ -62260,6 +62260,7 @@ export interface components {
         follow_ups_create: {
             /** Format: uuid */
             lead_id: string;
+            assigned_to?: string | null;
             /** Format: date-time */
             due_at: string;
             note?: string | null;
@@ -62272,6 +62273,7 @@ export interface components {
         follow_ups_update: {
             /** Format: uuid */
             lead_id?: string;
+            assigned_to?: string | null;
             /** Format: date-time */
             due_at?: string;
             note?: string | null;
@@ -63002,6 +63004,7 @@ export interface components {
             created_at: string;
             /** Format: uuid */
             lead_id: string;
+            assigned_to: string | null;
             /** Format: date-time */
             due_at: string;
             note: string;
