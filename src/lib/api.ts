@@ -17,8 +17,13 @@ export async function jsonBody(request:Request){
   finally{reader.releaseLock();}
   try{return JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(Buffer.concat(chunks,bytes)));}catch{throw new AppError('INVALID_JSON','Invalid JSON body',400);}
 }
-export function databaseError(error:{code?:string;message?:string}|null){
+export function databaseError(error:{code?:string;message?:string}|null,fields:readonly string[]=[]){
   if(!error)return;
+  if(error.code==='23505'){
+    const constraint=error.message?.match(/constraint "([^"]+)"/)?.[1]??'';
+    const field=fields.find(field=>constraint.endsWith('_'+field+'_key'));
+    if(field){const label=field==='sku'?'SKU':field.replaceAll('_',' ');const message='This '+label+' is already in use. Enter a different '+label+'.';throw new AppError('CONFLICT',message,409,[{field,message}]);}
+  }
   const status=error.code==='23505'?409:error.code==='42501'?403:error.code==='P0002'?404:error.code==='P0001'||error.code==='23514'?409:['23503','23502','22P02','22003','22007'].includes(error.code??'')?422:500;
   const message=status===500?'Data could not be saved':status===403?'You do not have permission for this action':status===404?'Record not found':status===422?'Check the field values and selected records':error.code==='23505'?'A record with that unique value already exists':error.code==='23514'?'The values violate a business rule':(error.message??'Operation rejected');
   throw new AppError(status===409?'CONFLICT':status===403?'FORBIDDEN':status===404?'NOT_FOUND':status===422?'VALIDATION_ERROR':'DATABASE_ERROR',message,status);

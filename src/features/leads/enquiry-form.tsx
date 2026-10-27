@@ -1,4 +1,6 @@
 'use client';
+import { validatedFormData,apiFormError,FieldValidationError,reportFormError } from '@/lib/form-errors';
+import { ValidatedForm } from '@/components/validated-form';
 import { useRef, useState } from 'react';
 import { MobileInput } from '@/features/contacts/mobile-input';
 import { indianMobileSchema } from '@/contracts/phone';
@@ -70,7 +72,7 @@ export function EnquiryForm({
       const payload = {
         ...(measurement?{measurement_request:measurementRequestSchema.parse({preferred_date:form.get('preferred_date'),time_window:form.get('time_window'),address:form.get('site_address'),postal_code:form.get('postal_code')})}:{}),
         name: String(form.get('name')).trim(),
-        phone: indianMobileSchema.parse(String(form.get('phone'))),
+        phone: (()=>{const phone=indianMobileSchema.safeParse(String(form.get('phone')));if(!phone.success)throw new FieldValidationError({phone:phone.error.issues[0].message});return phone.data;})(),
         email: form.get('email') || null,
         city: form.get('city'),
         requirement: form.get('requirement'),
@@ -86,7 +88,7 @@ export function EnquiryForm({
         body: JSON.stringify(payload)
       });
       const result = await response.json();
-      if (!response.ok) throw new Error(result.error?.message ?? 'Unable to send enquiry');
+      if (!response.ok) throw apiFormError(result.error,'Unable to send enquiry');
       setDone(true);
       if (file instanceof File && file.size) {
         try {
@@ -101,6 +103,7 @@ export function EnquiryForm({
         }
       }
     } catch (e) {
+      if(reportFormError(form,e))return;
       setError(e instanceof Error ? e.message : 'Unable to connect. Please try again.');
     } finally {
       submitting.current = false;
@@ -153,12 +156,12 @@ export function EnquiryForm({
   }
 
   return (
-    <form
+    <ValidatedForm
       method="post"
       action="#"
       onSubmit={event => {
         event.preventDefault();
-        if (!busy) void submit(new FormData(event.currentTarget));
+        if (!busy) void submit(validatedFormData(event.currentTarget));
       }}
       className="space-y-5"
     >
@@ -311,7 +314,7 @@ export function EnquiryForm({
           ? (locale === 'hi' ? 'भेज रहे हैं…' : 'Sending…')
           : (locale === 'hi' ? 'जानकारी भेजें (Send enquiry)' : 'Send enquiry')}
       </Button>
-    </form>
+    </ValidatedForm>
   );
 }
 

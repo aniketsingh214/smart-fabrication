@@ -36,13 +36,13 @@ export async function listRecords(db:SupabaseClient,resource:Resource,params:URL
 export async function createRecord(db:SupabaseClient,resource:Resource,input:unknown,idempotencyKey?:string|null){
   if(resource.readOnly)throw new AppError('METHOD_NOT_ALLOWED','Use the workflow action for this resource',405);
   const payload=resourceSchema(resource).parse(input);
-  if(['products','product-variants'].includes(resource.slug)&&Number(payload.price_max_minor)<Number(payload.price_min_minor))throw new AppError('VALIDATION_ERROR','Maximum price must cover starting price',422);
-  if(resource.slug==='reviews'&&Number(payload.rating)>5)throw new AppError('VALIDATION_ERROR','Rating must be between 1 and 5',422);
+  if(['products','product-variants'].includes(resource.slug)&&Number(payload.price_max_minor)<Number(payload.price_min_minor))throw new AppError('VALIDATION_ERROR','Maximum price must cover starting price',422,[{field:'price_max_minor',message:'Maximum price must cover starting price'}]);
+  if(resource.slug==='reviews'&&Number(payload.rating)>5)throw new AppError('VALIDATION_ERROR','Rating must be between 1 and 5',422,[{field:'rating',message:'Rating must be between 1 and 5'}]);
   if(resource.rpc){
     if(resource.rpc.startsWith('payment:')||['work-entries','owner-withdrawals','expense-reversals'].includes(resource.slug)){if(!idempotencyKey)throw new AppError('IDEMPOTENCY_REQUIRED','Idempotency-Key header is required',422);payload.idempotency_key=z.uuid().parse(idempotencyKey);}
     const {data,error}=resource.rpc.startsWith('payment:')?await db.rpc('post_payment',{payment_kind:resource.rpc.split(':')[1],payload}):await db.rpc(resource.rpc,{payload});databaseError(error);return {id:data};
   }
-  const {data,error}=await db.from(resource.table).insert(payload).select(recordFields(resource)).single();databaseError(error);return data;
+  const {data,error}=await db.from(resource.table).insert(payload).select(recordFields(resource)).single();databaseError(error,resource.fields.map(field=>field.key));return data;
 }
 export async function updateRecord(db:SupabaseClient,resource:Resource,id:string,input:unknown){
   z.uuid().parse(id);if(resource.readOnly||resource.appendOnly||resource.rpc||['measurements','labour-rates'].includes(resource.slug))throw new AppError('METHOD_NOT_ALLOWED','This history is immutable; create a new record',405);
@@ -52,7 +52,7 @@ export async function updateRecord(db:SupabaseClient,resource:Resource,id:string
     const {data:current,error:readError}=await db.from(resource.table).select('price_min_minor,price_max_minor').eq('id',id).maybeSingle();databaseError(readError);if(!current)throw new AppError('NOT_FOUND','Record not found',404);
     if(Number(payload.price_max_minor??current.price_max_minor)<Number(payload.price_min_minor??current.price_min_minor))throw new AppError('VALIDATION_ERROR','Maximum price must cover starting price',422);
   }
-  const {data,error}=await db.from(resource.table).update(payload).eq('id',id).select(recordFields(resource)).maybeSingle();databaseError(error);if(!data)throw new AppError('NOT_FOUND','Record not found',404);return data;
+  const {data,error}=await db.from(resource.table).update(payload).eq('id',id).select(recordFields(resource)).maybeSingle();databaseError(error,resource.fields.map(field=>field.key));if(!data)throw new AppError('NOT_FOUND','Record not found',404);return data;
 }
 
 

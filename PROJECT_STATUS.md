@@ -12,6 +12,7 @@ The previous cumulative report mixed old local-only snapshots and later engineer
 
 | Area | Implemented behavior |
 | --- | --- |
+| Inline validation | Red, accessible errors beneath controls across existing forms; native/schema/API field mapping, first-error focus, retained values and scoped duplicate messages. See [contract and checks](docs/operations/form-validation.md). |
 | Table sorting | Accessible ascending/descending controls across existing table renderers; full server sorting for paginated resources/staff/finance/statements, snapshot sorting before local pagination. See [contract and verification](docs/operations/table-sorting.md). |
 | Admin navigation | Eight main entries; six permission-filtered workspace directories, vertical section navigation and complete mapping of all 45 resources. Notifications and public shortcuts in header; staff permissions inside Settings. |
 | Record experience | Enquiry notes/follow-ups/measurements/quotes; product images/variants/options/BOM/pricing; order production/quality/delivery/installation; purchase items/invoice/payments/returns; worker rates/work/payments; BOM material lines. |

@@ -1,3 +1,4 @@
+import { ValidatedForm } from '@/components/validated-form';
 import { DemoPhotography } from '@/components/demo-photography';
 import { catalogFilters } from '@/features/catalog/filters';
 import Link from 'next/link';
@@ -234,7 +235,7 @@ export default async function Catalog({ searchParams }: { searchParams: Promise<
 
         {/* Bilingual Search Form with Category Preservation & Clear Button */}
         <div className="w-full max-w-md">
-          <form className="flex w-full flex-wrap items-center gap-2">
+          <ValidatedForm className="flex w-full flex-wrap items-center gap-2">
             {activeParent && <input type="hidden" name="category" value={activeParent.slug} />}
             {activeSub && <input type="hidden" name="sub" value={activeSub.slug} />}
             <div className="relative min-w-0 flex-1 basis-48">
@@ -278,7 +279,7 @@ export default async function Catalog({ searchParams }: { searchParams: Promise<
             </div>
             <p className="w-full text-xs text-slate-500">{isHi?'बजट और कीमत क्रम केवल दर्ज शुरुआती कीमतों पर हैं। बिना कीमत वाले डिज़ाइन इसमें शामिल नहीं हैं। अंतिम कोटेशन माप के बाद मिलेगा।':'Budget and price sorting use recorded starting prices only; unpriced designs are excluded. Final quotation follows measurement.'}</p>
             <Link href="/catalog" className="text-xs underline">{isHi?'सभी फ़िल्टर हटाएँ':'Reset all filters'}</Link>
-          </form>
+          </ValidatedForm>
 
           {/* Active Search & Category Scope Indicator */}
           {q && (

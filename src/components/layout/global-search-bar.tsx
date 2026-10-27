@@ -1,5 +1,6 @@
 'use client';
 
+import { ValidatedForm } from '@/components/validated-form';
 import { useState, useRef, useEffect, type FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { Search, X, ArrowRight, Sparkles } from 'lucide-react';
@@ -96,7 +97,7 @@ export function GlobalSearchBar({ className = '' }: { className?: string }) {
   return (
     <div ref={containerRef} className={`relative w-full ${className}`}>
       {/* Search Input Form */}
-      <form
+      <ValidatedForm
         onSubmit={handleSubmit}
         role="search"
         className="relative flex h-12 w-full min-w-0 items-center rounded-2xl border border-slate-200 bg-white/80 p-1 shadow-sm transition focus-within:border-orange-500 focus-within:ring-4 focus-within:ring-orange-100"
@@ -131,7 +132,7 @@ export function GlobalSearchBar({ className = '' }: { className?: string }) {
         >
           {isHi ? 'खोजें' : 'Search'}<ArrowRight size={14} aria-hidden="true"/>
         </button>
-      </form>
+      </ValidatedForm>
 
       {/* Search Suggestions Popover */}
       {isOpen && (

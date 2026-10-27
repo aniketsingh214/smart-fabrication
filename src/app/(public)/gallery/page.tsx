@@ -1,3 +1,4 @@
+import { ValidatedForm } from '@/components/validated-form';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Search, X } from 'lucide-react';
@@ -68,7 +69,7 @@ export default async function Gallery({ searchParams }: { searchParams: Promise<
 
         {/* Gallery Search Form */}
         <div className="w-full max-w-md">
-          <form className="flex w-full items-center gap-2">
+          <ValidatedForm className="flex w-full items-center gap-2">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-2.5 text-slate-400" size={17} />
               <input
@@ -95,7 +96,7 @@ export default async function Gallery({ searchParams }: { searchParams: Promise<
             >
               {isHi ? 'खोजें' : 'Search'}
             </button>
-          </form>
+          </ValidatedForm>
           {q && (
             <div className="mt-2 flex items-center gap-2 text-xs">
               <span className="text-slate-500">

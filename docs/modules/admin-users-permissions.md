@@ -48,3 +48,7 @@ Auth forms now use same-origin POST /api/v1/auth/form, with shared IP and email-
 ## Table sorting follow-up - 2026-10-27
 
 Staff account/status/roles lists sort on the server before pagination. Roles are alphabetically aggregated under users.read with invoker rights; the API keeps the existing safe profile DTO. The complete permitted permission matrix sorts by permission ID or role grant before its 25-row pages. Sort headers expose aria-sort and keyboard controls; source permission mutation protections are unchanged. See [sorting contract and checks](../operations/table-sorting.md).
+
+## Inline validation - 2026-10-27
+
+Account/profile/password and shared admin forms display validation below the input in red. API field paths are form-scoped; credential errors retain the generic email/password wording. Permission, session, quota and unknown transaction failures retain form-level feedback. See [form validation](../operations/form-validation.md).

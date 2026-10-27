@@ -1,3 +1,4 @@
+import { apiFormError } from '@/lib/form-errors';
 type PendingInvoice = { media_id: string; note: string };
 
 /** Keep the verified asset and exact association payload when a response is lost. */
@@ -21,7 +22,7 @@ export class InvoicePosting {
       }
       const response = await send(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(this.command) });
       const body = await response.json();
-      if (!response.ok) throw new Error(body.error?.message ?? 'Invoice could not be attached');
+      if (!response.ok) throw apiFormError(body.error,'Invoice could not be attached');
       if (typeof body.data?.id !== 'string' || !body.data.id) throw new Error('Invoice confirmation is missing. Retry the same attachment.');
       this.command = undefined;
       this.target = undefined;

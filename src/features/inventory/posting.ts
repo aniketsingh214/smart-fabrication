@@ -1,7 +1,8 @@
+import { apiFormError,FieldValidationError } from '@/lib/form-errors';
 import { stockSchema } from '@/contracts/workflows';
 
 export type StockPayload={material_id:string;quantity:number;unit_cost_minor:number;kind:'adjustment'|'consumption'|'return';work_order_id:string|null;note:string};
-export class StockPostError extends Error {constructor(message:string,public readonly rejected=false){super(message);}}
+export class StockPostError extends Error {constructor(message:string,public readonly rejected=false,public readonly details?:unknown){super(message);}}
 export type StockStore={read:()=>string|null;write:(value:string|null)=>void};
 /** Replay one unresolved command; optional account-scoped tab storage survives navigation. */
 export class StockPosting {
@@ -29,7 +30,7 @@ export class StockPosting {
    if(!response.ok){
     const rejected=response.status>=400&&response.status<500&&['VALIDATION_ERROR','FORBIDDEN','UNAUTHENTICATED','CONFLICT','NOT_FOUND','IDEMPOTENCY_REQUIRED'].includes(result.error?.code);
     if(rejected){this.store?.write(null);this.pending=undefined;}
-    throw new StockPostError(result.error?.message??'Unable to post stock',rejected);
+    const fieldError=apiFormError(result.error,'Unable to post stock');throw new StockPostError(fieldError.message,rejected,Object.entries(fieldError.fields).map(([field,message])=>({field,message})));
    }
    if(typeof result.data?.id!=='string')throw new StockPostError('Stock response could not be confirmed. Retry the same movement.');
    this.store?.write(null);this.pending=undefined;return result.data;
@@ -39,8 +40,8 @@ export class StockPosting {
 
 export function stockPayload(form:FormData):StockPayload{
  const value=String(form.get('unit_cost')??'');
- if(!/^\d+(\.\d{1,2})?$/.test(value))throw new StockPostError('Enter a unit cost with at most two decimal places.');
+ if(!/^\d+(\.\d{1,2})?$/.test(value))throw new FieldValidationError({unit_cost:'Enter a unit cost with at most two decimal places.'},'Enter a unit cost with at most two decimal places.');
  const [whole,fraction='']=value.split('.');const minor=BigInt(whole)*BigInt(100)+BigInt(fraction.padEnd(2,'0'));
- if(minor>BigInt(Number.MAX_SAFE_INTEGER))throw new StockPostError('Unit cost is outside the supported range.');
+ if(minor>BigInt(Number.MAX_SAFE_INTEGER))throw new FieldValidationError({unit_cost:'Unit cost is outside the supported range.'},'Unit cost is outside the supported range.');
  return {material_id:String(form.get('material_id')),quantity:Number(form.get('quantity')),unit_cost_minor:Number(minor),kind:String(form.get('kind')) as StockPayload['kind'],work_order_id:String(form.get('work_order_id')??'')||null,note:String(form.get('note')??'')};
 }

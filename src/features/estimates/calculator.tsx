@@ -1,4 +1,6 @@
 'use client';
+import { apiFormError,reportFormError } from '@/lib/form-errors';
+import { ValidatedForm } from '@/components/validated-form';
 import { SnapshotTable } from '@/components/snapshot-table';
 import { ReferenceInput } from '@/features/operations/reference-input';
 import { useRef, useState } from 'react';
@@ -91,10 +93,11 @@ export function Calculator({ products, selected }: { products: { id: string; nam
 
   return (
     <div className="grid gap-6 lg:grid-cols-2">
-      <form
+      <ValidatedForm
         className="card space-y-5 p-6"
         onSubmit={async event => {
           event.preventDefault();
+          const form=event.currentTarget;
           if (submitting.current) return;
           submitting.current = true;
           setBusy(true);
@@ -112,10 +115,11 @@ export function Calculator({ products, selected }: { products: { id: string; nam
               })
             });
             const body = await r.json();
-            if (!r.ok) throw new Error(body.error?.message ?? 'Estimate unavailable');
+            if (!r.ok) throw apiFormError(body.error,'Estimate unavailable');
             setResult(body.data);
             setDimensions({ width: effectiveWidthMm, height: effectiveHeightMm });
           } catch (e) {
+            if(reportFormError(form,e))return;
             setError(e instanceof Error ? e.message : 'Estimate unavailable');
           } finally {
             submitting.current = false;
@@ -425,7 +429,7 @@ export function Calculator({ products, selected }: { products: { id: string; nam
             <ArrowRight size={15} />
           </Button>
         </fieldset>
-      </form>
+      </ValidatedForm>
 
       <section className="card p-6" aria-live="polite">
         {result ? (

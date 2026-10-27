@@ -55,7 +55,8 @@
     "test:workspaces-browser": "node --experimental-strip-types --env-file=.env.local scripts/test-workspaces-browser.mjs",
     "test:visitor-contact-browser": "node --env-file=.env.local scripts/test-visitor-contact-browser.mjs",
     "test:rate-limits": "node --env-file=.env.local scripts/test-rate-limits.mjs",
-    "test:table-sorting": "node --experimental-strip-types --env-file=.env.local scripts/test-table-sorting.mjs"
+    "test:table-sorting": "node --experimental-strip-types --env-file=.env.local scripts/test-table-sorting.mjs",
+    "test:inline-validation": "node --env-file=.env.local scripts/test-inline-validation.mjs"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",
