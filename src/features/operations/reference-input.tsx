@@ -4,9 +4,13 @@ import type { RecordContext } from '@/contracts/record-context';
 import type { Field } from '@/contracts/resources';
 import { FollowupStaffInput } from './followup-staff-input';
 import { Button } from '@/components/ui/button';
+import { Plus } from 'lucide-react';
+import { MaterialQuickAddModal } from '@/features/materials/material-quick-add-modal';
+import type { MaterialItem } from '@/features/materials/material-catalog-data';
 type Choice = { id: string; name?: string; heading?: string; code?: string; public_id?: string; version?: number; context?: string; visibility?: string; resource_type?: string; format?: string };
 function CollectionReferenceInput({ field, initial, initialOptions = [], publicList = false, onSelectionChange, invalid, describedBy, context }: { field: Field; initial?: unknown; initialOptions?: Choice[]; publicList?: boolean; onSelectionChange?: (id: string) => void; invalid?: boolean; describedBy?: string; context?: RecordContext }) {
   const [selected, setSelected] = useState(String(initial ?? '')), [options, setOptions] = useState<Choice[]>(initialOptions), [next, setNext] = useState<string | null>(null), [error, setError] = useState(''), [busy, setBusy] = useState(true);
+  const [showMaterialQuickAdd, setShowMaterialQuickAdd] = useState(false);
   const loadingMore = useRef(false);
   const latest = useRef(0), [refresh, setRefresh] = useState(0);
   const baseEndpoint = field.reference === 'media-assets' ? '/api/v1/uploads/mine?limit=100' : `/api/v1/${publicList ? '' : 'admin/'}${field.reference}?limit=100`;
@@ -45,6 +49,40 @@ function CollectionReferenceInput({ field, initial, initialOptions = [], publicL
     }}>More {field.label.toLowerCase()} options</Button>}
     {error && <p role="alert" className="mt-2 text-xs text-red-600">{error}</p>}
     {error && !next && <Button type="button" variant="outline" size="sm" className="mt-2" disabled={busy} onClick={() => { setBusy(true); setError(''); setRefresh(value => value + 1); }}>Retry {field.label.toLowerCase()} options</Button>}
+    {field.reference === 'materials' && (
+      <div className="mt-2 flex flex-wrap items-center gap-2">
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          className="h-7 px-2.5 text-xs font-semibold text-teal-800 border-teal-300 bg-teal-50/80 hover:bg-teal-100 gap-1.5"
+          onClick={() => setShowMaterialQuickAdd(true)}
+        >
+          <Plus size={13} />
+          + नया मटेरियल (Quick Add)
+        </Button>
+        <MaterialQuickAddModal
+          isOpen={showMaterialQuickAdd}
+          onClose={() => setShowMaterialQuickAdd(false)}
+          onCreated={(item) => {
+            const newOpt = {
+              id: item.code,
+              name: `${item.name} (${item.name_hi})`,
+              code: item.code,
+            };
+            setOptions(prev => [newOpt, ...prev]);
+            setSelected(item.code);
+            onSelectionChange?.(item.code);
+            setShowMaterialQuickAdd(false);
+          }}
+        />
+      </div>
+    )}
+    {field.reference === 'suppliers' && (
+      <p className="mt-1 text-[11px] text-slate-500">
+        सप्लायर नहीं मिला? <a href="/admin/suppliers?new=1" target="_blank" rel="noopener noreferrer" className="text-teal-700 underline font-semibold">नया सप्लायर जोड़ें</a>
+      </p>
+    )}
   </>;
 }
 
