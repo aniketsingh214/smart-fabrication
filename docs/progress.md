@@ -713,3 +713,9 @@ Admin Record Detail Workspace Page Alignment — 2026-10-26:
 
 
 Refinement acceptance: all 7 Royal design browser groups passed locally, including the new account interaction checks, six viewport widths, both languages, admin/public pages, rail/drawer behavior and inline form validation. Browser hydration/page errors: none. Temporary test account retired. Separate guest menu check passed at 320px.
+
+## 2026-10-28 - Product creation workspace plan
+
+[Product creation plan](operations/product-creation-plan.md) records the requested integrated category/size/weight/per-kg pricing and five-image form. Existing category/media services will be reused; dimensional weight guesses, sample business rates and automatic unselected variants are excluded. Planning only: no product-form implementation or schema changes yet.
+
+The emblem/account refinement also passed all 7 browser groups against the live Vercel deployment, including account interactions and responsive public/admin forms.
