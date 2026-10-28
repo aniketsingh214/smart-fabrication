@@ -197,9 +197,9 @@ export function PurchasesDashboard({ data }: { data: DashboardSummaryData }) {
               </span>
               <ArrowRight size={15} className="text-slate-400 group-hover:text-teal-700 transition-all" />
             </div>
-            <h3 className="mt-3 text-sm font-bold text-slate-900">कच्चा माल व धर्म कांटा</h3>
+            <h3 className="mt-3 text-sm font-bold text-slate-900">कच्चा माल कैटलॉग</h3>
             <p className="mt-1 text-[11px] text-slate-500">
-              14 श्रेणियां, 30+ सामान, यूनिट कनवर्टर व कांटा पर्ची मिलान।
+              14 श्रेणियां, 30+ सामान, यूनिट कनवर्टर व स्टॉक मास्टर।
             </p>
           </Link>
         </div>

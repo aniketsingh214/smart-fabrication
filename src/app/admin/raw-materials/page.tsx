@@ -11,7 +11,6 @@ import {
 } from '@/features/materials/material-catalog-data';
 import {
   convertPurchaseToStock,
-  reconcileKantaWeight,
   type PurchaseUnit,
 } from '@/features/materials/multi-unit-converter';
 import { exportMaterialsToCSV } from '@/features/materials/material-import-export';
@@ -22,7 +21,6 @@ import {
   Plus,
   Download,
   Upload,
-  Scale,
   Calculator,
   Layers,
   ArrowRight,
@@ -46,16 +44,10 @@ export default function RawMaterialsPage() {
   const [viewMode, setViewMode] = useState<'table' | 'cards'>('table');
   const [isQuickAddOpen, setIsQuickAddOpen] = useState<boolean>(false);
   const [editingMaterial, setEditingMaterial] = useState<MaterialItem | null>(null);
-  const [activeTab, setActiveTab] = useState<'catalog' | 'kanta'>('catalog');
 
   // Pagination state (default 10 records per page as requested)
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(10);
-
-  // Kanta Weighbridge State
-  const [billedWeight, setBilledWeight] = useState<number>(500);
-  const [actualWeight, setActualWeight] = useState<number>(496);
-  const [tolerance, setTolerance] = useState<number>(2.0);
 
   // Multi-unit interactive calculator state
   const [calcMaterialCode, setCalcMaterialCode] = useState<string>('PIPE-SQ-25-18G');
@@ -93,11 +85,6 @@ export default function RawMaterialsPage() {
   const conversionResult = useMemo(() => {
     return convertPurchaseToStock(calcQty, calcUnit, currentCalcMaterial);
   }, [calcQty, calcUnit, currentCalcMaterial]);
-
-  // Live Kanta reconciliation
-  const kantaResult = useMemo(() => {
-    return reconcileKantaWeight(billedWeight, actualWeight, tolerance);
-  }, [billedWeight, actualWeight, tolerance]);
 
   // Load additional materials from DB on mount
   React.useEffect(() => {
@@ -224,38 +211,8 @@ export default function RawMaterialsPage() {
         </div>
       </div>
 
-      {/* Tabs */}
-      <div className="flex border-b border-slate-200 text-sm font-semibold">
-        <button
-          type="button"
-          onClick={() => setActiveTab('catalog')}
-          className={`pb-3 px-4 border-b-2 transition-all flex items-center gap-2 ${
-            activeTab === 'catalog'
-              ? 'border-teal-600 text-teal-700 font-bold'
-              : 'border-transparent text-slate-500 hover:text-slate-800'
-          }`}
-        >
-          <Layers size={16} />
-          मटेरियल कैटलॉग ({filteredMaterials.length})
-        </button>
-        <button
-          type="button"
-          onClick={() => setActiveTab('kanta')}
-          className={`pb-3 px-4 border-b-2 transition-all flex items-center gap-2 ${
-            activeTab === 'kanta'
-              ? 'border-teal-600 text-teal-700 font-bold'
-              : 'border-transparent text-slate-500 hover:text-slate-800'
-          }`}
-        >
-          <Scale size={16} />
-          धर्म कांटा पर्ची मिलान (Weighbridge Reconciliation)
-        </button>
-      </div>
-
-      {activeTab === 'catalog' && (
-        <>
-          {/* Quick Unit Conversion Bar */}
-          <div className="rounded-2xl border border-teal-200 bg-teal-50/60 p-4 shadow-sm">
+      {/* Quick Unit Conversion Bar */}
+      <div className="rounded-2xl border border-teal-200 bg-teal-50/60 p-4 shadow-sm">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div className="flex items-center gap-2">
                 <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-700 text-white shadow-sm">
@@ -698,117 +655,6 @@ export default function RawMaterialsPage() {
               </Button>
             </div>
           )}
-        </>
-      )}
-
-      {/* Tab 2: Dharam Kanta Weighbridge Slip Reconciliation */}
-      {activeTab === 'kanta' && (
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-sm">
-          <div className="flex items-center gap-2.5 mb-5">
-            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-teal-700 text-white shadow-sm">
-              <Scale size={20} />
-            </span>
-            <div>
-              <h2 className="text-base sm:text-lg font-bold text-slate-900">
-                धर्म कांटा वजन मिलान (Dharam Kanta Slip Reconciliation)
-              </h2>
-              <p className="text-xs text-slate-500">
-                स्टील डीलर के बिल के वजन और वर्कशॉप में उतरे माल के वास्तविक कांटे के वजन का मिलान करें।
-              </p>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
-              <label className="text-xs font-bold text-slate-700 block">
-                1. डीलर के बिल का वजन (Billed Weight in KG):
-              </label>
-              <input
-                type="number"
-                min="1"
-                step="0.1"
-                value={billedWeight}
-                onChange={(e) => setBilledWeight(Number(e.target.value) || 0)}
-                className="mt-2 w-full rounded-xl border border-slate-300 bg-white p-3 font-bold text-lg text-slate-900 shadow-sm"
-              />
-              <span className="text-[11px] text-slate-400 mt-1 block">
-                बिल / चालान में दर्शाया गया वजन
-              </span>
-            </div>
-
-            <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
-              <label className="text-xs font-bold text-slate-700 block">
-                2. कांटे की पर्ची का वजन (Actual Received Weight in KG):
-              </label>
-              <input
-                type="number"
-                min="1"
-                step="0.1"
-                value={actualWeight}
-                onChange={(e) => setActualWeight(Number(e.target.value) || 0)}
-                className="mt-2 w-full rounded-xl border border-slate-300 bg-white p-3 font-bold text-lg text-slate-900 shadow-sm"
-              />
-              <span className="text-[11px] text-slate-400 mt-1 block">
-                धर्म कांटे पर तौला गया वास्तविक वजन
-              </span>
-            </div>
-
-            <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
-              <label className="text-xs font-bold text-slate-700 block">
-                3. मान्य छूट सीमा (Tolerance %):
-              </label>
-              <input
-                type="number"
-                min="0.1"
-                max="10"
-                step="0.1"
-                value={tolerance}
-                onChange={(e) => setTolerance(Number(e.target.value) || 2.0)}
-                className="mt-2 w-full rounded-xl border border-slate-300 bg-white p-3 font-bold text-lg text-slate-900 shadow-sm"
-              />
-              <span className="text-[11px] text-slate-400 mt-1 block">
-                सामान्य स्टील ट्रेड छूट: 1.5% से 2.0%
-              </span>
-            </div>
-          </div>
-
-          {/* Reconciliation Result Card */}
-          <div
-            className={`mt-6 rounded-2xl border-2 p-5 ${
-              kantaResult.isAcceptable
-                ? 'border-emerald-300 bg-emerald-50/70'
-                : 'border-red-300 bg-red-50/80'
-            }`}
-          >
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <div className="flex items-center gap-3">
-                {kantaResult.isAcceptable ? (
-                  <CheckCircle2 size={32} className="text-emerald-700" />
-                ) : (
-                  <AlertTriangle size={32} className="text-red-600" />
-                )}
-                <div>
-                  <h3 className="text-base font-bold text-slate-900">{kantaResult.statusMessage}</h3>
-                  <p className="text-xs text-slate-600">
-                    अंतर (Variance):{' '}
-                    <strong>
-                      {kantaResult.varianceKg > 0 ? `+${kantaResult.varianceKg}` : kantaResult.varianceKg} kg
-                    </strong>{' '}
-                    ({kantaResult.variancePercent}%)
-                  </p>
-                </div>
-              </div>
-
-              <div className="text-right">
-                <span className="text-xs text-slate-500 block">स्टॉक में दर्ज होने योग्य वजन:</span>
-                <span className="text-xl font-extrabold text-slate-900">
-                  {kantaResult.actualWeightKg} kg
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Quick Add / Edit Material Modal */}
       <MaterialQuickAddModal
