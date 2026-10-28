@@ -2,6 +2,15 @@
 
 # SmartFabrication progress
 
+### GateWala Page 1: Purchases Dashboard & Procurement Hub - 2026-10-28
+
+Implemented **Page 1: खरीदारी डैशबोर्ड (Purchases Dashboard)** in the `Inventory & Purchases` workspace at `/admin/workspaces/inventory`:
+- **4 Real-Time KPI Cards**: इस महीने की खरीद (This Month Purchases ₹), कुल भुगतान (This Month Payments ₹), दुकानदारों का बकाया (Total Outstanding Due ₹), कुल दुकानदार (Total Active Suppliers Count).
+- **Quick Action Tiles**: Direct shortcuts to all 5 core modules: "+ नई खरीदारी दर्ज करें" (`/admin/purchases/entry`), "दुकानदार का खाता" (`/admin/suppliers/ledger`), "कच्चा माल कैटलॉग" (`/admin/raw-materials`), "माल स्टॉक" (`/admin/inventory`), and "CSV इम्पोर्ट" (`/admin/raw-materials/import`).
+- **Recent Purchases Table (हाल की खरीदारी)**: Bill number, supplier, date, total amount, status badges, and quick link to the complete purchase register.
+- **Suppliers with Outstanding Due (बकाया वाले दुकानदार)**: Supplier name, phone, outstanding amount, and direct links to view individual ledgers with payment settlement.
+- **Verification**: TypeScript check `tsc --noEmit` passed (0 errors); 63 test suites with 291/291 vitest tests passed (100%); Next.js production build compiled cleanly across all 29 routes.
+
 ### GateWala Page 3: Supplier Ledger & Multi-Bill Payment Allocation - 2026-10-28
 
 Implemented **Page 3: दुकानदार का खाता (Supplier Ledger)** at `/admin/suppliers/ledger`:
