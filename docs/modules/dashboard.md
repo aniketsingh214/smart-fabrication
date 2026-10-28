@@ -35,3 +35,7 @@ Header search selects an authorized module (enquiries/orders/customers/products)
 ## Navigation update - 2026-10-26
 
 The eight-entry sidebar, section directories and parent-record tabs replace the long resource menu. All legacy routes and role boundaries remain available. See [full mapping and verification](../operations/admin-workspace-navigation.md).
+
+## Action fixes - 2026-10-28
+
+Shared record actions keep the current detail page and reload latest status/version. Follow-ups now expose assignment correction and field-level inactive-staff errors; role/database restrictions remain intact. Lower dashboard metrics link to explicitly labelled all-permitted record lists. Validation and verification scope: [progress](../progress.md).

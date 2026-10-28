@@ -24,3 +24,7 @@ Verified in Phase 10 CRM acceptance (`npm run test:crm-browser`, artifact: `test
 2. Status updates (`pending` to `completed`) verified.
 3. Reminder dispatcher execution with `CRON_SECRET` protection verified (unauthorized callers receive 401).
 4. Idempotent retry processing 0 duplicate notifications verified.
+
+## Action fixes - 2026-10-28
+
+Shared record actions keep the current detail page and reload latest status/version. Follow-ups now expose assignment correction and field-level inactive-staff errors; role/database restrictions remain intact. Lower dashboard metrics link to explicitly labelled all-permitted record lists. Validation and verification scope: [progress](../progress.md).
