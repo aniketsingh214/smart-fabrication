@@ -1,6 +1,7 @@
 import { z } from 'zod';
 export type RecordRelation={parent:string;child:string;label:string;column?:string;via?:string;viaColumn?:string};
 export const recordRelations:RecordRelation[]=[
+ {parent:'customers',child:'leads',label:'Enquiries',column:'customer_id'},
  {parent:'leads',child:'lead-notes',label:'Notes',column:'lead_id'},
  {parent:'leads',child:'follow-ups',label:'Follow-ups',column:'lead_id'},
  {parent:'leads',child:'measurements',label:'Measurements',column:'lead_id'},

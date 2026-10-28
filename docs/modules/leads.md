@@ -48,3 +48,7 @@ Live verification - 2026-10-26: code commit 2f406d0 is deployed to https://smart
 ## Action fixes - 2026-10-28
 
 Shared record actions keep the current detail page and reload latest status/version. Follow-ups now expose assignment correction and field-level inactive-staff errors; role/database restrictions remain intact. Lower dashboard metrics link to explicitly labelled all-permitted record lists. Validation and verification scope: [progress](../progress.md).
+
+## Status dropdowns - 2026-10-28
+
+Lead details use a native dropdown for the current and valid next/reopen/lost stages. Customer details show separately linked enquiries and their status controls; customers have no independent lead status. customers -> leads uses customer_id with parent permission/RLS checks before paging. Failed prerequisites retain saved status; optimistic versions remain required. See [verification](../progress.md).

@@ -27,3 +27,7 @@ Verified in Phase 11 Quotation Lifecycle & Customer PDF acceptance (`npm run tes
 4. Customer approval, PDF access, and cross-account isolation verified.
 5. Revised draft creation, superseding source quote, and separate approval workflow verified.
 6. Customer acceptance and idempotent conversion to confirmed order verified.
+
+## PDF alignment and browser links - 2026-10-28
+
+PDF line columns now include unit rate, fixed widths, right-aligned monetary values and a separate right-aligned totals block. Long rows and the totals group do not split across pages. Copy customer link retains /account?quotation=UUID through login; permitted staff redirect to /admin/quotations?record=UUID, while linked customers keep their account view and existing RLS restrictions. This is an authenticated link, not anonymous sharing. Open customer link is available next to the copied value. Tests include a new browser context, requested-record PDF download and 40-row PDF coordinate alignment.

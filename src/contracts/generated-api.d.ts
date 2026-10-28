@@ -21,7 +21,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -784,7 +784,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -1547,7 +1547,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -2310,7 +2310,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -3333,7 +3333,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -4096,7 +4096,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -5375,7 +5375,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -6654,7 +6654,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -7933,7 +7933,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -9212,7 +9212,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -10491,7 +10491,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -11770,7 +11770,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -13049,7 +13049,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -14328,7 +14328,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -15909,7 +15909,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -17188,7 +17188,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -18207,7 +18207,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -19486,7 +19486,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -20505,7 +20505,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -23387,7 +23387,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -24449,7 +24449,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -25728,7 +25728,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -26747,7 +26747,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -28026,7 +28026,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -29305,7 +29305,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -30584,7 +30584,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -31863,7 +31863,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -33434,7 +33434,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -34713,7 +34713,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -35476,7 +35476,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -36495,7 +36495,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -37774,7 +37774,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -38793,7 +38793,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -39816,7 +39816,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -41393,7 +41393,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -42672,7 +42672,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -44257,7 +44257,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -45536,7 +45536,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -46559,7 +46559,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -47582,7 +47582,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -48605,7 +48605,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -50176,7 +50176,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -51199,7 +51199,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -52478,7 +52478,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -53241,7 +53241,7 @@ export interface paths {
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
-                    context?: "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
+                    context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
                     context_id?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */

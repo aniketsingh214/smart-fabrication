@@ -159,6 +159,7 @@ paths:
           schema:
             type: string
             enum:
+              - customers
               - leads
               - products
               - orders
