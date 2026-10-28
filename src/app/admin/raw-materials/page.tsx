@@ -13,14 +13,11 @@ import {
   convertPurchaseToStock,
   type PurchaseUnit,
 } from '@/features/materials/multi-unit-converter';
-import { exportMaterialsToCSV } from '@/features/materials/material-import-export';
 import { MaterialQuickAddModal } from '@/features/materials/material-quick-add-modal';
 import { notify } from '@/lib/notify';
 import {
   Search,
   Plus,
-  Download,
-  Upload,
   Calculator,
   Layers,
   ArrowRight,
@@ -128,18 +125,6 @@ export default function RawMaterialsPage() {
     fetchDbMaterials();
   }, []);
 
-  const handleExportCSV = () => {
-    const csv = exportMaterialsToCSV(filteredMaterials);
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.setAttribute('download', `GateWala_Raw_Materials_${Date.now()}.csv`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
   const handleMaterialCreated = (newItem: MaterialItem) => {
     setMaterials((prev) => [newItem, ...prev]);
     notify(`नया मटेरियल "${newItem.name}" सफलतापूर्वक जोड़ दिया गया!`, 'success');
@@ -195,18 +180,6 @@ export default function RawMaterialsPage() {
               <Table size={16} />
               डेटाबेस टेबल लिस्ट देखें
             </Link>
-          </Button>
-
-          <Button asChild variant="outline" className="gap-2">
-            <Link href="/admin/raw-materials/import">
-              <Upload size={16} />
-              बल्क एक्सेल इम्पोर्ट
-            </Link>
-          </Button>
-
-          <Button variant="outline" onClick={handleExportCSV} className="gap-2">
-            <Download size={16} />
-            CSV एक्सपोर्ट ({filteredMaterials.length})
           </Button>
         </div>
       </div>
