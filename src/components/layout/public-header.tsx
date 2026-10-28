@@ -23,15 +23,15 @@ export function PublicHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-canvas/95 shadow-[0_4px_24px_#20252206] backdrop-blur-xl">
       <div className="mx-auto grid max-w-[1600px] grid-cols-2 items-center gap-x-4 gap-y-3 px-4 pb-2 pt-3 sm:px-6 lg:grid-cols-[auto_minmax(14rem,1fr)_auto] lg:py-3 2xl:grid-cols-[auto_minmax(14rem,1fr)_auto_auto] lg:gap-x-6">
-        <Link href="/" aria-label="GateWala home" className="group flex min-w-0 items-center">
+        <Link href="/" aria-label="Royal Gates home" className="group flex min-w-0 items-center">
           <Image
-            src="/gatewala-brand-logo.png"
-            alt="GateWala - मजबूती भी, खूबसूरती भी।"
-            width={2172}
-            height={724}
-            unoptimized
+            src="/royal-gates-logo.png" sizes="(min-width: 1024px) 176px, (min-width: 640px) 160px, 136px"
+            alt="Royal Gates crowned gate emblem"
+            width={1672}
+            height={941}
+            
             priority
-            className="h-11 w-auto max-w-[210px] object-contain transition-transform group-hover:scale-[1.02] sm:h-14 sm:max-w-[270px] lg:h-16 lg:max-w-[310px]"
+            className="h-auto w-[136px] max-w-full rounded-lg object-contain transition-transform group-hover:scale-[1.02] sm:w-[160px] lg:w-[176px]"
           />
         </Link>
 

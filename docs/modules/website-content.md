@@ -42,3 +42,7 @@ A suite of interactive, modern visual components and responsive UX enhancements 
    - Removed hero search bar from homepage per user feedback to prevent visual clutter.
    - Built a unified `GlobalSearchBar` component with query retention (`value={query}` synced with `?q=`), instant clear button (✕), search submission, and quick category suggestions dropdown.
    - Positioned permanently visible in Row 2 of `PublicHeader` on mobile viewports for effortless one-handed thumb interaction during scrolling.
+
+## Royal Gates logo - 2026-10-28
+
+Owner-supplied black/gold crowned gate artwork now appears in the header, footer, login and admin sidebar. The original PNG is preserved at /royal-gates-logo.png; intrinsic 1672x941 dimensions and responsive widths prevent distortion. Compact admin initials use RG. Browser/build/deployment evidence is maintained in [progress](../progress.md).

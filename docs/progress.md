@@ -2,6 +2,10 @@
 
 # SmartFabrication progress
 
+### Supplied Royal Gates logo - 2026-10-28
+
+Replaced the previous logo in the public header/footer, login and admin sidebar with the exact supplied Royal Gates Crowned Gate Emblem.png, retained as public/royal-gates-logo.png (1672x941). Original black/gold artwork and aspect ratio preserved; responsive sizes, alt/home labels and compact RG mark updated. Next Image serves optimized delivery sizes while the original PNG remains unchanged. This updates logo placements, not database business identity or historic quotation content. Production build and docs check passed. Both local browser groups passed: header/footer image loading, original ratio and no overflow at 320/390/768/1440px; login/admin image loading and compact RG mark. Supplied/public PNG SHA-256 matches. Generated test owner retired; no business writes. Live verification pending.
+
 ### Complete Removal of CSV Operations Across Admin Panel - 2026-10-28
 
 Per explicit user direction ("csv mujhe poore admin se remove krna h sab kahi se remove kro"), all CSV import/export UI buttons, links, and forms have been completely removed from the entire admin panel:
