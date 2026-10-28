@@ -52,3 +52,7 @@ Staff account/status/roles lists sort on the server before pagination. Roles are
 ## Inline validation - 2026-10-27
 
 Account/profile/password and shared admin forms display validation below the input in red. API field paths are form-scoped; credential errors retain the generic email/password wording. Permission, session, quota and unknown transaction failures retain form-level feedback. See [form validation](../operations/form-validation.md).
+
+## Royal Gates workspace presentation - 2026-10-28
+
+Primary/contextual navigation and account controls use the shared gold/charcoal design system, local Font Awesome decoration and locally hosted English/Hindi fonts. The eight-entry mapping, permission filtering and mutation guards are unchanged. See [visual contract and responsive coverage](../operations/royal-design-system.md).

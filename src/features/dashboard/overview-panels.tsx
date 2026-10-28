@@ -6,10 +6,10 @@ import type { Dashboard } from '@/contracts/dashboard';
 import { dateTime } from '@/lib/utils';
 
 const stages={confirmed:'Confirmed',production:'Production',ready:'Ready',delivery:'Delivery / installation',completed:'Completed'};
-const colours=['#2563eb','#8b5cf6','#f59e0b','#06b6d4','#10b981'];
+const colours=['#c7a24f','#6f7864','#ddd3b3','#a8ad9c','#31392c'];
 export type InventoryPreview={items:{material_id:string;name:string;unit:string;available:number;reorder_level:number}[];error:boolean};
 export function OverviewPanels({data,inventory}:{data:Dashboard;inventory?:InventoryPreview}){
- const workload=[{label:'New enquiries',value:data.metrics.new_leads,colour:'#3b82f6'},{label:'Follow-ups due',value:data.metrics.followups_due,colour:'#8b5cf6'},{label:'Quote reviews',value:data.metrics.approvals,colour:'#f59e0b'},{label:'Deliveries today',value:data.metrics.deliveries_today,colour:'#10b981'}].filter(item=>item.value!==null);
+ const workload=[{label:'New enquiries',value:data.metrics.new_leads,colour:'#c7a24f'},{label:'Follow-ups due',value:data.metrics.followups_due,colour:'#8d967e'},{label:'Quote reviews',value:data.metrics.approvals,colour:'#b9984b'},{label:'Deliveries today',value:data.metrics.deliveries_today,colour:'#54634a'}].filter(item=>item.value!==null);
  const max=Math.max(1,...workload.map(item=>item.value!));
  const total=data.board.reduce((sum,stage)=>sum+stage.count,0);let position=0;
  const stops=data.board.map((stage,index)=>{const start=position;position+=total?stage.count/total*100:0;return `${colours[index%colours.length]} ${start}% ${position}%`;});

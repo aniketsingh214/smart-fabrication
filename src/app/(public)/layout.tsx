@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import Image from 'next/image';
+import { BrandLogo } from '@/components/brand-logo';
+import { FaIcon } from '@/components/fa-icon';
 import { VisitorContact } from '@/features/contacts/visitor-contact';
 import { PublicHeader } from '@/components/layout/public-header';
 import { ShopProvider } from '@/features/shop/shop-context';
@@ -23,35 +24,7 @@ export default async function PublicLayout({ children }: { children: React.React
         <main id="content">{children}</main>
         <ShopDrawers />
 
-        <footer className="border-t border-slate-200 bg-white">
-          <div className="mx-auto flex max-w-7xl flex-wrap justify-between gap-6 px-5 py-8 lg:px-8">
-            <div className="flex flex-col gap-2">
-              <Image
-                src="/royal-gates-logo.png" sizes="240px"
-                alt="Royal Gates crowned gate emblem"
-                width={1672}
-                height={941}
-                
-                className="h-auto w-[240px] max-w-full rounded-lg object-contain"
-              />
-              <p className="mt-1 text-xs text-slate-500 max-w-sm leading-5">
-                मजबूती भी, खूबसूरती भी। लोहे और स्टील के मजबूत गेट, खिड़की की जाली, रेलिंग और शेड्स। नाप से लेकर आपके घर पर फिटिंग तक।
-              </p>
-              <p className="text-[11px] text-slate-400">
-                Custom gates, grills, railings, doors, windows & sheds from measurement to installation.
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-5 text-xs text-slate-600">
-              <Link href="/about" className="hover:text-orange-600 transition">About & process</Link>
-              <Link href="/contact" className="hover:text-orange-600 transition">Contact</Link>
-              <Link href="/cart" className="hover:text-orange-600 transition">Project Cart</Link>
-              <Link href="/wishlist" className="hover:text-orange-600 transition">Wishlist</Link>
-              <Link href="/reviews" className="hover:text-orange-600 transition">Reviews</Link>
-              <Link href="/privacy" className="hover:text-orange-600 transition">Privacy</Link>
-              <Link href="/login" className="hover:text-orange-600 transition">Staff sign in</Link>
-            </div>
-          </div>
-        </footer>
+        <footer className="royal-public-footer"><div className="royal-footer-grid"><div className="royal-footer-about"><Link href="/" aria-label="Royal Gates home"><BrandLogo variant="footer"/></Link><p>{initialLocale==='hi'?"मजबूती भी, खूबसूरती भी। लोहे और स्टील के मजबूत गेट, खिड़की की जाली, रेलिंग और शेड्स। नाप से लेकर आपके घर पर फिटिंग तक।":'Custom gates, grills, railings, doors and sheds. From site measurement to installation, bring your space to life with considered metalwork.'}</p><Link href="/contact" className="royal-footer-cta">Discuss your project <FaIcon name="arrow-right"/></Link></div><div><h2>Explore designs</h2><Link href="/catalog">Design collection</Link><Link href="/gallery">Design gallery</Link><Link href="/estimate">Price estimate</Link><Link href="/about">Our process</Link></div><div><h2>Your project</h2><Link href="/account">My account</Link><Link href="/wishlist">Saved designs</Link><Link href="/cart">Project cart</Link><Link href="/contact?measurement=1">Site measurement</Link></div><div><h2>Here to help</h2><Link href="/contact">Contact the workshop</Link><Link href="/reviews">Customer reviews</Link><Link href="/privacy">Privacy &amp; data</Link><Link href="/login">Staff sign in <FaIcon name="arrow-up-right-from-square"/></Link></div></div><div className="royal-footer-bottom"><span>Royal Gates <span aria-hidden="true">&middot;</span> Strength meets beauty</span><span>Designed for your space. Built with care.</span></div></footer>
         </VisitorContact>
       </ShopProvider>
     </LocaleProvider>

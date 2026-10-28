@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 const config: NextConfig = {
   poweredByHeader: false,
+  distDir: process.env.SF_NEXT_DIST_DIR || ".next",
   images: { remotePatterns: [{ protocol: "https", hostname: "res.cloudinary.com" }] },
   async headers() {
     return [{ source: "/(.*)", headers: [

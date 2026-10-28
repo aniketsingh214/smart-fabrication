@@ -46,3 +46,7 @@ A suite of interactive, modern visual components and responsive UX enhancements 
 ## Royal Gates logo - 2026-10-28
 
 Owner-supplied black/gold crowned gate artwork now appears in the header, footer, login and admin sidebar. The original PNG is preserved at /royal-gates-logo.png; intrinsic 1672x941 dimensions and responsive widths prevent distortion. Compact admin initials use RG. Browser/build/deployment evidence is maintained in [progress](../progress.md).
+
+## Royal Gates responsive presentation - 2026-10-28
+
+The two supplied WebP logos replace legacy asset references. Header/search/navigation, dark footer, login brand panel, typography and shared surfaces follow the [Royal Gates design system](../operations/royal-design-system.md). Actual business content, prices and project claims are not certified by this visual change.

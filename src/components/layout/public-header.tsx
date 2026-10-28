@@ -1,72 +1,10 @@
 'use client';
-
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import Image from 'next/image';
-import { ArrowUpRight, LayoutGrid, Images, Calculator, UserRound, FileText } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { BrandLogo } from '@/components/brand-logo';
+import { FaIcon } from '@/components/fa-icon';
 import { HeaderShopTriggers } from '@/features/shop/header-shop-triggers';
 import { LanguageSwitcher } from '@/features/i18n/language-switcher';
 import { useLocale } from '@/lib/i18n/locale-context';
 import { GlobalSearchBar } from './global-search-bar';
-
-export function PublicHeader() {
-  const { dict, locale } = useLocale();
-  const pathname = usePathname();
-  const links = [
-    { href: '/catalog', label: dict.nav.catalog, icon: LayoutGrid },
-    { href: '/gallery', label: dict.nav.gallery, icon: Images },
-    { href: '/estimate', label: dict.nav.estimate, icon: Calculator },
-    { href: '/account', label: dict.nav.account, icon: UserRound }
-  ];
-
-  return (
-    <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-canvas/95 shadow-[0_4px_24px_#20252206] backdrop-blur-xl">
-      <div className="mx-auto grid max-w-[1600px] grid-cols-2 items-center gap-x-4 gap-y-3 px-4 pb-2 pt-3 sm:px-6 lg:grid-cols-[auto_minmax(14rem,1fr)_auto] lg:py-3 2xl:grid-cols-[auto_minmax(14rem,1fr)_auto_auto] lg:gap-x-6">
-        <Link href="/" aria-label="Royal Gates home" className="group flex min-w-0 items-center">
-          <Image
-            src="/royal-gates-logo.png" sizes="(min-width: 1024px) 176px, (min-width: 640px) 160px, 136px"
-            alt="Royal Gates crowned gate emblem"
-            width={1672}
-            height={941}
-            
-            priority
-            className="h-auto w-[136px] max-w-full rounded-lg object-contain transition-transform group-hover:scale-[1.02] sm:w-[160px] lg:w-[176px]"
-          />
-        </Link>
-
-        <div className="col-span-2 row-start-3 min-w-0 lg:col-span-1 lg:col-start-2 lg:row-start-1">
-          <GlobalSearchBar/>
-        </div>
-
-        <nav aria-label="Main navigation" className="col-span-2 grid grid-cols-4 gap-1 border-t border-slate-200/70 pt-2 lg:col-span-3 lg:flex lg:justify-center lg:gap-2 2xl:col-span-1 2xl:col-start-3 2xl:row-start-1 2xl:border-0 2xl:p-0">
-          {links.map(({href,label,icon:Icon})=>{
-            const active=pathname===href||pathname.startsWith(href+'/');
-            return <Link key={href} href={href} aria-current={active?'page':undefined} className={`flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl px-1 py-2 text-center text-[10px] font-semibold transition-colors sm:flex-row sm:gap-2 sm:px-3 sm:text-xs lg:px-4 lg:py-2.5 2xl:px-2.5 ${active?'bg-orange-100 text-orange-800':'text-slate-600 hover:bg-white hover:text-graphite'}`}>
-              <Icon size={17} strokeWidth={1.8} aria-hidden="true" className={active?'text-orange-700':'text-slate-500'}/>
-              <span className="leading-tight">{label}</span>
-            </Link>;
-          })}
-        </nav>
-
-        <div className="col-start-2 row-start-1 justify-self-end lg:col-start-3 2xl:col-start-4">
-          <div className="flex items-center gap-2 lg:gap-3">
-            <div className="hidden lg:block"><LanguageSwitcher/></div>
-            <span aria-hidden="true" className="hidden h-7 w-px bg-slate-200 lg:block"/>
-            <HeaderShopTriggers/>
-            <Button asChild className="hidden h-11 gap-2 rounded-xl bg-graphite px-4 text-xs font-semibold text-white shadow-sm hover:bg-slate-800 lg:inline-flex">
-              <Link href="/contact" aria-label="Request a quote"><FileText size={16} aria-hidden="true"/><span>{dict.nav.quote}</span><ArrowUpRight size={15} aria-hidden="true"/></Link>
-            </Button>
-          </div>
-        </div>
-
-        <div className="col-span-2 row-start-2 flex items-center justify-between gap-3 lg:hidden">
-          <LanguageSwitcher/>
-          <Button asChild size="sm" className="gap-2 rounded-xl bg-graphite px-3 text-xs text-white hover:bg-slate-800">
-            <Link href="/contact" aria-label="Request a quote"><FileText size={15} aria-hidden="true"/><span>{dict.nav.quote}</span><ArrowUpRight size={14} aria-hidden="true"/></Link>
-          </Button>
-        </div>
-      </div>
-    </header>
-  );
-}
+export function PublicHeader(){const {dict}=useLocale(),pathname=usePathname();const links=[{href:'/catalog',label:dict.nav.catalog,icon:'border-all'},{href:'/gallery',label:dict.nav.gallery,icon:'images'},{href:'/estimate',label:dict.nav.estimate,icon:'calculator'},{href:'/account',label:dict.nav.account,icon:'user'}];return <header className="royal-public-header"><div className="royal-header-inner"><Link href="/" aria-label="Royal Gates home" className="royal-header-brand"><BrandLogo/></Link><div className="royal-header-search"><GlobalSearchBar/><div className="royal-language-mobile"><LanguageSwitcher/></div></div><div className="royal-header-tools"><div className="royal-language-desktop"><LanguageSwitcher/></div><HeaderShopTriggers/><Link href="/contact" aria-label="Request a quote" className="royal-header-quote"><FaIcon name="file-lines"/>{dict.nav.quote}<FaIcon name="arrow-up-right-from-square"/></Link></div><nav aria-label="Main navigation" className="royal-public-nav">{links.map(({href,label,icon})=><Link key={href} href={href} aria-current={pathname===href||pathname.startsWith(href+'/')?'page':undefined}><FaIcon name={icon}/><span>{label}</span></Link>)}<Link href="/contact" className="royal-nav-quote" aria-label="Request a quote"><FaIcon name="file-lines"/><span>{dict.nav.quote}</span></Link></nav></div></header>;}
