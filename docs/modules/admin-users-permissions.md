@@ -56,3 +56,11 @@ Account/profile/password and shared admin forms display validation below the inp
 ## Royal Gates workspace presentation - 2026-10-28
 
 Primary/contextual navigation and account controls use the shared gold/charcoal design system, local Font Awesome decoration and locally hosted English/Hindi fonts. The eight-entry mapping, permission filtering and mutation guards are unchanged. See [visual contract and responsive coverage](../operations/royal-design-system.md).
+
+## 2026-10-28 - Emblem-only branding and account navigation refinement
+
+- Removed the added brand name/tagline next to or below the shared logo in public header, footer, admin sidebar and authentication branding. Supplied image artwork is unchanged.
+- Replaced inline admin sign-out with an accessible account dropdown: account, permitted Settings/Staff links and sign-out. Public account dropdown includes account, saved designs, cart and a staff workspace link only for authorized users. Guest menus omit staff and sign-out actions.
+- Compacted sidebar branding and navigation, balanced emblem sizes, refined topbar/header spacing and retained the charcoal/gold design and shared English/Hindi typography.
+- Dropdown supports click, Tab navigation, Arrow Down entry, Escape with focus restoration and outside-click dismissal. Mobile dropdown bounds checked at 320px and 390px.
+- Validation: targeted ESLint, TypeScript and production build passed. Guest browser checks passed. Full responsive browser results are recorded in the design-system operations document.

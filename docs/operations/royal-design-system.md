@@ -36,3 +36,13 @@ No stock/payment/order mutations, accountant approvals, prices, project counts o
 ## Final verification
 
 Release 0ccbdf5 deployed and all six browser groups passed on https://smartfabrication.vercel.app. Checks include actual populated core lists and reject hydration console errors, not only loading placeholders. The eight existing table/edit/remove/validation regression groups passed locally with intercepted category writes. 299 unit/integration tests, final production build, targeted lint without warnings, documentation and secret checks passed. Temporary test identities retired. Existing local port 3000 was restarted with its stale dev cache preserved and confirmed to return 200 with the new login UI.
+
+## 2026-10-28 - Emblem-only branding and account navigation refinement
+
+- Removed the added brand name/tagline next to or below the shared logo in public header, footer, admin sidebar and authentication branding. Supplied image artwork is unchanged.
+- Replaced inline admin sign-out with an accessible account dropdown: account, permitted Settings/Staff links and sign-out. Public account dropdown includes account, saved designs, cart and a staff workspace link only for authorized users. Guest menus omit staff and sign-out actions.
+- Compacted sidebar branding and navigation, balanced emblem sizes, refined topbar/header spacing and retained the charcoal/gold design and shared English/Hindi typography.
+- Dropdown supports click, Tab navigation, Arrow Down entry, Escape with focus restoration and outside-click dismissal. Mobile dropdown bounds checked at 320px and 390px.
+- Validation: targeted ESLint, TypeScript and production build passed. Guest browser checks passed. Full responsive browser results are recorded in the design-system operations document.
+
+Refinement acceptance: all 7 Royal design browser groups passed locally, including the new account interaction checks, six viewport widths, both languages, admin/public pages, rail/drawer behavior and inline form validation. Browser hydration/page errors: none. Temporary test account retired. Separate guest menu check passed at 320px.
