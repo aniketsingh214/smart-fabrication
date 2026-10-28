@@ -92,25 +92,62 @@ export default function NewPurchaseEntryPage() {
   const [newSupplierAddress, setNewSupplierAddress] = useState('');
   const [savingSupplier, setSavingSupplier] = useState(false);
 
-  // Load suppliers on mount
+  // Load suppliers and custom materials from DB on mount
   useEffect(() => {
-    async function fetchSuppliers() {
+    async function fetchInitialData() {
       try {
-        const res = await fetch('/api/v1/admin/suppliers?limit=100');
-        const json = await res.json();
-        if (json.data && Array.isArray(json.data)) {
-          setSuppliers(json.data);
-          if (json.data.length > 0) {
-            setSelectedSupplierId(json.data[0].id);
+        const [supRes, matRes] = await Promise.all([
+          fetch('/api/v1/admin/suppliers?limit=100'),
+          fetch('/api/v1/admin/materials?limit=100').catch(() => null),
+        ]);
+
+        const supJson = await supRes.json();
+        if (supJson.data && Array.isArray(supJson.data)) {
+          setSuppliers(supJson.data);
+          if (supJson.data.length > 0) {
+            setSelectedSupplierId(supJson.data[0].id);
+          }
+        }
+
+        if (matRes) {
+          const matJson = await matRes.json();
+          if (matJson.data && Array.isArray(matJson.data)) {
+            const dbItems: MaterialItem[] = matJson.data
+              .filter((dbItem: any) => !PRELOADED_MATERIAL_CATALOG.some((p) => p.code === dbItem.code))
+              .map((dbItem: any) => ({
+                code: dbItem.code,
+                name: dbItem.name,
+                name_hi: dbItem.name,
+                local_aliases: [],
+                category_id: ['square_pipe', 'rectangular_pipe', 'round_pipe'].includes(dbItem.type)
+                  ? 'ms_pipes'
+                  : dbItem.type === 'angle'
+                  ? 'ms_angles'
+                  : dbItem.type === 'sheet'
+                  ? 'sheets'
+                  : 'hardware',
+                subcategory: dbItem.type,
+                type: dbItem.type || 'hardware',
+                shape: 'accessory',
+                size: dbItem.size || dbItem.name,
+                thickness_mm: Number(dbItem.thickness_mm) || 1.0,
+                unit: dbItem.unit || 'kg',
+                purchase_units: [dbItem.unit === 'm' ? 'meter' : dbItem.unit || 'kg', 'kg'],
+                weight_kg_per_unit: Number(dbItem.weight_kg_per_unit) || 1.0,
+                reorder_level: Number(dbItem.reorder_level) || 5,
+              }));
+            if (dbItems.length > 0) {
+              setMaterials((prev) => [...dbItems, ...prev]);
+            }
           }
         }
       } catch (err) {
-        console.error('Failed to load suppliers:', err);
+        console.error('Failed to load initial purchase entry data:', err);
       } finally {
         setLoadingSuppliers(false);
       }
     }
-    fetchSuppliers();
+    fetchInitialData();
   }, []);
 
   // Filter materials based on search term

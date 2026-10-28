@@ -15,6 +15,7 @@ import {
 } from '@/features/materials/multi-unit-converter';
 import { exportMaterialsToCSV } from '@/features/materials/material-import-export';
 import { MaterialQuickAddModal } from '@/features/materials/material-quick-add-modal';
+import { notify } from '@/lib/notify';
 import {
   Search,
   Plus,
@@ -28,6 +29,8 @@ import {
   CheckCircle2,
   AlertTriangle,
   FileSpreadsheet,
+  Trash2,
+  Table,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -73,6 +76,48 @@ export default function RawMaterialsPage() {
     return reconcileKantaWeight(billedWeight, actualWeight, tolerance);
   }, [billedWeight, actualWeight, tolerance]);
 
+  // Load additional materials from DB on mount
+  React.useEffect(() => {
+    async function fetchDbMaterials() {
+      try {
+        const res = await fetch('/api/v1/admin/materials?limit=100');
+        const json = await res.json();
+        if (json.data && Array.isArray(json.data)) {
+          const dbItems: MaterialItem[] = json.data
+            .filter((dbItem: any) => !PRELOADED_MATERIAL_CATALOG.some((p) => p.code === dbItem.code))
+            .map((dbItem: any) => ({
+              code: dbItem.code,
+              name: dbItem.name,
+              name_hi: dbItem.name,
+              local_aliases: [],
+              category_id: ['square_pipe', 'rectangular_pipe', 'round_pipe'].includes(dbItem.type)
+                ? 'ms_pipes'
+                : dbItem.type === 'angle'
+                ? 'ms_angles'
+                : dbItem.type === 'sheet'
+                ? 'sheets'
+                : 'hardware',
+              subcategory: dbItem.type,
+              type: dbItem.type || 'hardware',
+              shape: 'accessory',
+              size: dbItem.size || dbItem.name,
+              thickness_mm: Number(dbItem.thickness_mm) || 1.0,
+              unit: dbItem.unit || 'kg',
+              purchase_units: [dbItem.unit === 'm' ? 'meter' : dbItem.unit || 'kg', 'kg'],
+              weight_kg_per_unit: Number(dbItem.weight_kg_per_unit) || 1.0,
+              reorder_level: Number(dbItem.reorder_level) || 5,
+            }));
+          if (dbItems.length > 0) {
+            setMaterials((prev) => [...dbItems, ...prev]);
+          }
+        }
+      } catch {
+        // Offline fallback
+      }
+    }
+    fetchDbMaterials();
+  }, []);
+
   const handleExportCSV = () => {
     const csv = exportMaterialsToCSV(filteredMaterials);
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
@@ -87,6 +132,14 @@ export default function RawMaterialsPage() {
 
   const handleMaterialCreated = (newItem: MaterialItem) => {
     setMaterials((prev) => [newItem, ...prev]);
+    notify(`नया मटेरियल "${newItem.name}" सफलतापूर्वक जोड़ दिया गया!`, 'success');
+  };
+
+  const handleDeleteMaterial = (code: string, name: string) => {
+    if (typeof window !== 'undefined' && window.confirm(`क्या आप "${name}" को मटेरियल लिस्ट से हटाना चाहते हैं?`)) {
+      setMaterials((prev) => prev.filter((item) => item.code !== code));
+      notify(`मटेरियल "${name}" हटा दिया गया।`, 'success');
+    }
   };
 
   return (
@@ -101,18 +154,30 @@ export default function RawMaterialsPage() {
             <span className="text-xs text-slate-400">•</span>
             <span className="text-xs font-medium text-slate-500">रॉ मटेरियल मास्टर</span>
           </div>
-          <h1 className="mt-2 text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
-            कच्चा माल मास्टर (Raw Material Master)
-          </h1>
+          <div className="mt-2 flex flex-wrap items-center gap-3">
+            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
+              कच्चा माल मास्टर (Raw Material Master)
+            </h1>
+            <span className="rounded-full bg-teal-50 border border-teal-200 px-3 py-1 text-xs font-bold text-teal-800">
+              कुल प्रकार: {materials.length} मटेरियल ({MATERIAL_CATEGORIES.length} श्रेणियां)
+            </span>
+          </div>
           <p className="mt-1.5 text-xs sm:text-sm text-slate-600">
             लोहा, पाइप, एंगल, चादर, फिटिंग व वेल्डिंग सामग्री का संपूर्ण कैटलॉग, बहु-इकाई खरीद व स्टॉक प्रबंधन।
           </p>
         </div>
 
         <div className="flex flex-wrap items-center gap-2.5">
-          <Button onClick={() => setIsQuickAddOpen(true)} className="gap-2">
+          <Button onClick={() => setIsQuickAddOpen(true)} className="gap-2 bg-teal-700 hover:bg-teal-800">
             <Plus size={16} />
-            नया मटेरियल जोड़ें
+            + नया मटेरियल जोड़ें
+          </Button>
+
+          <Button asChild variant="outline" className="gap-2">
+            <Link href="/admin/materials">
+              <Table size={16} />
+              डेटाबेस टेबल लिस्ट देखें
+            </Link>
           </Button>
 
           <Button asChild variant="outline" className="gap-2">
@@ -283,9 +348,19 @@ export default function RawMaterialsPage() {
                       </h3>
                       <p className="text-xs font-semibold text-slate-600">{item.name_hi}</p>
                     </div>
-                    <span className="shrink-0 text-[10px] font-mono font-bold text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded">
-                      {item.code}
-                    </span>
+                    <div className="flex items-center gap-1.5 shrink-0">
+                      <span className="text-[10px] font-mono font-bold text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded">
+                        {item.code}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => handleDeleteMaterial(item.code, item.name)}
+                        title={`हटाएं (${item.name})`}
+                        className="rounded-md p-1 text-slate-400 hover:bg-rose-50 hover:text-rose-600 transition-colors"
+                      >
+                        <Trash2 size={13} />
+                      </button>
+                    </div>
                   </div>
 
                   {/* Local Nicknames */}
