@@ -7,6 +7,7 @@ import {
   PRELOADED_MATERIAL_CATALOG,
   MATERIAL_CATEGORIES,
   matchMaterialSearch,
+  getMaterialThumbnail,
   type MaterialItem,
 } from '@/features/materials/material-catalog-data';
 import { MaterialQuickAddModal } from '@/features/materials/material-quick-add-modal';
@@ -553,6 +554,27 @@ export default function NewPurchaseEntryPage() {
             </div>
           </div>
 
+          {/* Selected Material Visual Badge with Image Thumbnail */}
+          {currentMaterial && (
+            <div className="flex items-center gap-3 rounded-xl border border-teal-200 bg-white p-2.5 shadow-xs">
+              <div className="h-10 w-10 shrink-0 rounded-lg border border-slate-200 overflow-hidden bg-slate-50 flex items-center justify-center shadow-xs">
+                <img
+                  src={getMaterialThumbnail(currentMaterial)}
+                  alt={currentMaterial.name}
+                  className="h-full w-full object-cover"
+                />
+              </div>
+              <div className="min-w-0 flex-1 text-xs">
+                <div className="font-bold text-slate-900 truncate">
+                  {currentMaterial.name} ({currentMaterial.name_hi})
+                </div>
+                <div className="text-[11px] text-slate-500">
+                  साइज: <strong>{currentMaterial.size}</strong> • मोटाई: <strong>{currentMaterial.gauge || `${currentMaterial.thickness_mm} mm`}</strong> • ब्रांड: {currentMaterial.brand || 'Commercial'}
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Unit, Qty, Rate & Add Button */}
           <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 pt-2">
             {/* Unit */}
@@ -654,7 +676,8 @@ export default function NewPurchaseEntryPage() {
             <table className="w-full text-left text-xs">
               <thead className="bg-slate-50 text-[11px] font-bold uppercase tracking-wider text-slate-500 border-b border-slate-200">
                 <tr>
-                  <th className="px-3 py-2.5">क्र.सं.</th>
+                  <th className="px-3 py-2.5 w-12 text-center">क्र.सं.</th>
+                  <th className="px-2 py-2.5 w-14 text-center">फोटो</th>
                   <th className="px-3 py-2.5">सामान का नाम व माप (Material)</th>
                   <th className="px-3 py-2.5 text-center">इकाई</th>
                   <th className="px-3 py-2.5 text-center">मात्रा (Qty)</th>
@@ -666,7 +689,20 @@ export default function NewPurchaseEntryPage() {
               <tbody className="divide-y divide-slate-100">
                 {billItems.map((item, idx) => (
                   <tr key={item.id} className="hover:bg-slate-50/80">
-                    <td className="px-3 py-2.5 font-mono text-slate-400">#{idx + 1}</td>
+                    <td className="px-3 py-2.5 font-mono text-slate-400 text-center">#{idx + 1}</td>
+                    <td className="px-2 py-2 text-center">
+                      <div className="h-9 w-9 mx-auto rounded-lg border border-slate-200 overflow-hidden bg-white p-0.5 shadow-xs flex items-center justify-center">
+                        <img
+                          src={getMaterialThumbnail(
+                            materials.find((m) => m.code === item.material_code) || {
+                              name: item.material_name,
+                            }
+                          )}
+                          alt={item.material_name}
+                          className="h-full w-full object-cover rounded-sm"
+                        />
+                      </div>
+                    </td>
                     <td className="px-3 py-2.5">
                       <div className="font-bold text-slate-900">{item.material_name}</div>
                       {item.size_gauge && (

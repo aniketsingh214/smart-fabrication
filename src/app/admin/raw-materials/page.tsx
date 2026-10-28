@@ -6,6 +6,7 @@ import {
   MATERIAL_CATEGORIES,
   PRELOADED_MATERIAL_CATALOG,
   matchMaterialSearch,
+  getMaterialThumbnail,
   type MaterialItem,
 } from '@/features/materials/material-catalog-data';
 import {
@@ -31,6 +32,7 @@ import {
   FileSpreadsheet,
   Trash2,
   Table,
+  LayoutGrid,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -38,6 +40,7 @@ export default function RawMaterialsPage() {
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [materials, setMaterials] = useState<MaterialItem[]>(PRELOADED_MATERIAL_CATALOG);
+  const [viewMode, setViewMode] = useState<'table' | 'cards'>('table');
   const [isQuickAddOpen, setIsQuickAddOpen] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<'catalog' | 'kanta'>('catalog');
 
@@ -330,94 +333,230 @@ export default function RawMaterialsPage() {
             </div>
           </div>
 
-          {/* Materials Grid / Table */}
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3.5">
-            {filteredMaterials.map((item) => (
-              <div
-                key={item.code}
-                className="flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-4 shadow-sm hover:border-teal-300 hover:shadow-md transition-all"
+          {/* View Mode Toggle and Results Count */}
+          <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-bold text-slate-700">
+                दिखाए जा रहे हैं: {filteredMaterials.length} मटेरियल
+              </span>
+              <span className="text-xs text-slate-400">•</span>
+              <span className="text-[11px] text-slate-500">
+                (फोटो केवल एडमिन में दिखाई देगा, वेबसाइट पर नहीं)
+              </span>
+            </div>
+
+            <div className="flex items-center gap-1 rounded-xl border border-slate-200 bg-white p-1 shadow-sm">
+              <button
+                type="button"
+                onClick={() => setViewMode('table')}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                  viewMode === 'table'
+                    ? 'bg-teal-700 text-white shadow-sm'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                }`}
               >
-                <div>
-                  <div className="flex items-start justify-between gap-2">
-                    <div>
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-teal-800 bg-teal-50 px-2 py-0.5 rounded-md">
-                        {item.category_id.replace('_', ' ')}
-                      </span>
-                      <h3 className="mt-1 text-sm font-bold text-slate-900 leading-snug">
-                        {item.name}
-                      </h3>
-                      <p className="text-xs font-semibold text-slate-600">{item.name_hi}</p>
-                    </div>
-                    <div className="flex items-center gap-1.5 shrink-0">
-                      <span className="text-[10px] font-mono font-bold text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded">
-                        {item.code}
-                      </span>
-                      <button
-                        type="button"
-                        onClick={() => handleDeleteMaterial(item.code, item.name)}
-                        title={`हटाएं (${item.name})`}
-                        className="rounded-md p-1 text-slate-400 hover:bg-rose-50 hover:text-rose-600 transition-colors"
-                      >
-                        <Trash2 size={13} />
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Local Nicknames */}
-                  {item.local_aliases.length > 0 && (
-                    <div className="mt-2.5 flex flex-wrap gap-1">
-                      {item.local_aliases.map((alias) => (
-                        <span
-                          key={alias}
-                          className="rounded-md bg-amber-50 px-1.5 py-0.5 text-[10px] font-medium text-amber-800 border border-amber-200/60"
-                        >
-                          बोलचाल: {alias}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-
-                  {/* Specifications Grid */}
-                  <div className="mt-3.5 grid grid-cols-2 gap-2 rounded-xl bg-slate-50/80 p-2.5 text-[11px]">
-                    <div>
-                      <span className="text-slate-400 block">साइज / माप:</span>
-                      <span className="font-bold text-slate-800">{item.size}</span>
-                    </div>
-                    <div>
-                      <span className="text-slate-400 block">गेज व मोटाई:</span>
-                      <span className="font-bold text-slate-800">
-                        {item.gauge || '—'} ({item.thickness_mm} mm)
-                      </span>
-                    </div>
-                    <div>
-                      <span className="text-slate-400 block">ब्रांड व ग्रेड:</span>
-                      <span className="font-medium text-slate-700 truncate block">
-                        {item.brand || 'Commercial'}
-                      </span>
-                    </div>
-                    <div>
-                      <span className="text-slate-400 block">अनुमानित वजन:</span>
-                      <span className="font-bold text-teal-900">
-                        ~{item.weight_kg_per_unit} kg / {item.unit}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-3 text-xs">
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-slate-500">कम-स्टॉक अलर्ट:</span>
-                    <span className="font-bold text-amber-800 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200">
-                      &lt; {item.reorder_level} {item.unit}
-                    </span>
-                  </div>
-                  <div className="text-[11px] text-slate-400 font-medium">
-                    इकाइयां: {item.purchase_units.join(', ')}
-                  </div>
-                </div>
-              </div>
-            ))}
+                <Table size={14} />
+                टेबल लिस्ट (Table View)
+              </button>
+              <button
+                type="button"
+                onClick={() => setViewMode('cards')}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                  viewMode === 'cards'
+                    ? 'bg-teal-700 text-white shadow-sm'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                }`}
+              >
+                <LayoutGrid size={14} />
+                कार्ड ग्रिड (Cards View)
+              </button>
+            </div>
           </div>
+
+          {/* 1. TABLE VIEW: S.No. -> Image -> Name -> Specs -> Category -> Unit -> Reorder -> Delete */}
+          {viewMode === 'table' && (
+            <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
+              <table className="w-full text-left text-xs border-collapse">
+                <thead className="bg-slate-50 border-b border-slate-200 text-slate-700 font-bold uppercase tracking-wider text-[11px]">
+                  <tr>
+                    <th className="py-3 px-3 w-12 text-center">क्र.सं. (S.No.)</th>
+                    <th className="py-3 px-3 w-16 text-center">फोटो (Image)</th>
+                    <th className="py-3 px-4">मटेरियल का नाम (Material Name)</th>
+                    <th className="py-3 px-3.5">साइज व मोटाई (Size / Gauge)</th>
+                    <th className="py-3 px-3.5">श्रेणी (Category)</th>
+                    <th className="py-3 px-3 text-center">इकाई (Unit)</th>
+                    <th className="py-3 px-3.5">ब्रांड / ग्रेड</th>
+                    <th className="py-3 px-3.5 text-right">स्टॉक अलर्ट</th>
+                    <th className="py-3 px-4 text-center w-20">हटाएं (Delete)</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {filteredMaterials.map((item, index) => (
+                    <tr key={item.code} className="hover:bg-slate-50/80 transition-colors">
+                      <td className="py-3 px-3 text-center font-bold text-slate-400 tabular-nums">
+                        {index + 1}
+                      </td>
+                      <td className="py-3 px-3 text-center">
+                        <div className="h-11 w-11 mx-auto rounded-xl border border-slate-200 overflow-hidden bg-white p-0.5 shadow-sm flex items-center justify-center">
+                          <img
+                            src={getMaterialThumbnail(item)}
+                            alt={item.name}
+                            className="h-full w-full object-cover rounded-lg"
+                          />
+                        </div>
+                      </td>
+                      <td className="py-3 px-4">
+                        <div className="font-bold text-slate-900 text-xs sm:text-sm">{item.name}</div>
+                        <div className="text-[11px] font-semibold text-slate-500">{item.name_hi}</div>
+                        {item.local_aliases.length > 0 && (
+                          <div className="mt-1 flex flex-wrap gap-1">
+                            {item.local_aliases.map((alias) => (
+                              <span
+                                key={alias}
+                                className="rounded bg-amber-50 px-1.5 py-0.5 text-[9px] font-semibold text-amber-800 border border-amber-200"
+                              >
+                                {alias}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                      </td>
+                      <td className="py-3 px-3.5">
+                        <div className="font-bold text-slate-800">{item.size}</div>
+                        <div className="text-[11px] text-slate-500">
+                          {item.gauge ? `${item.gauge} • ` : ''}{item.thickness_mm} mm
+                        </div>
+                      </td>
+                      <td className="py-3 px-3.5">
+                        <span className="rounded-md bg-teal-50 border border-teal-200 px-2 py-0.5 text-[10px] font-bold text-teal-800 uppercase tracking-wider">
+                          {item.category_id.replace('_', ' ')}
+                        </span>
+                      </td>
+                      <td className="py-3 px-3 text-center">
+                        <span className="font-bold uppercase text-slate-700 bg-slate-100 px-2 py-1 rounded">
+                          {item.unit}
+                        </span>
+                      </td>
+                      <td className="py-3 px-3.5 text-slate-700 font-medium">
+                        <div>{item.brand || 'Commercial'}</div>
+                        <div className="text-[10px] text-slate-400">{item.grade || 'IS 2062'}</div>
+                      </td>
+                      <td className="py-3 px-3.5 text-right font-bold text-amber-800">
+                        &lt; {item.reorder_level} {item.unit}
+                      </td>
+                      <td className="py-3 px-4 text-center">
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteMaterial(item.code, item.name)}
+                          title={`हटाएं (${item.name})`}
+                          className="rounded-lg p-2 text-rose-500 hover:bg-rose-50 hover:text-rose-700 transition-colors shadow-xs"
+                        >
+                          <Trash2 size={16} />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+
+          {/* 2. CARDS VIEW (Visual Cards) */}
+          {viewMode === 'cards' && (
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3.5">
+              {filteredMaterials.map((item) => (
+                <div
+                  key={item.code}
+                  className="flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-4 shadow-sm hover:border-teal-300 hover:shadow-md transition-all"
+                >
+                  <div>
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex items-start gap-3">
+                        <div className="h-12 w-12 shrink-0 rounded-xl border border-slate-200 overflow-hidden bg-white p-0.5 shadow-sm flex items-center justify-center">
+                          <img
+                            src={getMaterialThumbnail(item)}
+                            alt={item.name}
+                            className="h-full w-full object-cover rounded-lg"
+                          />
+                        </div>
+                        <div>
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-teal-800 bg-teal-50 px-2 py-0.5 rounded-md">
+                            {item.category_id.replace('_', ' ')}
+                          </span>
+                          <h3 className="mt-1 text-sm font-bold text-slate-900 leading-snug">
+                            {item.name}
+                          </h3>
+                          <p className="text-xs font-semibold text-slate-600">{item.name_hi}</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-1.5 shrink-0">
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteMaterial(item.code, item.name)}
+                          title={`हटाएं (${item.name})`}
+                          className="rounded-md p-1.5 text-slate-400 hover:bg-rose-50 hover:text-rose-600 transition-colors"
+                        >
+                          <Trash2 size={15} />
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Local Nicknames */}
+                    {item.local_aliases.length > 0 && (
+                      <div className="mt-2.5 flex flex-wrap gap-1">
+                        {item.local_aliases.map((alias) => (
+                          <span
+                            key={alias}
+                            className="rounded-md bg-amber-50 px-1.5 py-0.5 text-[10px] font-medium text-amber-800 border border-amber-200/60"
+                          >
+                            बोलचाल: {alias}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Specifications Grid */}
+                    <div className="mt-3.5 grid grid-cols-2 gap-2 rounded-xl bg-slate-50/80 p-2.5 text-[11px]">
+                      <div>
+                        <span className="text-slate-400 block">साइज / माप:</span>
+                        <span className="font-bold text-slate-800">{item.size}</span>
+                      </div>
+                      <div>
+                        <span className="text-slate-400 block">गेज व मोटाई:</span>
+                        <span className="font-bold text-slate-800">
+                          {item.gauge || '—'} ({item.thickness_mm} mm)
+                        </span>
+                      </div>
+                      <div>
+                        <span className="text-slate-400 block">ब्रांड व ग्रेड:</span>
+                        <span className="font-medium text-slate-700 truncate block">
+                          {item.brand || 'Commercial'}
+                        </span>
+                      </div>
+                      <div>
+                        <span className="text-slate-400 block">अनुमानित वजन:</span>
+                        <span className="font-bold text-teal-900">
+                          ~{item.weight_kg_per_unit} kg / {item.unit}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-3 text-xs">
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-slate-500">कम-स्टॉक अलर्ट:</span>
+                      <span className="font-bold text-amber-800 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200">
+                        &lt; {item.reorder_level} {item.unit}
+                      </span>
+                    </div>
+                    <div className="text-[11px] text-slate-400 font-medium">
+                      इकाइयां: {item.purchase_units.join(', ')}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
 
           {filteredMaterials.length === 0 && (
             <div className="rounded-2xl border-2 border-dashed border-slate-200 p-12 text-center bg-white">

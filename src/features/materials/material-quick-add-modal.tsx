@@ -8,7 +8,7 @@ import {
   type MaterialItem,
 } from './material-catalog-data';
 import type { PurchaseUnit } from './multi-unit-converter';
-import { X, Plus, AlertCircle, Check, Layers, Sparkles } from 'lucide-react';
+import { X, Plus, AlertCircle, Check, Layers, Sparkles, Camera } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export function MaterialQuickAddModal({
@@ -36,8 +36,19 @@ export function MaterialQuickAddModal({
   const [weightKg, setWeightKg] = useState<number>(5.0);
   const [reorderLevel, setReorderLevel] = useState<number>(10);
   const [aliases, setAliases] = useState('');
+  const [imageUrl, setImageUrl] = useState<string>('');
   const [saving, setSaving] = useState(false);
   const [duplicateWarning, setDuplicateWarning] = useState<string | null>(null);
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      setImageUrl(reader.result as string);
+    };
+    reader.readAsDataURL(file);
+  };
 
   if (!isOpen) return null;
 
@@ -101,6 +112,7 @@ export function MaterialQuickAddModal({
       purchase_units: [unit === 'm' ? 'meter' : unit, 'kg', 'bundle'],
       weight_kg_per_unit: weightKg || 1.0,
       reorder_level: reorderLevel || 5,
+      image_url: imageUrl.trim() || undefined,
     };
 
     try {
@@ -337,6 +349,50 @@ export function MaterialQuickAddModal({
               onChange={(e) => setAliases(e.target.value)}
               className="mt-1.5 w-full rounded-xl border border-slate-200 p-2.5 text-xs text-slate-800 shadow-sm focus:border-orange-500"
             />
+          </div>
+
+          {/* Material Photo (Admin Only) */}
+          <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-3.5">
+            <div className="flex items-center justify-between mb-2">
+              <label className="text-xs font-bold text-slate-800">
+                मटेरियल की फोटो (Admin Only Image):
+              </label>
+              <span className="rounded-md bg-amber-100 px-2 py-0.5 text-[10px] font-bold text-amber-800">
+                केवल एडमिन में दिखेगा • वेबसाइट पर नहीं
+              </span>
+            </div>
+            <div className="flex items-center gap-3">
+              {imageUrl ? (
+                <div className="relative h-16 w-16 shrink-0 rounded-xl border-2 border-slate-300 overflow-hidden bg-white shadow-sm">
+                  <img src={imageUrl} alt="Material preview" className="h-full w-full object-cover" />
+                  <button
+                    type="button"
+                    onClick={() => setImageUrl('')}
+                    className="absolute top-1 right-1 rounded-full bg-red-600 text-white p-0.5 shadow hover:bg-red-700"
+                    title="फोटो हटाएं"
+                  >
+                    <X size={12} />
+                  </button>
+                </div>
+              ) : (
+                <label className="flex h-16 w-16 shrink-0 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-slate-300 bg-white hover:border-orange-500 hover:bg-orange-50/30 transition-all shadow-sm">
+                  <Camera size={20} className="text-slate-400" />
+                  <span className="text-[10px] text-slate-600 font-bold mt-1">फोटो चुनें</span>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={handleImageUpload}
+                  />
+                </label>
+              )}
+              <div className="text-[11px] text-slate-500">
+                <p className="font-semibold text-slate-800">मोबाइल या कंप्यूटर से फोटो अपलोड करें</p>
+                <p className="text-[10px] text-slate-500 mt-0.5">
+                  पाइप, एंगल, पत्ती या कब्ज़ा पहचानने के लिए छोटा फोटो जोड़ें। यह टेबल में S.No. के बाद दिखेगा।
+                </p>
+              </div>
+            </div>
           </div>
 
           {/* Form Actions */}

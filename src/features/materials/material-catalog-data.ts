@@ -28,7 +28,34 @@ export type MaterialItem = {
   reorder_level: number;
   hsn_code?: string;
   uncertain_entry?: boolean;
+  image_url?: string;
 };
+
+export function getMaterialThumbnail(item: { image_url?: string; category_id?: string; name?: string }): string {
+  if (item.image_url && item.image_url.trim()) return item.image_url;
+  const cat = item.category_id || 'hardware';
+  
+  // High quality SVG data URIs for workshop material categories
+  const svgMap: Record<string, string> = {
+    ms_pipes: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48"><rect width="48" height="48" rx="8" fill="#e2e8f0"/><rect x="10" y="10" width="28" height="28" rx="3" fill="#64748b" stroke="#334155" stroke-width="2"/><rect x="16" y="16" width="16" height="16" rx="2" fill="#e2e8f0" stroke="#334155" stroke-width="2"/></svg>`,
+    ms_angles: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48"><rect width="48" height="48" rx="8" fill="#e2e8f0"/><path d="M12 10 L18 10 L18 32 L38 32 L38 38 L12 38 Z" fill="#64748b" stroke="#334155" stroke-width="2"/></svg>`,
+    ms_flats: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48"><rect width="48" height="48" rx="8" fill="#e2e8f0"/><rect x="8" y="20" width="32" height="8" rx="2" fill="#64748b" stroke="#334155" stroke-width="2"/></svg>`,
+    ms_bars: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48"><rect width="48" height="48" rx="8" fill="#e2e8f0"/><circle cx="24" cy="24" r="14" fill="#64748b" stroke="#334155" stroke-width="2"/><circle cx="24" cy="24" r="6" fill="#94a3b8"/></svg>`,
+    ms_channels: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48"><rect width="48" height="48" rx="8" fill="#e2e8f0"/><path d="M14 12 L34 12 L34 18 L20 18 L20 30 L34 30 L34 36 L14 36 Z" fill="#64748b" stroke="#334155" stroke-width="2"/></svg>`,
+    sheets: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48"><rect width="48" height="48" rx="8" fill="#e2e8f0"/><rect x="8" y="10" width="32" height="28" rx="2" fill="#cbd5e1" stroke="#475569" stroke-width="2"/><line x1="16" y1="10" x2="16" y2="38" stroke="#94a3b8" stroke-width="2"/><line x1="24" y1="10" x2="24" y2="38" stroke="#94a3b8" stroke-width="2"/><line x1="32" y1="10" x2="32" y2="38" stroke="#94a3b8" stroke-width="2"/></svg>`,
+    stainless_steel: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48"><rect width="48" height="48" rx="8" fill="#e0f2fe"/><rect x="10" y="10" width="28" height="28" rx="4" fill="#93c5fd" stroke="#0284c7" stroke-width="2"/><circle cx="24" cy="24" r="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/></svg>`,
+    aluminium: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48"><rect width="48" height="48" rx="8" fill="#f1f5f9"/><rect x="12" y="12" width="24" height="24" rx="2" fill="#cbd5e1" stroke="#64748b" stroke-width="2"/></svg>`,
+    hardware: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48"><rect width="48" height="48" rx="8" fill="#fef3c7"/><rect x="21" y="8" width="6" height="32" rx="3" fill="#d97706"/><circle cx="24" cy="14" r="5" fill="#b45309"/><circle cx="24" cy="34" r="5" fill="#b45309"/><rect x="12" y="18" width="9" height="12" fill="#f59e0b" stroke="#b45309"/><rect x="27" y="18" width="9" height="12" fill="#f59e0b" stroke="#b45309"/></svg>`,
+    welding: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48"><rect width="48" height="48" rx="8" fill="#fee2e2"/><line x1="10" y1="38" x2="32" y2="16" stroke="#b91c1c" stroke-width="5" stroke-linecap="round"/><circle cx="36" cy="12" r="3" fill="#ef4444"/><polygon points="36,6 39,12 45,12 40,16 42,22 36,18 30,22 32,16 27,12 33,12" fill="#f59e0b"/></svg>`,
+    tools: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48"><rect width="48" height="48" rx="8" fill="#f3f4f6"/><circle cx="24" cy="24" r="16" fill="#475569" stroke="#1e293b" stroke-width="2"/><circle cx="24" cy="24" r="6" fill="#94a3b8" stroke="#1e293b" stroke-width="1.5"/></svg>`,
+    paints: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48"><rect width="48" height="48" rx="8" fill="#ecfdf5"/><path d="M14 18 L34 18 L31 38 L17 38 Z" fill="#059669" stroke="#047857" stroke-width="2"/><rect x="12" y="14" width="24" height="4" rx="1" fill="#047857"/></svg>`,
+    roofing: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48"><rect width="48" height="48" rx="8" fill="#e0e7ff"/><path d="M8 26 L14 18 L20 26 L26 18 L32 26 L38 18 L42 26" fill="none" stroke="#4338ca" stroke-width="3" stroke-linecap="round"/></svg>`,
+    fasteners: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48"><rect width="48" height="48" rx="8" fill="#f1f5f9"/><polygon points="24,10 32,14 32,22 24,26 16,22 16,14" fill="#64748b" stroke="#334155" stroke-width="1.5"/><rect x="22" y="26" width="4" height="14" fill="#475569"/></svg>`
+  };
+
+  const raw = svgMap[cat] || svgMap.hardware;
+  return `data:image/svg+xml;utf8,${encodeURIComponent(raw)}`;
+}
 
 export const MATERIAL_CATEGORIES: MaterialCategory[] = [
   {
