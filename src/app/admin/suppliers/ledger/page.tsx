@@ -237,30 +237,6 @@ export default function SupplierLedgerPage() {
     }
   };
 
-  // Export CSV
-  const handleExportStatementCSV = () => {
-    if (!filteredLedgerRows.length) return;
-    const headers = ['तारीख', 'प्रकार', 'विवरण / रेफरेंस', 'खरीदारी (डेबिट ₹)', 'भुगतान (क्रेडिट ₹)', 'बाकी रकम (बैलेंस ₹)'];
-    const rows = filteredLedgerRows.map((r) => [
-      new Date(r.created_at).toLocaleDateString('hi-IN'),
-      r.kind === 'invoice' ? 'खरीदारी' : r.kind === 'payment' ? 'भुगतान' : 'माल वापसी',
-      `"${r.reference.replace(/"/g, '""')}"`,
-      r.kind === 'invoice' ? (r.delta_minor / 100).toFixed(2) : '0.00',
-      r.kind !== 'invoice' ? (Math.abs(r.delta_minor) / 100).toFixed(2) : '0.00',
-      (r.runningBalanceMinor / 100).toFixed(2),
-    ]);
-
-    const csvContent = [headers.join(','), ...rows.map((row) => row.join(','))].join('\n');
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.setAttribute('download', `${currentSupplier?.name || 'Supplier'}_Ledger_${Date.now()}.csv`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
   return (
     <div className="space-y-6 pb-12">
       {/* Header and Breadcrumbs */}
@@ -479,19 +455,6 @@ export default function SupplierLedgerPage() {
             >
               <CreditCard size={14} />
               + पैसे दिए (Record Payment)
-            </Button>
-
-            {/* Export CSV Button */}
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              onClick={handleExportStatementCSV}
-              disabled={filteredLedgerRows.length === 0}
-              className="gap-1.5 h-8 text-xs"
-            >
-              <Download size={14} />
-              CSV एक्सपोर्ट
             </Button>
           </div>
         </div>

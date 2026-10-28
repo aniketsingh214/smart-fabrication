@@ -2,6 +2,15 @@
 
 # SmartFabrication progress
 
+### Complete Removal of CSV Operations Across Admin Panel - 2026-10-28
+
+Per explicit user direction ("csv mujhe poore admin se remove krna h sab kahi se remove kro"), all CSV import/export UI buttons, links, and forms have been completely removed from the entire admin panel:
+- **Admin Navigation (`src/contracts/admin-navigation.ts`)**: Removed the `Bulk Import (CSV)` special workspace link under `Inventory & Purchases`.
+- **Bulk Import Page Redirect (`/admin/raw-materials/import`)**: Cleanly redirects any incoming or bookmarked requests directly to the main Raw Materials Hub (`/admin/raw-materials`).
+- **Supplier Ledger (`/admin/suppliers/ledger`)**: Removed the `CSV एक्सपोर्ट` button and its associated client-side download handler.
+- **Record Tables & Workshop Reports (`ExportButton`)**: Nullified the generic `ExportButton` component so that no `Export CSV` buttons appear anywhere on admin collection tables or workshop reports.
+- **Verification**: TypeScript check passed (0 errors); 66 test suites with 299/299 Vitest tests passed (100%); Next.js production build compiled cleanly across all 29 routes.
+
 ### Raw Material Hub: 10-Record Pagination, Instant Search & Photo Thumbnails - 2026-10-28
 
 Enhanced the **कच्चा माल मास्टर (Raw Material Hub)** at `/admin/raw-materials` to deliver full procurement-grade table pagination, instant multi-attribute search, and admin-only image thumbnail support:
