@@ -32,3 +32,7 @@ Target widths: 320, 390, 768, 1024, 1440 and 1920px; public header checked in En
 The initial responsive run identified a 22px overflow in the mobile quote navigation label; it now wraps inside its column. A stale existing dev-server stylesheet error was avoided with an isolated preview: SF_NEXT_DIST_DIR=test-results/next-design, npm run dev -- --port 3001. The optional dist directory does not change normal builds or deployments. Final build/browser evidence is maintained in ../progress.md.
 
 No stock/payment/order mutations, accountant approvals, prices, project counts or new business claims are introduced by this visual work. Existing procurement API contract gaps remain outside this change.
+
+## Final verification
+
+Release 0ccbdf5 deployed and all six browser groups passed on https://smartfabrication.vercel.app. Checks include actual populated core lists and reject hydration console errors, not only loading placeholders. The eight existing table/edit/remove/validation regression groups passed locally with intercepted category writes. 299 unit/integration tests, final production build, targeted lint without warnings, documentation and secret checks passed. Temporary test identities retired. Existing local port 3000 was restarted with its stale dev cache preserved and confirmed to return 200 with the new login UI.
