@@ -29,12 +29,12 @@ export function MaterialQuickAddModal({
   const [nameHi, setNameHi] = useState('');
   const [size, setSize] = useState('');
   const [gauge, setGauge] = useState('');
-  const [thicknessMm, setThicknessMm] = useState<number>(1.2);
+  const [thicknessMm, setThicknessMm] = useState<string>('1.2');
   const [brand, setBrand] = useState('Tata / APL Apollo');
   const [grade, setGrade] = useState('IS 2062');
   const [unit, setUnit] = useState<'kg' | 'piece' | 'sheet' | 'litre' | 'm'>('piece');
-  const [weightKg, setWeightKg] = useState<number>(5.0);
-  const [reorderLevel, setReorderLevel] = useState<number>(10);
+  const [weightKg, setWeightKg] = useState<string>('');
+  const [reorderLevel, setReorderLevel] = useState<string>('10');
   const [aliases, setAliases] = useState('');
   const [imageUrl, setImageUrl] = useState<string>('');
   const [saving, setSaving] = useState(false);
@@ -94,6 +94,15 @@ export function MaterialQuickAddModal({
       .map((s) => s.trim())
       .filter(Boolean);
 
+    const parsedWeight = weightKg.trim() !== '' ? parseFloat(weightKg) : 1.0;
+    const finalWeightKg = isNaN(parsedWeight) || parsedWeight <= 0 ? 1.0 : parsedWeight;
+
+    const parsedThickness = thicknessMm.trim() !== '' ? parseFloat(thicknessMm) : 1.0;
+    const finalThicknessMm = isNaN(parsedThickness) || parsedThickness <= 0 ? 1.0 : parsedThickness;
+
+    const parsedReorder = reorderLevel.trim() !== '' ? parseInt(reorderLevel, 10) : 5;
+    const finalReorderLevel = isNaN(parsedReorder) || parsedReorder < 0 ? 5 : parsedReorder;
+
     const newItem: MaterialItem = {
       code,
       name: name.trim(),
@@ -105,13 +114,13 @@ export function MaterialQuickAddModal({
       shape: categoryId === 'ms_pipes' ? 'square' : categoryId === 'ms_angles' ? 'l_shape' : 'accessory',
       size: size.trim() || name.trim(),
       gauge: gauge.trim() || undefined,
-      thickness_mm: thicknessMm || 1.0,
+      thickness_mm: finalThicknessMm,
       brand: brand.trim() || undefined,
       grade: grade.trim() || undefined,
       unit,
       purchase_units: [unit === 'm' ? 'meter' : unit, 'kg', 'bundle'],
-      weight_kg_per_unit: weightKg || 1.0,
-      reorder_level: reorderLevel || 5,
+      weight_kg_per_unit: finalWeightKg,
+      reorder_level: finalReorderLevel,
       image_url: imageUrl.trim() || undefined,
     };
 
@@ -212,7 +221,7 @@ export function MaterialQuickAddModal({
                 value={name}
                 onChange={(e) => {
                   setName(e.target.value);
-                  handleSizeOrGaugeChange(size, gauge, thicknessMm);
+                  handleSizeOrGaugeChange(size, gauge, parseFloat(thicknessMm) || 1.0);
                 }}
                 className="mt-1.5 w-full rounded-xl border border-slate-200 p-2.5 text-xs text-slate-800 shadow-sm focus:border-orange-500"
               />
@@ -239,7 +248,7 @@ export function MaterialQuickAddModal({
                 value={size}
                 onChange={(e) => {
                   setSize(e.target.value);
-                  handleSizeOrGaugeChange(e.target.value, gauge, thicknessMm);
+                  handleSizeOrGaugeChange(e.target.value, gauge, parseFloat(thicknessMm) || 1.0);
                 }}
                 className="mt-1.5 w-full rounded-xl border border-slate-200 p-2.5 text-xs text-slate-800 shadow-sm focus:border-orange-500"
               />
@@ -252,7 +261,7 @@ export function MaterialQuickAddModal({
                 value={gauge}
                 onChange={(e) => {
                   setGauge(e.target.value);
-                  handleSizeOrGaugeChange(size, e.target.value, thicknessMm);
+                  handleSizeOrGaugeChange(size, e.target.value, parseFloat(thicknessMm) || 1.0);
                 }}
                 className="mt-1.5 w-full rounded-xl border border-slate-200 p-2.5 text-xs text-slate-800 shadow-sm focus:border-orange-500"
               />
@@ -261,13 +270,16 @@ export function MaterialQuickAddModal({
               <label className="text-xs font-bold text-slate-700">मोटाई (Thickness mm):</label>
               <input
                 type="number"
-                step="0.01"
+                step="any"
                 min="0.1"
+                placeholder="उदा. 1.2"
                 value={thicknessMm}
                 onChange={(e) => {
-                  const t = Number(e.target.value) || 1.0;
-                  setThicknessMm(t);
-                  handleSizeOrGaugeChange(size, gauge, t);
+                  setThicknessMm(e.target.value);
+                  const t = parseFloat(e.target.value);
+                  if (!isNaN(t)) {
+                    handleSizeOrGaugeChange(size, gauge, t);
+                  }
                 }}
                 className="mt-1.5 w-full rounded-xl border border-slate-200 p-2.5 text-xs text-slate-800 shadow-sm focus:border-orange-500"
               />
@@ -318,10 +330,11 @@ export function MaterialQuickAddModal({
               <label className="text-xs font-bold text-slate-700">अनुमानित वजन प्रति यूनिट (kg):</label>
               <input
                 type="number"
-                step="0.01"
+                step="any"
                 min="0.001"
+                placeholder="उदा. 5.0 (वजन kg में)"
                 value={weightKg}
-                onChange={(e) => setWeightKg(Number(e.target.value) || 1.0)}
+                onChange={(e) => setWeightKg(e.target.value)}
                 className="mt-1.5 w-full rounded-xl border border-slate-200 p-2.5 text-xs text-slate-800 shadow-sm focus:border-orange-500"
               />
             </div>
@@ -329,9 +342,11 @@ export function MaterialQuickAddModal({
               <label className="text-xs font-bold text-slate-700">कम-स्टॉक अलर्ट स्तर (Reorder):</label>
               <input
                 type="number"
+                step="1"
                 min="0"
+                placeholder="उदा. 10"
                 value={reorderLevel}
-                onChange={(e) => setReorderLevel(Number(e.target.value) || 0)}
+                onChange={(e) => setReorderLevel(e.target.value)}
                 className="mt-1.5 w-full rounded-xl border border-slate-200 p-2.5 text-xs text-slate-800 shadow-sm focus:border-orange-500"
               />
             </div>

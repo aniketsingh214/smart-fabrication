@@ -71,14 +71,14 @@ export default function NewPurchaseEntryPage() {
 
   // Line item input state
   const [lineUnit, setLineUnit] = useState<'kg' | 'm' | 'piece' | 'litre' | 'sheet'>('kg');
-  const [lineQty, setLineQty] = useState<number>(50);
-  const [lineRate, setLineRate] = useState<number>(72); // ₹ per unit
+  const [lineQty, setLineQty] = useState<number | ''>(50);
+  const [lineRate, setLineRate] = useState<number | ''>(72); // ₹ per unit
 
   // Draft bill items list
   const [billItems, setBillItems] = useState<DraftBillItem[]>([]);
 
   // Payment & receiving state
-  const [paidAmount, setPaidAmount] = useState<number>(0);
+  const [paidAmount, setPaidAmount] = useState<number | ''>(0);
   const [paymentMode, setPaymentMode] = useState<'cash' | 'bank' | 'upi' | 'cheque'>('cash');
   const [paymentRef, setPaymentRef] = useState<string>('');
   const [autoReceive, setAutoReceive] = useState<boolean>(true);
@@ -187,11 +187,13 @@ export default function NewPurchaseEntryPage() {
   // Handle adding a line item to the bill
   const handleAddItemToBill = () => {
     if (!currentMaterial) return;
-    if (lineQty <= 0) {
+    const finalQty = typeof lineQty === 'number' ? lineQty : Number(lineQty) || 0;
+    const finalRate = typeof lineRate === 'number' ? lineRate : Number(lineRate) || 0;
+    if (finalQty <= 0) {
       notify('कृपया मान्य मात्रा (Quantity) दर्ज करें।', 'error');
       return;
     }
-    if (lineRate < 0) {
+    if (finalRate < 0) {
       notify('कृपया मान्य खरीद दर (Rate) दर्ज करें।', 'error');
       return;
     }
@@ -203,8 +205,8 @@ export default function NewPurchaseEntryPage() {
       material_name: `${currentMaterial.name} (${currentMaterial.name_hi})`,
       size_gauge: `${currentMaterial.size} ${currentMaterial.gauge ? `(${currentMaterial.gauge})` : ''}`,
       unit: lineUnit,
-      quantity: Number(lineQty),
-      rate: Number(lineRate),
+      quantity: finalQty,
+      rate: finalRate,
       subtotal: currentItemSubtotal,
     };
 
@@ -602,8 +604,9 @@ export default function NewPurchaseEntryPage() {
                 type="number"
                 min="0.01"
                 step="any"
+                placeholder="उदा. 10"
                 value={lineQty}
-                onChange={(e) => setLineQty(Number(e.target.value) || 0)}
+                onChange={(e) => setLineQty(e.target.value === '' ? '' : Number(e.target.value))}
                 className="w-full rounded-xl border border-slate-300 bg-white p-2 text-xs sm:text-sm font-bold text-slate-900 shadow-sm text-center"
               />
             </div>
@@ -617,8 +620,9 @@ export default function NewPurchaseEntryPage() {
                 type="number"
                 min="0"
                 step="any"
+                placeholder="उदा. 70"
                 value={lineRate}
-                onChange={(e) => setLineRate(Number(e.target.value) || 0)}
+                onChange={(e) => setLineRate(e.target.value === '' ? '' : Number(e.target.value))}
                 className="w-full rounded-xl border border-slate-300 bg-white p-2 text-xs sm:text-sm font-bold text-slate-900 shadow-sm text-center"
               />
             </div>
@@ -786,7 +790,7 @@ export default function NewPurchaseEntryPage() {
                 min="0"
                 max={billTotal || undefined}
                 value={paidAmount}
-                onChange={(e) => setPaidAmount(Number(e.target.value) || 0)}
+                onChange={(e) => setPaidAmount(e.target.value === '' ? '' : Number(e.target.value))}
                 className="w-full rounded-xl border border-slate-300 bg-white p-2.5 text-sm font-bold text-slate-900 shadow-sm"
                 placeholder="0 (पूरा उधार हो तो 0 रहने दें)"
               />
