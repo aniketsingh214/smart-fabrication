@@ -1,11 +1,11 @@
 'use client';
 import { useEffect,useState } from 'react';
-import { nextStates } from '@/contracts/workflows';
+import { nextStates,leadStates } from '@/contracts/workflows';
 import { Button } from '@/components/ui/button';
 import { notify } from '@/lib/notify';
 type Lead={id:string;name:string;status:string;version:number};
 export function LeadStatusSelect({lead,busy,onChange}:{lead:Lead;busy:boolean;onChange:(status:string)=>void}){
- return <label className="block max-w-md text-sm font-semibold">Lead status<select aria-label={'Lead status for '+lead.name} className="mt-2" value={lead.status} disabled={busy} onChange={event=>onChange(event.target.value)}>{[lead.status,...nextStates(lead.status,'lead')].map(status=><option key={status} value={status}>{status.toLowerCase().replaceAll('_',' ').replace(/\b\w/g,letter=>letter.toUpperCase())}</option>)}</select><span className="mt-2 block text-xs font-normal text-slate-500">Choose the next stage. Measurement, quotation and order checks apply.</span></label>;
+ return <label className="block max-w-md text-sm font-semibold">Lead status<select aria-label={'Lead status for '+lead.name} className="mt-2" value={lead.status} disabled={busy} onChange={event=>onChange(event.target.value)}>{[...new Set([...(leadStates as readonly string[]),'LOST',lead.status])].map(status=><option key={status} value={status} disabled={status!==lead.status&&!nextStates(lead.status,'lead').includes(status)}>{status.toLowerCase().replaceAll('_',' ').replace(/\b\w/g,letter=>letter.toUpperCase())}</option>)}</select><span className="mt-2 block text-xs font-normal text-slate-500">Choose the next stage. Measurement, quotation and order checks apply.</span></label>;
 }
 export function CustomerLeadStatuses({customerId,canWrite}:{customerId:string;canWrite:boolean}){
  const [leads,setLeads]=useState<Lead[]>([]),[busy,setBusy]=useState(false),[error,setError]=useState(''),[next,setNext]=useState<string|null>(null),[retry,setRetry]=useState(0);
