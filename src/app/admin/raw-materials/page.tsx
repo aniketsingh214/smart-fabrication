@@ -33,8 +33,10 @@ import {
   Trash2,
   Table,
   LayoutGrid,
+  X,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { DataTablePagination } from '@/components/data-table-pagination';
 
 export default function RawMaterialsPage() {
   const [activeCategory, setActiveCategory] = useState<string>('all');
@@ -43,6 +45,10 @@ export default function RawMaterialsPage() {
   const [viewMode, setViewMode] = useState<'table' | 'cards'>('table');
   const [isQuickAddOpen, setIsQuickAddOpen] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<'catalog' | 'kanta'>('catalog');
+
+  // Pagination state (default 10 records per page as requested)
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [pageSize, setPageSize] = useState<number>(10);
 
   // Kanta Weighbridge State
   const [billedWeight, setBilledWeight] = useState<number>(500);
@@ -54,6 +60,11 @@ export default function RawMaterialsPage() {
   const [calcQty, setCalcQty] = useState<number>(10);
   const [calcUnit, setCalcUnit] = useState<PurchaseUnit>('bundle');
 
+  // Reset to page 1 when search or category changes
+  React.useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, activeCategory]);
+
   // Filtered materials
   const filteredMaterials = useMemo(() => {
     return materials.filter((item) => {
@@ -63,6 +74,13 @@ export default function RawMaterialsPage() {
       return matchMaterialSearch(item, searchTerm);
     });
   }, [materials, activeCategory, searchTerm]);
+
+  // Paginated materials for the current page
+  const totalPages = Math.max(1, Math.ceil(filteredMaterials.length / pageSize));
+  const startIndex = (currentPage - 1) * pageSize;
+  const paginatedMaterials = useMemo(() => {
+    return filteredMaterials.slice(startIndex, startIndex + pageSize);
+  }, [filteredMaterials, startIndex, pageSize]);
 
   // Selected calc material
   const currentCalcMaterial = useMemo(() => {
@@ -288,17 +306,6 @@ export default function RawMaterialsPage() {
 
           {/* Search & Category Filter Pills */}
           <div className="space-y-3">
-            <div className="relative">
-              <Search size={18} className="absolute left-3.5 top-3 text-slate-400" />
-              <input
-                type="text"
-                placeholder="मटेरियल खोजें: इंग्लिश नाम, हिंदी नाम, साइज, गेज (उदा. 1 इंची पाइप, सवा इंची एंगल, 18 gauge, tata chadar)..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-10 pr-4 text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 shadow-sm focus:border-teal-500"
-              />
-            </div>
-
             {/* Category Pills */}
             <div className="flex flex-wrap items-center gap-1.5 overflow-x-auto pb-1 text-xs">
               <button
@@ -331,230 +338,317 @@ export default function RawMaterialsPage() {
                 );
               })}
             </div>
-          </div>
 
-          {/* View Mode Toggle and Results Count */}
-          <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-bold text-slate-700">
-                दिखाए जा रहे हैं: {filteredMaterials.length} मटेरियल
-              </span>
-              <span className="text-xs text-slate-400">•</span>
-              <span className="text-[11px] text-slate-500">
-                (फोटो केवल एडमिन में दिखाई देगा, वेबसाइट पर नहीं)
-              </span>
-            </div>
+            {/* Search Bar & Controls Bar */}
+            <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white p-3 shadow-xs">
+              {/* Search input with live clear */}
+              <div className="relative flex-1 min-w-[260px]">
+                <Search size={16} className="absolute left-3.5 top-3 text-slate-400" />
+                <input
+                  type="text"
+                  placeholder="मटेरियल खोजें: इंग्लिश, हिंदी नाम, साइज, गेज (उदा. 1 इंची पाइप, सवा इंची एंगल, 18 gauge, tata chadar)..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full rounded-xl border border-slate-200 bg-slate-50/60 py-2 pl-9 pr-8 text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 focus:bg-white focus:border-teal-500 focus:ring-1 focus:ring-teal-500"
+                />
+                {searchTerm && (
+                  <button
+                    type="button"
+                    onClick={() => setSearchTerm('')}
+                    className="absolute right-2.5 top-2.5 text-slate-400 hover:text-slate-700 p-0.5 rounded"
+                    title="सर्च हटाएं"
+                  >
+                    <X size={15} />
+                  </button>
+                )}
+              </div>
 
-            <div className="flex items-center gap-1 rounded-xl border border-slate-200 bg-white p-1 shadow-sm">
-              <button
-                type="button"
-                onClick={() => setViewMode('table')}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                  viewMode === 'table'
-                    ? 'bg-teal-700 text-white shadow-sm'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
-                }`}
-              >
-                <Table size={14} />
-                टेबल लिस्ट (Table View)
-              </button>
-              <button
-                type="button"
-                onClick={() => setViewMode('cards')}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                  viewMode === 'cards'
-                    ? 'bg-teal-700 text-white shadow-sm'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
-                }`}
-              >
-                <LayoutGrid size={14} />
-                कार्ड ग्रिड (Cards View)
-              </button>
+              {/* Rows per page selector & counts */}
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-1.5 text-xs text-slate-600">
+                  <label htmlFor="rawMaterialsPageSize" className="font-semibold whitespace-nowrap">
+                    प्रति पेज:
+                  </label>
+                  <select
+                    id="rawMaterialsPageSize"
+                    value={pageSize}
+                    onChange={(e) => {
+                      setPageSize(Number(e.target.value));
+                      setCurrentPage(1);
+                    }}
+                    className="rounded-lg border border-slate-200 bg-white px-2 py-1.5 font-bold text-slate-800 shadow-xs focus:border-teal-500"
+                  >
+                    <option value={10}>10</option>
+                    <option value={25}>25</option>
+                    <option value={50}>50</option>
+                    <option value={100}>100</option>
+                  </select>
+                </div>
+
+                <span className="text-xs font-semibold text-slate-500 hidden sm:inline tabular-nums">
+                  {filteredMaterials.length === 0
+                    ? '0 रिकॉर्ड'
+                    : `${startIndex + 1}–${Math.min(startIndex + pageSize, filteredMaterials.length)} (${filteredMaterials.length} में से)`}
+                </span>
+
+                {/* View Mode Toggle */}
+                <div className="flex items-center gap-1 rounded-xl border border-slate-200 bg-slate-100/70 p-1">
+                  <button
+                    type="button"
+                    onClick={() => setViewMode('table')}
+                    className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
+                      viewMode === 'table'
+                        ? 'bg-white text-slate-900 shadow-xs'
+                        : 'text-slate-600 hover:text-slate-900'
+                    }`}
+                  >
+                    <Table size={13} />
+                    टेबल
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setViewMode('cards')}
+                    className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
+                      viewMode === 'cards'
+                        ? 'bg-white text-slate-900 shadow-xs'
+                        : 'text-slate-600 hover:text-slate-900'
+                    }`}
+                  >
+                    <LayoutGrid size={13} />
+                    कार्ड
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
 
           {/* 1. TABLE VIEW: S.No. -> Image -> Name -> Specs -> Category -> Unit -> Reorder -> Delete */}
-          {viewMode === 'table' && (
-            <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
-              <table className="w-full text-left text-xs border-collapse">
-                <thead className="bg-slate-50 border-b border-slate-200 text-slate-700 font-bold uppercase tracking-wider text-[11px]">
-                  <tr>
-                    <th className="py-3 px-3 w-12 text-center">क्र.सं. (S.No.)</th>
-                    <th className="py-3 px-3 w-16 text-center">फोटो (Image)</th>
-                    <th className="py-3 px-4">मटेरियल का नाम (Material Name)</th>
-                    <th className="py-3 px-3.5">साइज व मोटाई (Size / Gauge)</th>
-                    <th className="py-3 px-3.5">श्रेणी (Category)</th>
-                    <th className="py-3 px-3 text-center">इकाई (Unit)</th>
-                    <th className="py-3 px-3.5">ब्रांड / ग्रेड</th>
-                    <th className="py-3 px-3.5 text-right">स्टॉक अलर्ट</th>
-                    <th className="py-3 px-4 text-center w-20">हटाएं (Delete)</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-100">
-                  {filteredMaterials.map((item, index) => (
-                    <tr key={item.code} className="hover:bg-slate-50/80 transition-colors">
-                      <td className="py-3 px-3 text-center font-bold text-slate-400 tabular-nums">
-                        {index + 1}
-                      </td>
-                      <td className="py-3 px-3 text-center">
-                        <div className="h-11 w-11 mx-auto rounded-xl border border-slate-200 overflow-hidden bg-white p-0.5 shadow-sm flex items-center justify-center">
-                          <img
-                            src={getMaterialThumbnail(item)}
-                            alt={item.name}
-                            className="h-full w-full object-cover rounded-lg"
-                          />
-                        </div>
-                      </td>
-                      <td className="py-3 px-4">
-                        <div className="font-bold text-slate-900 text-xs sm:text-sm">{item.name}</div>
-                        <div className="text-[11px] font-semibold text-slate-500">{item.name_hi}</div>
-                        {item.local_aliases.length > 0 && (
-                          <div className="mt-1 flex flex-wrap gap-1">
-                            {item.local_aliases.map((alias) => (
-                              <span
-                                key={alias}
-                                className="rounded bg-amber-50 px-1.5 py-0.5 text-[9px] font-semibold text-amber-800 border border-amber-200"
-                              >
-                                {alias}
-                              </span>
-                            ))}
-                          </div>
-                        )}
-                      </td>
-                      <td className="py-3 px-3.5">
-                        <div className="font-bold text-slate-800">{item.size}</div>
-                        <div className="text-[11px] text-slate-500">
-                          {item.gauge ? `${item.gauge} • ` : ''}{item.thickness_mm} mm
-                        </div>
-                      </td>
-                      <td className="py-3 px-3.5">
-                        <span className="rounded-md bg-teal-50 border border-teal-200 px-2 py-0.5 text-[10px] font-bold text-teal-800 uppercase tracking-wider">
-                          {item.category_id.replace('_', ' ')}
-                        </span>
-                      </td>
-                      <td className="py-3 px-3 text-center">
-                        <span className="font-bold uppercase text-slate-700 bg-slate-100 px-2 py-1 rounded">
-                          {item.unit}
-                        </span>
-                      </td>
-                      <td className="py-3 px-3.5 text-slate-700 font-medium">
-                        <div>{item.brand || 'Commercial'}</div>
-                        <div className="text-[10px] text-slate-400">{item.grade || 'IS 2062'}</div>
-                      </td>
-                      <td className="py-3 px-3.5 text-right font-bold text-amber-800">
-                        &lt; {item.reorder_level} {item.unit}
-                      </td>
-                      <td className="py-3 px-4 text-center">
-                        <button
-                          type="button"
-                          onClick={() => handleDeleteMaterial(item.code, item.name)}
-                          title={`हटाएं (${item.name})`}
-                          className="rounded-lg p-2 text-rose-500 hover:bg-rose-50 hover:text-rose-700 transition-colors shadow-xs"
-                        >
-                          <Trash2 size={16} />
-                        </button>
-                      </td>
+          {viewMode === 'table' && paginatedMaterials.length > 0 && (
+            <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs border-collapse">
+                  <thead className="bg-slate-50 border-b border-slate-200 text-slate-700 font-bold uppercase tracking-wider text-[11px]">
+                    <tr>
+                      <th className="py-3 px-3 w-12 text-center">क्र.सं.</th>
+                      <th className="py-3 px-3 w-16 text-center">फोटो (Image)</th>
+                      <th className="py-3 px-4">मटेरियल का नाम (Material Name)</th>
+                      <th className="py-3 px-3.5">साइज व मोटाई (Size / Gauge)</th>
+                      <th className="py-3 px-3.5">श्रेणी (Category)</th>
+                      <th className="py-3 px-3 text-center">इकाई (Unit)</th>
+                      <th className="py-3 px-3.5">ब्रांड / ग्रेड</th>
+                      <th className="py-3 px-3.5 text-right">स्टॉक अलर्ट</th>
+                      <th className="py-3 px-4 text-center w-20">हटाएं (Delete)</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100">
+                    {paginatedMaterials.map((item, index) => {
+                      const sNo = startIndex + index + 1;
+                      return (
+                        <tr key={item.code} className="hover:bg-slate-50/80 transition-colors">
+                          <td className="py-3 px-3 text-center font-bold text-slate-400 tabular-nums">
+                            {sNo}
+                          </td>
+                          <td className="py-3 px-3 text-center">
+                            <div className="h-11 w-11 mx-auto rounded-xl border border-slate-200 overflow-hidden bg-white p-0.5 shadow-xs flex items-center justify-center">
+                              <img
+                                src={getMaterialThumbnail(item)}
+                                alt={item.name}
+                                className="h-full w-full object-cover rounded-lg"
+                              />
+                            </div>
+                          </td>
+                          <td className="py-3 px-4">
+                            <div className="font-bold text-slate-900 text-xs sm:text-sm">{item.name}</div>
+                            <div className="text-[11px] font-semibold text-slate-500">{item.name_hi}</div>
+                            {item.local_aliases.length > 0 && (
+                              <div className="mt-1 flex flex-wrap gap-1">
+                                {item.local_aliases.map((alias) => (
+                                  <span
+                                    key={alias}
+                                    className="rounded bg-amber-50 px-1.5 py-0.5 text-[9px] font-semibold text-amber-800 border border-amber-200"
+                                  >
+                                    {alias}
+                                  </span>
+                                ))}
+                              </div>
+                            )}
+                          </td>
+                          <td className="py-3 px-3.5">
+                            <div className="font-bold text-slate-800">{item.size}</div>
+                            <div className="text-[11px] text-slate-500">
+                              {item.gauge ? `${item.gauge} • ` : ''}{item.thickness_mm} mm
+                            </div>
+                          </td>
+                          <td className="py-3 px-3.5">
+                            <span className="rounded-md bg-teal-50 border border-teal-200 px-2 py-0.5 text-[10px] font-bold text-teal-800 uppercase tracking-wider">
+                              {item.category_id.replace('_', ' ')}
+                            </span>
+                          </td>
+                          <td className="py-3 px-3 text-center">
+                            <span className="font-bold uppercase text-slate-700 bg-slate-100 px-2 py-1 rounded">
+                              {item.unit}
+                            </span>
+                          </td>
+                          <td className="py-3 px-3.5 text-slate-700 font-medium">
+                            <div>{item.brand || 'Commercial'}</div>
+                            <div className="text-[10px] text-slate-400">{item.grade || 'IS 2062'}</div>
+                          </td>
+                          <td className="py-3 px-3.5 text-right font-bold text-amber-800">
+                            &lt; {item.reorder_level} {item.unit}
+                          </td>
+                          <td className="py-3 px-4 text-center">
+                            <button
+                              type="button"
+                              onClick={() => handleDeleteMaterial(item.code, item.name)}
+                              title={`हटाएं (${item.name})`}
+                              className="rounded-lg p-2 text-rose-500 hover:bg-rose-50 hover:text-rose-700 transition-colors shadow-xs"
+                            >
+                              <Trash2 size={16} />
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Data Table Pagination */}
+              <DataTablePagination
+                ariaLabel="कच्चा माल टेबल पेजिनेशन"
+                totalCount={filteredMaterials.length}
+                currentCount={paginatedMaterials.length}
+                currentPage={currentPage}
+                totalPages={totalPages}
+                pageSize={pageSize}
+                hasPreviousPage={currentPage > 1}
+                hasNextPage={currentPage < totalPages}
+                onFirstPage={() => setCurrentPage(1)}
+                onPreviousPage={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                onNextPage={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                onPageChange={(page) => setCurrentPage(page)}
+                entityName="मटेरियल"
+                nextPageLabel="अगला पेज"
+                className="rounded-none border-0 border-t border-slate-200 bg-slate-50/70 shadow-none px-4 py-3 sm:px-6"
+              />
             </div>
           )}
 
           {/* 2. CARDS VIEW (Visual Cards) */}
-          {viewMode === 'cards' && (
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3.5">
-              {filteredMaterials.map((item) => (
-                <div
-                  key={item.code}
-                  className="flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-4 shadow-sm hover:border-teal-300 hover:shadow-md transition-all"
-                >
-                  <div>
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="flex items-start gap-3">
-                        <div className="h-12 w-12 shrink-0 rounded-xl border border-slate-200 overflow-hidden bg-white p-0.5 shadow-sm flex items-center justify-center">
-                          <img
-                            src={getMaterialThumbnail(item)}
-                            alt={item.name}
-                            className="h-full w-full object-cover rounded-lg"
-                          />
+          {viewMode === 'cards' && paginatedMaterials.length > 0 && (
+            <div className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3.5">
+                {paginatedMaterials.map((item) => (
+                  <div
+                    key={item.code}
+                    className="flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-4 shadow-sm hover:border-teal-300 hover:shadow-md transition-all"
+                  >
+                    <div>
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="flex items-start gap-3">
+                          <div className="h-12 w-12 shrink-0 rounded-xl border border-slate-200 overflow-hidden bg-white p-0.5 shadow-sm flex items-center justify-center">
+                            <img
+                              src={getMaterialThumbnail(item)}
+                              alt={item.name}
+                              className="h-full w-full object-cover rounded-lg"
+                            />
+                          </div>
+                          <div>
+                            <span className="text-[10px] font-bold uppercase tracking-wider text-teal-800 bg-teal-50 px-2 py-0.5 rounded-md">
+                              {item.category_id.replace('_', ' ')}
+                            </span>
+                            <h3 className="mt-1 text-sm font-bold text-slate-900 leading-snug">
+                              {item.name}
+                            </h3>
+                            <p className="text-xs font-semibold text-slate-600">{item.name_hi}</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-1.5 shrink-0">
+                          <button
+                            type="button"
+                            onClick={() => handleDeleteMaterial(item.code, item.name)}
+                            title={`हटाएं (${item.name})`}
+                            className="rounded-md p-1.5 text-slate-400 hover:bg-rose-50 hover:text-rose-600 transition-colors"
+                          >
+                            <Trash2 size={15} />
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Local Nicknames */}
+                      {item.local_aliases.length > 0 && (
+                        <div className="mt-2.5 flex flex-wrap gap-1">
+                          {item.local_aliases.map((alias) => (
+                            <span
+                              key={alias}
+                              className="rounded-md bg-amber-50 px-1.5 py-0.5 text-[10px] font-medium text-amber-800 border border-amber-200/60"
+                            >
+                              बोलचाल: {alias}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Specifications Grid */}
+                      <div className="mt-3.5 grid grid-cols-2 gap-2 rounded-xl bg-slate-50/80 p-2.5 text-[11px]">
+                        <div>
+                          <span className="text-slate-400 block">साइज / माप:</span>
+                          <span className="font-bold text-slate-800">{item.size}</span>
                         </div>
                         <div>
-                          <span className="text-[10px] font-bold uppercase tracking-wider text-teal-800 bg-teal-50 px-2 py-0.5 rounded-md">
-                            {item.category_id.replace('_', ' ')}
+                          <span className="text-slate-400 block">गेज व मोटाई:</span>
+                          <span className="font-bold text-slate-800">
+                            {item.gauge || '—'} ({item.thickness_mm} mm)
                           </span>
-                          <h3 className="mt-1 text-sm font-bold text-slate-900 leading-snug">
-                            {item.name}
-                          </h3>
-                          <p className="text-xs font-semibold text-slate-600">{item.name_hi}</p>
+                        </div>
+                        <div>
+                          <span className="text-slate-400 block">ब्रांड व ग्रेड:</span>
+                          <span className="font-medium text-slate-700 truncate block">
+                            {item.brand || 'Commercial'}
+                          </span>
+                        </div>
+                        <div>
+                          <span className="text-slate-400 block">अनुमानित वजन:</span>
+                          <span className="font-bold text-teal-900">
+                            ~{item.weight_kg_per_unit} kg / {item.unit}
+                          </span>
                         </div>
                       </div>
-                      <div className="flex items-center gap-1.5 shrink-0">
-                        <button
-                          type="button"
-                          onClick={() => handleDeleteMaterial(item.code, item.name)}
-                          title={`हटाएं (${item.name})`}
-                          className="rounded-md p-1.5 text-slate-400 hover:bg-rose-50 hover:text-rose-600 transition-colors"
-                        >
-                          <Trash2 size={15} />
-                        </button>
-                      </div>
                     </div>
 
-                    {/* Local Nicknames */}
-                    {item.local_aliases.length > 0 && (
-                      <div className="mt-2.5 flex flex-wrap gap-1">
-                        {item.local_aliases.map((alias) => (
-                          <span
-                            key={alias}
-                            className="rounded-md bg-amber-50 px-1.5 py-0.5 text-[10px] font-medium text-amber-800 border border-amber-200/60"
-                          >
-                            बोलचाल: {alias}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-
-                    {/* Specifications Grid */}
-                    <div className="mt-3.5 grid grid-cols-2 gap-2 rounded-xl bg-slate-50/80 p-2.5 text-[11px]">
-                      <div>
-                        <span className="text-slate-400 block">साइज / माप:</span>
-                        <span className="font-bold text-slate-800">{item.size}</span>
-                      </div>
-                      <div>
-                        <span className="text-slate-400 block">गेज व मोटाई:</span>
-                        <span className="font-bold text-slate-800">
-                          {item.gauge || '—'} ({item.thickness_mm} mm)
+                    <div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-3 text-xs">
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-slate-500">कम-स्टॉक अलर्ट:</span>
+                        <span className="font-bold text-amber-800 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200">
+                          &lt; {item.reorder_level} {item.unit}
                         </span>
                       </div>
-                      <div>
-                        <span className="text-slate-400 block">ब्रांड व ग्रेड:</span>
-                        <span className="font-medium text-slate-700 truncate block">
-                          {item.brand || 'Commercial'}
-                        </span>
-                      </div>
-                      <div>
-                        <span className="text-slate-400 block">अनुमानित वजन:</span>
-                        <span className="font-bold text-teal-900">
-                          ~{item.weight_kg_per_unit} kg / {item.unit}
-                        </span>
+                      <div className="text-[11px] text-slate-400 font-medium">
+                        इकाइयां: {item.purchase_units.join(', ')}
                       </div>
                     </div>
                   </div>
+                ))}
+              </div>
 
-                  <div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-3 text-xs">
-                    <div className="flex items-center gap-1.5">
-                      <span className="text-slate-500">कम-स्टॉक अलर्ट:</span>
-                      <span className="font-bold text-amber-800 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200">
-                        &lt; {item.reorder_level} {item.unit}
-                      </span>
-                    </div>
-                    <div className="text-[11px] text-slate-400 font-medium">
-                      इकाइयां: {item.purchase_units.join(', ')}
-                    </div>
-                  </div>
-                </div>
-              ))}
+              {/* Data Table Pagination for Cards */}
+              <DataTablePagination
+                ariaLabel="कच्चा माल कार्ड्स पेजिनेशन"
+                totalCount={filteredMaterials.length}
+                currentCount={paginatedMaterials.length}
+                currentPage={currentPage}
+                totalPages={totalPages}
+                pageSize={pageSize}
+                hasPreviousPage={currentPage > 1}
+                hasNextPage={currentPage < totalPages}
+                onFirstPage={() => setCurrentPage(1)}
+                onPreviousPage={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                onNextPage={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                onPageChange={(page) => setCurrentPage(page)}
+                entityName="मटेरियल"
+                nextPageLabel="अगला पेज"
+                className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm"
+              />
             </div>
           )}
 

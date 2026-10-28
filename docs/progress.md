@@ -2,6 +2,16 @@
 
 # SmartFabrication progress
 
+### Raw Material Hub: 10-Record Pagination, Instant Search & Photo Thumbnails - 2026-10-28
+
+Enhanced the **कच्चा माल मास्टर (Raw Material Hub)** at `/admin/raw-materials` to deliver full procurement-grade table pagination, instant multi-attribute search, and admin-only image thumbnail support:
+- **10 Records Per Page Default & Rows Selector**: Integrated `DataTablePagination` with a default page size of 10 records per page and a selector for `[10, 25, 50, 100]` rows per page. Displays current item range (e.g. `1–10 (30 में से)`), page indicator, and standard accessible navigation controls (First, Previous, Page Buttons, Next).
+- **Prominent Instant Search & Filter Bar**: Added an instant search bar with search icon, clear button (X), and automatic page 1 reset. Matches English name, Hindi name (`name_hi`), size, thickness, gauge, brand, category, and colloquial workshop aliases (e.g. "1 इंची पाइप", "सवा इंची एंगल", "18 gauge", "tata chadar").
+- **Photo / Image Thumbnails in Table**: Added a dedicated `फोटो (Image)` 44x44 thumbnail column immediately following `क्र.सं. (S.No.)`. Uses category-tailored SVG illustrations and custom-uploaded images for visual identification.
+- **Admin-Only Material Quick Add with Photo Upload**: Updated `MaterialQuickAddModal` with a photo file picker and preview, strictly guarded for internal admin procurement and never exposed on the customer website.
+- **Synchronized Purchase Entry (`/admin/purchases/entry`)**: Material dropdowns show photo cards with size/gauge/brand, and draft bill tables display the photo thumbnail alongside each line item.
+- **Verification**: TypeScript check `tsc --noEmit` passed (0 errors); Vitest test suite passed 299/299 tests across 66 suites (100%); Next.js production build compiled cleanly across all 29 routes.
+
 ### Lead dropdowns, quotation layout and cross-browser links - 2026-10-28
 
 Lead details now use a native status dropdown. Customer details show the statuses of their linked enquiries (not a fabricated customer status); the new customers -> leads context validates parent permission and RLS before pagination. Each dropdown shows all pipeline stages with only the current and valid next/reopen/lost transitions enabled. Database measurement/quotation/order prerequisites, permissions and expected-version checks remain authoritative. Errors retain the saved stage and show feedback; 390px layout verified.
