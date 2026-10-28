@@ -10,6 +10,7 @@ Enhanced the **कच्चा माल मास्टर (Raw Material Hub)**
 - **Photo / Image Thumbnails in Table**: Added a dedicated `फोटो (Image)` 44x44 thumbnail column immediately following `क्र.सं. (S.No.)`. Uses category-tailored SVG illustrations and custom-uploaded images for visual identification.
 - **Admin-Only Material Quick Add with Photo Upload**: Updated `MaterialQuickAddModal` with a photo file picker and preview, strictly guarded for internal admin procurement and never exposed on the customer website.
 - **Synchronized Purchase Entry (`/admin/purchases/entry`)**: Material dropdowns show photo cards with size/gauge/brand, and draft bill tables display the photo thumbnail alongside each line item.
+- **Material Edit Action & Inline Modal**: Added a dedicated teal Edit button (`<Pencil />`) to every row in Table View and card in Cards View. Clicking Edit opens the modal pre-filled with the material's category, English & Hindi names, dimensions, gauge, thickness, brand, grade, unit, weight per unit, reorder threshold, local aliases, and admin photo. Updates save seamlessly to the state and Supabase backend with instant UI refresh and success notification.
 - **Verification**: TypeScript check `tsc --noEmit` passed (0 errors); Vitest test suite passed 299/299 tests across 66 suites (100%); Next.js production build compiled cleanly across all 29 routes.
 
 ### Lead dropdowns, quotation layout and cross-browser links - 2026-10-28

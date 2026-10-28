@@ -8,22 +8,27 @@ import {
   type MaterialItem,
 } from './material-catalog-data';
 import type { PurchaseUnit } from './multi-unit-converter';
-import { X, Plus, AlertCircle, Check, Layers, Sparkles, Camera } from 'lucide-react';
+import { X, Plus, AlertCircle, Check, Layers, Sparkles, Camera, Pencil } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export function MaterialQuickAddModal({
   isOpen,
   onClose,
   onCreated,
+  onUpdated,
   initialCategoryId,
+  initialItem,
 }: {
   isOpen: boolean;
   onClose: () => void;
   onCreated?: (item: MaterialItem) => void;
+  onUpdated?: (item: MaterialItem) => void;
   initialCategoryId?: string;
+  initialItem?: MaterialItem | null;
 }) {
+  const isEditing = Boolean(initialItem);
   const [categoryId, setCategoryId] = useState<string>(
-    initialCategoryId || MATERIAL_CATEGORIES[0].id
+    initialItem?.category_id || initialCategoryId || MATERIAL_CATEGORIES[0].id
   );
   const [name, setName] = useState('');
   const [nameHi, setNameHi] = useState('');
@@ -39,6 +44,49 @@ export function MaterialQuickAddModal({
   const [imageUrl, setImageUrl] = useState<string>('');
   const [saving, setSaving] = useState(false);
   const [duplicateWarning, setDuplicateWarning] = useState<string | null>(null);
+
+  // Sync state when opening or when initialItem / initialCategoryId changes
+  React.useEffect(() => {
+    if (isOpen) {
+      if (initialItem) {
+        setCategoryId(initialItem.category_id || MATERIAL_CATEGORIES[0].id);
+        setName(initialItem.name || '');
+        setNameHi(initialItem.name_hi || '');
+        setSize(initialItem.size || '');
+        setGauge(initialItem.gauge || '');
+        setThicknessMm(
+          initialItem.thickness_mm !== undefined ? String(initialItem.thickness_mm) : '1.2'
+        );
+        setBrand(initialItem.brand || '');
+        setGrade(initialItem.grade || '');
+        setUnit(initialItem.unit || 'piece');
+        setWeightKg(
+          initialItem.weight_kg_per_unit !== undefined ? String(initialItem.weight_kg_per_unit) : ''
+        );
+        setReorderLevel(
+          initialItem.reorder_level !== undefined ? String(initialItem.reorder_level) : '10'
+        );
+        setAliases(initialItem.local_aliases?.join(', ') || '');
+        setImageUrl(initialItem.image_url || '');
+        setDuplicateWarning(null);
+      } else {
+        setCategoryId(initialCategoryId || MATERIAL_CATEGORIES[0].id);
+        setName('');
+        setNameHi('');
+        setSize('');
+        setGauge('');
+        setThicknessMm('1.2');
+        setBrand('Tata / APL Apollo');
+        setGrade('IS 2062');
+        setUnit('piece');
+        setWeightKg('');
+        setReorderLevel('10');
+        setAliases('');
+        setImageUrl('');
+        setDuplicateWarning(null);
+      }
+    }
+  }, [isOpen, initialItem, initialCategoryId]);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -63,6 +111,7 @@ export function MaterialQuickAddModal({
     });
 
     const existing = PRELOADED_MATERIAL_CATALOG.find((m) => {
+      if (initialItem && m.code === initialItem.code) return false;
       return (
         normalizeMaterialSpecs({
           name: m.name,
@@ -88,7 +137,7 @@ export function MaterialQuickAddModal({
     if (!name.trim()) return;
 
     setSaving(true);
-    const code = `MAT-${categoryId.toUpperCase().slice(0, 3)}-${Date.now().toString().slice(-6)}`;
+    const code = initialItem?.code || `MAT-${categoryId.toUpperCase().slice(0, 3)}-${Date.now().toString().slice(-6)}`;
     const aliasList = aliases
       .split(',')
       .map((s) => s.trim())
@@ -103,7 +152,8 @@ export function MaterialQuickAddModal({
     const parsedReorder = reorderLevel.trim() !== '' ? parseInt(reorderLevel, 10) : 5;
     const finalReorderLevel = isNaN(parsedReorder) || parsedReorder < 0 ? 5 : parsedReorder;
 
-    const newItem: MaterialItem = {
+    const itemResult: MaterialItem = {
+      ...(initialItem || {}),
       code,
       name: name.trim(),
       name_hi: nameHi.trim() || name.trim(),
@@ -125,30 +175,49 @@ export function MaterialQuickAddModal({
     };
 
     try {
-      // POST to /api/v1/admin/materials
-      await fetch('/api/v1/admin/materials', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Idempotency-Key': crypto.randomUUID(),
-        },
-        body: JSON.stringify({
-          name: newItem.name,
-          code: newItem.code,
-          type: newItem.type,
-          size: newItem.size,
-          thickness_mm: newItem.thickness_mm,
-          unit: newItem.unit,
-          weight_kg_per_unit: newItem.weight_kg_per_unit,
-          reorder_level: newItem.reorder_level,
-          active: true,
-        }),
-      });
+      if (initialItem && (initialItem as any).id) {
+        await fetch(`/api/v1/admin/materials/${(initialItem as any).id}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: itemResult.name,
+            size: itemResult.size,
+            thickness_mm: itemResult.thickness_mm,
+            unit: itemResult.unit,
+            weight_kg_per_unit: itemResult.weight_kg_per_unit,
+            reorder_level: itemResult.reorder_level,
+          }),
+        });
+      } else if (!initialItem) {
+        // POST to /api/v1/admin/materials
+        await fetch('/api/v1/admin/materials', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Idempotency-Key': crypto.randomUUID(),
+          },
+          body: JSON.stringify({
+            name: itemResult.name,
+            code: itemResult.code,
+            type: itemResult.type,
+            size: itemResult.size,
+            thickness_mm: itemResult.thickness_mm,
+            unit: itemResult.unit,
+            weight_kg_per_unit: itemResult.weight_kg_per_unit,
+            reorder_level: itemResult.reorder_level,
+            active: true,
+          }),
+        });
+      }
     } catch {
       // Offline fallback
     }
 
-    onCreated?.(newItem);
+    if (initialItem) {
+      onUpdated?.(itemResult);
+    } else {
+      onCreated?.(itemResult);
+    }
     setSaving(false);
     onClose();
   };
@@ -158,15 +227,21 @@ export function MaterialQuickAddModal({
       <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl bg-white p-5 sm:p-7 shadow-2xl border border-slate-200">
         <div className="flex items-center justify-between border-b border-slate-100 pb-4">
           <div className="flex items-center gap-2.5">
-            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-orange-600 text-white shadow-sm">
-              <Plus size={20} />
+            <span
+              className={`flex h-9 w-9 items-center justify-center rounded-xl text-white shadow-sm ${
+                isEditing ? 'bg-teal-700' : 'bg-orange-600'
+              }`}
+            >
+              {isEditing ? <Pencil size={18} /> : <Plus size={20} />}
             </span>
             <div>
               <h2 className="text-base sm:text-lg font-bold text-slate-900">
-                नया मटेरियल जोड़ें (Quick Add Raw Material)
+                {isEditing ? 'मटेरियल विवरण बदलें (Edit Raw Material)' : 'नया मटेरियल जोड़ें (Quick Add Raw Material)'}
               </h2>
               <p className="text-xs text-slate-500">
-                खरीद बिल बनाते समय किसी भी नई सामग्री का मास्टर रिकॉर्ड बिना फॉर्म खोए तैयार करें।
+                {isEditing
+                  ? 'मटेरियल का नाम, साइज, गेज, मोटाई, ब्रांड या फोटो अपनी वर्कशॉप के अनुसार बदलें।'
+                  : 'खरीद बिल बनाते समय किसी भी नई सामग्री का मास्टर रिकॉर्ड बिना फॉर्म खोए तैयार करें।'}
               </p>
             </div>
           </div>
@@ -415,8 +490,16 @@ export function MaterialQuickAddModal({
             <Button type="button" variant="outline" onClick={onClose} disabled={saving}>
               रद्द करें (Cancel)
             </Button>
-            <Button type="submit" disabled={saving || !name.trim()}>
-              {saving ? 'सहेज रहे हैं...' : 'मटेरियल जोड़ें (Save Material)'}
+            <Button
+              type="submit"
+              disabled={saving || !name.trim()}
+              className={isEditing ? 'bg-teal-700 hover:bg-teal-800' : 'bg-orange-600 hover:bg-orange-700'}
+            >
+              {saving
+                ? 'सहेज रहे हैं...'
+                : isEditing
+                ? 'बदलाव सेव करें (Save Changes)'
+                : 'मटेरियल जोड़ें (Save Material)'}
             </Button>
           </div>
         </form>

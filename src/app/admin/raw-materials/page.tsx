@@ -31,6 +31,7 @@ import {
   AlertTriangle,
   FileSpreadsheet,
   Trash2,
+  Pencil,
   Table,
   LayoutGrid,
   X,
@@ -44,6 +45,7 @@ export default function RawMaterialsPage() {
   const [materials, setMaterials] = useState<MaterialItem[]>(PRELOADED_MATERIAL_CATALOG);
   const [viewMode, setViewMode] = useState<'table' | 'cards'>('table');
   const [isQuickAddOpen, setIsQuickAddOpen] = useState<boolean>(false);
+  const [editingMaterial, setEditingMaterial] = useState<MaterialItem | null>(null);
   const [activeTab, setActiveTab] = useState<'catalog' | 'kanta'>('catalog');
 
   // Pagination state (default 10 records per page as requested)
@@ -154,6 +156,13 @@ export default function RawMaterialsPage() {
   const handleMaterialCreated = (newItem: MaterialItem) => {
     setMaterials((prev) => [newItem, ...prev]);
     notify(`नया मटेरियल "${newItem.name}" सफलतापूर्वक जोड़ दिया गया!`, 'success');
+  };
+
+  const handleMaterialUpdated = (updatedItem: MaterialItem) => {
+    setMaterials((prev) =>
+      prev.map((item) => (item.code === updatedItem.code ? updatedItem : item))
+    );
+    notify(`मटेरियल "${updatedItem.name}" सफलतापूर्वक अपडेट हो गया!`, 'success');
   };
 
   const handleDeleteMaterial = (code: string, name: string) => {
@@ -437,7 +446,7 @@ export default function RawMaterialsPage() {
                       <th className="py-3 px-3 text-center">इकाई (Unit)</th>
                       <th className="py-3 px-3.5">ब्रांड / ग्रेड</th>
                       <th className="py-3 px-3.5 text-right">स्टॉक अलर्ट</th>
-                      <th className="py-3 px-4 text-center w-20">हटाएं (Delete)</th>
+                      <th className="py-3 px-4 text-center w-28">कार्रवाई (Action)</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100">
@@ -497,14 +506,24 @@ export default function RawMaterialsPage() {
                             &lt; {item.reorder_level} {item.unit}
                           </td>
                           <td className="py-3 px-4 text-center">
-                            <button
-                              type="button"
-                              onClick={() => handleDeleteMaterial(item.code, item.name)}
-                              title={`हटाएं (${item.name})`}
-                              className="rounded-lg p-2 text-rose-500 hover:bg-rose-50 hover:text-rose-700 transition-colors shadow-xs"
-                            >
-                              <Trash2 size={16} />
-                            </button>
+                            <div className="flex items-center justify-center gap-1.5">
+                              <button
+                                type="button"
+                                onClick={() => setEditingMaterial(item)}
+                                title={`एडिट करें (${item.name})`}
+                                className="rounded-lg p-1.5 text-teal-700 bg-teal-50 hover:bg-teal-100 hover:text-teal-900 transition-colors shadow-xs border border-teal-200"
+                              >
+                                <Pencil size={14} />
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => handleDeleteMaterial(item.code, item.name)}
+                                title={`हटाएं (${item.name})`}
+                                className="rounded-lg p-1.5 text-rose-500 bg-rose-50 hover:bg-rose-100 hover:text-rose-700 transition-colors shadow-xs border border-rose-200"
+                              >
+                                <Trash2 size={14} />
+                              </button>
+                            </div>
                           </td>
                         </tr>
                       );
@@ -566,11 +585,19 @@ export default function RawMaterialsPage() {
                         <div className="flex items-center gap-1.5 shrink-0">
                           <button
                             type="button"
+                            onClick={() => setEditingMaterial(item)}
+                            title={`एडिट करें (${item.name})`}
+                            className="rounded-lg p-1.5 text-teal-700 bg-teal-50 hover:bg-teal-100 hover:text-teal-900 transition-colors shadow-xs border border-teal-200"
+                          >
+                            <Pencil size={14} />
+                          </button>
+                          <button
+                            type="button"
                             onClick={() => handleDeleteMaterial(item.code, item.name)}
                             title={`हटाएं (${item.name})`}
-                            className="rounded-md p-1.5 text-slate-400 hover:bg-rose-50 hover:text-rose-600 transition-colors"
+                            className="rounded-lg p-1.5 text-rose-500 bg-rose-50 hover:bg-rose-100 hover:text-rose-700 transition-colors shadow-xs border border-rose-200"
                           >
-                            <Trash2 size={15} />
+                            <Trash2 size={14} />
                           </button>
                         </div>
                       </div>
@@ -783,11 +810,16 @@ export default function RawMaterialsPage() {
         </div>
       )}
 
-      {/* Quick Add Modal */}
+      {/* Quick Add / Edit Material Modal */}
       <MaterialQuickAddModal
-        isOpen={isQuickAddOpen}
-        onClose={() => setIsQuickAddOpen(false)}
+        isOpen={isQuickAddOpen || Boolean(editingMaterial)}
+        initialItem={editingMaterial}
+        onClose={() => {
+          setIsQuickAddOpen(false);
+          setEditingMaterial(null);
+        }}
         onCreated={handleMaterialCreated}
+        onUpdated={handleMaterialUpdated}
       />
     </div>
   );
