@@ -2,6 +2,16 @@
 
 # SmartFabrication progress
 
+### GateWala Page 3: Supplier Ledger & Multi-Bill Payment Allocation - 2026-10-28
+
+Implemented **Page 3: दुकानदार का खाता (Supplier Ledger)** at `/admin/suppliers/ledger`:
+- **Supplier Ledger Statement View**: Select any iron dealer / supplier to view their complete transaction history with date filters (All time, 30 days, 90 days), running balance calculation (तारीखवार बाकी रकम), debit purchases, credit payments, and returns.
+- **Supplier Summary Cards**: Real-time display of कुल खरीदारी (Invoiced ₹), कुल भुगतान (Paid ₹), माल वापसी (Returned ₹), and कुल बकाया (Net Outstanding Due ₹).
+- **Multi-Bill Payment Allocation (FIFO)**: Built `/api/v1/purchases/payment` supporting both single-bill payments and automatic FIFO multi-bill allocation, letting fabricators settle a round sum (e.g. ₹15,000) across multiple earlier unpaid bills.
+- **CSV / Excel Export**: One-click statement export for vendor reconciliation.
+- **Integration & Verification**: Linked in admin navigation under Inventory & Purchases; unit tests in `tests/unit/supplier-ledger.test.ts` passed; 63 test suites with 291 tests passed (100%); Next.js production build compiled cleanly with all 29 routes.
+
+
 ### GateWala Page 2: Multi-Item Purchase Bill Entry & Ledger System - 2026-10-28
 
 Implemented **Page 2: नई खरीदारी दर्ज करें (New Purchase Bill Entry)** at `/admin/purchases/entry` and `/admin/purchases/new`:
