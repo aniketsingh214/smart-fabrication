@@ -1,5 +1,12 @@
 > Version: 1.0 | Updated: 2026-10-27 | Status: live application; implementation and scoped verification register
 
+## 2026-10-28 - Visitor contact dialog: address and locality capture
+
+- Added `address` field (पता / शहर) to the public visitor contact modal (`VisitorContact`).
+- Updated `visitorContactSchema` with optional trimmed string up to 100 characters.
+- Updated `/api/v1/visitor-contact` POST handler to map the visitor's address directly into the lead `city` column and requirement notes, enabling staff to see the customer's locality in the admin Leads list.
+- Regenerated OpenAPI contracts; added automated integration test in `tests/integration/visitor-contact.test.ts`. All 300 tests passed.
+
 ## 2026-10-28 - Emblem-only branding and account navigation refinement
 
 - Removed the added brand name/tagline next to or below the shared logo in public header, footer, admin sidebar and authentication branding. Supplied image artwork is unchanged.

@@ -25404,6 +25404,9 @@ components:
         phone:
           type: string
           pattern: ^(?:(?:\+91|91|0)[\s()-]*)?[6-9](?:[\s()-]*[0-9]){9}$
+        address:
+          type: string
+          maxLength: 100
         intent:
           type: string
           enum:
