@@ -31,3 +31,7 @@ Verified in Phase 11 Quotation Lifecycle & Customer PDF acceptance (`npm run tes
 ## PDF alignment and browser links - 2026-10-28
 
 PDF line columns now include unit rate, fixed widths, right-aligned monetary values and a separate right-aligned totals block. Long rows and the totals group do not split across pages. Copy customer link retains /account?quotation=UUID through login; permitted staff redirect to /admin/quotations?record=UUID, while linked customers keep their account view and existing RLS restrictions. This is an authenticated link, not anonymous sharing. Open customer link is available next to the copied value. Tests include a new browser context, requested-record PDF download and 40-row PDF coordinate alignment.
+
+### 2026-10-29 Sales relationship/search update
+
+See [Sales workspace audit](../operations/sales-workspace-audit.md). Staff search now follows permitted saved CRM relationships by IDs, contact name, phone and email. Exact context filters, RLS and keyset pagination remain enforced. Customer related tabs include quotations, follow-ups and measurements; lead-context quotations use the linked customer and reject conflicting customer IDs. The separately approved Saloni identity repair changed only that lead customer link, preserving its stage and unconfirmed visit request.

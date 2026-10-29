@@ -52,5 +52,7 @@
 | 202610260048_request_rate_limits.sql | 2026-10-26T12:43:41.204Z | 7ccfde0df5575268665c591c5b7e4ab51a4f209fded4bddebe6119cc753102de |
 | 202610260049_quota_timestamp_fix.sql | 2026-10-26T12:50:22.934Z | e13345de0eb877e2981e7f9ac339d19641b4fbfa6adc4c2f5ee9f1a05f741363 |
 | 202610260050_sorted_report_pages.sql | 2026-10-26T18:17:26.350Z | d695fdc4249bcdfd80d926acd452f0c3290edf80f63e781c3d07b7ff91847fc8 |
+| 202610290051_crm_relational_search.sql | 2026-10-29T13:32:55.742Z | 79e6c259c17fa05ebbc8656d4b325bfd2a4eb45614569a5bebbf4662dc888b38 |
+| 202610290052_crm_customer_search_context.sql | 2026-10-29T16:24:21.743Z | e1550647465f1a9b0c5b7033146a0686600f61f17e7b7577f33641fbf2db3a87 |
 
 Applied migrations are immutable. Add forward fixes. No destructive changes performed. Production migration approval and backup remain launch gates.

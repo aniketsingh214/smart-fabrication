@@ -1,4 +1,5 @@
 ﻿import 'server-only';
+import { salesSearchRPC } from '@/contracts/sales-search';
 import { readSort,sortCursor,sortFilter } from '@/lib/api-sort';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { type Resource,resourceSchema,resourceMap } from '@/contracts/resources';
@@ -15,19 +16,22 @@ export async function customerQuotations(db:SupabaseClient,params:URLSearchParam
 export async function listRecords(db:SupabaseClient,resource:Resource,params:URLSearchParams,publicOnly=false){
   const limit=z.coerce.number().int().min(1).max(100).parse(params.get('limit')??25);
   const context=parseRecordContext(params),relation=context?recordRelation(context.parent,resource.slug):undefined;
+  const textSearch=params.get('q')?.trim();const salesRPC=!publicOnly&&textSearch?salesSearchRPC[resource.slug]:undefined;if(salesRPC&&textSearch!.length>120)throw new AppError('VALIDATION_ERROR','Search must be at most 120 characters',422);
+  const rpcCustomerContext=Boolean(salesRPC&&context?.parent==='customers'&&relation?.via==='leads');
   let projection=recordFields(resource);
   if(context){
     if(publicOnly||!relation)throw new AppError('INVALID_CONTEXT','This record relationship is not supported',422);
     const parent=resourceMap[context.parent];if(!parent)throw new AppError('INVALID_CONTEXT','Unknown parent resource',422);
     const {data:allowed,error:permissionError}=await db.rpc('has_permission',{requested:parent.domain+'.read'});databaseError(permissionError);if(!allowed)throw new AppError('FORBIDDEN','Parent record access is restricted',403);
     const {data:parentRow,error:parentError}=await db.from(parent.table).select('id').eq('id',context.id).maybeSingle();databaseError(parentError);if(!parentRow)throw new AppError('NOT_FOUND','Parent record not found',404);
-    if(relation.via)projection+=`,__context_parent:${resourceMap[relation.via]!.table}!inner(${relation.viaColumn})`;
+    if(relation.via&&!rpcCustomerContext)projection+=`,__context_parent:${resourceMap[relation.via]!.table}!inner(${relation.viaColumn})`;
   }
   const sort=readSort(params,[...resource.columns,'created_at']);
-  let query=db.from(resource.table).select(projection).order(sort.key,{ascending:sort.ascending,nullsFirst:false}).order('id',{ascending:sort.ascending}).limit(limit+1);
-  if(context&&relation)query=relation.column?query.eq(relation.column,context.id):query.eq('__context_parent.'+relation.viaColumn,context.id);
+
+  let query=(salesRPC?db.rpc(salesRPC,{search_term:textSearch,...(rpcCustomerContext?{customer_context:context!.id}:{})}).select(projection):db.from(resource.table).select(projection)).order(sort.key,{ascending:sort.ascending,nullsFirst:false}).order('id',{ascending:sort.ascending}).limit(limit+1);
+  if(context&&relation&&!rpcCustomerContext)query=relation.column?query.eq(relation.column,context.id):query.eq('__context_parent.'+relation.viaColumn,context.id);
   if(publicOnly){if(resource.slug==='categories')query=query.eq('active',true);else query=query.eq('status','published');}
-  const q=params.get('q');if(q){const searchKey=resource.fields.some(f=>f.key==='name')?'name':resource.fields.some(f=>f.key==='heading')?'heading':resource.slug==='media-assets'?'public_id':resource.slug==='audit-logs'?'entity_type':null;if(!searchKey)throw new AppError('UNSUPPORTED_FILTER','This resource does not support text search',422);const safe=q.replace(/[%_\\]/g,'').slice(0,120);query=query.ilike(searchKey,`%${safe}%`);}
+  const q=textSearch;if(q&&!salesRPC){const searchKey=resource.fields.some(f=>f.key==='name')?'name':resource.fields.some(f=>f.key==='heading')?'heading':resource.slug==='media-assets'?'public_id':resource.slug==='audit-logs'?'entity_type':null;if(!searchKey)throw new AppError('UNSUPPORTED_FILTER','This resource does not support text search',422);const safe=q.replace(/[%_\\]/g,'').slice(0,120);query=query.ilike(searchKey,`%${safe}%`);}
   if(params.get('status')&&!publicOnly)query=query.eq('status',params.get('status'));
   if(params.get('cursor')){if(sort.explicit)query=query.or(sortFilter(params.get('cursor')!,sort));else{const c=parseCursor(params.get('cursor')!);query=query.or(`created_at.lt.${c.created_at},and(created_at.eq.${c.created_at},id.lt.${c.id})`);}}
   const {data,error}=await query;databaseError(error);const rows=(data??[]) as unknown as Record<string,unknown>[],hasMore=rows.length>limit;const items=rows.slice(0,limit),last=items.at(-1);

@@ -44,3 +44,7 @@ Scheduler execute is explicitly revoked from PUBLIC, anon and authenticated; new
 
 
 Write authorization now also applies verified-user form quotas after existing identity/permission checks. See [rate-limit policies](rate-limits.md). The service-only quota RPC grants no access to business records; existing business RLS remains unchanged.
+
+### CRM relationship search - 2026-10-29
+
+Migration 51 uses security-invoker functions with authenticated-only execute grants and explicit relevant domain read checks. Every source table remains subject to its existing RLS. Staff search does not grant public/customer access or expose inaccessible sibling leads. Context filtering additionally checks parent read permission and parent visibility. New/relinked quotations enforce visible lead/customer consistency; existing approval and stage rules remain in force. The approved one-lead identity correction is documented separately in [Sales audit](../operations/sales-workspace-audit.md).

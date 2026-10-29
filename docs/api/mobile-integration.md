@@ -124,3 +124,7 @@ GET /visitor-contact returns data.registered only. POST /visitor-contact accepts
 ## Form/API rate limits
 
 Every POST/PUT/PATCH/DELETE under /api/v1 uses distributed request quotas; authenticated mutations also use verified actor quotas. Respect HTTP 429 and Retry-After seconds; retain draft data and original idempotency keys, do not auto-resubmit non-idempotent posts. HTTP 503 means quota storage/configuration is unavailable and no application business mutation was executed. Same-origin web login/signup/reset/password-update use POST /auth/form; direct Supabase Auth clients retain provider limits. Thresholds, response headers and exemptions: [rate limits](../security/rate-limits.md).
+
+### Sales relational search - 2026-10-29
+
+GET /admin/leads, /admin/customers, /admin/quotations, /admin/follow-ups and /admin/measurements accept q (trimmed, maximum 120 characters): full/partial IDs, lead/customer names, email and normalized Indian phone formats. Search is backend/RLS scoped and intersects status, sort/direction, cursor, context/context_id and limit. Keep these parameters with each cursor; omit q and cursor when clearing. Lead-specific queries exclude customer-only quotations and sibling projects. Customer contexts include explicit customer quotations and child records via their actual lead. Standard data array/meta.nextCursor envelopes remain unchanged. Mismatched quotation customer/lead references return 422 with a customer_id field error. See [search matrix and correction evidence](../operations/sales-workspace-audit.md).

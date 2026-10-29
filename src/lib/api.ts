@@ -19,6 +19,8 @@ export async function jsonBody(request:Request){
 }
 export function databaseError(error:{code?:string;message?:string}|null,fields:readonly string[]=[]){
   if(!error)return;
+  if(error.message==='Quotation customer must match the linked lead customer')throw new AppError('VALIDATION_ERROR','Choose the customer linked to this lead.',422,[{field:'customer_id',message:'Customer must match the selected lead.'}]);
+  if(error.message==='Linked lead is missing or inaccessible')throw new AppError('VALIDATION_ERROR','Select an accessible lead.',422,[{field:'lead_id',message:'This lead is missing or inaccessible.'}]);
   if(fields.includes('assigned_to')&&error.message==='An active sales or owner assignee is required')throw new AppError('VALIDATION_ERROR','Choose an active assignee or clear the previous assignment.',422,[{field:'assigned_to',message:'This staff account is inactive or no longer eligible. Choose active staff, or clear the assignment to use the lead owner.'}]);
   if(error.code==='23505'){
     const constraint=error.message?.match(/constraint "([^"]+)"/)?.[1]??'';

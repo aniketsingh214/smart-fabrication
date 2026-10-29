@@ -23,3 +23,7 @@ Verified in Phase 04, 10, 11, and 12 acceptance:
 2. Guest enquiry conversion and identity linking verified.
 3. Cross-customer IDOR protection verified (`test:orders-browser`, `test:quotation-browser`).
 4. Keyset pagination on customer receivables verified (`test:reporting-audit`).
+
+### 2026-10-29 Sales relationship/search update
+
+See [Sales workspace audit](../operations/sales-workspace-audit.md). Staff search now follows permitted saved CRM relationships by IDs, contact name, phone and email. Exact context filters, RLS and keyset pagination remain enforced. Customer related tabs include quotations, follow-ups and measurements; lead-context quotations use the linked customer and reject conflicting customer IDs. The separately approved Saloni identity repair changed only that lead customer link, preserving its stage and unconfirmed visit request.

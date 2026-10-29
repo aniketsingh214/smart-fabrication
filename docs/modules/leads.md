@@ -52,3 +52,7 @@ Shared record actions keep the current detail page and reload latest status/vers
 ## Status dropdowns - 2026-10-28
 
 Lead details use a native dropdown for the current and valid next/reopen/lost stages. Customer details show separately linked enquiries and their status controls; customers have no independent lead status. customers -> leads uses customer_id with parent permission/RLS checks before paging. Failed prerequisites retain saved status; optimistic versions remain required. See [verification](../progress.md).
+
+### 2026-10-29 Sales relationship/search update
+
+See [Sales workspace audit](../operations/sales-workspace-audit.md). Staff search now follows permitted saved CRM relationships by IDs, contact name, phone and email. Exact context filters, RLS and keyset pagination remain enforced. Customer related tabs include quotations, follow-ups and measurements; lead-context quotations use the linked customer and reject conflicting customer IDs. The separately approved Saloni identity repair changed only that lead customer link, preserving its stage and unconfirmed visit request.

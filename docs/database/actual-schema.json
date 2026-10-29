@@ -1,5 +1,5 @@
 {
-  "captured_at": "2026-10-26T18:28:19.746Z",
+  "captured_at": "2026-10-29T16:26:36.127Z",
   "tables": [
     {
       "name": "audit_logs",
@@ -4815,6 +4815,16 @@
       "name": "202610260050_sorted_report_pages.sql",
       "sha256": "d695fdc4249bcdfd80d926acd452f0c3290edf80f63e781c3d07b7ff91847fc8",
       "applied_at": "2026-10-26T18:17:26.350Z"
+    },
+    {
+      "name": "202610290051_crm_relational_search.sql",
+      "sha256": "79e6c259c17fa05ebbc8656d4b325bfd2a4eb45614569a5bebbf4662dc888b38",
+      "applied_at": "2026-10-29T13:32:55.742Z"
+    },
+    {
+      "name": "202610290052_crm_customer_search_context.sql",
+      "sha256": "e1550647465f1a9b0c5b7033146a0686600f61f17e7b7577f33641fbf2db3a87",
+      "applied_at": "2026-10-29T16:24:21.743Z"
     }
   ],
   "constraints": [

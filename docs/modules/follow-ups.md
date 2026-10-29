@@ -28,3 +28,7 @@ Verified in Phase 10 CRM acceptance (`npm run test:crm-browser`, artifact: `test
 ## Action fixes - 2026-10-28
 
 Shared record actions keep the current detail page and reload latest status/version. Follow-ups now expose assignment correction and field-level inactive-staff errors; role/database restrictions remain intact. Lower dashboard metrics link to explicitly labelled all-permitted record lists. Validation and verification scope: [progress](../progress.md).
+
+### 2026-10-29 Sales relationship/search update
+
+See [Sales workspace audit](../operations/sales-workspace-audit.md). Staff search now follows permitted saved CRM relationships by IDs, contact name, phone and email. Exact context filters, RLS and keyset pagination remain enforced. Customer related tabs include quotations, follow-ups and measurements; lead-context quotations use the linked customer and reject conflicting customer IDs. The separately approved Saloni identity repair changed only that lead customer link, preserving its stage and unconfirmed visit request.

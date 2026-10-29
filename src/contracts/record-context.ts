@@ -2,6 +2,9 @@ import { z } from 'zod';
 export type RecordRelation={parent:string;child:string;label:string;column?:string;via?:string;viaColumn?:string};
 export const recordRelations:RecordRelation[]=[
  {parent:'customers',child:'leads',label:'Enquiries',column:'customer_id'},
+ {parent:'customers',child:'quotations',label:'Quotations',column:'customer_id'},
+ {parent:'customers',child:'follow-ups',label:'Follow-ups',via:'leads',viaColumn:'customer_id'},
+ {parent:'customers',child:'measurements',label:'Measurements',via:'leads',viaColumn:'customer_id'},
  {parent:'leads',child:'lead-notes',label:'Notes',column:'lead_id'},
  {parent:'leads',child:'follow-ups',label:'Follow-ups',column:'lead_id'},
  {parent:'leads',child:'measurements',label:'Measurements',column:'lead_id'},
@@ -23,7 +26,7 @@ export const recordRelations:RecordRelation[]=[
  {parent:'workers',child:'labour-payments',label:'Payments',column:'worker_id'},
  {parent:'bom-versions',child:'bom-items',label:'Materials',column:'bom_id'},
 ];
-export type RecordContext={parent:string;id:string;name?:string};
+export type RecordContext={parent:string;id:string;name?:string;defaults?:Record<string,string>};
 export function recordRelation(parent:string,child:string){return recordRelations.find(relation=>relation.parent===parent&&relation.child===child);}
 export function parseRecordContext(params:URLSearchParams){
  if(!params.has('context')&&!params.has('context_id'))return null;

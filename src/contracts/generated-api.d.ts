@@ -17,7 +17,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -326,7 +326,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -780,7 +780,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -1089,7 +1089,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -1543,7 +1543,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -1852,7 +1852,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -2306,7 +2306,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -2745,7 +2745,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -3329,7 +3329,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -3638,7 +3638,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -4092,7 +4092,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -4659,7 +4659,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -5371,7 +5371,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -5938,7 +5938,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -6650,7 +6650,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -7217,7 +7217,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -7929,7 +7929,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -8496,7 +8496,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -9208,7 +9208,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -9775,7 +9775,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -10487,7 +10487,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -11054,7 +11054,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -11766,7 +11766,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -12333,7 +12333,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -13045,7 +13045,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -13612,7 +13612,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -14324,7 +14324,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -14891,7 +14891,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -15905,7 +15905,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -16472,7 +16472,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -17184,7 +17184,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -17621,7 +17621,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -18203,7 +18203,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -18770,7 +18770,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -19482,7 +19482,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -19919,7 +19919,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -20501,7 +20501,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -21068,7 +21068,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                 };
@@ -23383,7 +23383,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -23692,7 +23692,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                 };
@@ -24445,7 +24445,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -25012,7 +25012,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -25724,7 +25724,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -26161,7 +26161,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -26743,7 +26743,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -27310,7 +27310,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -28022,7 +28022,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -28589,7 +28589,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -29301,7 +29301,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -29868,7 +29868,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -30580,7 +30580,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -31147,7 +31147,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -31859,7 +31859,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -32426,7 +32426,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -33430,7 +33430,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -33997,7 +33997,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -34709,7 +34709,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -35018,7 +35018,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -35472,7 +35472,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -35909,7 +35909,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -36491,7 +36491,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -37058,7 +37058,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -37770,7 +37770,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -38207,7 +38207,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -38789,7 +38789,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -39228,7 +39228,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -39812,7 +39812,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -40379,7 +40379,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -41389,7 +41389,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -41956,7 +41956,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -42668,7 +42668,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -43235,7 +43235,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -44253,7 +44253,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -44820,7 +44820,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -45532,7 +45532,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -45971,7 +45971,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -46555,7 +46555,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -46994,7 +46994,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -47578,7 +47578,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -48017,7 +48017,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -48601,7 +48601,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -49168,7 +49168,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -50172,7 +50172,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -50611,7 +50611,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -51195,7 +51195,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -51762,7 +51762,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -52474,7 +52474,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -52783,7 +52783,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -53237,7 +53237,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
@@ -53546,7 +53546,7 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    /** @description Text search on resources with a name/heading field */
+                    /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
                     /** @description Sort the full permitted dataset before pagination. Omit to preserve legacy ordering. */
@@ -61757,6 +61757,333 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/purchases/bill": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Create purchase bill with line items and optional receipt/payment; multi-step workflow */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        supplier_id: string;
+                        bill_number: string;
+                        bill_date: string;
+                        name?: string;
+                        notes?: string;
+                        items: {
+                            material_id?: string;
+                            material_code?: string;
+                            material_name: string;
+                            /** @enum {string} */
+                            unit: "kg" | "m" | "piece" | "litre" | "sheet";
+                            quantity: number;
+                            rate_minor: number;
+                            subtotal_minor: number;
+                        }[];
+                        /** @default 0 */
+                        paid_minor: number;
+                        /**
+                         * @default cash
+                         * @enum {string}
+                         */
+                        payment_mode: "cash" | "bank" | "upi" | "cheque";
+                        payment_reference?: string;
+                        /** @default true */
+                        auto_receive: boolean;
+                    };
+                };
+            };
+            responses: {
+                /** @description Success envelope */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Envelope"];
+                    };
+                };
+                /** @description HTTP 400; sanitized error envelope */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 401; sanitized error envelope */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 403; sanitized error envelope */
+                403: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 404; sanitized error envelope */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 409; sanitized error envelope */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 413; sanitized error envelope */
+                413: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 415; sanitized error envelope */
+                415: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 422; sanitized error envelope */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
+                429: {
+                    headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 500; sanitized error envelope */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 503; sanitized error envelope */
+                503: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/purchases/payment": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Record supplier payment against a selected bill or allocate across outstanding bills */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        supplier_id: string;
+                        /** Format: uuid */
+                        purchase_id?: string;
+                        amount_minor: number;
+                        /**
+                         * @default cash
+                         * @enum {string}
+                         */
+                        mode: "cash" | "bank" | "upi" | "cheque";
+                        reference: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Success envelope */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Envelope"];
+                    };
+                };
+                /** @description HTTP 400; sanitized error envelope */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 401; sanitized error envelope */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 403; sanitized error envelope */
+                403: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 404; sanitized error envelope */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 409; sanitized error envelope */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 413; sanitized error envelope */
+                413: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 415; sanitized error envelope */
+                415: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 422; sanitized error envelope */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
+                429: {
+                    headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 500; sanitized error envelope */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 503; sanitized error envelope */
+                503: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/auth/form": {
         parameters: {
             query?: never;
@@ -63429,6 +63756,7 @@ export interface components {
         VisitorContact: {
             name: string;
             phone: string;
+            address?: string;
             /** @enum {string} */
             intent: "welcome" | "call" | "message";
             /** @default / */
