@@ -265,8 +265,7 @@ export default function SupplierLedgerPage() {
         <div className="flex flex-wrap items-center gap-2">
           <Button asChild className="gap-1.5 bg-teal-700 hover:bg-teal-800 text-white font-bold">
             <Link href={`/admin/purchases/entry?supplier=${selectedSupplierId}`}>
-              <Plus size={16} />
-              + नई खरीदारी दर्ज करें
+              <Plus size={16} /> नई खरीदारी दर्ज करें
             </Link>
           </Button>
           <Button asChild variant="outline" size="sm">

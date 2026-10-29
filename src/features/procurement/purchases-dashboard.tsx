@@ -61,8 +61,7 @@ export function PurchasesDashboard({ data }: { data: DashboardSummaryData }) {
         <div className="flex flex-wrap items-center gap-2.5">
           <Button asChild className="gap-2 bg-teal-700 hover:bg-teal-800 text-white font-bold">
             <Link href="/admin/purchases/entry">
-              <Plus size={16} />
-              + नई खरीदारी दर्ज करें
+              <Plus size={16} /> नई खरीदारी दर्ज करें
             </Link>
           </Button>
 

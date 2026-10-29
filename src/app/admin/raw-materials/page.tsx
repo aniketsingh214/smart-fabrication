@@ -171,8 +171,7 @@ export default function RawMaterialsPage() {
 
         <div className="flex flex-wrap items-center gap-2.5">
           <Button onClick={() => setIsQuickAddOpen(true)} className="gap-2 bg-teal-700 hover:bg-teal-800">
-            <Plus size={16} />
-            + नया मटेरियल जोड़ें
+            <Plus size={16} /> नया मटेरियल जोड़ें
           </Button>
 
           <Button asChild variant="outline" className="gap-2">

@@ -440,8 +440,7 @@ export default function NewPurchaseEntryPage() {
                 onClick={() => setIsQuickAddSupplierOpen(true)}
                 className="text-[11px] font-semibold text-teal-700 hover:underline flex items-center gap-1"
               >
-                <Plus size={12} />
-                + नया सप्लायर
+                <Plus size={12} /> नया सप्लायर
               </button>
             </div>
             {loadingSuppliers ? (
@@ -512,8 +511,7 @@ export default function NewPurchaseEntryPage() {
             onClick={() => setIsQuickAddMaterialOpen(true)}
             className="text-xs border-teal-300 bg-white text-teal-800 hover:bg-teal-50 gap-1.5 h-8"
           >
-            <Plus size={13} />
-            + नया साइज / मटेरियल जोड़ें
+            <Plus size={13} /> नया साइज / मटेरियल जोड़ें
           </Button>
         </div>
 
