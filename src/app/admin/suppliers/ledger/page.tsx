@@ -238,7 +238,7 @@ export default function SupplierLedgerPage() {
   };
 
   return (
-    <div className="space-y-6 pb-12">
+    <div className="admin-operational-page space-y-6 pb-12">
       {/* Header and Breadcrumbs */}
       <div className="flex flex-wrap items-start justify-between gap-4 border-b border-slate-200/80 pb-4">
         <div>

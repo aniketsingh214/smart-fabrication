@@ -201,7 +201,7 @@ export default function RawMaterialsPage() {
                 </div>
               </div>
 
-              <div className="flex flex-wrap items-center gap-2 text-xs">
+              <div className="admin-unit-converter flex flex-wrap items-center gap-2 text-xs">
                 <select
                   value={calcMaterialCode}
                   onChange={(e) => setCalcMaterialCode(e.target.value)}

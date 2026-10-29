@@ -39,7 +39,7 @@ export type DashboardSummaryData = {
 
 export function PurchasesDashboard({ data }: { data: DashboardSummaryData }) {
   return (
-    <div className="space-y-6">
+    <div className="admin-operational-page admin-purchase-dashboard space-y-6">
       {/* Header & Quick Action */}
       <div className="flex flex-wrap items-start justify-between gap-4 border-b border-slate-200/80 pb-5">
         <div>

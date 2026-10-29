@@ -7,7 +7,7 @@ import { uploadMedia } from './upload';
 import { Button } from '@/components/ui/button';
 export function MediaUploader({contexts=['product','gallery','customer_design','delivery_proof','invoice']}:{contexts?:string[]}) {
   const [busy,setBusy]=useState(false),[message,setMessage]=useState('');
-  return <section className="card mb-6 p-5">
+  return <section className="admin-media-upload card mb-6 p-5">
     <h2 className="mb-4 font-bold">Upload catalog media or evidence</h2>
     <ValidatedForm className="flex flex-wrap items-end gap-4" onSubmit={async event=>{event.preventDefault();const form=event.currentTarget;const f=validatedFormData(form);
       setBusy(true);setMessage('');
