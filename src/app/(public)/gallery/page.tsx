@@ -71,7 +71,7 @@ export default async function Gallery({ searchParams }: { searchParams: Promise<
         <div className="w-full max-w-md">
           <ValidatedForm className="flex w-full items-center gap-2">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-2.5 text-slate-400" size={17} />
+              <Search className="royal-search-leading absolute left-3 top-2.5 text-slate-400" size={17} />
               <input
                 name="q"
                 aria-label="Search gallery projects"

@@ -71,3 +71,5 @@ Primary/contextual navigation and account controls use the shared gold/charcoal 
 - Menu supports outside click, Escape with focus restoration, keyboard links, nested account disclosure and bounded scrolling on short screens. Desktop navigation remains available.
 - Fixed successful password login defaulting every user to /account. Verified profile permissions now choose the dashboard or first permitted workspace; customers retain /account. Explicit safe account/admin return destinations are preserved. A failed profile lookup still navigates to the protected account page after successful sign-in.
 - No auth grants, RLS, database schema or business pricing changes. Targeted auth/destination tests and production build passed. Mobile Hindi browser checks passed at 320/390/600/767px; full responsive acceptance tracked separately.
+
+Shared field/search/dropdown presentation now follows [control consistency](../operations/control-consistency.md); permissions, role restrictions and RLS are unchanged.

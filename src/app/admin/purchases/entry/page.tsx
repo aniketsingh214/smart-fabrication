@@ -526,7 +526,7 @@ export default function NewPurchaseEntryPage() {
                 सामान खोजें (Search English/Hindi/Size):
               </label>
               <div className="relative">
-                <Search size={15} className="absolute left-3 top-3 text-slate-400" />
+                <Search size={15} className="royal-search-leading absolute left-3 top-3 text-slate-400" />
                 <input
                   type="text"
                   placeholder="उदा. 1 इंची पाइप, सवा इंची एंगल, 18 gauge, tata chadar..."

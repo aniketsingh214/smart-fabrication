@@ -100,7 +100,7 @@ export function GlobalSearchBar({ className = '' }: { className?: string }) {
       <ValidatedForm
         onSubmit={handleSubmit}
         role="search"
-        className="relative flex h-12 w-full min-w-0 items-center rounded-2xl border border-slate-200 bg-white/80 p-1 shadow-sm transition focus-within:border-orange-500 focus-within:ring-4 focus-within:ring-orange-100"
+        className="royal-global-search relative flex h-12 w-full min-w-0 items-center rounded-2xl border border-slate-200 bg-white/80 p-1 shadow-sm transition focus-within:border-orange-500 focus-within:ring-4 focus-within:ring-orange-100"
       >
         <div className="pl-3 sm:pl-3.5 text-slate-400 shrink-0">
           <Search size={16} />
@@ -128,9 +128,10 @@ export function GlobalSearchBar({ className = '' }: { className?: string }) {
         )}
         <button
           type="submit"
+          aria-label="Search designs"
           className="flex h-9 shrink-0 items-center gap-1.5 rounded-xl bg-graphite px-3 text-xs font-semibold text-white transition hover:bg-slate-700 sm:px-4"
         >
-          {isHi ? 'खोजें' : 'Search'}<ArrowRight size={14} aria-hidden="true"/>
+          <span className="royal-search-submit-label">{isHi ? 'खोजें' : 'Search'}</span><ArrowRight size={14} aria-hidden="true"/>
         </button>
       </ValidatedForm>
 

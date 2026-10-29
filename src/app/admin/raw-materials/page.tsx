@@ -282,7 +282,7 @@ export default function RawMaterialsPage() {
             <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white p-3 shadow-xs">
               {/* Search input with live clear */}
               <div className="relative flex-1 min-w-[260px]">
-                <Search size={16} className="absolute left-3.5 top-3 text-slate-400" />
+                <Search size={16} className="royal-search-leading absolute left-3.5 top-3 text-slate-400" />
                 <input
                   type="text"
                   placeholder="मटेरियल खोजें: इंग्लिश, हिंदी नाम, साइज, गेज (उदा. 1 इंची पाइप, सवा इंची एंगल, 18 gauge, tata chadar)..."

@@ -234,12 +234,12 @@ export default async function Catalog({ searchParams }: { searchParams: Promise<
         </div>
 
         {/* Bilingual Search Form with Category Preservation & Clear Button */}
-        <div className="w-full max-w-md">
-          <ValidatedForm className="flex w-full flex-wrap items-center gap-2">
+        <div className="catalog-filter-panel w-full">
+          <ValidatedForm className="catalog-filter-form flex w-full flex-wrap items-center gap-2">
             {activeParent && <input type="hidden" name="category" value={activeParent.slug} />}
             {activeSub && <input type="hidden" name="sub" value={activeSub.slug} />}
             <div className="relative min-w-0 flex-1 basis-48">
-              <Search className="absolute left-3 top-2.5 text-slate-400" size={17} />
+              <Search className="royal-search-leading absolute left-3 top-2.5 text-slate-400" size={17} />
               <input
                 name="q"
                 aria-label="Search designs"
