@@ -64,3 +64,10 @@ Primary/contextual navigation and account controls use the shared gold/charcoal 
 - Compacted sidebar branding and navigation, balanced emblem sizes, refined topbar/header spacing and retained the charcoal/gold design and shared English/Hindi typography.
 - Dropdown supports click, Tab navigation, Arrow Down entry, Escape with focus restoration and outside-click dismissal. Mobile dropdown bounds checked at 320px and 390px.
 - Validation: targeted ESLint, TypeScript and production build passed. Guest browser checks passed. Full responsive browser results are recorded in the design-system operations document.
+
+## 2026-10-29 - Compact mobile header and first-login destination
+
+- Public mobile header now has two compact rows: emblem/wishlist/cart/menu, followed by full-width search. The crowded five-link navigation strip and search-row language control move into an accessible menu disclosure, retaining all links and language selection.
+- Menu supports outside click, Escape with focus restoration, keyboard links, nested account disclosure and bounded scrolling on short screens. Desktop navigation remains available.
+- Fixed successful password login defaulting every user to /account. Verified profile permissions now choose the dashboard or first permitted workspace; customers retain /account. Explicit safe account/admin return destinations are preserved. A failed profile lookup still navigates to the protected account page after successful sign-in.
+- No auth grants, RLS, database schema or business pricing changes. Targeted auth/destination tests and production build passed. Mobile Hindi browser checks passed at 320/390/600/767px; full responsive acceptance tracked separately.

@@ -719,3 +719,10 @@ Refinement acceptance: all 7 Royal design browser groups passed locally, includi
 [Product creation plan](operations/product-creation-plan.md) records the requested integrated category/size/weight/per-kg pricing and five-image form. Existing category/media services will be reused; dimensional weight guesses, sample business rates and automatic unselected variants are excluded. Planning only: no product-form implementation or schema changes yet.
 
 The emblem/account refinement also passed all 7 browser groups against the live Vercel deployment, including account interactions and responsive public/admin forms.
+
+## 2026-10-29 - Compact mobile header and first-login destination
+
+- Public mobile header now has two compact rows: emblem/wishlist/cart/menu, followed by full-width search. The crowded five-link navigation strip and search-row language control move into an accessible menu disclosure, retaining all links and language selection.
+- Menu supports outside click, Escape with focus restoration, keyboard links, nested account disclosure and bounded scrolling on short screens. Desktop navigation remains available.
+- Fixed successful password login defaulting every user to /account. Verified profile permissions now choose the dashboard or first permitted workspace; customers retain /account. Explicit safe account/admin return destinations are preserved. A failed profile lookup still navigates to the protected account page after successful sign-in.
+- No auth grants, RLS, database schema or business pricing changes. Targeted auth/destination tests and production build passed. Mobile Hindi browser checks passed at 320/390/600/767px; full responsive acceptance tracked separately.

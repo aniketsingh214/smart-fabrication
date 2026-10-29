@@ -63,3 +63,32 @@ table{border-collapse:separate;border-spacing:0;width:100%;font-variant-numeric:
 @media(min-width:1536px){.royal-header-inner{grid-template-columns:160px minmax(220px,1fr) auto auto;padding-top:12px;padding-bottom:12px;column-gap:24px}}
 @media(max-width:1535px) and (min-width:768px){.royal-header-inner{grid-template-columns:160px minmax(180px,1fr) auto}}
 @media(max-width:767px){.royal-emblem-only .royal-brand-art{width:120px;max-height:50px}.royal-brand-footer .royal-brand-art{width:160px;max-height:70px}.royal-brand-auth .royal-brand-art{width:240px;max-height:100px}.admin-topbar{padding:12px 16px;min-height:68px}.admin-header-actions{gap:6px}.royal-account-admin .royal-account-label{display:none}.royal-account-admin .royal-account-trigger{padding:2px;gap:4px}.royal-public-nav .royal-account-trigger{flex-direction:column;gap:5px;font-size:10px;padding:5px 2px}.royal-public-nav .royal-account-trigger>.fa-chevron-down{display:none}.royal-public-nav .royal-account-panel{right:-36px}.admin-shell main{padding:18px 16px}.admin-brand-link{min-height:92px}}
+
+/* Mobile: two-row header with an accessible navigation disclosure. */
+.royal-mobile-menu-toggle,.royal-drawer-heading{display:none}
+@media(max-width:767px){
+ .royal-header-inner{position:relative;grid-template-columns:minmax(0,1fr) auto;gap:10px 12px;padding:12px 16px}
+ .royal-header-brand{grid-column:1;grid-row:1;min-height:44px}
+ .royal-brand-header .royal-brand-art{width:112px;max-height:46px}
+ .royal-header-tools{grid-column:2;grid-row:1;gap:8px}
+ .royal-header-tools button,.royal-mobile-menu-toggle{width:40px;height:40px;min-width:40px;border-radius:12px}
+ .royal-mobile-menu-toggle{display:grid;place-items:center;background:#242923;color:#eed597;border:1px solid #242923;font-size:16px;cursor:pointer}
+ .royal-header-tools .royal-mobile-menu-toggle[aria-expanded=true]{background:#f5eedc;color:#755621;border-color:#d7bd7e}
+ .royal-header-search{grid-column:1/-1;grid-row:2;display:block;width:100%}
+ .royal-header-search form{height:44px;border-radius:12px;background:#f7f7f4;border-color:#e6e6de}
+ .royal-header-search input{font-size:13px!important}
+ .royal-language-mobile{display:none}
+ .royal-public-nav{display:none;position:absolute;top:calc(100% + 8px);left:12px;right:12px;margin:0;padding:12px;border:1px solid #e6e1d4;border-radius:16px;background:#fff;box-shadow:0 20px 50px #10171026;max-height:calc(100dvh - 150px);overflow-y:auto;overscroll-behavior:contain;z-index:60}
+ .royal-public-nav[data-open=true]{display:flex;flex-direction:column;align-items:stretch;gap:4px}
+ .royal-drawer-heading{display:flex;align-items:center;justify-content:space-between;padding:4px 8px 12px;margin-bottom:4px;border-bottom:1px solid #ece9e0;font-size:13px;font-weight:650;color:#242923}
+ .royal-drawer-heading [role=group]{font-size:11px;box-shadow:none}
+ .royal-public-nav>a,.royal-public-nav .royal-account-trigger{display:flex;flex-direction:row;align-items:center;justify-content:flex-start;gap:14px;min-height:46px;padding:12px;font-size:13px;border-radius:10px;color:#444c43;width:100%;text-align:left}
+ .royal-public-nav>a .royal-icon{width:18px;font-size:15px;color:#9a762f}
+ .royal-public-nav>a:hover,.royal-public-nav>a[aria-current=page]{background:#f6f0e2}
+ .royal-public-nav>a[aria-current=page]:after{display:none}
+ .royal-public-nav>a.royal-nav-quote{display:flex;background:#d5b568;color:#211b10;margin-top:6px}
+ .royal-public-nav .royal-account{display:block}
+ .royal-public-nav .royal-account-trigger>.fa-chevron-down{display:block;margin-left:auto}
+ .royal-public-nav .royal-account-panel{position:static;width:100%;max-width:100%;box-shadow:none;margin:4px 0 8px}
+}
+@media(max-width:359px){.royal-header-inner{padding:10px 12px}.royal-header-tools{gap:5px}.royal-brand-header .royal-brand-art{width:98px}.royal-header-tools button{width:36px;height:38px;min-width:36px}}
