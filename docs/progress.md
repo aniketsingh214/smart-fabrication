@@ -1,4 +1,4 @@
-> Version: 1.0 | Updated: 2026-10-27 | Status: live application; implementation and scoped verification register
+> Version: 1.0 | Updated: 2026-10-29 | Status: live application; implementation and scoped verification register
 
 ## 2026-10-28 - Visitor contact dialog: address and locality capture
 
@@ -736,3 +736,5 @@ Final live acceptance (2026-10-29): all 9 browser groups passed against https://
 See [control consistency](operations/control-consistency.md) for field/button dimensions, Font Awesome select arrows, search alignment, catalog filter layout and the 45-resource/six-width audit scope. Production build and 301 tests passed before the final visual refinements; final acceptance is recorded below when completed. First browser attempt was interrupted by a 5-second navigation readiness timeout; the harness now allows 45 seconds for the authenticated main surface. Existing dedicated purchase/material lint debt is documented rather than treated as a clean lint result.
 
 Local control acceptance: all 10 design/browser groups passed, including 45 resource routes at six widths. All 8 table/edit/archive/validation regression groups passed with mocked category writes. The first table run expected the retired /account staff destination and timed out; after updating the harness to /admin, the complete run passed. Final production build passed; 301 tests / 67 files passed. Public/shared-workspace targeted lint passed; dedicated purchase/material pre-existing lint findings remain documented.
+
+Final live control acceptance (2026-10-29): all 11 browser groups passed on https://smartfabrication.vercel.app. All 45 resource routes were checked at 320/390/768/1024/1440/1920px for document fit and visible field heights/fonts/select arrows. Additional workspace hubs, raw-material import, calculation preview, purchase entry redirect, password screen and available product public/private preview were checked. Search icons remained centred; menus, role-based login, explicit return links and red inline validation passed. No hydration/page errors or document overflow. Temporary test account retired. Local table regression: 8 groups passed; unit/integration: 301 tests / 67 files passed; final build, docs and secret checks passed. Existing dedicated-screen lint findings remain listed above. Evidence artifact: ignored test-results/royal-design-latest.json.
