@@ -19,3 +19,7 @@
 - **Anti-IDOR customer isolation:** Customers track their owned orders on `/account` and view milestones on `/account/orders/[id]`. Direct API (`/api/v1/orders/[id]`) and timeline (`/api/v1/orders/[id]/timeline`) enforce customer ownership; stranger accounts receive 404/empty lists, and unauthenticated requests are denied with 401. Customer timeline DTOs exclude private internal staff notes.
 - **Live verification evidence:** 5/5 real browser and API checks passed (`test-results/orders-browser-latest.json`). See [Phase 12](../phases/phase-12.md) and [test evidence](../testing/evidence.md).
 
+
+## Order stage dropdown - 2026-10-31
+
+Order details now show every configured order stage in one dropdown, with the current stage selected and only the next sequential stage enabled. Terminal/unknown stages have no enabled transition. The existing versioned transition API and payment/measurement/workshop guards remain unchanged. Due at is the optional order target completion/deadline timestamp, distinct from outstanding payment (balance due); an em dash means no target date is recorded. This UI change does not set or auto-advance deadlines/stages.
