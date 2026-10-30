@@ -46,7 +46,15 @@ async function handle(request:NextRequest,context:Context){const requestId=crypt
     return success(await createRecord(db,resource,await jsonBody(request),request.headers.get('idempotency-key')),requestId,201);
   }
   if(request.method==='PATCH'&&id&&!action)return success(await updateRecord(db,resource,id,await jsonBody(request)),requestId);
+  if(request.method==='DELETE'&&id&&!action){
+    if(slug==='product-media'){
+      const {error}=await db.rpc('delete_product_media',{target:z.uuid().parse(id)});
+      databaseError(error);
+      return success({deleted:true},requestId);
+    }
+    throw new AppError('METHOD_NOT_ALLOWED','Direct deletion is not allowed for this record',405);
+  }
   throw new AppError('METHOD_NOT_ALLOWED','Method not supported',405);
 }catch(e){return failure(e,requestId);}}
-export const GET=handle;export const POST=handle;export const PATCH=handle;
+export const GET=handle;export const POST=handle;export const PATCH=handle;export const DELETE=handle;
 

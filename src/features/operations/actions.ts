@@ -22,6 +22,7 @@ export async function runAction(db:SupabaseClient,resource:string,id:string,acti
   else if(resource==='expenses'&&action==='approve')result=await db.from('expenses').update({status:'approved'}).eq('id',id).eq('status','draft').select('id').single();
   else if(resource==='work-orders'&&action==='transitions'){const p=z.object({status:z.enum(['fabrication','finishing','quality_check','ready'])}).strict().parse(body);result=await db.from('work_orders').update(p).eq('id',id).select().single();}
   else if(resource==='deliveries'&&action==='transitions'){const p=z.object({status:z.enum(['dispatched','delivered']),proof_media_id:z.uuid().optional(),confirmed_at:z.iso.datetime({offset:true}).optional()}).strict().parse(body);result=await db.from('deliveries').update(p).eq('id',id).select().single();}
+  else if(resource==='product-media'&&action==='delete')result=await db.rpc('delete_product_media',{target:id});
   else throw new AppError('NOT_FOUND','Unknown workflow action',404);
   databaseError(result.error);return {result:result.data??null};
 }
