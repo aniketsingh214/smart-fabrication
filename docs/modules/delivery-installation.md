@@ -33,3 +33,7 @@
 ## Operations workspace navigation - 2026-10-31
 
 Removed Quality checks and Installations from the Orders & Workshop workspace resource links, including All lists & history. The workspace description now lists orders, job cards, workers and delivery. This is a navigation removal scoped to /admin/workspaces/operations; underlying records, API routes and order stages remain available for existing workflows/history. No database deletion or migration.
+
+## Delivery Add/Edit status dropdown - 2026-10-31
+
+Delivery forms explicitly show Scheduled, Dispatched and Delivered with clear labels and workflow help. Add starts at Scheduled; Edit displays the current persisted stage. Only the current value is selectable in this details form. Stage changes remain on the existing delivery detail workflow: Scheduled to Dispatched, then Delivered with verified private proof and confirmation time. The display-only select is excluded from generic save payloads, preserving server defaults and evidence requirements. No API/schema or database migration is needed.

@@ -854,3 +854,9 @@ Order dropdown validation: changed-file lint, production build/TypeScript, docum
 Removed quality-checks and installations from the Operations workspace resource list, so neither appears in workspace lists/history; its description no longer advertises installation. Preserved underlying data, API routes and order stages. No migration needed. Unrelated in-progress lead status selector changes left untouched.
 
 Workspace removal verification: all 14 existing workspace integration checks passed after updating the expected visible-resource set to exclude quality-checks/installations. Docs checks and diff whitespace checks passed. Full TypeScript check encountered unrelated parallel OrderStatusSelect duplicate-import/prop mismatch edits in resource-workspace.tsx; those unstaged edits are outside this navigation change and were not included. No database/business writes.
+
+## 2026-10-31 - Delivery Add status dropdown
+
+Added the missing delivery status selector to Add/Edit forms. All three database stages are visible; current stage is selected and other stages disabled to preserve the database's Scheduled-only creation rule and proof-required completion workflow. Help directs staff to delivery detail actions after saving. Select has no payload name, so no new generic status write path is introduced. No business-data or schema changes. Validation follows.
+
+Delivery dropdown verification: production build/TypeScript, changed-file lint, docs integrity and secret scan passed. Reviewed that the selector does not submit status and database/default workflow remains intact. No real delivery was created/dispatched/completed; browser workflow acceptance was not rerun for this display change.
