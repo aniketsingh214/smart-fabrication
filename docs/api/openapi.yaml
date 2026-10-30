@@ -22275,6 +22275,9 @@ components:
           type: string
           enum:
             - pending
+            - processing
+            - working
+            - delay
             - completed
       required:
         - lead_id
@@ -22309,6 +22312,9 @@ components:
           type: string
           enum:
             - pending
+            - processing
+            - working
+            - delay
             - completed
       additionalProperties: false
     measurements_create:

@@ -62615,7 +62615,7 @@ export interface components {
              * @default pending
              * @enum {string}
              */
-            status: "pending" | "completed";
+            status: "pending" | "processing" | "working" | "delay" | "completed";
         };
         follow_ups_update: {
             /** Format: uuid */
@@ -62625,7 +62625,7 @@ export interface components {
             due_at?: string;
             note?: string | null;
             /** @enum {string} */
-            status?: "pending" | "completed";
+            status?: "pending" | "processing" | "working" | "delay" | "completed";
         };
         measurements_create: {
             /** Format: uuid */
