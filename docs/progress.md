@@ -1,6 +1,33 @@
-> Version: 1.0 | Updated: 2026-10-29 | Status: live application; implementation and scoped verification register
+> Version: 1.0 | Updated: 2026-10-31 | Status: live application; implementation and scoped verification register
 
-## 2026-10-28 - Visitor contact dialog: address and locality capture
+## 2026-10-31 - Orders Quality Check Removal, Advance Payments & Receipt PDF, Measurements Multi-Unit, Follow-up Statuses
+
+- **Orders Quality Check Removal**:
+  - Removed quality check requirement and stage from orders and work-orders workflows.
+  - Applied migration `202610310057_remove_quality_checks_and_order_advance.sql`: updated `workflow_guard` so work-orders transition directly `finishing -> ready` without quality checks, and updated `transition_order` so order `READY` transition no longer enforces passed quality check records.
+  - Updated `src/features/operations/resource-workspace.tsx` work-order action buttons from `finishing -> quality_check -> ready` to `finishing -> ready` directly.
+  - Replaced the Quality tab on `/admin/orders?record=...` with a direct Payments tab (`customer-payments`) while keeping exhaustive workspace navigation contracts intact.
+- **Advance Payment System & Receipt PDF**:
+  - Integrated `OrderPaymentWorkspace` directly on Order details (`/admin/orders?record=...`).
+  - Displays Total Order Value, Advance Paid, Balance Due, and visual progress bar.
+  - Supports recording advance receipts in Cash (नकद), UPI / QR (PhonePe, GPay, Paytm), Bank Transfer (NEFT/RTGS/IMPS), and Cheque / DD.
+  - Includes Payment Gateway Ready mode toggle and indicator for seamless Razorpay / Cashfree webhook integration.
+  - Created `/api/v1/orders/[id]/advance-payment` API route: records immutable payments via `post_payment` RPC and automatically transitions orders from `CONFIRMED` to `ADVANCE_RECEIVED`.
+  - Built GateWala Advance Payment Receipt PDF generator using `@react-pdf/renderer` with customer metadata, payment mode, reference, breakdown, and balance due.
+  - Created `/api/v1/orders/[id]/receipt` API route to download official Advance Payment Receipt (PDF) with direct download button in admin order details.
+- **Measurements Multi-Unit Converter (`/admin/measurements?new=1`)**:
+  - Added unit selector: Feet & Inches (ft & in), Inches (in), Centimeters (cm), Meters (m), and Millimeters (mm).
+  - Provided dual Feet and Inches input boxes for Width & Height with live conversion to canonical mm, real-time Area display (Sq.Ft and Sq.M), running feet perimeter, and automatic human-readable site note recording.
+- **Follow-ups Status Dropdown Fix (`/admin/follow-ups?new=1`)**:
+  - Updated DB constraint `follow_ups_status_check` to `check (status in ('pending', 'processing', 'working', 'delay', 'completed'))`.
+  - Added Hindi/English bilingual labels and color-coded status badges in table view and details panel.
+- **Quotation Numeric Inputs Sticky Zero Removal**:
+  - Improved `sanitizeNumericString` and added `onFocus` auto-clearing for 0 in Rate, Quantity, Discount, and Tax fields on Quotation forms, preventing sticky or leading zeros.
+- **Verification**:
+  - All 75 test suites (343/343 tests) passed (100%).
+  - TypeScript check `tsc --noEmit` passed with 0 errors.
+  - Next.js production build (`next build`) compiled cleanly across all 68 dynamic and static routes.
+  - Changes pushed to GitHub `main` (commit `a1110f3`), triggering live Vercel deployment.
 
 - Added `address` field (पता / शहर) to the public visitor contact modal (`VisitorContact`).
 - Updated `visitorContactSchema` with optional trimmed string up to 100 characters.
