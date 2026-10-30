@@ -36,11 +36,12 @@ export async function GET(
       .order('created_at', { ascending: false });
     databaseError(payErr);
 
-    const totalPaidMinor = (payments ?? []).reduce(
-      (sum, p) => sum + Number(p.amount_minor),
-      0
-    );
-    const balanceDueMinor = Math.max(0, Number(order.total_minor) - totalPaidMinor);
+    const {data:balances,error:balanceError}=await db.rpc('receivable_balances').eq('order_id',id);
+    databaseError(balanceError);
+    const balance=(balances??[]).find((row:{order_id:string})=>row.order_id===id);
+    if(!balance)throw new AppError('FORBIDDEN','Order payment balance is not available for this account',403);
+    const totalPaidMinor=Number(balance.paid_minor);
+    const balanceDueMinor=Math.max(0,Number(balance.outstanding_minor));
 
     return success(
       {
@@ -83,7 +84,7 @@ export async function POST(
     if (!order) throw new AppError('NOT_FOUND', 'Order not found', 404);
 
     // 2. Record payment via post_payment RPC
-    const idempotencyKey = crypto.randomUUID();
+    const idempotencyKey = z.uuid().parse(request.headers.get('Idempotency-Key')??crypto.randomUUID());
     const referenceText = body.gateway_ready
       ? `${body.reference} [Gateway Ready]`
       : body.reference;

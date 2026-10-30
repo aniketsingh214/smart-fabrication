@@ -247,7 +247,7 @@ export async function advanceReceiptPdf(data: AdvanceReceiptData): Promise<Buffe
   });
 
   return renderToBuffer(
-    <Document title={`Advance Receipt - ${order.name} (${receiptNo})`}>
+    <Document title={`Payment Receipt - ${order.name} (${receiptNo})`}>
       <Page size="A4" style={styles.page}>
         {/* Brand Header */}
         <View style={styles.header}>
@@ -262,7 +262,7 @@ export async function advanceReceiptPdf(data: AdvanceReceiptData): Promise<Buffe
           </View>
           <View style={styles.receiptBadgeContainer}>
             <View style={styles.receiptBadge}>
-              <Text style={styles.receiptBadgeText}>Advance Payment Receipt</Text>
+              <Text style={styles.receiptBadgeText}>Customer Payment Receipt</Text>
             </View>
             <Text style={styles.receiptMetaText}>Receipt No: {receiptNo}</Text>
             <Text style={styles.receiptMetaText}>Date: {paymentDate}</Text>
@@ -310,7 +310,7 @@ export async function advanceReceiptPdf(data: AdvanceReceiptData): Promise<Buffe
           </View>
           <View style={styles.tableRow}>
             <Text style={styles.colDesc}>
-              Advance booking payment for order {order.name}
+              Payment received against order {order.name}
             </Text>
             <Text style={styles.colMode}>{modeLabel(payment.mode)}</Text>
             <Text style={styles.colRef}>{payment.reference || 'N/A'}</Text>
@@ -325,10 +325,10 @@ export async function advanceReceiptPdf(data: AdvanceReceiptData): Promise<Buffe
           <View style={styles.termsBox}>
             <Text style={styles.termsHeading}>Terms &amp; Acknowledgement / शर्तें एवं पुष्टि</Text>
             <Text style={styles.termsText}>
-              1. This is a computer-generated advance payment receipt against fabrication order booking.
+              1. This is a computer-generated receipt for an advance, partial or final payment against a fabrication order.
             </Text>
             <Text style={styles.termsText}>
-              2. Advance payment initiates raw material allocation, site measurement verification and workshop scheduling.
+              2. The receipt records money received; the order progress and outstanding balance are tracked separately.
             </Text>
             <Text style={styles.termsText}>
               3. The remaining balance amount ({formatInr(balanceDueMinor)}) is payable upon delivery and installation sign-off.
@@ -350,7 +350,7 @@ export async function advanceReceiptPdf(data: AdvanceReceiptData): Promise<Buffe
               </Text>
             </View>
             <View style={styles.summaryRow}>
-              <Text style={{ color: '#15803d' }}>Total Advance Paid:</Text>
+              <Text style={{ color: '#15803d' }}>Total Payment Received:</Text>
               <Text style={[styles.metaBold, { color: '#15803d' }]}>
                 {formatInr(totalPaidMinor)}
               </Text>

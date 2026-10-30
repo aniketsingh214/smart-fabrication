@@ -21017,6 +21017,130 @@ paths:
         "503": *a15
       x-rate-limits: Shared IP write quota plus public-form or verified-actor
         policies. See docs/security/rate-limits.md.
+  /orders/{id}/advance-payment:
+    get:
+      summary: Order payment summary using net receipts after corrections
+      security: *a1
+      x-permission: orders.read and finance.read
+      responses:
+        "200":
+          description: Success envelope
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Envelope"
+        "400": *a5
+        "401": *a6
+        "403": *a7
+        "404": *a8
+        "409": *a9
+        "413": *a10
+        "415": *a11
+        "422": *a12
+        "429": *a13
+        "500": *a14
+        "503": *a15
+      parameters: *a20
+    post:
+      summary: Record advance, partial or final customer payment, including after work
+        completion; only CONFIRMED orders advance to ADVANCE_RECEIVED
+      security: *a1
+      x-permission: orders.write or finance.write; finance.write and order access
+        enforced by posting RPC
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $schema: https://json-schema.org/draft/2020-12/schema
+              type: object
+              properties:
+                amount_minor:
+                  type: integer
+                  exclusiveMinimum: 0
+                  maximum: 9007199254740991
+                mode:
+                  type: string
+                  enum:
+                    - cash
+                    - bank
+                    - upi
+                    - cheque
+                reference:
+                  type: string
+                  minLength: 1
+                  maxLength: 200
+                gateway_ready:
+                  default: false
+                  type: boolean
+              required:
+                - amount_minor
+                - mode
+                - reference
+                - gateway_ready
+              additionalProperties: false
+      responses:
+        "201":
+          description: Success envelope
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Envelope"
+        "400": *a5
+        "401": *a6
+        "403": *a7
+        "404": *a8
+        "409": *a9
+        "413": *a10
+        "415": *a11
+        "422": *a12
+        "429": *a13
+        "500": *a14
+        "503": *a15
+      parameters:
+        - *a30
+        - name: Idempotency-Key
+          in: header
+          required: false
+          description: Reuse the same UUID on retry of the same payment; omitted for
+            legacy clients only.
+          schema:
+            type: string
+            format: uuid
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
+  /orders/{id}/receipt:
+    get:
+      summary: Customer payment receipt PDF for advance, partial or final payments
+      security: *a1
+      x-permission: orders.read and finance.read
+      responses:
+        "200":
+          description: Payment receipt PDF
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        "400": *a5
+        "401": *a6
+        "403": *a7
+        "404": *a8
+        "409": *a9
+        "413": *a10
+        "415": *a11
+        "422": *a12
+        "429": *a13
+        "500": *a14
+        "503": *a15
+      parameters:
+        - *a30
+        - name: payment_id
+          in: query
+          required: false
+          schema:
+            type: string
+            format: uuid
   /auth/form:
     post:
       summary: Rate-limited same-origin login/signup/reset/password-update form

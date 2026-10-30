@@ -66,8 +66,12 @@ export async function GET(
       ? payments.find((p) => p.id === paymentId) || payments[0]
       : payments[0];
 
-    const totalPaidMinor = payments.reduce((acc, p) => acc + Number(p.amount_minor), 0);
-    const balanceDueMinor = Math.max(0, Number(order.total_minor) - totalPaidMinor);
+    const {data:balances,error:balanceError}=await db.rpc('receivable_balances').eq('order_id',id);
+    databaseError(balanceError);
+    const balance=(balances??[]).find((row:{order_id:string})=>row.order_id===id);
+    if(!balance)throw new AppError('FORBIDDEN','Order payment balance is not available for this account',403);
+    const totalPaidMinor=Number(balance.paid_minor);
+    const balanceDueMinor=Math.max(0,Number(balance.outstanding_minor));
 
     const buffer = await advanceReceiptPdf({
       order: {

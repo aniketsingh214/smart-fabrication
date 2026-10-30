@@ -23,3 +23,9 @@
 ## Order stage dropdown - 2026-10-31
 
 Order details now show every configured order stage in one dropdown, with the current stage selected and only the next sequential stage enabled. Terminal/unknown stages have no enabled transition. The existing versioned transition API and payment/measurement/workshop guards remain unchanged. Due at is the optional order target completion/deadline timestamp, distinct from outstanding payment (balance due); an em dash means no target date is recorded. This UI change does not set or auto-advance deadlines/stages.
+
+## Balance and final customer payments - 2026-10-31
+
+Order Payments & Receipts distinguishes the first advance from later Record Balance Payment receipts. Completed orders with outstanding balances retain the collection form; partial installments and Full Balance are supported, with exact paise and an outstanding-balance maximum. Fully paid/cancelled orders do not offer collection. Requires both order/finance write permissions in the UI. Backend post_payment retains database permissions, order lock, cancellation and overpayment guards; completed-order receipts do not change the work stage. First payment on a CONFIRMED order retains its existing advance transition.
+
+The browser reuses an Idempotency-Key for retries of the same mounted payment attempt; the route passes it to the existing posting RPC (legacy clients without a header retain prior behavior). Summary/PDF use the permission-filtered order receivable balance after reviewed corrections rather than a raw receipt sum. PDF wording covers advance, partial and final customer receipts. API/mobile OpenAPI and types document the existing summary/post/receipt routes. No migration, real payment gateway activation or real money posting was performed. Cross-reload recovery is outside this change; receipt history remains available for reconciliation.

@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { notify } from '@/lib/notify';
 import {
@@ -8,10 +8,7 @@ import {
   CreditCard,
   CheckCircle2,
   AlertCircle,
-  Building2,
-  QrCode,
   Banknote,
-  FileText,
   ShieldCheck,
   ChevronDown,
   ChevronUp,
@@ -58,9 +55,11 @@ export function OrderPaymentWorkspace({
   const [mode, setMode] = useState<'cash' | 'upi' | 'bank' | 'cheque'>('upi');
   const [reference, setReference] = useState('');
   const [gatewayReady, setGatewayReady] = useState(false);
+  const paymentAttempt=useRef<{signature:string;key:string}|null>(null);
+  const paymentInFlight=useRef(false);
 
   const canWriteFinance =
-    permissions.includes('finance.write') || permissions.includes('orders.write');
+    permissions.includes('finance.write') && permissions.includes('orders.write');
 
   const loadSummary = useCallback(async () => {
     try {
@@ -68,6 +67,7 @@ export function OrderPaymentWorkspace({
       const body = await res.json();
       if (!res.ok) throw new Error(body.error?.message || 'Failed to load payments');
       setSummary(body.data);
+      setError('');
 
       // Pre-fill default advance (e.g. 30% of total if not paid yet, or remaining balance)
       if (body.data) {
@@ -77,46 +77,51 @@ export function OrderPaymentWorkspace({
         if (paid === 0 && total > 0) {
           setAmountRupees(String(Math.round(total * 0.3)));
         } else if (balance > 0) {
-          setAmountRupees(String(Math.round(balance)));
+          setAmountRupees(balance.toFixed(2));
         }
       }
     } catch (e) {
-      console.error(e);
+      setError(e instanceof Error?e.message:'Payments could not be loaded. Refresh to retry.');
     } finally {
       setLoading(false);
     }
   }, [orderId]);
 
   useEffect(() => {
-    void loadSummary();
+    void Promise.resolve().then(loadSummary);
   }, [loadSummary]);
 
   const handlePresetPercent = (percent: number) => {
     if (!summary) return;
     const total = summary.totalMinor / 100;
-    const calc = Math.round((total * percent) / 100);
+    const calc = percent===100?summary.balanceDueMinor/100:Math.min(summary.balanceDueMinor/100,Math.round(total*percent)/100);
     setAmountRupees(String(calc));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if(paymentInFlight.current||!summary)return;
     setError('');
-    setSuccessMsg('');
+      setSuccessMsg('Payment receipt saved. The outstanding balance has been updated.');
     const amtNum = parseFloat(amountRupees);
     if (!amtNum || amtNum <= 0) {
       setError('कृपया मान्य अग्रिम राशि दर्ज करें (Enter a valid positive amount)');
       return;
     }
+    if(!Number.isFinite(amtNum)||Math.round(amtNum*100)>summary.balanceDueMinor){setError('Amount cannot exceed the remaining balance.');return;}
     if (!reference.trim()) {
       setError('भुगतान संदर्भ / UTR नंबर दर्ज करें (Reference / Transaction ID required)');
       return;
     }
 
+    paymentInFlight.current=true;
+    const signature=JSON.stringify([Math.round(amtNum*100),mode,reference.trim(),gatewayReady]);
+    if(paymentAttempt.current?.signature!==signature)paymentAttempt.current={signature,key:crypto.randomUUID()};
     setSubmitting(true);
     try {
       const res = await fetch(`/api/v1/orders/${orderId}/advance-payment`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json','Idempotency-Key':paymentAttempt.current!.key },
         body: JSON.stringify({
           amount_minor: Math.round(amtNum * 100),
           mode,
@@ -128,8 +133,9 @@ export function OrderPaymentWorkspace({
       const body = await res.json();
       if (!res.ok) throw new Error(body.error?.message || 'Payment recording failed');
 
-      notify('अग्रिम भुगतान सफलतापूर्वक दर्ज किया गया! (Advance payment recorded)');
-      setSuccessMsg('अग्रिम भुगतान दर्ज हो गया और ऑर्डर आगे बढ़ गया!');
+      notify('Payment recorded successfully.');
+      setSuccessMsg('Payment receipt saved. The outstanding balance has been updated.');
+      paymentAttempt.current=null;
       setReference('');
       setShowForm(false);
       await loadSummary();
@@ -141,6 +147,7 @@ export function OrderPaymentWorkspace({
       setError(msg);
       notify(msg, 'error');
     } finally {
+      paymentInFlight.current=false;
       setSubmitting(false);
     }
   };
@@ -149,6 +156,7 @@ export function OrderPaymentWorkspace({
   const paidRupees = summary ? summary.totalPaidMinor / 100 : 0;
   const balanceRupees = summary ? summary.balanceDueMinor / 100 : totalRupees;
   const percentPaid = totalRupees > 0 ? Math.min(100, Math.round((paidRupees / totalRupees) * 100)) : 0;
+  const balancePayment=Boolean(summary&&(summary.totalPaidMinor>0||summary.status==='COMPLETED'));
   const hasPayments = summary && summary.payments && summary.payments.length > 0;
 
   return (
@@ -161,7 +169,7 @@ export function OrderPaymentWorkspace({
               <CreditCard size={16} />
             </span>
             <h3 className="text-base font-bold text-slate-900">
-              Advance Payment &amp; Receipts (अग्रिम भुगतान प्रणाली)
+              Order Payments &amp; Receipts
             </h3>
           </div>
           <p className="mt-1 text-xs text-slate-500">
@@ -201,7 +209,7 @@ export function OrderPaymentWorkspace({
         <div className="rounded-lg border border-emerald-200 bg-emerald-50/50 p-3.5 shadow-xs">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold uppercase tracking-wider text-emerald-800">
-              प्राप्त अग्रिम (Advance Paid)
+              Total Payment Received
             </span>
             <span className="rounded-full bg-emerald-200/70 px-2 py-0.5 text-[10px] font-bold text-emerald-900">
               {percentPaid}%
@@ -238,15 +246,16 @@ export function OrderPaymentWorkspace({
         <div className="mt-1 flex justify-between text-[11px] text-slate-500">
           <span>
             {paidRupees > 0
-              ? `Advance received (${percentPaid}% covered)`
+              ? `Payments received (${percentPaid}% covered)`
               : 'Advance pending — record receipt below'}
           </span>
           <span>{balanceRupees === 0 ? 'Fully Paid' : `₹${balanceRupees.toLocaleString('en-IN')} remaining`}</span>
         </div>
       </div>
 
+      {loading&&<p role="status" className="mt-3 text-sm text-slate-500">Loading payment balance...</p>}
       {/* Action / Record Payment Section */}
-      {canWriteFinance && balanceRupees > 0 && (
+      {summary&&canWriteFinance&&summary.status!=='CANCELLED'&&balanceRupees>0&& (
         <div className="mt-4">
           {!showForm ? (
             <Button
@@ -256,7 +265,7 @@ export function OrderPaymentWorkspace({
               className="w-full gap-2 border-orange-300 bg-white hover:bg-orange-50 font-semibold text-orange-900"
             >
               <Banknote size={16} />
-              अग्रिम भुगतान दर्ज करें (Record Advance Payment)
+              {balancePayment?'Record Balance Payment':'Record Advance Payment'}
               <ChevronDown size={15} />
             </Button>
           ) : (
@@ -267,7 +276,7 @@ export function OrderPaymentWorkspace({
               <div className="flex items-center justify-between border-b border-slate-100 pb-2">
                 <span className="text-sm font-bold text-slate-800 flex items-center gap-1.5">
                   <Banknote size={16} className="text-orange-600" />
-                  अग्रिम भुगतान रसीद दर्ज करें (Record Advance Receipt)
+                  {balancePayment?'Record Balance Receipt':'Record Advance Receipt'}
                 </span>
                 <button
                   type="button"
@@ -294,7 +303,7 @@ export function OrderPaymentWorkspace({
                     <option value="cheque">Cheque / Demand Draft (बैंक चेक)</option>
                   </select>
                   <span className="mt-2 block text-xs font-normal text-slate-500">
-                    Choose how the customer paid the advance amount.
+                    Choose how the customer paid. Partial and final balance payments are supported.
                   </span>
                 </label>
               </div>
@@ -345,7 +354,7 @@ export function OrderPaymentWorkspace({
                   <input
                     type="number"
                     step="0.01"
-                    min="1"
+                    min="0.01"
                     max={balanceRupees}
                     required
                     value={amountRupees}
@@ -442,7 +451,7 @@ export function OrderPaymentWorkspace({
                   ) : (
                     <>
                       <CheckCircle2 size={15} />
-                      अग्रिम दर्ज करें और ऑर्डर बढ़ाएं
+                      {balancePayment?'Save Balance Payment':'Save Advance Payment'}
                     </>
                   )}
                 </Button>
@@ -452,6 +461,8 @@ export function OrderPaymentWorkspace({
         </div>
       )}
 
+      {summary?.status==='COMPLETED'&&balanceRupees>0&&<p className="mt-3 text-sm font-semibold text-amber-800">Work completed. Balance payment is still pending; record the amount received below.</p>}
+      {error&&!showForm&&<p role="alert" className="mt-3 text-sm text-red-700">{error}</p>}
       {successMsg && (
         <div className="mt-3 flex items-center justify-between rounded-lg bg-emerald-50 border border-emerald-200 p-3 text-xs text-emerald-800">
           <span className="flex items-center gap-1.5 font-medium">
