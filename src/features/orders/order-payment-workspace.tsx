@@ -46,6 +46,8 @@ export function OrderPaymentWorkspace({
   const [summary, setSummary] = useState<PaymentSummary | null>(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
+  const [refreshing,setRefreshing]=useState(false);
+  const [balanceFresh,setBalanceFresh]=useState(false);
   const [showForm, setShowForm] = useState(false);
   const [error, setError] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
@@ -68,6 +70,7 @@ export function OrderPaymentWorkspace({
       if (!res.ok) throw new Error(body.error?.message || 'Failed to load payments');
       setSummary(body.data);
       setError('');
+      setBalanceFresh(true);
 
       // Pre-fill default advance (e.g. 30% of total if not paid yet, or remaining balance)
       if (body.data) {
@@ -81,6 +84,7 @@ export function OrderPaymentWorkspace({
         }
       }
     } catch (e) {
+      setBalanceFresh(false);
       setError(e instanceof Error?e.message:'Payments could not be loaded. Refresh to retry.');
     } finally {
       setLoading(false);
@@ -100,7 +104,7 @@ export function OrderPaymentWorkspace({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if(paymentInFlight.current||!summary)return;
+    if(paymentInFlight.current||refreshing||!summary)return;
     setError('');
       setSuccessMsg('Payment receipt saved. The outstanding balance has been updated.');
     const amtNum = parseFloat(amountRupees);
@@ -138,6 +142,8 @@ export function OrderPaymentWorkspace({
       paymentAttempt.current=null;
       setReference('');
       setShowForm(false);
+      setSubmitting(false);
+      setRefreshing(true);
       await loadSummary();
       if (onPaymentRecorded) {
         onPaymentRecorded();
@@ -149,6 +155,7 @@ export function OrderPaymentWorkspace({
     } finally {
       paymentInFlight.current=false;
       setSubmitting(false);
+      setRefreshing(false);
     }
   };
 
@@ -253,9 +260,10 @@ export function OrderPaymentWorkspace({
         </div>
       </div>
 
+      {refreshing&&<p role="status" className="mt-3 text-sm text-slate-500">Payment saved. Updating balance...</p>}
       {loading&&<p role="status" className="mt-3 text-sm text-slate-500">Loading payment balance...</p>}
       {/* Action / Record Payment Section */}
-      {summary&&canWriteFinance&&summary.status!=='CANCELLED'&&balanceRupees>0&& (
+      {summary&&!refreshing&&balanceFresh&&canWriteFinance&&summary.status!=='CANCELLED'&&balanceRupees>0&& (
         <div className="mt-4">
           {!showForm ? (
             <Button
@@ -462,7 +470,7 @@ export function OrderPaymentWorkspace({
       )}
 
       {summary?.status==='COMPLETED'&&balanceRupees>0&&<p className="mt-3 text-sm font-semibold text-amber-800">Work completed. Balance payment is still pending; record the amount received below.</p>}
-      {error&&!showForm&&<p role="alert" className="mt-3 text-sm text-red-700">{error}</p>}
+      {error&&!showForm&&<div className="mt-3"><p role="alert" className="text-sm text-red-700">{error}</p>{!balanceFresh&&<Button type="button" variant="outline" className="mt-2" disabled={refreshing} onClick={async()=>{setRefreshing(true);await loadSummary();setRefreshing(false);}}>Refresh payment balance</Button>}</div>}
       {successMsg && (
         <div className="mt-3 flex items-center justify-between rounded-lg bg-emerald-50 border border-emerald-200 p-3 text-xs text-emerald-800">
           <span className="flex items-center gap-1.5 font-medium">

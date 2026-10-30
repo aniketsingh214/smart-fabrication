@@ -21,22 +21,17 @@ export async function GET(
     z.uuid().parse(id);
     const { db } = await requestContext(request, ['orders.read', 'finance.read']);
 
-    const { data: order, error: orderErr } = await db
-      .from('orders')
-      .select('id, name, status, total_minor, version, created_at')
-      .eq('id', id)
-      .maybeSingle();
+    const [orderResult,paymentResult,balanceResult]=await Promise.all([
+      db.from('orders').select('id, name, status, total_minor, version, created_at').eq('id',id).maybeSingle(),
+      db.from('customer_payments').select('id, amount_minor, mode, reference, created_at').eq('order_id',id).order('created_at',{ascending:false}),
+      db.rpc('receivable_balances').eq('order_id',id),
+    ]);
+    const {data:order,error:orderErr}=orderResult;
     databaseError(orderErr);
-    if (!order) throw new AppError('NOT_FOUND', 'Order not found', 404);
-
-    const { data: payments, error: payErr } = await db
-      .from('customer_payments')
-      .select('id, amount_minor, mode, reference, created_at')
-      .eq('order_id', id)
-      .order('created_at', { ascending: false });
+    if(!order)throw new AppError('NOT_FOUND','Order not found',404);
+    const {data:payments,error:payErr}=paymentResult;
     databaseError(payErr);
-
-    const {data:balances,error:balanceError}=await db.rpc('receivable_balances').eq('order_id',id);
+    const {data:balances,error:balanceError}=balanceResult;
     databaseError(balanceError);
     const balance=(balances??[]).find((row:{order_id:string})=>row.order_id===id);
     if(!balance)throw new AppError('FORBIDDEN','Order payment balance is not available for this account',403);

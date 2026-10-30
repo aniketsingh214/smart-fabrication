@@ -62,11 +62,29 @@ function transliterateHindi(text: string): string {
 export function ProductQuickFabrication() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [pricingModel, setPricingModel] = useState<'per_kg' | 'fixed'>('per_kg');
-  const [ratePerKg, setRatePerKg] = useState<number>(110);
+  const [rateInput, setRateInput] = useState<string>('110');
+  const ratePerKg = parseFloat(rateInput) || 0;
   const [selectedAngleId, setSelectedAngleId] = useState<string>(ANGLE_OPTIONS[0].id);
   const [selectedSheetId, setSelectedSheetId] = useState<string>(SHEET_OPTIONS[0].id);
   const [selectedSupportId, setSelectedSupportId] = useState<string>(SUPPORT_OPTIONS[0].id);
   const [activePreset, setActivePreset] = useState<string>('sada-std');
+
+  const handleRateChange = (raw: string) => {
+    if (raw === '') {
+      setRateInput('');
+      applyPreset(activePreset as any, 0);
+      return;
+    }
+    let clean = raw.replace(/[^0-9]/g, '');
+    if (/^0+[1-9]/.test(clean)) {
+      clean = clean.replace(/^0+/, '');
+    } else if (/^0{2,}$/.test(clean)) {
+      clean = '0';
+    }
+    setRateInput(clean);
+    const num = clean === '' ? 0 : parseFloat(clean);
+    applyPreset(activePreset as any, isNaN(num) ? 0 : num);
+  };
 
   const angle = ANGLE_OPTIONS.find((a) => a.id === selectedAngleId) ?? ANGLE_OPTIONS[0];
   const sheet = SHEET_OPTIONS.find((s) => s.id === selectedSheetId) ?? SHEET_OPTIONS[0];
@@ -335,16 +353,22 @@ export function ProductQuickFabrication() {
             <div className="mt-2 flex items-center gap-2 text-xs">
               <span className="text-slate-500">रेट (₹/kg):</span>
               <input
-                type="number"
-                min="50"
-                max="500"
-                value={ratePerKg}
-                onChange={(e) => {
-                  const r = Number(e.target.value) || 110;
-                  setRatePerKg(r);
-                  applyPreset(activePreset as any, r);
+                type="text"
+                inputMode="numeric"
+                pattern="[0-9]*"
+                value={rateInput}
+                onFocus={(e) => {
+                  e.target.select();
                 }}
-                className="w-20 rounded border border-emerald-300 px-2 py-1 font-bold text-emerald-950"
+                onChange={(e) => handleRateChange(e.target.value)}
+                onBlur={() => {
+                  if (rateInput === '' || isNaN(parseFloat(rateInput))) {
+                    setRateInput('0');
+                    applyPreset(activePreset as any, 0);
+                  }
+                }}
+                placeholder="0"
+                className="w-20 rounded border border-emerald-300 px-2 py-1 font-bold text-emerald-950 focus:border-emerald-600 focus:outline-none"
               />
               <span className="text-slate-500">रुपये प्रति किलो (डिफ़ॉल्ट ₹110)</span>
             </div>
