@@ -833,3 +833,9 @@ Live follow-up verification - 2026-10-31: deployed implementation 347ec44 expose
 Replaced order next-stage buttons with an all-stages dropdown. Current state is selected, future/past stages disabled except the allowed next sequential stage; terminal states disable the selector. Existing transition API, record version and workflow guards preserved. Documented Due at as optional order deadline, separate from outstanding payment; dash means unset. No database change or real order transition performed. Validation follows.
 
 Order dropdown validation: changed-file lint, production build/TypeScript, documentation integrity, secret scan and diff whitespace checks passed. Reviewed that existing transition requests still send the selected status and current record version. No real order was advanced; browser transition acceptance was not rerun for this presentation change.
+
+## 2026-10-31 - Remove Quality checks and Installation workspace pages
+
+Removed quality-checks and installations from the Operations workspace resource list, so neither appears in workspace lists/history; its description no longer advertises installation. Preserved underlying data, API routes and order stages. No migration needed. Unrelated in-progress lead status selector changes left untouched.
+
+Workspace removal verification: all 14 existing workspace integration checks passed after updating the expected visible-resource set to exclude quality-checks/installations. Docs checks and diff whitespace checks passed. Full TypeScript check encountered unrelated parallel OrderStatusSelect duplicate-import/prop mismatch edits in resource-workspace.tsx; those unstaged edits are outside this navigation change and were not included. No database/business writes.

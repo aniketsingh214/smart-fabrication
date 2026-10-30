@@ -29,3 +29,7 @@
 - **Verification**:
   - Automated Playwright & API suite: `scripts/test-delivery-installation-browser.mjs` (`npm run test:delivery-installation`).
   - Artifact: `test-results/delivery-installation-browser-latest.json` (6/6 checks passed).
+
+## Operations workspace navigation - 2026-10-31
+
+Removed Quality checks and Installations from the Orders & Workshop workspace resource links, including All lists & history. The workspace description now lists orders, job cards, workers and delivery. This is a navigation removal scoped to /admin/workspaces/operations; underlying records, API routes and order stages remain available for existing workflows/history. No database deletion or migration.
