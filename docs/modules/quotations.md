@@ -35,3 +35,7 @@ PDF line columns now include unit rate, fixed widths, right-aligned monetary val
 ### 2026-10-29 Sales relationship/search update
 
 See [Sales workspace audit](../operations/sales-workspace-audit.md). Staff search now follows permitted saved CRM relationships by IDs, contact name, phone and email. Exact context filters, RLS and keyset pagination remain enforced. Customer related tabs include quotations, follow-ups and measurements; lead-context quotations use the linked customer and reject conflicting customer IDs. The separately approved Saloni identity repair changed only that lead customer link, preserving its stage and unconfirmed visit request.
+
+## Admin quotation sharing controls removed - 2026-10-31
+
+Removed Copy customer link, the read-only link box and Open customer link from the admin quotation detail workspace, including its clipboard handler/state. PDF downloads (latest and historical versions), price history, approval and revision actions remain available under their existing status/permission checks. Existing authenticated customer account routes and API/RLS behavior are unchanged. No database migration is needed. Updated the existing browser acceptance script to assert the sharing controls are absent and PDF download remains visible.
