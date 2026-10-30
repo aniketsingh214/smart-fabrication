@@ -280,62 +280,23 @@ export function OrderPaymentWorkspace({
 
               {/* Mode Selection */}
               <div>
-                <label className="text-xs font-semibold text-slate-700 block mb-1.5">
+                <label className="block max-w-md text-sm font-semibold text-slate-800">
                   भुगतान का माध्यम (Payment Mode) *
+                  <select
+                    aria-label="भुगतान का माध्यम (Payment Mode)"
+                    value={mode}
+                    onChange={(e) => setMode(e.target.value as 'cash' | 'upi' | 'bank' | 'cheque')}
+                    className="mt-2"
+                  >
+                    <option value="upi">UPI / QR (Google Pay, PhonePe, Paytm, QR Scan)</option>
+                    <option value="cash">Cash (नकद भुगतान)</option>
+                    <option value="bank">Bank Transfer (NEFT / RTGS / IMPS)</option>
+                    <option value="cheque">Cheque / Demand Draft (बैंक चेक)</option>
+                  </select>
+                  <span className="mt-2 block text-xs font-normal text-slate-500">
+                    Choose how the customer paid the advance amount.
+                  </span>
                 </label>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                  <button
-                    type="button"
-                    onClick={() => setMode('upi')}
-                    className={`flex items-center justify-center gap-2 rounded-lg border p-2.5 text-xs font-semibold transition-all ${
-                      mode === 'upi'
-                        ? 'border-orange-600 bg-orange-50 text-orange-900 shadow-xs'
-                        : 'border-slate-200 hover:border-slate-300 text-slate-700'
-                    }`}
-                  >
-                    <QrCode size={16} className="text-orange-600" />
-                    UPI / QR
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setMode('cash')}
-                    className={`flex items-center justify-center gap-2 rounded-lg border p-2.5 text-xs font-semibold transition-all ${
-                      mode === 'cash'
-                        ? 'border-orange-600 bg-orange-50 text-orange-900 shadow-xs'
-                        : 'border-slate-200 hover:border-slate-300 text-slate-700'
-                    }`}
-                  >
-                    <Banknote size={16} className="text-emerald-600" />
-                    Cash (नकद)
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setMode('bank')}
-                    className={`flex items-center justify-center gap-2 rounded-lg border p-2.5 text-xs font-semibold transition-all ${
-                      mode === 'bank'
-                        ? 'border-orange-600 bg-orange-50 text-orange-900 shadow-xs'
-                        : 'border-slate-200 hover:border-slate-300 text-slate-700'
-                    }`}
-                  >
-                    <Building2 size={16} className="text-blue-600" />
-                    Bank Transfer
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setMode('cheque')}
-                    className={`flex items-center justify-center gap-2 rounded-lg border p-2.5 text-xs font-semibold transition-all ${
-                      mode === 'cheque'
-                        ? 'border-orange-600 bg-orange-50 text-orange-900 shadow-xs'
-                        : 'border-slate-200 hover:border-slate-300 text-slate-700'
-                    }`}
-                  >
-                    <FileText size={16} className="text-purple-600" />
-                    Cheque / DD
-                  </button>
-                </div>
               </div>
 
               {/* Amount Input with Quick Presets */}

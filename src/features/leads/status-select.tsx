@@ -1,11 +1,45 @@
 'use client';
 import { useEffect,useState } from 'react';
-import { nextStates,leadStates } from '@/contracts/workflows';
+import { nextStates,leadStates,orderStates } from '@/contracts/workflows';
 import { Button } from '@/components/ui/button';
 import { notify } from '@/lib/notify';
 type Lead={id:string;name:string;status:string;version:number};
 export function LeadStatusSelect({lead,busy,onChange}:{lead:Lead;busy:boolean;onChange:(status:string)=>void}){
  return <label className="block max-w-md text-sm font-semibold">Lead status<select aria-label={'Lead status for '+lead.name} className="mt-2" value={lead.status} disabled={busy} onChange={event=>onChange(event.target.value)}>{[...new Set([...(leadStates as readonly string[]),'LOST',lead.status])].map(status=><option key={status} value={status} disabled={status!==lead.status&&!nextStates(lead.status,'lead').includes(status)}>{status.toLowerCase().replaceAll('_',' ').replace(/\b\w/g,letter=>letter.toUpperCase())}</option>)}</select><span className="mt-2 block text-xs font-normal text-slate-500">Choose the next stage. Measurement, quotation and order checks apply.</span></label>;
+}
+type Order={id:string;name?:string;status?:string;version?:number};
+export function OrderStatusSelect({order,busy,onChange}:{order:Order;busy:boolean;onChange:(status:string)=>void}){
+ const currentStatus=order.status??'CONFIRMED';
+ const validNext=nextStates(currentStatus,'order');
+ const allStates=[...new Set([...(orderStates as readonly string[]),'CANCELLED',currentStatus])];
+ return <label className="block max-w-md text-sm font-semibold">Order status<select aria-label={'Order status for '+(order.name??order.id)} className="mt-2" value={currentStatus} disabled={busy} onChange={event=>{if(event.target.value!==currentStatus)onChange(event.target.value);}}>{allStates.map(status=><option key={status} value={status} disabled={status!==currentStatus&&!validNext.includes(status)}>{status.toLowerCase().replaceAll('_',' ').replace(/\b\w/g,letter=>letter.toUpperCase())}</option>)}</select><span className="mt-2 block text-xs font-normal text-slate-500">Choose the next stage. Advance receipt, measurements and production checks apply.</span></label>;
+}
+type WorkOrder={id:string;name?:string;status?:string};
+export function WorkOrderStatusSelect({workOrder,busy,onChange}:{workOrder:WorkOrder;busy:boolean;onChange:(status:string)=>void}){
+ const currentStatus=workOrder.status??'pending';
+ const stages=['pending','fabrication','finishing','ready'];
+ const transitions:Record<string,string[]>={pending:['fabrication'],fabrication:['finishing'],finishing:['ready'],quality_check:['ready'],ready:[]};
+ const validNext=transitions[currentStatus]??[];
+ return <label className="block max-w-md text-sm font-semibold">Work order stage<select aria-label={'Work order stage for '+(workOrder.name??workOrder.id)} className="mt-2" value={currentStatus} disabled={busy} onChange={event=>{if(event.target.value!==currentStatus)onChange(event.target.value);}}>{stages.map(status=><option key={status} value={status} disabled={status!==currentStatus&&!validNext.includes(status)}>{status.toLowerCase().replaceAll('_',' ').replace(/\b\w/g,letter=>letter.toUpperCase())}</option>)}</select><span className="mt-2 block text-xs font-normal text-slate-500">Choose the next production stage. Job card will advance directly to ready without quality checks.</span></label>;
+}
+type Quotation={id:string;name?:string;status?:string};
+export function QuotationStatusSelect({quotation,busy,canApprove,canOrder,onAction}:{quotation:Quotation;busy:boolean;canApprove:boolean;canOrder:boolean;onAction:(action:string)=>void}){
+ const status=quotation.status??'draft';
+ const stageOptions=[
+  {id:'draft',label:'Draft'},
+  {id:'approved',label:'Approved',action:'approve',allowed:status==='draft'&&canApprove},
+  {id:'accepted',label:'Accepted by customer',action:'accept',allowed:status==='approved'&&canApprove},
+  {id:'rejected',label:'Rejected by customer',action:'reject',allowed:status==='approved'&&canApprove},
+  {id:'converted',label:'Converted to order',action:'convert',allowed:status==='accepted'&&canOrder},
+ ];
+ return <label className="block max-w-md text-sm font-semibold">Quotation stage<select aria-label={'Quotation stage for '+(quotation.name??quotation.id)} className="mt-2" value={status==='converted'?'converted':status} disabled={busy} onChange={event=>{const target=stageOptions.find(opt=>opt.id===event.target.value);if(target?.action)onAction(target.action);}}>{stageOptions.map(opt=><option key={opt.id} value={opt.id} disabled={opt.id!==status&&!opt.allowed}>{opt.label}{opt.id===status?' (Current)':''}</option>)}</select><span className="mt-2 block text-xs font-normal text-slate-500">Choose the next quotation stage. Approval, customer response and order checks apply.</span></label>;
+}
+type DeliveryRecord={id:string;name?:string;status?:string};
+export function DeliveryStatusSelect({delivery,busy,onChange}:{delivery:DeliveryRecord;busy:boolean;onChange:(status:string)=>void}){
+ const currentStatus=delivery.status??'scheduled';
+ const stages=['scheduled','dispatched','delivered'];
+ const validNext=currentStatus==='scheduled'?['dispatched']:[];
+ return <label className="block max-w-md text-sm font-semibold">Delivery stage<select aria-label={'Delivery stage for '+(delivery.name??delivery.id)} className="mt-2" value={currentStatus} disabled={busy} onChange={event=>{if(event.target.value!==currentStatus)onChange(event.target.value);}}>{stages.map(status=><option key={status} value={status} disabled={status!==currentStatus&&!validNext.includes(status)}>{status.toLowerCase().replaceAll('_',' ').replace(/\b\w/g,letter=>letter.toUpperCase())}{status===currentStatus?' (Current)':''}</option>)}</select><span className="mt-2 block text-xs font-normal text-slate-500">Choose the next delivery stage. Dispatch and proof of delivery apply.</span></label>;
 }
 export function CustomerLeadStatuses({customerId,canWrite}:{customerId:string;canWrite:boolean}){
  const [leads,setLeads]=useState<Lead[]>([]),[busy,setBusy]=useState(false),[error,setError]=useState(''),[next,setNext]=useState<string|null>(null),[retry,setRetry]=useState(0);

@@ -1,5 +1,20 @@
 > Version: 1.0 | Updated: 2026-10-31 | Status: live application; implementation and scoped verification register
 
+## 2026-10-31 - Standardized Stage Transitions & Payment Mode to Dropdowns
+
+- **Stage Selectors Standardized to Unified Dropdowns**:
+  - Replaced action buttons across all workflow detail views with the clean `<select>` dropdown component matching `LeadStatusSelect`:
+  - **Orders (`/admin/orders?record=...`)**: Implemented `OrderStatusSelect` dropdown showing all order stages (`Confirmed`, `Advance Received`, `Measurement Confirmed`, `Production Pending`, `Production Started`, `Fabrication Completed`, `Finishing`, `Ready`, `Out For Delivery`, `Installation`, `Completed`, and `Cancelled`), permitting only valid guarded next transitions.
+  - **Work Orders (`/admin/work-orders?record=...`)**: Implemented `WorkOrderStatusSelect` dropdown showing production stages (`Pending`, `Fabrication`, `Finishing`, `Ready`), advancing job cards directly to ready without quality check bottlenecks.
+  - **Quotations (`/admin/quotations?record=...`)**: Implemented `QuotationStatusSelect` dropdown showing stages (`Draft`, `Approved`, `Accepted by customer`, `Rejected by customer`, `Converted to order`), triggering approval and conversion workflows.
+  - **Deliveries (`/admin/deliveries?record=...`)**: Implemented `DeliveryStatusSelect` dropdown (`Scheduled`, `Dispatched`, `Delivered`).
+- **Advance Payment Mode Dropdown**:
+  - Replaced the 4-button payment grid in `OrderPaymentWorkspace` with a clean `<select>` dropdown for Payment Mode (UPI / QR, Cash, Bank Transfer, Cheque / DD).
+- **Verification**:
+  - `npm run typecheck` (`tsc --noEmit`) passed with 0 errors.
+  - `npm test` (`vitest run`) passed all 75 suites and 346 tests (100%).
+  - `npm run build` (`next build`) succeeded with all 68 dynamic and static pages compiled.
+
 ## 2026-10-31 - Orders Quality Check Removal, Advance Payments & Receipt PDF, Measurements Multi-Unit, Follow-up Statuses
 
 - **Orders Quality Check Removal**:
