@@ -14327,6 +14327,17 @@ export interface paths {
                     /** @description CRM staff collections support literal partial record/linked IDs, contact names, phone and email via RLS-scoped relationships; other name/heading resources retain text search. Lead searches do not include customer-only quotations. */
                     q?: string;
                     status?: string;
+                    /** @description Lead creation dates in Asia/Kolkata. last7 includes today and six preceding days; month is the current calendar month. */
+                    date?: "all" | "today" | "yesterday" | "last7" | "month" | "custom";
+                    /** @description Required with until only when date=custom; inclusive India calendar date. */
+                    from?: string;
+                    /** @description Inclusive custom end date; must be on or after from. */
+                    until?: string;
+                    /** @description me (verified actor), unassigned, or staff UUID. RLS still applies. */
+                    assigned?: string;
+                    source?: "google" | "instagram" | "facebook" | "whatsapp" | "direct" | "referral" | "other";
+                    /** @description Pending follow-ups only. today uses India day boundaries; overdue means due_at before now, including earlier today. Combined with creation dates using AND. */
+                    follow_up?: "today" | "overdue";
                     /** @description Staff collection only: allowlisted parent resource; requires context_id, parent read permission and RLS-visible parent. */
                     context?: "customers" | "leads" | "products" | "orders" | "purchases" | "workers" | "bom-versions";
                     /** @description Parent UUID; must be paired with context. Filtering applies before pagination; indirect joins stay RLS-scoped. */
@@ -15756,10 +15767,19 @@ export interface paths {
                 query?: {
                     limit?: number;
                     cursor?: string;
-                    from?: string;
-                    until?: string;
                     q?: string;
                     status?: string;
+                    /** @description Lead creation dates in Asia/Kolkata. last7 includes today and six preceding days; month is the current calendar month. */
+                    date?: "all" | "today" | "yesterday" | "last7" | "month" | "custom";
+                    /** @description Required with until only when date=custom; inclusive India calendar date. */
+                    from?: string;
+                    /** @description Inclusive custom end date; must be on or after from. */
+                    until?: string;
+                    /** @description me (verified actor), unassigned, or staff UUID. RLS still applies. */
+                    assigned?: string;
+                    source?: "google" | "instagram" | "facebook" | "whatsapp" | "direct" | "referral" | "other";
+                    /** @description Pending follow-ups only. today uses India day boundaries; overdue means due_at before now, including earlier today. Combined with creation dates using AND. */
+                    follow_up?: "today" | "overdue";
                 };
                 header?: never;
                 path?: never;

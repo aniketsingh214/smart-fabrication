@@ -48,3 +48,7 @@ Write authorization now also applies verified-user form quotas after existing id
 ### CRM relationship search - 2026-10-29
 
 Migration 51 uses security-invoker functions with authenticated-only execute grants and explicit relevant domain read checks. Every source table remains subject to its existing RLS. Staff search does not grant public/customer access or expose inaccessible sibling leads. Context filtering additionally checks parent read permission and parent visibility. New/relinked quotations enforce visible lead/customer consistency; existing approval and stage rules remain in force. The approved one-lead identity correction is documented separately in [Sales audit](../operations/sales-workspace-audit.md).
+
+## Lead date and workflow filters - 2026-10-30
+
+See [lead filter contract and behavior](../operations/lead-filters.md). Creation dates use India calendar boundaries; pending follow-up today/overdue, source, status and staff filters intersect search/context before pagination. Security-invoker RPCs preserve RLS; no business data or appointment is modified. URL and CSV filtering use the same contract.

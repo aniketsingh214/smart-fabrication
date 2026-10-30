@@ -226,7 +226,7 @@ paths:
         "500": *a14
         "503": *a15
       parameters: &a20
-        - &a24
+        - &a30
           name: id
           in: path
           required: true
@@ -4344,6 +4344,65 @@ paths:
         - *a17
         - *a18
         - *a19
+        - &a23
+          name: date
+          in: query
+          description: Lead creation dates in Asia/Kolkata. last7 includes today and six
+            preceding days; month is the current calendar month.
+          schema:
+            type: string
+            enum:
+              - all
+              - today
+              - yesterday
+              - last7
+              - month
+              - custom
+        - &a24
+          name: from
+          in: query
+          description: Required with until only when date=custom; inclusive India calendar
+            date.
+          schema:
+            type: string
+            format: date
+        - &a25
+          name: until
+          in: query
+          description: Inclusive custom end date; must be on or after from.
+          schema:
+            type: string
+            format: date
+        - &a26
+          name: assigned
+          in: query
+          description: me (verified actor), unassigned, or staff UUID. RLS still applies.
+          schema:
+            type: string
+        - &a27
+          name: source
+          in: query
+          schema:
+            type: string
+            enum:
+              - google
+              - instagram
+              - facebook
+              - whatsapp
+              - direct
+              - referral
+              - other
+        - &a28
+          name: follow_up
+          in: query
+          description: Pending follow-ups only. today uses India day boundaries; overdue
+            means due_at before now, including earlier today. Combined with
+            creation dates using AND.
+          schema:
+            type: string
+            enum:
+              - today
+              - overdue
         - *a21
         - *a22
         - name: sort
@@ -4754,16 +4813,6 @@ paths:
           in: query
           schema:
             type: string
-        - name: from
-          in: query
-          schema:
-            type: string
-            format: date
-        - name: until
-          in: query
-          schema:
-            type: string
-            format: date
         - name: q
           in: query
           schema:
@@ -4772,6 +4821,12 @@ paths:
           in: query
           schema:
             type: string
+        - *a23
+        - *a24
+        - *a25
+        - *a26
+        - *a27
+        - *a28
   /admin/customers:
     get:
       summary: List Customers
@@ -6275,7 +6330,7 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
-      parameters: &a23
+      parameters: &a29
         - *a16
         - *a17
         - *a18
@@ -6995,7 +7050,7 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
-      parameters: *a23
+      parameters: *a29
   /orders/{id}:
     get:
       summary: Read Orders record
@@ -16275,7 +16330,7 @@ paths:
         "500": *a14
         "503": *a15
       parameters:
-        - *a24
+        - *a30
         - name: version
           in: query
           required: false
@@ -20713,7 +20768,7 @@ paths:
                 type: object
                 required: *a2
                 properties:
-                  data: &a25
+                  data: &a31
                     type: object
                     required:
                       - registered
@@ -20753,7 +20808,7 @@ paths:
                 type: object
                 required: *a2
                 properties:
-                  data: *a25
+                  data: *a31
                   meta: *a3
                   requestId: *a4
         "201":
@@ -20764,7 +20819,7 @@ paths:
                 type: object
                 required: *a2
                 properties:
-                  data: *a25
+                  data: *a31
                   meta: *a3
                   requestId: *a4
         "400": *a5

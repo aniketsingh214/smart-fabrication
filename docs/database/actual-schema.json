@@ -1,5 +1,5 @@
 {
-  "captured_at": "2026-10-29T16:26:36.127Z",
+  "captured_at": "2026-10-30T10:33:54.139Z",
   "tables": [
     {
       "name": "audit_logs",
@@ -4825,6 +4825,16 @@
       "name": "202610290052_crm_customer_search_context.sql",
       "sha256": "e1550647465f1a9b0c5b7033146a0686600f61f17e7b7577f33641fbf2db3a87",
       "applied_at": "2026-10-29T16:24:21.743Z"
+    },
+    {
+      "name": "202610300053_lead_collection_filters.sql",
+      "sha256": "d2f8f9eb92634dc60de52c6426df4bf5d98df8b5621382c8ecb464b32b5c557a",
+      "applied_at": "2026-10-30T10:14:50.959Z"
+    },
+    {
+      "name": "202610300054_lead_overdue_time.sql",
+      "sha256": "530ad79d8c72972e92d0b8165626f45c105fca742836cd61f36b8e03a50cfc90",
+      "applied_at": "2026-10-30T10:16:20.508Z"
     }
   ],
   "constraints": [

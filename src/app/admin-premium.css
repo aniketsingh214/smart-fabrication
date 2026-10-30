@@ -104,3 +104,11 @@
 .admin-shell .admin-data-table .py-16{padding-block:36px}.admin-shell .admin-data-table .p-12{padding:28px}.admin-shell .admin-data-table .p-10{padding:28px}
 
 .admin-shell .status{white-space:normal;max-width:180px;overflow-wrap:anywhere;line-height:1.4}
+
+/* Lead filters share field metrics and become a bottom drawer on small screens. */
+.lead-filter-dialog { margin:auto; width:min(620px,calc(100vw - 32px)); max-height:85dvh; padding:0; border:1px solid #dfe3de; border-radius:16px; box-shadow:0 24px 80px #10181433; color:inherit; }
+.lead-filter-dialog::backdrop { background:#10181466; backdrop-filter:blur(3px); }
+.lead-filter-dialog form { max-height:85dvh; overflow-y:auto; }
+@media(max-width:639px){ .lead-filter-dialog { width:100%; max-width:none; margin:auto 0 0; border-radius:18px 18px 0 0; max-height:90dvh; } .lead-filter-dialog form { max-height:90dvh; } }
+
+.lead-filter-dialog header,.lead-filter-dialog footer { border-color:#e2e6e1; }

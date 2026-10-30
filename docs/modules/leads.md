@@ -56,3 +56,7 @@ Lead details use a native dropdown for the current and valid next/reopen/lost st
 ### 2026-10-29 Sales relationship/search update
 
 See [Sales workspace audit](../operations/sales-workspace-audit.md). Staff search now follows permitted saved CRM relationships by IDs, contact name, phone and email. Exact context filters, RLS and keyset pagination remain enforced. Customer related tabs include quotations, follow-ups and measurements; lead-context quotations use the linked customer and reject conflicting customer IDs. The separately approved Saloni identity repair changed only that lead customer link, preserving its stage and unconfirmed visit request.
+
+## Lead date and workflow filters - 2026-10-30
+
+See [lead filter contract and behavior](../operations/lead-filters.md). Creation dates use India calendar boundaries; pending follow-up today/overdue, source, status and staff filters intersect search/context before pagination. Security-invoker RPCs preserve RLS; no business data or appointment is modified. URL and CSV filtering use the same contract.

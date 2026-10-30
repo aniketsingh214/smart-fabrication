@@ -128,3 +128,7 @@ Every POST/PUT/PATCH/DELETE under /api/v1 uses distributed request quotas; authe
 ### Sales relational search - 2026-10-29
 
 GET /admin/leads, /admin/customers, /admin/quotations, /admin/follow-ups and /admin/measurements accept q (trimmed, maximum 120 characters): full/partial IDs, lead/customer names, email and normalized Indian phone formats. Search is backend/RLS scoped and intersects status, sort/direction, cursor, context/context_id and limit. Keep these parameters with each cursor; omit q and cursor when clearing. Lead-specific queries exclude customer-only quotations and sibling projects. Customer contexts include explicit customer quotations and child records via their actual lead. Standard data array/meta.nextCursor envelopes remain unchanged. Mismatched quotation customer/lead references return 422 with a customer_id field error. See [search matrix and correction evidence](../operations/sales-workspace-audit.md).
+
+## Lead date and workflow filters - 2026-10-30
+
+See [lead filter contract and behavior](../operations/lead-filters.md). Creation dates use India calendar boundaries; pending follow-up today/overdue, source, status and staff filters intersect search/context before pagination. Security-invoker RPCs preserve RLS; no business data or appointment is modified. URL and CSV filtering use the same contract.
