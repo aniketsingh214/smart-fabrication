@@ -380,29 +380,42 @@ export function ProductImageManager({
                   )}
                 </div>
 
-                {/* Card Actions */}
+                {/* Radio button / Primary Selector bar */}
                 {canWrite && (
-                  <div className="flex flex-col gap-1 border-t border-slate-100 bg-slate-50/80 p-2 text-xs">
-                    {!isCover && (
-                      <button
-                        type="button"
-                        disabled={isBusy}
-                        onClick={() => void handleMakeCover(item)}
-                        className="flex items-center justify-center gap-1 rounded border border-amber-300 bg-white px-2 py-1 font-medium text-amber-800 hover:bg-amber-50 hover:border-amber-400 transition"
-                      >
-                        <Star size={12} className="text-amber-600" />
-                        मुख्य बनाएं
-                      </button>
-                    )}
+                  <div
+                    onClick={() => {
+                      if (!isCover) void handleMakeCover(item);
+                    }}
+                    className={`flex items-center justify-between border-t px-2.5 py-1.5 text-[11px] font-semibold cursor-pointer transition ${
+                      isCover
+                        ? 'bg-amber-500 text-slate-900 border-amber-400 shadow-xs'
+                        : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-amber-50 hover:text-amber-900'
+                    }`}
+                  >
+                    <label className="flex items-center gap-1.5 cursor-pointer select-none">
+                      <input
+                        type="radio"
+                        name="primary_product_image_edit"
+                        checked={isCover}
+                        onChange={() => {
+                          if (!isCover) void handleMakeCover(item);
+                        }}
+                        className="h-3.5 w-3.5 accent-amber-600 cursor-pointer"
+                      />
+                      <span>{isCover ? 'मुख्य फोटो (Primary)' : 'मुख्य बनाएं'}</span>
+                    </label>
 
                     <button
                       type="button"
+                      title="तस्वीर हटाएं"
                       disabled={isBusy}
-                      onClick={() => void handleDelete(item)}
-                      className="flex items-center justify-center gap-1 rounded px-2 py-1 font-medium text-red-600 hover:bg-red-50 transition"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        void handleDelete(item);
+                      }}
+                      className="rounded p-1 text-slate-400 hover:bg-red-50 hover:text-red-600 transition"
                     >
-                      <Trash2 size={12} />
-                      हटाएं
+                      <Trash2 size={13} />
                     </button>
                   </div>
                 )}
