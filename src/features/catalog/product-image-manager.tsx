@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
-import { uploadMedia } from '@/features/media/upload';
+import { uploadImage } from '@/features/media/upload';
 import { notify } from '@/lib/notify';
 import { Button } from '@/components/ui/button';
 import { Star, Trash2, UploadCloud, Loader2, ImagePlus, ShieldAlert } from 'lucide-react';
@@ -21,6 +21,8 @@ interface ProductImageManagerProps {
   productId: string;
   productName?: string;
   canWrite?: boolean;
+  canUpload?: boolean;
+  onBusyChange?: (busy:boolean)=>void;
 }
 
 const MAX_IMAGES = 5;
@@ -29,22 +31,24 @@ export function ProductImageManager({
   productId,
   productName = 'Product',
   canWrite = true,
+  canUpload = canWrite,
+  onBusyChange,
 }: ProductImageManagerProps) {
   const [items, setItems] = useState<ProductMediaItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loaded,setLoaded]=useState(false);
   const [uploading, setUploading] = useState(false);
   const [progressText, setProgressText] = useState('');
   const [busyActionId, setBusyActionId] = useState<string | null>(null);
   const [error, setError] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
+  useEffect(()=>{onBusyChange?.(uploading||Boolean(busyActionId));return()=>onBusyChange?.(false);},[uploading,busyActionId,onBusyChange]);
   const cloud = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
 
-  const loadMedia = useCallback(async () => {
+  const loadMedia = useCallback(async (signal?:AbortSignal) => {
     if (!productId) return;
-    setLoading(true);
-    setError('');
     try {
-      const res = await fetch(`/api/v1/admin/products/${productId}/preview`);
+      const res = await fetch(`/api/v1/admin/products/${productId}/preview`,{signal});
       const body = await res.json();
       if (!res.ok) throw new Error(body.error?.message || 'तस्वीरें लोड नहीं हो सकीं');
 
@@ -82,19 +86,24 @@ export function ProductImageManager({
         }
       }
       list.sort((a, b) => a.sort_order - b.sort_order);
+      if(signal?.aborted)return;
       setItems(list);
+      setLoaded(true);
+      setError('');
     } catch (err) {
+      if(signal?.aborted)return;
       setError(err instanceof Error ? err.message : 'तस्वीरें लोड करने में समस्या आई');
     } finally {
-      setLoading(false);
+      if(!signal?.aborted)setLoading(false);
     }
   }, [productId, productName]);
 
   useEffect(() => {
-    void loadMedia();
+    const controller=new AbortController();void Promise.resolve().then(()=>{if(!controller.signal.aborted)return loadMedia(controller.signal);});return()=>controller.abort();
   }, [loadMedia]);
 
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if(!canWrite||!canUpload||uploading||!loaded)return;
     const files = Array.from(e.target.files || []);
     if (!files.length) return;
 
@@ -121,7 +130,7 @@ export function ProductImageManager({
         setProgressText(`तस्वीर ${i + 1}/${filesToUpload.length} अपलोड और सुरक्षित की जा रही है...`);
 
         // 1. Upload to Cloudinary & register in media_assets
-        const asset = await uploadMedia(file, 'product');
+        const asset = await uploadImage(file, 'product');
 
         // 2. Link to product_media
         const linkRes = await fetch('/api/v1/admin/product-media', {
@@ -239,7 +248,7 @@ export function ProductImageManager({
           </p>
         </div>
 
-        {canWrite && items.length < MAX_IMAGES && (
+        {canWrite && canUpload && items.length < MAX_IMAGES && (
           <div>
             <input
               ref={fileInputRef}
@@ -248,7 +257,7 @@ export function ProductImageManager({
               multiple={MAX_IMAGES - items.length > 1}
               className="hidden"
               onChange={(e) => void handleFileSelect(e)}
-              disabled={uploading}
+              disabled={uploading||loading||!loaded}
             />
             <Button
               type="button"
@@ -276,7 +285,7 @@ export function ProductImageManager({
       {error && (
         <div className="mt-4 flex items-center gap-2 rounded-lg bg-red-50 p-3 text-xs text-red-700 border border-red-200">
           <ShieldAlert size={16} className="shrink-0" />
-          <span>{error}</span>
+          <span>{error}</span>{!loaded&&<Button type="button" variant="outline" size="sm" onClick={()=>void loadMedia()}>Retry loading images</Button>}
         </div>
       )}
 
@@ -297,7 +306,7 @@ export function ProductImageManager({
       ) : items.length === 0 ? (
         <div
           onClick={() => {
-            if (canWrite && !uploading) fileInputRef.current?.click();
+            if (canWrite && canUpload && !uploading && loaded) fileInputRef.current?.click();
           }}
           className={`mt-4 flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-amber-300/80 bg-white p-8 text-center transition ${
             canWrite ? 'cursor-pointer hover:border-amber-500 hover:bg-amber-50/30' : ''
@@ -312,7 +321,7 @@ export function ProductImageManager({
           <p className="mt-1 text-xs text-slate-500 max-w-sm">
             गेट, ग्रिल या फैब्रिकेशन की साफ़ तस्वीरें अपलोड करें। आप अधिकतम 5 तस्वीरें जोड़ सकते हैं।
           </p>
-          {canWrite && (
+          {canWrite && canUpload && (
             <Button
               type="button"
               variant="outline"
@@ -424,7 +433,7 @@ export function ProductImageManager({
           })}
 
           {/* Additional upload tile if slots remaining */}
-          {canWrite && items.length < MAX_IMAGES && (
+          {canWrite && canUpload && items.length < MAX_IMAGES && (
             <button
               type="button"
               disabled={uploading}

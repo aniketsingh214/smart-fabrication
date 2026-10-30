@@ -59,3 +59,7 @@ Key catalog additions:
 2. **Cloudinary Asset Storage**: High-resolution imagery for laser gates is hosted under `smart-fabrication/development/laser-gates/` with optimized WebP/JPEG delivery and responsive aspect ratios.
 3. **Multi-Field Search Indexing**: Products are indexed and searchable via the global search bar across SKU, product title, description, category slug, and subcategory slug.
 4. **Subcategory Association**: Products are directly associated with subcategories (`modern-cnc-gates`, `floral-laser-gates`, `luxury-black-gold-gates`, `laser-sliding-gates`, `commercial-rolling-shutters`, etc.), enabling instantaneous faceted filtering on `/catalog`.
+
+## Product Add/Edit image upload - 2026-10-30
+
+Add now includes an image picker before fabrication/product fields: up to five JPG/PNG/WebP files (10 MB each), local previews, remove and cover selection. Files upload through the existing signed/confirmed media pipeline on Save; verified assets are linked after product creation. Confirmed uploads and successful links are cached for a Retry images action after partial failure, without recreating the known saved product. Edit retains its gallery manager and supports image upload directly. Upload controls wait for the existing gallery to load; product Save/Cancel waits for image actions. Existing catalog/media permissions and publication checks remain enforced. No API/schema migration is required. See [image workflow and verification](../operations/product-form-images.md).
