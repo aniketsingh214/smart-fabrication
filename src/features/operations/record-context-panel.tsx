@@ -6,7 +6,7 @@ import { recordRelations,type RecordContext } from '@/contracts/record-context';
 import { PurchaseAttachments } from '@/features/media/purchase-attachments';
 export function RecordContextPanel({parent,id,name,permissions,children,renderRelated}:{parent:string;id:string;name:string;permissions:string[];children:ReactNode;renderRelated:(slug:string,context:RecordContext)=>ReactNode}){
  const [active,setActive]=useState('details'),tabsRef=useRef<HTMLDivElement>(null);
- const related=recordRelations.filter(relation=>relation.parent===parent&&permissions.includes(resourceMap[relation.child]!.domain+'.read'));
+ const related=recordRelations.filter(relation=>relation.parent===parent&&!relation.hidden&&permissions.includes(resourceMap[relation.child]!.domain+'.read'));
  const invoice=parent==='purchases'&&permissions.includes('finance.read');
  if(!related.length&&!invoice)return <>{children}</>;
  const tabs=[{key:'details',label:parent==='orders'?'Overview':'Details'},...related.map(relation=>({key:relation.child,label:relation.label}))];

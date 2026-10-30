@@ -1,5 +1,5 @@
 import { z } from 'zod';
-export type RecordRelation={parent:string;child:string;label:string;column?:string;via?:string;viaColumn?:string};
+export type RecordRelation={parent:string;child:string;label:string;column?:string;via?:string;viaColumn?:string;hidden?:boolean};
 export const recordRelations:RecordRelation[]=[
  {parent:'customers',child:'leads',label:'Enquiries',column:'customer_id'},
  {parent:'customers',child:'quotations',label:'Quotations',column:'customer_id'},
@@ -15,7 +15,8 @@ export const recordRelations:RecordRelation[]=[
  {parent:'products',child:'bom-versions',label:'BOM',column:'product_id'},
  {parent:'products',child:'calculation-rules',label:'Pricing',column:'product_id'},
  {parent:'orders',child:'work-orders',label:'Production',column:'order_id'},
- {parent:'orders',child:'quality-checks',label:'Quality',via:'work-orders',viaColumn:'order_id'},
+ {parent:'orders',child:'customer-payments',label:'Payments',column:'order_id'},
+ {parent:'orders',child:'quality-checks',label:'Quality',via:'work-orders',viaColumn:'order_id',hidden:true},
  {parent:'orders',child:'deliveries',label:'Delivery',column:'order_id'},
  {parent:'orders',child:'installations',label:'Installation',via:'deliveries',viaColumn:'order_id'},
  {parent:'purchases',child:'purchase-items',label:'Items',column:'purchase_id'},

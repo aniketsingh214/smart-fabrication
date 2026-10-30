@@ -45,7 +45,7 @@ function sanitizeNumericString(val: string): string {
   if (val === '') return '';
   if (/^0+[1-9]/.test(val)) return val.replace(/^0+/, '');
   if (/^00+\./.test(val)) return val.replace(/^0+/, '0');
-  if (/^0+$/.test(val)) return '0';
+  if (/^0{2,}$/.test(val)) return '0';
   return val;
 }
 
@@ -137,7 +137,18 @@ export function QuoteVersionForm({initial,onSubmit}:{initial?:QuoteInput;onSubmi
                 step="any"
                 placeholder="1"
                 value={line.quantity}
-                onFocus={(e) => e.target.select()}
+                onFocus={(e) => {
+                  if (e.target.value === '0' || e.target.value === '1') {
+                    setLines(lines.map((l, j) => (j === i ? { ...l, quantity: '' } : l)));
+                  } else {
+                    e.target.select();
+                  }
+                }}
+                onBlur={(e) => {
+                  if (e.target.value.trim() === '') {
+                    setLines(lines.map((l, j) => (j === i ? { ...l, quantity: '1' } : l)));
+                  }
+                }}
                 onChange={(e) =>
                   setLines(
                     lines.map((l, j) =>
@@ -159,7 +170,13 @@ export function QuoteVersionForm({initial,onSubmit}:{initial?:QuoteInput;onSubmi
                 step="0.01"
                 placeholder="0.00"
                 value={line.rate}
-                onFocus={(e) => e.target.select()}
+                onFocus={(e) => {
+                  if (e.target.value === '0' || e.target.value === '0.00') {
+                    setLines(lines.map((l, j) => (j === i ? { ...l, rate: '' } : l)));
+                  } else {
+                    e.target.select();
+                  }
+                }}
                 onChange={(e) =>
                   setLines(
                     lines.map((l, j) =>
@@ -192,7 +209,13 @@ export function QuoteVersionForm({initial,onSubmit}:{initial?:QuoteInput;onSubmi
             placeholder="0.00"
             name="discount_minor"
             value={discount}
-            onFocus={(e) => e.target.select()}
+            onFocus={(e) => {
+              if (e.target.value === '0' || e.target.value === '0.00') {
+                setDiscount('');
+              } else {
+                e.target.select();
+              }
+            }}
             onChange={(e) => setDiscount(sanitizeNumericString(e.target.value))}
           />
         </label>
@@ -206,7 +229,13 @@ export function QuoteVersionForm({initial,onSubmit}:{initial?:QuoteInput;onSubmi
             placeholder="0"
             name="tax_bps"
             value={tax}
-            onFocus={(e) => e.target.select()}
+            onFocus={(e) => {
+              if (e.target.value === '0' || e.target.value === '0.00') {
+                setTax('');
+              } else {
+                e.target.select();
+              }
+            }}
             onChange={(e) => setTax(sanitizeNumericString(e.target.value))}
           />
         </label>
