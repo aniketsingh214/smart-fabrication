@@ -38,11 +38,206 @@ function Totals({input}:{input:QuoteInput}){let totals;try{totals=quotationTotal
  return <dl className="mt-3 space-y-2 border-t border-slate-200 pt-3 text-sm">{[['Subtotal',totals.subtotal_minor],['Discount',-totals.discount_minor],[`Tax (${(input.tax_bps??0)/100}%)`,totals.tax_minor],['Total (INR)',totals.total_minor]].map(([label,value])=><div key={label} className="flex justify-between gap-4"><dt>{label}</dt><dd className="font-semibold">{money(Number(value))}</dd></div>)}</dl>;
 }
 
+type EditableItem = {
+  description: string;
+  quantity: string;
+  rate: string;
+};
+
+function sanitizeNumericString(val: string): string {
+  if (val === '') return '';
+  if (/^0+[1-9]/.test(val)) return val.replace(/^0+/, '');
+  if (/^00+\./.test(val)) return val.replace(/^0+/, '0');
+  if (/^0+$/.test(val)) return '0';
+  return val;
+}
+
 export function QuoteVersionForm({initial,onSubmit}:{initial?:QuoteInput;onSubmit:(payload:QuoteInput)=>Promise<void>}){
- const [lines,setLines]=useState(initial?.items??[{description:'',quantity:1,unit_minor:0}]),[discount,setDiscount]=useState(initial?.discount_minor??0),[tax,setTax]=useState(initial?.tax_bps??0),[busy,setBusy]=useState(false),[error,setError]=useState('');
- const input={items:lines,discount_minor:discount,tax_bps:tax};
- async function submit(form:HTMLFormElement){setBusy(true);setError('');try{const parsed=quoteVersionSchema.safeParse(input);if(!parsed.success)throw parsed.error;await onSubmit(parsed.data);}catch(e){if(reportFormError(form,e))return;notify(e instanceof Error?e.message:'Unable to complete the action.','error');setError(e instanceof Error?e.message:'Unable to save version');}finally{setBusy(false);}}
- return <ValidatedForm className="space-y-4 rounded-lg bg-slate-50 p-4" onSubmit={e=>{e.preventDefault();void submit(e.currentTarget);}}><h4 className="text-sm font-semibold">{initial?'Revise draft prices':'Create price version'}</h4>{lines.map((line,i)=><fieldset key={i} className="min-w-0 space-y-2 border-b border-slate-200 pb-3"><legend className="text-xs text-slate-500">Item {i+1}</legend><label className="block text-sm">Description<input name={`items.${i}.description`} aria-label={`Item ${i+1} description`} required maxLength={200} value={line.description} onChange={e=>setLines(lines.map((l,j)=>j===i?{...l,description:e.target.value}:l))}/></label><div className="grid grid-cols-2 gap-3"><label className="text-sm">Quantity<input name={`items.${i}.quantity`} aria-label={`Item ${i+1} quantity`} type="number" required min="0.001" max="1000000" step="any" value={line.quantity} onChange={e=>setLines(lines.map((l,j)=>j===i?{...l,quantity:Number(e.target.value)}:l))}/></label><label className="text-sm">Rate (INR)<input name={`items.${i}.unit_minor`} aria-label={`Item ${i+1} rate in rupees`} type="number" required min="0" max="10000000000" step="0.01" value={line.unit_minor/100} onChange={e=>setLines(lines.map((l,j)=>j===i?{...l,unit_minor:Math.round(Number(e.target.value)*100)}:l))}/></label></div>{lines.length>1&&<Button type="button" variant="ghost" size="sm" onClick={()=>setLines(lines.filter((_,j)=>j!==i))}>Remove item {i+1}</Button>}</fieldset>)}<div className="grid grid-cols-2 gap-3"><label className="text-sm">Discount (INR)<input type="number" required min="0" step="0.01" name="discount_minor" value={discount/100} onChange={e=>setDiscount(Math.round(Number(e.target.value)*100))}/></label><label className="text-sm">Tax (%)<input type="number" required min="0" max="100" step="0.01" name="tax_bps" value={tax/100} onChange={e=>setTax(Math.round(Number(e.target.value)*100))}/></label></div><Totals input={input}/>{error&&<p role="alert" className="text-sm text-red-600">{error}</p>}<div className="flex flex-wrap gap-2"><Button type="button" size="sm" variant="outline" disabled={busy||lines.length>=100} onClick={()=>setLines([...lines,{description:'',quantity:1,unit_minor:0}])}>Add item</Button><Button size="sm" disabled={busy}>{busy?'Savingâ€¦':'Save version'}</Button></div></ValidatedForm>;
+  const [lines, setLines] = useState<EditableItem[]>(() =>
+    initial?.items?.length
+      ? initial.items.map((it) => ({
+          description: it.description,
+          quantity: String(it.quantity ?? 1),
+          rate: it.unit_minor ? String(it.unit_minor / 100) : '',
+        }))
+      : [{ description: '', quantity: '1', rate: '' }]
+  );
+
+  const [discount, setDiscount] = useState<string>(() =>
+    initial?.discount_minor ? String(initial.discount_minor / 100) : ''
+  );
+
+  const [tax, setTax] = useState<string>(() =>
+    initial?.tax_bps ? String(initial.tax_bps / 100) : ''
+  );
+
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState('');
+
+  const input: QuoteInput = {
+    items: lines.map((l) => ({
+      description: l.description,
+      quantity: l.quantity === '' ? 1 : Number(l.quantity) || 1,
+      unit_minor: Math.round((Number(l.rate) || 0) * 100),
+    })),
+    discount_minor: Math.round((Number(discount) || 0) * 100),
+    tax_bps: Math.round((Number(tax) || 0) * 100),
+  };
+
+  async function submit(form: HTMLFormElement) {
+    setBusy(true);
+    setError('');
+    try {
+      const parsed = quoteVersionSchema.safeParse(input);
+      if (!parsed.success) throw parsed.error;
+      await onSubmit(parsed.data);
+    } catch (e) {
+      if (reportFormError(form, e)) return;
+      notify(e instanceof Error ? e.message : 'Unable to complete the action.', 'error');
+      setError(e instanceof Error ? e.message : 'Unable to save version');
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <ValidatedForm
+      className="space-y-4 rounded-lg bg-slate-50 p-4"
+      onSubmit={(e) => {
+        e.preventDefault();
+        void submit(e.currentTarget);
+      }}
+    >
+      <h4 className="text-sm font-semibold">
+        {initial ? 'Revise draft prices' : 'Create price version'}
+      </h4>
+      {lines.map((line, i) => (
+        <fieldset key={i} className="min-w-0 space-y-2 border-b border-slate-200 pb-3">
+          <legend className="text-xs text-slate-500">Item {i + 1}</legend>
+          <label className="block text-sm">
+            Description
+            <input
+              name={`items.${i}.description`}
+              aria-label={`Item ${i + 1} description`}
+              required
+              maxLength={200}
+              value={line.description}
+              onChange={(e) =>
+                setLines(lines.map((l, j) => (j === i ? { ...l, description: e.target.value } : l)))
+              }
+            />
+          </label>
+          <div className="grid grid-cols-2 gap-3">
+            <label className="text-sm">
+              Quantity
+              <input
+                name={`items.${i}.quantity`}
+                aria-label={`Item ${i + 1} quantity`}
+                type="number"
+                required
+                min="0.001"
+                max="1000000"
+                step="any"
+                placeholder="1"
+                value={line.quantity}
+                onFocus={(e) => e.target.select()}
+                onChange={(e) =>
+                  setLines(
+                    lines.map((l, j) =>
+                      j === i ? { ...l, quantity: sanitizeNumericString(e.target.value) } : l
+                    )
+                  )
+                }
+              />
+            </label>
+            <label className="text-sm">
+              Rate (INR)
+              <input
+                name={`items.${i}.unit_minor`}
+                aria-label={`Item ${i + 1} rate in rupees`}
+                type="number"
+                required
+                min="0"
+                max="10000000000"
+                step="0.01"
+                placeholder="0.00"
+                value={line.rate}
+                onFocus={(e) => e.target.select()}
+                onChange={(e) =>
+                  setLines(
+                    lines.map((l, j) =>
+                      j === i ? { ...l, rate: sanitizeNumericString(e.target.value) } : l
+                    )
+                  )
+                }
+              />
+            </label>
+          </div>
+          {lines.length > 1 && (
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={() => setLines(lines.filter((_, j) => j !== i))}
+            >
+              Remove item {i + 1}
+            </Button>
+          )}
+        </fieldset>
+      ))}
+      <div className="grid grid-cols-2 gap-3">
+        <label className="text-sm">
+          Discount (INR)
+          <input
+            type="number"
+            min="0"
+            step="0.01"
+            placeholder="0.00"
+            name="discount_minor"
+            value={discount}
+            onFocus={(e) => e.target.select()}
+            onChange={(e) => setDiscount(sanitizeNumericString(e.target.value))}
+          />
+        </label>
+        <label className="text-sm">
+          Tax (%)
+          <input
+            type="number"
+            min="0"
+            max="100"
+            step="0.01"
+            placeholder="0"
+            name="tax_bps"
+            value={tax}
+            onFocus={(e) => e.target.select()}
+            onChange={(e) => setTax(sanitizeNumericString(e.target.value))}
+          />
+        </label>
+      </div>
+      <Totals input={input} />
+      {error && (
+        <p role="alert" className="text-sm text-red-600">
+          {error}
+        </p>
+      )}
+      <div className="flex flex-wrap gap-2">
+        <Button
+          type="button"
+          size="sm"
+          variant="outline"
+          disabled={busy || lines.length >= 100}
+          onClick={() =>
+            setLines([...lines, { description: '', quantity: '1', rate: '' }])
+          }
+        >
+          Add item
+        </Button>
+        <Button size="sm" disabled={busy}>
+          {busy ? 'Saving…' : 'Save version'}
+        </Button>
+      </div>
+    </ValidatedForm>
+  );
 }
 
 
