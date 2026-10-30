@@ -4,9 +4,9 @@ Implemented 2026-10-30 on the existing Leads collection and customer-context enq
 
 ## Behavior
 
-Quick creation-date presets: All leads, Today, Yesterday, Last 7 days (today plus six prior calendar days), This month (calendar month), Custom dates. All boundaries use Asia/Kolkata. A custom range includes both selected dates; the backend applies an inclusive start and exclusive next-day end in UTC. Both dates are required, real dates must be valid, and From must not exceed To.
+Quick creation-date presets: All leads, Today, Yesterday, Last 7 days (today plus six prior calendar days), This month (calendar month). The former Custom dates button is replaced by always-visible From date (Kab se) and To date (Kab tak) inputs with Apply dates. All boundaries use Asia/Kolkata. A custom range includes both selected dates; the backend applies an inclusive start and exclusive next-day end in UTC. Both dates are required, real dates must be valid, and From must not exceed To.
 
-The Filters dialog provides creation dates, lead status, assigned staff, source and pending follow-up. Options are drafts until Apply; Cancel/Escape leave the list unchanged. Reset selections resets the draft. Desktop uses a centered modal and small screens use a bottom drawer with scrolling. Applied filter chips remove individually; Clear all also removes search/sort and resets pagination.
+The Filters dialog provides creation presets, lead status, assigned staff, source and pending follow-up. Applied custom ranges are shown as Selected date range; editing the two dates happens directly above the list. Options are drafts until Apply; Cancel/Escape leave the list unchanged. Reset selections resets the draft. Desktop uses a centered modal and small screens use a bottom drawer with scrolling. Applied filter chips remove individually; Clear all also removes search/sort and resets pagination.
 
 Assigned staff supports the verified actor (`me`), unassigned, or a specific staff UUID. Staff options are fetched only through the existing permitted staff API, with pagination, active owner/sales filtering and retry. Roles without `users.read` retain me/unassigned and do not receive a staff directory. Lead RLS remains authoritative even for a selected UUID.
 
@@ -36,3 +36,7 @@ The CSV lead export uses the same filter parser/RPC and status/search intersecti
 Actual acceptance outcomes are recorded in [progress](../progress.md).
 
 Final live filter acceptance - 2026-10-30: release bb0e77c is deployed at https://smartfabrication.vercel.app. All 5 groups passed in one completed live run: API presets/combined filters/CSV/context/cursor; URL/reload/browser Back/list return/chips/clear; custom-range validation/cancel/filtered empty state; filter changes resetting page/cursor while retaining search filters; keyboard and six-width responsive drawer. No page/hydration errors; existing example and original customer/quotation fingerprints unchanged during acceptance. Generated test identity retired. Local 326 unit/integration tests, 5 rollback DB groups, build, changed-file lint, generated API contract/types, docs and secret checks passed. Evidence: ignored test-results/lead-filters-live-final.json and test-results/lead-filters-mobile.png. No manual development/deployment step remains for the approved filter scope.
+
+## Inline range/search refinement - 2026-10-30
+
+Custom dates no longer opens a date dialog. From/To fields are directly visible, validated together and applied explicitly. A visible name/mobile search box reuses the existing relational backend and combines with the date range, status and other filters. Inputs restore on reload; removing the date chip/Clear all resets applied dates. The custom-range API contract and India-day semantics are unchanged. Actual focused browser/build results are recorded in progress.md.
