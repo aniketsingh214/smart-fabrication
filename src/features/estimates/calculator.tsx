@@ -561,7 +561,7 @@ export function Calculator({ products, selected }: { products: { id: string; nam
             <p className="mt-3 max-w-sm text-sm leading-6 text-slate-500">
               {locale === 'hi'
                 ? 'अपनी सुविधा अनुसार फीट या मिलीमीटर में नाप भरें और तुरंत अनुमानित खर्च देखें।'
-                : 'Select your preferred unit (mm, Feet + Inch, Feet, Inch, or Meter) and enter dimensions for an approximate estimate.'}
+                : 'Choose your measurement unit (Feet, Inches, or mm) and enter dimensions to calculate your estimate.'}
             </p>
           </div>
         )}

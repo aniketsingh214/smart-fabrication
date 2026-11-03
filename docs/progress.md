@@ -1,5 +1,31 @@
 > Version: 1.0 | Updated: 2026-11-03 | Status: live application; implementation and scoped verification register
 
+## 2026-11-03 - Plain English Copy Simplification Across UI, Navigation, Milestones & Documents
+
+- **Core User Objective**:
+  - Simplified language and terminology across the entire application to plain, direct, and universally understandable English, eliminating bureaucratic ERP jargon (e.g. "immutable snapshots", "canonical units", "basis points", "en route", "made to measure") while preserving technical integrity and bilingual Hindi support.
+- **Contracts & Navigation Refactoring (`src/contracts/resources.ts`, `src/contracts/admin-navigation.ts`)**:
+  - Replaced technical internal descriptions across all 34 resources with straightforward English (e.g. "Saved customer price estimates and dimensions", "Pipes, sheets, angles, channels and hardware items", "Customer enquiries and phone leads for new work", "Confirmed orders from advance payment to final installation").
+  - Simplified complex field labels (e.g. `reorder_level` -> "Low stock alert level", `extra_cost_minor` -> "Extra cost", `notes` -> "Workshop notes").
+  - Simplified workspace module descriptions for Sales, Operations, Inventory, Catalog, Finance, and Settings.
+- **Workflow & Stage Helper Copy (`src/features/leads/status-select.tsx`)**:
+  - Simplified helper text for all stage dropdowns: Lead ("Select the next stage for this enquiry"), Order ("Select the next order stage. Advance payment and measurements should be checked first"), Work Order ("Select the next workshop stage for this job card"), Quotation ("Select the next quotation stage"), Delivery ("Select the next delivery stage").
+- **Order Milestones & Tracking (`src/lib/i18n/order-milestones.ts`)**:
+  - Replaced stiff phrasing with plain English (e.g. "Your order has been confirmed by the workshop", "Site measurements checked and confirmed", "Cutting and welding work is in progress", "Main frame ready. Moving to paint and polish", "Painting, polishing, and final finishing underway", "Checked, packed, and ready for delivery", "Loaded and on the way to your site", "Material delivered to your site. Fitting and welding in progress").
+- **Customer Dictionaries (`src/lib/i18n/dictionaries/en.ts`)**:
+  - Simplified hero, catalog, product, cart, and calculator terms ("Custom Made" instead of "Built to Measure", "Starting price" instead of "Indicative starting price", "Price on request" instead of "Quotation on request", "Custom size for your space", "Estimated Subtotal", "Estimated Total").
+- **Estimate PDF Document (`src/features/estimates/estimate-pdf-document.tsx`)**:
+  - Replaced technical headers: "Estimated Price Sheet" instead of "Indicative Cost Estimate", "ESTIMATED PRICE RANGE", "Total Area", "Approximate Weight", "Welding & Joints", "Rust Protection", "Site Measurement: Free workshop visit", "Making Time: 7 – 14 Days", "Estimated Cost".
+- **Customer Pages & Cart (`src/app/(public)/cart/page.tsx`, `src/app/(public)/catalog/[slug]/page.tsx`, `src/app/(public)/catalog/page.tsx`, `src/app/(public)/contact/page.tsx`)**:
+  - Replaced dense phrases with clear, friendly text for customers and fabricators.
+- **Verification**:
+  - `npm run docs:check`: Passed (SHA-256 byte-identical source intact).
+  - `npm run api:check`: Passed (301 paths, 44 Route Handlers).
+  - `npm run security:check`: Passed (0 leaked secrets).
+  - `npm run typecheck`: Passed (0 errors).
+  - `npm test`: Passed (78 test files, 353 tests passed).
+  - `npm run build`: Succeeded (all 74 routes compiled).
+
 ## 2026-11-03 - QR Workshop Job Cards, Estimate PDF Generation & Mobile Catalog Filter Drawer
 
 - **Printable Workshop Job Card with Scannable QR Code (`/admin/orders/[id]/job-card`)**:

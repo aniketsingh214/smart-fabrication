@@ -27,7 +27,7 @@ const statusMap: Record<
     en: {
       stageName: 'Order Placed',
       label: '1. Order Confirmed',
-      desc: 'Your order request has been accepted by the workshop.'
+      desc: 'Your order has been confirmed by the workshop.'
     },
     color: 'bg-blue-50 text-blue-700 border-blue-200'
   },
@@ -41,7 +41,7 @@ const statusMap: Record<
     en: {
       stageName: 'Order Placed',
       label: '1. Advance Received',
-      desc: 'Advance payment received; job entered workshop queue.'
+      desc: 'Advance payment received. Work is scheduled.'
     },
     color: 'bg-blue-50 text-blue-700 border-blue-200'
   },
@@ -55,7 +55,7 @@ const statusMap: Record<
     en: {
       stageName: 'Measurement Verified',
       label: '2. Measurement Confirmed',
-      desc: 'On-site exact dimensions verified by technical staff.'
+      desc: 'Site measurements checked and confirmed.'
     },
     color: 'bg-amber-50 text-amber-700 border-amber-200'
   },
@@ -69,7 +69,7 @@ const statusMap: Record<
     en: {
       stageName: 'Measurement Verified',
       label: '2. Production Queued',
-      desc: 'Material allocated; awaiting workshop slot.'
+      desc: 'Materials arranged. Ready to start fabrication.'
     },
     color: 'bg-amber-50 text-amber-700 border-amber-200'
   },
@@ -83,7 +83,7 @@ const statusMap: Record<
     en: {
       stageName: 'Fabrication Started',
       label: '3. Fabrication Started',
-      desc: 'Cutting, welding, and structural assembly in progress.'
+      desc: 'Cutting and welding work is in progress.'
     },
     color: 'bg-orange-50 text-orange-700 border-orange-200'
   },
@@ -97,7 +97,7 @@ const statusMap: Record<
     en: {
       stageName: 'Fabrication Started',
       label: '3. Assembly Complete',
-      desc: 'Main structure assembled; surface finishing next.'
+      desc: 'Main frame ready. Moving to paint and polish.'
     },
     color: 'bg-orange-50 text-orange-700 border-orange-200'
   },
@@ -111,7 +111,7 @@ const statusMap: Record<
     en: {
       stageName: 'Fabrication Started',
       label: '3. Surface Finishing',
-      desc: 'Primer, paint, powder coating, or hairline mirror polish underway.'
+      desc: 'Painting, polishing, and final finishing underway.'
     },
     color: 'bg-orange-50 text-orange-700 border-orange-200'
   },
@@ -125,7 +125,7 @@ const statusMap: Record<
     en: {
       stageName: 'Ready for Dispatch',
       label: '4. Ready for Dispatch',
-      desc: 'Passed quality inspection and packed for transit.'
+      desc: 'Checked, packed, and ready for delivery.'
     },
     color: 'bg-indigo-50 text-indigo-700 border-indigo-200'
   },
@@ -139,7 +139,7 @@ const statusMap: Record<
     en: {
       stageName: 'Out for Delivery',
       label: '5. Out for Delivery',
-      desc: 'En route to your installation site.'
+      desc: 'Loaded and on the way to your site.'
     },
     color: 'bg-purple-50 text-purple-700 border-purple-200'
   },
@@ -153,7 +153,7 @@ const statusMap: Record<
     en: {
       stageName: 'Delivered / On-Site',
       label: '6. On-Site Installation',
-      desc: 'Material delivered to site; technicians fitting and welding.'
+      desc: 'Material delivered to your site. Fitting and welding in progress.'
     },
     color: 'bg-teal-50 text-teal-700 border-teal-200'
   },
@@ -167,7 +167,7 @@ const statusMap: Record<
     en: {
       stageName: 'Completed',
       label: '7. Completed & Handed Over',
-      desc: 'Project successfully completed, inspected, and handed over.'
+      desc: 'Work completed, inspected, and handed over.'
     },
     color: 'bg-emerald-50 text-emerald-800 border-emerald-200'
   },
@@ -181,7 +181,7 @@ const statusMap: Record<
     en: {
       stageName: 'Cancelled',
       label: 'Order Cancelled',
-      desc: 'This order was cancelled by mutual agreement.'
+      desc: 'This order has been cancelled.'
     },
     color: 'bg-red-50 text-red-700 border-red-200'
   }

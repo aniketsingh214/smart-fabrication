@@ -165,7 +165,7 @@ export default function CartPage() {
                       </div>
 
                       <p className="mt-1 text-xs text-slate-500">
-                        {locale === 'hi' ? 'शुरुआती रेट:' : 'Indicative starting rate:'}{' '}
+                        {locale === 'hi' ? 'शुरुआती रेट:' : 'Starting price:'}{' '}
                         <strong className="text-slate-800">
                           {item.price_min_minor ? money(item.price_min_minor) : (locale === 'hi' ? 'कोटेशन पर' : 'Custom quote')}
                         </strong>
@@ -207,7 +207,7 @@ export default function CartPage() {
                       <span className="text-sm font-bold text-slate-900">
                         {item.price_min_minor
                           ? money(item.price_min_minor * item.quantity)
-                          : 'Quotation on request'}
+                          : 'Price on request'}
                       </span>
                     </div>
                   </div>
@@ -247,7 +247,7 @@ export default function CartPage() {
 
               {cartSubtotalMinor > 0 && (
                 <div className="flex items-baseline justify-between">
-                  <span className="text-sm font-semibold text-slate-700">Indicative Subtotal</span>
+                  <span className="text-sm font-semibold text-slate-700">Estimated Total</span>
                   <span className="text-2xl font-bold text-slate-900">
                     {money(cartSubtotalMinor)}
                   </span>
@@ -255,7 +255,7 @@ export default function CartPage() {
               )}
 
               <p className="rounded-lg bg-orange-50/80 p-3 text-xs leading-5 text-orange-900">
-                ⚡ <strong>Fabrication Notice:</strong> Final pricing depends on accurate on-site dimensions, gauge thickness, and chosen finish. Submitting this basket sends an official enquiry to our engineering team.
+                ⚡ <strong>Notice:</strong> Final price depends on exact measurements at your site, steel gauge, and chosen paint/polish. We will review your list and contact you with the exact quote.
               </p>
 
               <div className="space-y-3">
@@ -264,7 +264,7 @@ export default function CartPage() {
                   className="w-full bg-orange-600 hover:bg-orange-700 py-6 text-sm font-bold shadow-md"
                 >
                   <Link href={contactCartHref} className="flex items-center justify-center gap-2">
-                    <Sparkles size={16} /> Request Combined Quotation <ArrowUpRight size={16} />
+                    <Sparkles size={16} /> Request Price Quotation <ArrowUpRight size={16} />
                   </Link>
                 </Button>
 
@@ -274,7 +274,7 @@ export default function CartPage() {
                   rel="noopener noreferrer"
                   className="flex w-full items-center justify-center gap-2 rounded-xl border border-emerald-600 bg-white py-3.5 text-xs font-bold text-emerald-700 hover:bg-emerald-50 transition shadow-xs"
                 >
-                  <MessageCircle size={16} /> Inquire via WhatsApp
+                  <MessageCircle size={16} /> Chat on WhatsApp
                 </a>
               </div>
 

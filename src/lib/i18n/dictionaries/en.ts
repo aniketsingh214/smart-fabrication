@@ -16,9 +16,9 @@ export const en: TranslationDictionary = {
     badge: 'Strong Steel & Iron Fabrication Designs',
     titleLine1: 'Strong & Beautiful Gates',
     titleLine2: 'Crafted For Your Home.',
-    titleHighlight: 'Built to Measure',
+    titleHighlight: 'Custom Made',
     subtitle:
-      'Explore new designs of iron gates, steel gates, window safety grills, and railings. Select your design and get an instant price estimate.',
+      'Explore designs of iron gates, steel gates, window grills, and railings. Select your design and get an instant price estimate.',
     btnDesigns: 'Explore Designs',
     btnEstimate: 'Price Estimate',
     btnWhatsApp: 'WhatsApp Us',
@@ -28,12 +28,12 @@ export const en: TranslationDictionary = {
     badge3: '315+ Live Designs',
     badge4: 'Custom Size in Feet & Inches',
     badge5: 'Weatherproof Finish & Paint',
-    badge6: 'Timely Delivery & Erection'
+    badge6: 'On-Time Delivery & Fitting'
   },
   home: {
     teaserTitle: 'Quick Price Estimator',
     teaserSubtitle:
-      'Enter your required width and height in Feet or Inches and see an indicative cost in seconds.',
+      'Enter your required width and height in Feet or Inches and see an estimated price in seconds.',
     teaserAction: 'Calculate Price Now',
     categoryTitle: 'What Would You Like Fabricated?',
     categorySubtitle: 'Select a category to view all verified designs',
@@ -41,15 +41,15 @@ export const en: TranslationDictionary = {
     railingCount: '74+ Railing Designs',
     grillCount: '76+ Grill Designs',
     processTitle: 'How It Works',
-    processSubtitle: '4 simple steps from design selection to site erection',
+    processSubtitle: '4 simple steps from choosing a design to site installation',
     step1Title: '1. Choose Design',
-    step1Desc: 'Browse our catalogue and pick a gate, grill, or railing design.',
+    step1Desc: 'Browse our catalog and pick a gate, grill, or railing design.',
     step2Title: '2. Enter Size',
     step2Desc: 'Input length and height in feet/inches to get an estimated price.',
     step3Title: '3. Site Measurement',
-    step3Desc: 'Our technical team visits your site to verify exact dimensions.',
+    step3Desc: 'Our workshop team visits your site to check exact measurements.',
     step4Title: '4. Fabrication & Fitting',
-    step4Desc: 'Crafted in our workshop and securely installed at your premises.',
+    step4Desc: 'Crafted in our workshop and securely installed at your site.',
     trustTitle: 'Craftsmanship Highlights',
     trustSubtitle: 'Engineered for strength, durability, and fine finish',
     ctaHeading: 'Planning a New Construction or Renovation?',
@@ -57,7 +57,7 @@ export const en: TranslationDictionary = {
   },
   catalog: {
     title: 'Explore Fabrication Designs',
-    subtitle: 'Made-to-measure main gates, railings, safety grills, and metal structures',
+    subtitle: 'Custom main gates, railings, safety grills, and metal structures',
     searchPlaceholder: 'Search gate, grill, railing or design code...',
     searchBtn: 'Search',
     selectCategory: 'Select Category',
@@ -82,22 +82,22 @@ export const en: TranslationDictionary = {
     material: 'Material',
     finish: 'Finish',
     dimensions: 'Dimensions',
-    madeToMeasure: 'Made to your measure',
+    madeToMeasure: 'Custom size for your space',
     asSpecified: 'As specified',
-    startingPrice: 'Indicative starting price',
-    quoteOnRequest: 'Quotation on request',
+    startingPrice: 'Starting price',
+    quoteOnRequest: 'Price on request',
     requestExactQuote: 'Request exact quotation',
-    getEstimate: 'Get approximate estimate',
+    getEstimate: 'Get price estimate',
     addToCart: 'Add to Project Cart',
     addedToCart: 'Added to Cart! ✓',
     addToWishlist: 'Add to Wishlist',
     savedInWishlist: 'Saved in Wishlist ❤️',
     measurementNotice:
-      'Final dimensions, gauge, and pricing are confirmed after physical site measurement.'
+      'Final dimensions, gauge, and pricing are confirmed after physical measurement at your site.'
   },
   calculator: {
     title: 'Estimate Your Project',
-    subtitle: 'Select a design and enter dimensions to calculate an indicative cost',
+    subtitle: 'Select a design and enter dimensions to calculate estimated price',
     selectDesignLabel: 'Select Design',
     selectDesignPlaceholder: 'Choose a design from the list...',
     unitSelectorLabel: 'Choose measurement unit:',
@@ -112,9 +112,9 @@ export const en: TranslationDictionary = {
     inches: 'Inches',
     calculateBtn: 'Calculate Approximate Price',
     calculating: 'Calculating...',
-    estimateTitle: 'Approximate Estimate',
+    estimateTitle: 'Estimated Price',
     approximateNotice:
-      '⚡ This is an indicative estimate. Exact pricing is confirmed after site measurement and steel gauge selection.',
+      '⚡ This is an estimated price. Exact price will be confirmed after site measurement and steel gauge selection.',
     approxArea: 'Total Area',
     requestExactQuoteBtn: 'Request Exact Quotation',
     retryBtn: 'Retry Design Options'
@@ -153,24 +153,24 @@ export const en: TranslationDictionary = {
   },
   cart: {
     title: 'Project Cart',
-    subtitle: 'Selected fabrication designs for combined quotation',
+    subtitle: 'Selected designs for price quotation',
     emptyTitle: 'Your project cart is empty',
     emptyMsg:
-      'Browse our catalogue and add designs to your cart to assemble a unified quotation.',
+      'Browse our catalog and add designs to your cart to get a combined quote.',
     exploreBtn: 'Explore Designs',
-    subtotal: 'Indicative Subtotal',
+    subtotal: 'Estimated Subtotal',
     measurementNotice:
-      'Final billing and price are confirmed following site measurement.',
-    requestQuotationBtn: 'Request Combined Quotation',
+      'Final price is confirmed following site measurement.',
+    requestQuotationBtn: 'Request Price Quotation',
     whatsappBtn: 'Send List via WhatsApp',
     clearBtn: 'Clear all'
   },
   wishlist: {
     title: 'Saved Designs (Wishlist)',
-    subtitle: 'Your saved fabrication portfolio',
+    subtitle: 'Your saved favorite designs',
     emptyTitle: 'Your wishlist is empty',
     emptyMsg:
-      'Click the heart icon on any catalogue design to save it for later.',
+      'Click the heart icon on any catalog design to save it for later.',
     exploreBtn: 'Explore Designs',
     moveAllToCart: 'Move All to Cart'
   },

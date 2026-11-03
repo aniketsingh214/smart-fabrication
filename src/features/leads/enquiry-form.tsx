@@ -239,7 +239,7 @@ export function EnquiryForm({
           <p className="text-xs text-slate-500">
             {locale === 'hi'
               ? 'अधिकतम 20 चुनें। यह केवल शुरुआती चयन है, पक्का रेट कोटेशन में तय होगा।'
-              : 'Select up to 20. Choices are indicative; final scope and price require a quotation.'}
+              : 'Select up to 20. Choices help us understand your design; final price will be confirmed in your quotation.'}
           </p>
         </fieldset>
       )}

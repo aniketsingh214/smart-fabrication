@@ -205,7 +205,7 @@ export function OrderPaymentWorkspace({
         {/* Total Order Amount */}
         <div className="rounded-lg border border-slate-200 bg-white p-3.5 shadow-xs">
           <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
-            कुल ऑर्डर मूल्य (Total Value)
+            Total Order Amount (कुल रकम)
           </span>
           <p className="mt-1 text-lg font-bold text-slate-900">
             ₹{totalRupees.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
@@ -216,7 +216,7 @@ export function OrderPaymentWorkspace({
         <div className="rounded-lg border border-emerald-200 bg-emerald-50/50 p-3.5 shadow-xs">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold uppercase tracking-wider text-emerald-800">
-              Total Payment Received
+              Total Paid (प्राप्त रकम)
             </span>
             <span className="rounded-full bg-emerald-200/70 px-2 py-0.5 text-[10px] font-bold text-emerald-900">
               {percentPaid}%
@@ -230,7 +230,7 @@ export function OrderPaymentWorkspace({
         {/* Balance Due */}
         <div className="rounded-lg border border-amber-200 bg-amber-50/50 p-3.5 shadow-xs">
           <span className="text-xs font-semibold uppercase tracking-wider text-amber-800">
-            बकाया राशि (Balance Due)
+            Balance Due (बाकी रकम)
           </span>
           <p
             className={`mt-1 text-lg font-bold ${

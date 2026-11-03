@@ -45,7 +45,7 @@ export default async function Contact({
       dimensions.data.width_mm +
       ' mm × ' +
       dimensions.data.height_mm +
-      ' mm. These dimensions are indicative and require workshop verification.';
+      ' mm. These dimensions are approximate and will be confirmed during the workshop site visit.';
   }
 
   const db = await serverClient();

@@ -199,7 +199,7 @@ export default async function ProductPreview({ params }: PageProps) {
 
               {/* Price Banner */}
               <div className="mt-4 rounded-xl border border-amber-200/90 bg-gradient-to-br from-amber-50 to-amber-100/50 p-4">
-                <div className="text-xs font-semibold text-amber-900">अनुमानित शुरुआती कीमत (Indicative Price)</div>
+                <div className="text-xs font-semibold text-amber-900">अनुमानित शुरुआती कीमत (Starting Price)</div>
                 <div className="mt-1 flex items-baseline gap-2">
                   <span className="text-2xl font-extrabold text-amber-950 sm:text-3xl">
                     {product.price_min_minor
@@ -243,7 +243,7 @@ export default async function ProductPreview({ params }: PageProps) {
                 <div className="rounded-xl border border-slate-100 bg-slate-50/70 p-3">
                   <dt className="text-slate-400 font-medium uppercase tracking-wider text-[10px]">नाप (Custom Size)</dt>
                   <dd className="mt-1 font-semibold text-slate-800">
-                    {product.custom_size ? 'कस्टम नाप (Made to Measure)' : 'तयशुदा साइज'}
+                    {product.custom_size ? 'कस्टम नाप (Custom Size)' : 'तयशुदा साइज (Standard Size)'}
                   </dd>
                 </div>
               </dl>
@@ -265,7 +265,7 @@ export default async function ProductPreview({ params }: PageProps) {
             <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xs sm:p-6">
               <h3 className="mb-4 flex items-center gap-2 text-sm font-bold text-slate-900">
                 <Wrench size={16} className="text-amber-600" />
-                साइज वेरिएंट्स व विकल्प (Fabrication Sizing)
+                साइज और विकल्प (Sizes &amp; Options)
               </h3>
               <ProductConfiguration
                 variants={product.product_variants}

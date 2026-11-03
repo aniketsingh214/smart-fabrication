@@ -87,10 +87,10 @@ export default async function Product({ params }: { params: Promise<{ slug: stri
             {[
               [isHi ? 'धातु (मटीरियल)' : 'Material', displayMaterial],
               ...(p.design_code ? [[isHi ? 'डिज़ाइन कोड' : 'Design code', p.design_code]] : []),
-              ...(p.weight_kg ? [[isHi ? 'अनुमानित वजन' : 'Indicative weight', String(p.weight_kg) + ' kg']] : []),
+              ...(p.weight_kg ? [[isHi ? 'अनुमानित वजन' : 'Approximate weight', String(p.weight_kg) + ' kg']] : []),
               [isHi ? 'पेंट / पॉलिश' : 'Finish', p.finish || (isHi ? 'वर्कशॉप से चर्चा करें' : 'Discuss with the workshop')],
-              [isHi ? 'नाप (साइज)' : 'Dimensions', p.custom_size ? (isHi ? 'आपकी नाप के अनुसार (Made to measure)' : 'Made to measure') : (isHi ? 'दिए गए साइज अनुसार' : 'As specified')],
-              [isHi ? 'शुरुआती अनुमानित कीमत' : 'Indicative starting price', p.price_min_minor ? money(p.price_min_minor) : (isHi ? 'नाप के बाद पक्की कीमत' : 'Quotation on request')]
+              [isHi ? 'नाप (साइज)' : 'Dimensions', p.custom_size ? (isHi ? 'आपकी नाप के अनुसार (Custom size)' : 'Custom size') : (isHi ? 'दिए गए साइज अनुसार' : 'Standard size')],
+              [isHi ? 'शुरुआती कीमत' : 'Starting price', p.price_min_minor ? money(p.price_min_minor) : (isHi ? 'नाप के बाद पक्की कीमत' : 'Price on request')]
             ].map(([k, v]) => (
               <div key={k}>
                 <dt className="text-xs text-slate-400 font-medium">{k}</dt>
@@ -113,7 +113,7 @@ export default async function Product({ params }: { params: Promise<{ slug: stri
             </Button>
             <Button asChild variant="outline">
               <Link href={`/estimate?product=${p.id}`}>
-                {isHi ? 'कीमत का अनुमान लगाएं' : 'Get approximate estimate'}
+                {isHi ? 'कीमत का अनुमान लगाएं' : 'Get price estimate'}
               </Link>
             </Button>
           </div>

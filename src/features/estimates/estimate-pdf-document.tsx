@@ -223,7 +223,7 @@ export async function estimatePdf(data: EstimatePdfData) {
             <Text style={styles.brandSubtitle}>High-Precision Gates, Railings, Grills &amp; Custom Metalwork</Text>
           </View>
           <View style={styles.estimateBadge}>
-            <Text style={styles.estimateBadgeText}>Indicative Cost Estimate</Text>
+            <Text style={styles.estimateBadgeText}>Estimated Price Sheet</Text>
             <Text style={styles.estimateMetaText}>{estimateId} · {dateStr}</Text>
           </View>
         </View>
@@ -231,11 +231,11 @@ export async function estimatePdf(data: EstimatePdfData) {
         {/* Hero Price & Product Banner */}
         <View style={styles.heroBox}>
           <View style={{ flex: 1, paddingRight: 10 }}>
-            <Text style={styles.heroLabel}>PROJECT DESIGN / कार्य प्रकार</Text>
+            <Text style={styles.heroLabel}>PROJECT DESIGN / डिज़ाइन</Text>
             <Text style={styles.heroProduct}>{data.productName}</Text>
           </View>
           <View style={{ alignItems: 'flex-end' }}>
-            <Text style={styles.heroLabel}>ESTIMATED RANGE (INR)</Text>
+            <Text style={styles.heroLabel}>ESTIMATED PRICE RANGE</Text>
             <Text style={styles.heroPrice}>
               {formatRupees(data.minMinor)} – {formatRupees(data.maxMinor)}
             </Text>
@@ -256,11 +256,11 @@ export async function estimatePdf(data: EstimatePdfData) {
               <Text style={styles.value}>{data.widthFtIn} × {data.heightFtIn}</Text>
             </View>
             <View style={styles.cardRow}>
-              <Text style={styles.label}>Total Surface Area:</Text>
+              <Text style={styles.label}>Total Area:</Text>
               <Text style={styles.value}>{data.areaSqFt} sq. ft. ({data.areaSqM} m²)</Text>
             </View>
             <View style={styles.cardRow}>
-              <Text style={styles.label}>Indicative Steel Weight:</Text>
+              <Text style={styles.label}>Approximate Weight:</Text>
               <Text style={styles.value}>{data.weightKg} kg (approx)</Text>
             </View>
           </View>
@@ -269,20 +269,20 @@ export async function estimatePdf(data: EstimatePdfData) {
           <View style={styles.card}>
             <Text style={styles.cardTitle}>Standard Inclusions / शामिल कार्य</Text>
             <View style={styles.cardRow}>
-              <Text style={styles.label}>Fabrication Standard:</Text>
+              <Text style={styles.label}>Welding &amp; Joints:</Text>
               <Text style={styles.value}>Tack &amp; Full Strength Weld</Text>
             </View>
             <View style={styles.cardRow}>
-              <Text style={styles.label}>Anti-Rust Protection:</Text>
+              <Text style={styles.label}>Rust Protection:</Text>
               <Text style={styles.value}>Red Oxide Primer Coat</Text>
             </View>
             <View style={styles.cardRow}>
-              <Text style={styles.label}>Site Verification:</Text>
-              <Text style={styles.value}>Technician physical check</Text>
+              <Text style={styles.label}>Site Measurement:</Text>
+              <Text style={styles.value}>Free workshop visit</Text>
             </View>
             <View style={styles.cardRow}>
-              <Text style={styles.label}>Execution Time:</Text>
-              <Text style={styles.value}>7 – 14 Days from order</Text>
+              <Text style={styles.label}>Making Time:</Text>
+              <Text style={styles.value}>7 – 14 Days</Text>
             </View>
           </View>
         </View>
@@ -293,9 +293,9 @@ export async function estimatePdf(data: EstimatePdfData) {
         </Text>
         <View style={styles.table}>
           <View style={styles.tableHeader}>
-            <Text style={styles.colMaterial}>Material / Component</Text>
+            <Text style={styles.colMaterial}>Material Item</Text>
             <Text style={styles.colQty}>Quantity</Text>
-            <Text style={styles.colAmt}>Approx Amount</Text>
+            <Text style={styles.colAmt}>Estimated Cost</Text>
           </View>
           {data.materials.length > 0 ? (
             data.materials.map((m, idx) => (
@@ -318,13 +318,13 @@ export async function estimatePdf(data: EstimatePdfData) {
         <View style={styles.disclaimerBox}>
           <Text style={styles.disclaimerTitle}>IMPORTANT NOTICE &amp; NEXT STEPS / ज़रूरी सूचना:</Text>
           <Text style={styles.disclaimerText}>
-            1. This document is an instant indicative cost estimation generated automatically based on standard workshop rules and metal market rates.
+            1. This document is a quick price estimate based on current steel rates and standard workshop sizes.
           </Text>
           <Text style={styles.disclaimerText}>
-            2. Final binding quotation is issued after our workshop technician conducts an on-site physical measurement to verify wall alignment, hinges placement, and gauge thickness.
+            2. Final exact price will be confirmed when our workshop team visits your site to check measurements and wall alignment.
           </Text>
           <Text style={styles.disclaimerText}>
-            3. To schedule a site measurement visit or discuss custom laser cutting patterns, contact our workshop directly.
+            3. Call or WhatsApp our workshop to book a site measurement visit or discuss custom designs.
           </Text>
         </View>
 

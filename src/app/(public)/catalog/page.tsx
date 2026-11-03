@@ -230,7 +230,7 @@ export default async function Catalog({ searchParams }: { searchParams: Promise<
           <p className="mt-1.5 text-xs sm:text-sm text-slate-500 max-w-2xl">
             {isHi
               ? 'मजबूत लोहे के गेट, स्टील गेट, खिड़की की जाली और बालकनी रेलिंग के नए डिज़ाइन। अपनी पसंद का साइज (फीट और इंच) चुनकर कीमत जानें।'
-              : 'Explore made-to-measure main gates, railings, safety grills, and architectural fabrication.'}
+              : 'Explore custom main gates, railings, safety grills, and metal structures.'}
           </p>
         </div>
 
@@ -289,7 +289,7 @@ export default async function Catalog({ searchParams }: { searchParams: Promise<
               <label className="text-xs">{isHi?'अधिकतम बजट (₹)':'Max starting price (INR)'}<input name="budget" aria-label="Maximum indicative starting price" type="number" min="1" max="99999999" step="1" defaultValue={filters.budget} className="mt-1 !text-xs"/></label>
               <label className="text-xs">{isHi?'क्रम':'Sort designs'}<select name="sort" aria-label="Sort designs" defaultValue={filters.sort} className="mt-1 !text-xs"><option value="recent">Newest</option><option value="price-low">Starting price: low first</option><option value="price-high">Starting price: high first</option><option value="name">Name: A–Z</option></select></label>
             </div>
-            <p className="hidden md:block w-full text-xs text-slate-500">{isHi?'बजट और कीमत क्रम केवल दर्ज शुरुआती कीमतों पर हैं। बिना कीमत वाले डिज़ाइन इसमें शामिल नहीं हैं। अंतिम कोटेशन माप के बाद मिलेगा।':'Budget and price sorting use recorded starting prices only; unpriced designs are excluded. Final quotation follows measurement.'}</p>
+            <p className="hidden md:block w-full text-xs text-slate-500">{isHi?'बजट और कीमत क्रम केवल दर्ज शुरुआती कीमतों पर हैं। बिना कीमत वाले डिज़ाइन इसमें शामिल नहीं हैं। अंतिम कोटेशन माप के बाद मिलेगा।':'Budget filter uses starting prices. Unpriced designs are not shown in price search. Exact price is confirmed after site measurement.'}</p>
             <Link href="/catalog" className="hidden md:inline text-xs underline">{isHi?'सभी फ़िल्टर हटाएँ':'Reset all filters'}</Link>
           </ValidatedForm>
 
