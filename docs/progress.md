@@ -1,5 +1,21 @@
 > Version: 1.0 | Updated: 2026-11-03 | Status: live application; implementation and scoped verification register
 
+## 2026-11-03 - Product Table Image Thumbnails After S.No.
+
+- **Core User Objective**:
+  - Added visual product thumbnail photos directly inside the Products table on `/admin/products`, positioned immediately after the Serial Number (`S.No.`) column, providing instant visual recognition for workshop staff and catalog managers.
+- **Implementation (`src/features/operations/services.ts`, `src/features/operations/resource-workspace.tsx`)**:
+  - Updated catalog projection in `listRecords` to embed verified product media (`product_media(id,alt_text,sort_order,media_assets(public_id,resource_type,visibility))`).
+  - Added "Image" table header and responsive 44×44px rounded image thumbnail cell directly after `S.No.`.
+  - Displays optimized Cloudinary thumbnail (`f_auto,q_auto,w_100,h_100,c_fill`) when media exists, or an elegant placeholder icon (`ImageIcon`) when no photo has been attached yet.
+  - Clicking the thumbnail opens the product detail view seamlessly.
+- **Verification**:
+  - `npm run typecheck`: Passed (0 errors).
+  - `npm test`: Passed (78 test suites, 353/353 tests).
+  - `npm run docs:check`: Passed (34 requirements and SHA-256 intact).
+  - `npm run api:check`: Passed (301 documented paths).
+  - `npm run build`: Succeeded (all 74 routes compiled).
+
 ## 2026-11-03 - Custom Fabrication Presets & Templates Creation in Quick Mode
 
 - **Core User Objective**:

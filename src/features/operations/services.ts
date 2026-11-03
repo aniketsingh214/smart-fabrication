@@ -25,6 +25,9 @@ export async function listRecords(db:SupabaseClient,resource:Resource,params:URL
   const useLeadRPC=Boolean(leadFilter&&leadFilterKeys.some(key=>params.get(key)));
   const rpcCustomerContext=Boolean(salesRPC&&context?.parent==='customers'&&relation?.via==='leads');
   let projection=recordFields(resource);
+  if(resource.slug==='products'){
+    projection+=',product_media(id,alt_text,sort_order,media_assets(public_id,resource_type,visibility))';
+  }
   if(context){
     if(publicOnly||!relation)throw new AppError('INVALID_CONTEXT','This record relationship is not supported',422);
     const parent=resourceMap[context.parent];if(!parent)throw new AppError('INVALID_CONTEXT','Unknown parent resource',422);
