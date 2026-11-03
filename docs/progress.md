@@ -1,5 +1,23 @@
 > Version: 1.0 | Updated: 2026-11-03 | Status: live application; implementation and scoped verification register
 
+## 2026-11-03 - Custom Fabrication Presets & Templates Creation in Quick Mode
+
+- **Core User Objective**:
+  - Enabled admin and staff to create, save, and manage custom fabrication product presets directly within the Quick Fabrication interface (`/admin/products?new=1`), allowing instant re-use of custom models from the dropdown without writing code.
+- **Custom Preset Creation & Persistence (`src/features/catalog/product-quick-fabrication.tsx`)**:
+  - Added "+ नया टेम्पलेट बनाएं" (Create Custom Template) button and inline modal/form.
+  - Staff can customize: Product/Door Name, Frame Angle (`ANGLE_OPTIONS`), Sheet Gauge (`SHEET_OPTIONS`), Support Bar (`SUPPORT_OPTIONS`), Custom Badge/Tag (e.g. "स्पेशल कस्टम", "दुकान के लिए"), and Default Rate (₹/kg).
+  - Saved presets persist automatically in `localStorage` under `gatewala_custom_fabrication_presets`.
+  - Grouped dropdown into standard presets (`✨ रेडीमेड स्टैंडर्ड टेम्पलेट्स`) and user-created presets (`⭐ आपके बनाए टेम्पलेट्स`).
+  - Selecting any custom preset auto-fills the product name, SKU, slug (with Hindi transliteration), material specifications, finish, base weight, price range, description, design details, 5 standard size variants, and custom design code.
+  - Added one-click deletion ("🗑️ हटाएं") with confirmation for custom presets.
+- **Verification**:
+  - `npm run typecheck`: Passed (0 errors).
+  - `npm test`: Passed (78 test suites, 353/353 tests).
+  - `npm run docs:check`: Passed (34 requirements and SHA-256 intact).
+  - `npm run api:check`: Passed (301 documented paths).
+  - `npm run build`: Succeeded (all 74 routes compiled).
+
 ## 2026-11-03 - Quick Fabrication Mode: Consolidated Single Dropdown Selector
 
 - **Core User Objective**:

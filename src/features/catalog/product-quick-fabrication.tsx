@@ -9,10 +9,21 @@ import {
   calculateFabricationWeight,
   calculateFabricationPrice,
 } from './fabrication-calculator';
-import { Scale, Sparkles, Check, ChevronDown, ChevronUp, Layers, Info } from 'lucide-react';
+import { Scale, Sparkles, Check, ChevronDown, ChevronUp, Layers, Info, Plus, Trash2, X } from 'lucide-react';
+import { notify } from '@/lib/notify';
+
+export interface UserPreset {
+  id: string;
+  name: string;
+  angleId: string;
+  sheetId: string;
+  supportId: string;
+  badge?: string;
+  ratePerKg?: number;
+}
 
 interface PresetOption {
-  key: 'sada-std' | 'sada-heavy' | 'sada-light' | 'sada-grill' | 'custom';
+  key: string;
   label: string;
   shortName: string;
   sheetDesc: string;
@@ -20,7 +31,10 @@ interface PresetOption {
   supportDesc: string;
   badge: string;
   badgeClass: string;
+  isCustom?: boolean;
 }
+
+const STORAGE_KEY = 'gatewala_custom_fabrication_presets';
 
 const PRESET_OPTIONS: PresetOption[] = [
   {
@@ -133,10 +147,44 @@ export function ProductQuickFabrication() {
   const [selectedSupportId, setSelectedSupportId] = useState<string>(SUPPORT_OPTIONS[0].id);
   const [activePreset, setActivePreset] = useState<string>('sada-std');
 
+  // Custom presets created by the user / staff
+  const [customPresets, setCustomPresets] = useState<UserPreset[]>([]);
+  const [showAddPresetModal, setShowAddPresetModal] = useState<boolean>(false);
+  const [newPresetName, setNewPresetName] = useState('');
+  const [newPresetAngleId, setNewPresetAngleId] = useState<string>(ANGLE_OPTIONS[0].id);
+  const [newPresetSheetId, setNewPresetSheetId] = useState<string>(SHEET_OPTIONS[0].id);
+  const [newPresetSupportId, setNewPresetSupportId] = useState<string>(SUPPORT_OPTIONS[0].id);
+  const [newPresetBadge, setNewPresetBadge] = useState('');
+  const [newPresetRate, setNewPresetRate] = useState('110');
+
+  // Load custom presets from localStorage on mount
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          setCustomPresets(parsed);
+        }
+      }
+    } catch {
+      // ignore storage access errors
+    }
+  }, []);
+
+  const saveCustomPresetsToStorage = (updated: UserPreset[]) => {
+    setCustomPresets(updated);
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+    } catch {
+      // ignore storage access errors
+    }
+  };
+
   const handleRateChange = (raw: string) => {
     if (raw === '') {
       setRateInput('');
-      applyPreset(activePreset as any, 0);
+      applyPreset(activePreset, 0);
       return;
     }
     let clean = raw.replace(/[^0-9]/g, '');
@@ -147,7 +195,7 @@ export function ProductQuickFabrication() {
     }
     setRateInput(clean);
     const num = clean === '' ? 0 : parseFloat(clean);
-    applyPreset(activePreset as any, isNaN(num) ? 0 : num);
+    applyPreset(activePreset, isNaN(num) ? 0 : num);
   };
 
   const angle = ANGLE_OPTIONS.find((a) => a.id === selectedAngleId) ?? ANGLE_OPTIONS[0];
@@ -162,40 +210,96 @@ export function ProductQuickFabrication() {
     input.dispatchEvent(new Event('change', { bubbles: true }));
   };
 
+  // Apply a custom user preset
+  const applyUserPreset = (cp: UserPreset, form: HTMLFormElement, rate: number) => {
+    setSelectedAngleId(cp.angleId);
+    setSelectedSheetId(cp.sheetId);
+    setSelectedSupportId(cp.supportId);
+
+    const aObj = ANGLE_OPTIONS.find((a) => a.id === cp.angleId) ?? ANGLE_OPTIONS[0];
+    const sObj = SHEET_OPTIONS.find((s) => s.id === cp.sheetId) ?? SHEET_OPTIONS[0];
+    const spObj = SUPPORT_OPTIONS.find((sp) => sp.id === cp.supportId) ?? SUPPORT_OPTIONS[0];
+
+    const pName = cp.name;
+    const slug = transliterateHindi(pName);
+    const sku = `GATE-${slug.toUpperCase().slice(0, 14)}`;
+
+    const effectiveRate = cp.ratePerKg || rate || 110;
+    const baseWeight = calculateFabricationWeight(7.0, 3.0, aObj, sObj, spObj);
+    const maxWeight = calculateFabricationWeight(8.0, 3.5, aObj, sObj, spObj);
+
+    const basePrice = calculateFabricationPrice(baseWeight.totalWeightKg, pricingModel, effectiveRate);
+    const maxPrice = calculateFabricationPrice(maxWeight.totalWeightKg, pricingModel, effectiveRate);
+
+    setInputValue(form.querySelector('input[name="name"]'), pName);
+    setInputValue(form.querySelector('input[name="sku"]'), sku);
+    setInputValue(form.querySelector('input[name="slug"]'), slug);
+    setInputValue(form.querySelector('input[name="material"]'), `माइल्ड स्टील (${sObj.gauge} चादर + ${aObj.label.split(' ')[0]} एंगल + सरिया)`);
+    setInputValue(form.querySelector('input[name="finish"]'), 'रेड ऑक्साइड प्राइमर + इनेमल पेंट');
+    setInputValue(form.querySelector('input[name="weight_kg"]'), String(baseWeight.totalWeightKg));
+    setInputValue(form.querySelector('input[name="price_min_minor"]'), String(basePrice.priceInr));
+    setInputValue(form.querySelector('input[name="price_max_minor"]'), String(maxPrice.priceInr));
+    setInputValue(
+      form.querySelector('textarea[name="description"]'),
+      `कस्टम लोहे का उत्पाद (${cp.name})। ${sObj.label}, ${aObj.label} और मजबूत सपोर्ट के साथ। वेल्डिंग व प्राइमर कोटिंग सहित।`
+    );
+    setInputValue(
+      form.querySelector('textarea[name="design_details"]'),
+      `फ्रेम: ${aObj.label}\nचादर: ${sObj.label}\nसपोर्ट: ${spObj.label}\nस्टैंडर्ड साइज: 6x3, 7x3, 8x3, 8x3.4, 8x3.5`
+    );
+
+    // Check custom_size checkbox
+    const customSizeCheckbox = form.querySelector<HTMLInputElement>('input[name="custom_size"]');
+    if (customSizeCheckbox && !customSizeCheckbox.checked) {
+      customSizeCheckbox.checked = true;
+      customSizeCheckbox.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+
+    // Design code
+    const designCodeInput = form.querySelector<HTMLInputElement>('input[name="design_code"]');
+    if (designCodeInput && !designCodeInput.value) {
+      setInputValue(designCodeInput, `CUST-${Math.floor(1000 + Math.random() * 9000)}`);
+    }
+  };
+
   // Apply a full preset to form fields
-  const applyPreset = (
-    presetKey: 'sada-std' | 'sada-heavy' | 'sada-light' | 'sada-grill' | 'custom',
-    rate = ratePerKg
-  ) => {
+  const applyPreset = (presetKey: string, rate = ratePerKg) => {
     setActivePreset(presetKey);
     if (presetKey === 'custom') return;
 
     const form = containerRef.current?.closest('form');
     if (!form) return;
 
+    // Check if it's a custom preset created by the user
+    const customMatch = customPresets.find((cp) => cp.id === presetKey);
+    if (customMatch) {
+      applyUserPreset(customMatch, form, rate);
+      return;
+    }
+
     let pName = 'सादा लोहे का दरवाजा (18 गेज)';
-    let pAngleId = ANGLE_OPTIONS[0].id; // 1¼" × 3mm
-    let pSheetId = SHEET_OPTIONS[0].id; // 18G
-    let pSupportId = SUPPORT_OPTIONS[0].id; // 10mm Bar
+    let pAngleId = 'angle-32-3'; // 1¼" × 3mm
+    let pSheetId = 'sheet-18g'; // 18G
+    let pSupportId = 'bar-10mm'; // 10mm Bar
     let pDesc = 'मजबूत लोहे का सादा दरवाजा। 18 गेज टाटा शीट, 1¼" एंगल फ्रेम और मजबूत सरिया सपोर्ट के साथ। वेल्डिंग व रेड ऑक्साइड प्राइमर कोटिंग सहित।';
 
     if (presetKey === 'sada-heavy') {
       pName = 'हेवी सादा लोहे का दरवाजा (16 गेज)';
-      pAngleId = 'angle-40x3'; // 1½" × 3mm
+      pAngleId = 'angle-40-3'; // 1½" × 3mm
       pSheetId = 'sheet-16g'; // 16G
-      pSupportId = 'support-bar-12'; // 12mm Bar
+      pSupportId = 'bar-12mm'; // 12mm Bar
       pDesc = 'अत्यधिक मजबूत लोहे का सादा दरवाजा। 16 गेज हेवी शीट, 1½" एंगल फ्रेम और 12mm सरिया सपोर्ट। सुरक्षा व मजबूती के लिए सर्वोत्तम।';
     } else if (presetKey === 'sada-light') {
       pName = 'किफायती सादा दरवाजा (20 गेज)';
-      pAngleId = 'angle-32x3'; // 1¼"
+      pAngleId = 'angle-32-3'; // 1¼" × 3mm
       pSheetId = 'sheet-20g'; // 20G
-      pSupportId = 'support-flat'; // Flat Patti
+      pSupportId = 'patti-25-3'; // Flat Patti
       pDesc = 'कम बजट व हल्की जगहों (छत, स्टोर रूम) के लिए किफायती 20 गेज सादा दरवाजा, 1¼" एंगल फ्रेम सहित।';
     } else if (presetKey === 'sada-grill') {
       pName = 'सादा लोहे का ग्रिल दरवाजा (सरिया + एंगल)';
-      pAngleId = 'angle-32x3';
+      pAngleId = 'angle-32-3';
       pSheetId = 'sheet-18g';
-      pSupportId = 'support-bar-10';
+      pSupportId = 'bar-10mm';
       pDesc = 'हवादार व मजबूत सादा ग्रिल दरवाजा, 1¼" एंगल व 10mm गोल सरिया के साथ मजबूत कब्जा और कुंडी फिटिंग सहित।';
     }
 
@@ -239,6 +343,55 @@ export function ProductQuickFabrication() {
     if (designCodeInput && !designCodeInput.value) {
       setInputValue(designCodeInput, `SD-${Math.floor(1000 + Math.random() * 9000)}`);
     }
+  };
+
+  const handleSaveNewPreset = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    const trimmedName = newPresetName.trim();
+    if (!trimmedName) {
+      notify('कृपया टेम्पलेट का नाम दर्ज करें (Please enter template name)');
+      return;
+    }
+
+    const newPreset: UserPreset = {
+      id: `custom-${Date.now()}`,
+      name: trimmedName,
+      angleId: newPresetAngleId,
+      sheetId: newPresetSheetId,
+      supportId: newPresetSupportId,
+      badge: newPresetBadge.trim() || 'कस्टम मॉडल',
+      ratePerKg: parseFloat(newPresetRate) || ratePerKg || 110,
+    };
+
+    const updated = [...customPresets, newPreset];
+    saveCustomPresetsToStorage(updated);
+
+    // Reset modal form
+    setNewPresetName('');
+    setNewPresetBadge('');
+    setShowAddPresetModal(false);
+
+    notify(`नया टेम्पलेट "${trimmedName}" सेव हो गया!`);
+
+    // Apply the newly created preset right away
+    setTimeout(() => {
+      applyPreset(newPreset.id);
+    }, 50);
+  };
+
+  const handleDeletePreset = (idToDelete: string) => {
+    const target = customPresets.find((cp) => cp.id === idToDelete);
+    const confirmName = target ? target.name : 'यह टेम्पलेट';
+    if (!window.confirm(`क्या आप सचमुच "${confirmName}" टेम्पलेट हटाना चाहते हैं?`)) {
+      return;
+    }
+
+    const updated = customPresets.filter((cp) => cp.id !== idToDelete);
+    saveCustomPresetsToStorage(updated);
+    notify(`टेम्पलेट "${confirmName}" हटा दिया गया`);
+
+    // Revert to standard preset
+    applyPreset('sada-std');
   };
 
   // Sync with form inputs on mount & listen to name input changes
@@ -304,37 +457,102 @@ export function ProductQuickFabrication() {
 
       {/* Preset Single Dropdown Selector Box */}
       <div className="mt-4 rounded-xl border border-emerald-300/80 bg-white p-3.5 shadow-xs">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
           <label htmlFor="quick-door-preset-select" className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
             <Sparkles size={14} className="text-amber-600" />
             <span>रेडीमेड दरवाजा मॉडल चुनें (Select Door Model):</span>
           </label>
-          <span className="text-[11px] text-slate-500 font-medium">
-            चुनते ही नाम, SKU, वजन, मटेरियल व 5 साइज अपने आप भर जाएंगे
-          </span>
+          <div className="flex items-center gap-2">
+            <span className="hidden sm:inline text-[11px] text-slate-500 font-medium">
+              चुनते ही नाम, SKU, वजन व 5 साइज अपने आप भर जाएंगे
+            </span>
+            <button
+              type="button"
+              onClick={() => setShowAddPresetModal(true)}
+              className="inline-flex items-center gap-1 rounded-lg border border-emerald-600 bg-emerald-50 px-2.5 py-1 text-xs font-bold text-emerald-800 transition hover:bg-emerald-100 hover:text-emerald-950 shadow-xs cursor-pointer"
+            >
+              <Plus size={13} className="text-emerald-700" />
+              <span>+ नया टेम्पलेट बनाएं</span>
+            </button>
+          </div>
         </div>
 
-        <div className="relative">
-          <select
-            id="quick-door-preset-select"
-            aria-label="रेडीमेड दरवाजा मॉडल चुनें"
-            value={activePreset}
-            onChange={(e) => applyPreset(e.target.value as any)}
-            className="w-full appearance-none rounded-xl border-2 border-emerald-600/40 bg-emerald-50/60 px-3.5 py-2.5 pr-10 text-xs sm:text-sm font-bold text-slate-900 transition hover:border-emerald-600 focus:border-emerald-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 cursor-pointer"
-          >
-            {PRESET_OPTIONS.map((opt) => (
-              <option key={opt.key} value={opt.key} className="py-1 font-semibold text-slate-800">
-                {opt.label}
-              </option>
-            ))}
-          </select>
-          <div className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-emerald-800">
-            <ChevronDown size={18} />
+        <div className="flex items-center gap-2">
+          <div className="relative flex-1">
+            <select
+              id="quick-door-preset-select"
+              aria-label="रेडीमेड दरवाजा मॉडल चुनें"
+              value={activePreset}
+              onChange={(e) => applyPreset(e.target.value)}
+              className="w-full appearance-none rounded-xl border-2 border-emerald-600/40 bg-emerald-50/60 px-3.5 py-2.5 pr-10 text-xs sm:text-sm font-bold text-slate-900 transition hover:border-emerald-600 focus:border-emerald-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 cursor-pointer"
+            >
+              <optgroup label="✨ रेडीमेड स्टैंडर्ड टेम्पलेट्स (Standard Presets)">
+                {PRESET_OPTIONS.map((opt) => (
+                  <option key={opt.key} value={opt.key} className="py-1 font-semibold text-slate-800">
+                    {opt.label}
+                  </option>
+                ))}
+              </optgroup>
+
+              {customPresets.length > 0 && (
+                <optgroup label="⭐ आपके बनाए टेम्पलेट्स (Your Custom Templates)">
+                  {customPresets.map((cp) => {
+                    const a = ANGLE_OPTIONS.find((ao) => ao.id === cp.angleId);
+                    const s = SHEET_OPTIONS.find((so) => so.id === cp.sheetId);
+                    return (
+                      <option key={cp.id} value={cp.id} className="py-1 font-semibold text-slate-800">
+                        ⭐ {cp.name} — {s?.gauge || 'चादर'} + {a?.label.split(' ')[0] || 'एंगल'} ({cp.badge || 'कस्टम'})
+                      </option>
+                    );
+                  })}
+                </optgroup>
+              )}
+            </select>
+            <div className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-emerald-800">
+              <ChevronDown size={18} />
+            </div>
           </div>
+
+          {/* Delete button if current preset is user custom preset */}
+          {activePreset.startsWith('custom-') && (
+            <button
+              type="button"
+              onClick={() => handleDeletePreset(activePreset)}
+              title="इस कस्टम टेम्पलेट को डिलीट करें"
+              className="inline-flex items-center gap-1 rounded-xl border border-rose-300 bg-rose-50 px-3 py-2.5 text-xs font-bold text-rose-700 transition hover:bg-rose-100 hover:border-rose-400 shrink-0 cursor-pointer"
+            >
+              <Trash2 size={15} />
+              <span className="hidden sm:inline">हटाएं</span>
+            </button>
+          )}
         </div>
 
         {/* Dynamic Spec Pills below dropdown */}
         {(() => {
+          const customMatch = customPresets.find((cp) => cp.id === activePreset);
+          if (customMatch) {
+            const a = ANGLE_OPTIONS.find((ao) => ao.id === customMatch.angleId) || ANGLE_OPTIONS[0];
+            const s = SHEET_OPTIONS.find((so) => so.id === customMatch.sheetId) || SHEET_OPTIONS[0];
+            const sp = SUPPORT_OPTIONS.find((spo) => spo.id === customMatch.supportId) || SUPPORT_OPTIONS[0];
+            return (
+              <div className="mt-2.5 flex flex-wrap items-center gap-2 pt-2 border-t border-slate-100 text-[11px]">
+                <span className="font-semibold text-slate-500">शामिल मटेरियल:</span>
+                <span className="rounded-md border border-slate-200 bg-slate-50 px-2 py-0.5 font-medium text-slate-700">
+                  चादर: <strong>{s.label.split('(')[0].trim()}</strong>
+                </span>
+                <span className="rounded-md border border-slate-200 bg-slate-50 px-2 py-0.5 font-medium text-slate-700">
+                  फ्रेम: <strong>{a.label.split('(')[0].trim()}</strong>
+                </span>
+                <span className="rounded-md border border-slate-200 bg-slate-50 px-2 py-0.5 font-medium text-slate-700">
+                  सपोर्ट: <strong>{sp.label.split('(')[0].trim()}</strong>
+                </span>
+                <span className="rounded-md border border-amber-300 bg-amber-100 px-2 py-0.5 font-bold text-amber-900">
+                  ⭐ {customMatch.badge || 'आपका कस्टम मॉडल'}
+                </span>
+              </div>
+            );
+          }
+
           const current = PRESET_OPTIONS.find((p) => p.key === activePreset) || PRESET_OPTIONS[0];
           return (
             <div className="mt-2.5 flex flex-wrap items-center gap-2 pt-2 border-t border-slate-100 text-[11px]">
@@ -354,6 +572,143 @@ export function ProductQuickFabrication() {
             </div>
           );
         })()}
+
+        {/* Inline Create New Template Form Modal / Panel */}
+        {showAddPresetModal && (
+          <div className="mt-3 rounded-xl border-2 border-emerald-500 bg-emerald-50/40 p-3.5 sm:p-4 shadow-sm transition-all">
+            <div className="flex items-center justify-between pb-2.5 border-b border-emerald-200">
+              <div className="flex items-center gap-2">
+                <span className="flex h-6 w-6 items-center justify-center rounded-md bg-emerald-700 text-white text-xs font-bold">
+                  +
+                </span>
+                <h4 className="text-xs sm:text-sm font-bold text-slate-900">
+                  नया फैब्रिकेशन टेम्पलेट बनाएं (Create Custom Fabrication Template)
+                </h4>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowAddPresetModal(false)}
+                className="rounded-lg p-1 text-slate-500 hover:bg-emerald-100 hover:text-slate-800 transition"
+                title="बंद करें"
+              >
+                <X size={16} />
+              </button>
+            </div>
+
+            <div className="mt-3 grid gap-3 sm:grid-cols-2">
+              <div className="sm:col-span-2">
+                <label className="block text-xs font-bold text-slate-700 mb-1">
+                  टेम्पलेट का नाम (Product / Door Name) *
+                </label>
+                <input
+                  type="text"
+                  value={newPresetName}
+                  onChange={(e) => setNewPresetName(e.target.value)}
+                  placeholder="उदा. डबल पल्ला सादा गेट, स्टोर रूम दरवाजा, बाउंड्री ग्रिल"
+                  className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-medium text-slate-900 placeholder-slate-400 focus:border-emerald-600 focus:outline-none focus:ring-1 focus:ring-emerald-600"
+                  autoFocus
+                />
+                <p className="mt-1 text-[11px] text-slate-500">
+                  यह नाम ड्रॉपडाउन में दिखाई देगा और चुनते ही प्रोडक्ट फॉर्म में भर जाएगा।
+                </p>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">
+                  फ्रेम एंगल (Angle Frame)
+                </label>
+                <select
+                  value={newPresetAngleId}
+                  onChange={(e) => setNewPresetAngleId(e.target.value)}
+                  className="w-full rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-xs text-slate-800 focus:border-emerald-600 focus:outline-none"
+                >
+                  {ANGLE_OPTIONS.map((a) => (
+                    <option key={a.id} value={a.id}>
+                      {a.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">
+                  चादर मोटाई (Sheet Gauge)
+                </label>
+                <select
+                  value={newPresetSheetId}
+                  onChange={(e) => setNewPresetSheetId(e.target.value)}
+                  className="w-full rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-xs text-slate-800 focus:border-emerald-600 focus:outline-none"
+                >
+                  {SHEET_OPTIONS.map((s) => (
+                    <option key={s.id} value={s.id}>
+                      {s.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">
+                  सपोर्ट सरिया / पत्ती (Support)
+                </label>
+                <select
+                  value={newPresetSupportId}
+                  onChange={(e) => setNewPresetSupportId(e.target.value)}
+                  className="w-full rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-xs text-slate-800 focus:border-emerald-600 focus:outline-none"
+                >
+                  {SUPPORT_OPTIONS.map((sp) => (
+                    <option key={sp.id} value={sp.id}>
+                      {sp.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">
+                  टैग या बैज (Badge/Tag, Optional)
+                </label>
+                <input
+                  type="text"
+                  value={newPresetBadge}
+                  onChange={(e) => setNewPresetBadge(e.target.value)}
+                  placeholder="उदा. स्पेशल कस्टम, सबसे मजबूत, दुकान के लिए"
+                  className="w-full rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-xs text-slate-800 placeholder-slate-400 focus:border-emerald-600 focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">
+                  डिफ़ॉल्ट रेट (₹/kg)
+                </label>
+                <input
+                  type="number"
+                  value={newPresetRate}
+                  onChange={(e) => setNewPresetRate(e.target.value)}
+                  placeholder="110"
+                  className="w-full rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-xs text-slate-800 placeholder-slate-400 focus:border-emerald-600 focus:outline-none"
+                />
+              </div>
+            </div>
+
+            <div className="mt-3.5 flex items-center justify-end gap-2 border-t border-emerald-200 pt-3">
+              <button
+                type="button"
+                onClick={() => setShowAddPresetModal(false)}
+                className="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-50 transition"
+              >
+                रद्द करें (Cancel)
+              </button>
+              <button
+                type="button"
+                onClick={() => handleSaveNewPreset()}
+                className="rounded-lg bg-emerald-700 px-4 py-1.5 text-xs font-bold text-white shadow-xs hover:bg-emerald-800 transition cursor-pointer"
+              >
+                ✓ टेम्पलेट सेव करें (Save Template)
+              </button>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Pricing & Material Customization Strip */}
@@ -399,7 +754,7 @@ export function ProductQuickFabrication() {
                 onBlur={() => {
                   if (rateInput === '' || isNaN(parseFloat(rateInput))) {
                     setRateInput('0');
-                    applyPreset(activePreset as any, 0);
+                    applyPreset(activePreset, 0);
                   }
                 }}
                 placeholder="0"
@@ -420,7 +775,7 @@ export function ProductQuickFabrication() {
                 value={selectedAngleId}
                 onChange={(e) => {
                   setSelectedAngleId(e.target.value);
-                  setTimeout(() => applyPreset(activePreset as any), 50);
+                  setTimeout(() => applyPreset(activePreset), 50);
                 }}
                 className="w-full rounded border border-slate-200 p-1 text-[11px]"
               >
@@ -438,7 +793,7 @@ export function ProductQuickFabrication() {
                 value={selectedSheetId}
                 onChange={(e) => {
                   setSelectedSheetId(e.target.value);
-                  setTimeout(() => applyPreset(activePreset as any), 50);
+                  setTimeout(() => applyPreset(activePreset), 50);
                 }}
                 className="w-full rounded border border-slate-200 p-1 text-[11px]"
               >
@@ -456,7 +811,7 @@ export function ProductQuickFabrication() {
                 value={selectedSupportId}
                 onChange={(e) => {
                   setSelectedSupportId(e.target.value);
-                  setTimeout(() => applyPreset(activePreset as any), 50);
+                  setTimeout(() => applyPreset(activePreset), 50);
                 }}
                 className="w-full rounded border border-slate-200 p-1 text-[11px]"
               >
