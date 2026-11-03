@@ -11,6 +11,70 @@ import {
 } from './fabrication-calculator';
 import { Scale, Sparkles, Check, ChevronDown, ChevronUp, Layers, Info } from 'lucide-react';
 
+interface PresetOption {
+  key: 'sada-std' | 'sada-heavy' | 'sada-light' | 'sada-grill' | 'custom';
+  label: string;
+  shortName: string;
+  sheetDesc: string;
+  angleDesc: string;
+  supportDesc: string;
+  badge: string;
+  badgeClass: string;
+}
+
+const PRESET_OPTIONS: PresetOption[] = [
+  {
+    key: 'sada-std',
+    label: '1. सादा दरवाजा (18G) — 18 गेज टाटा चादर + 1¼" एंगल (★ सबसे ज्यादा बिकने वाला)',
+    shortName: 'सादा दरवाजा (18G)',
+    sheetDesc: '18 गेज टाटा चादर',
+    angleDesc: '1¼" एंगल (3mm)',
+    supportDesc: '10mm सरिया',
+    badge: '★ सबसे ज्यादा बिकने वाला',
+    badgeClass: 'bg-emerald-100 text-emerald-800 border-emerald-200'
+  },
+  {
+    key: 'sada-heavy',
+    label: '2. हेवी सादा दरवाजा (16G - भारी वजन) — 16 गेज भारी चादर + 1½" एंगल (मजबूत व सुरक्षित)',
+    shortName: 'हेवी सादा दरवाजा (16G)',
+    sheetDesc: '16 गेज भारी चादर',
+    angleDesc: '1½" एंगल (3mm)',
+    supportDesc: '12mm सरिया',
+    badge: 'मजबूत व सुरक्षित',
+    badgeClass: 'bg-amber-100 text-amber-900 border-amber-200'
+  },
+  {
+    key: 'sada-light',
+    label: '3. किफायती सादा दरवाजा (20G - कम वजन) — 20 गेज चादर + 1¼" एंगल (कम बजट / छत के लिए)',
+    shortName: 'किफायती सादा दरवाजा (20G)',
+    sheetDesc: '20 गेज चादर',
+    angleDesc: '1¼" एंगल (3mm)',
+    supportDesc: 'पत्ती सपोर्ट',
+    badge: 'कम बजट / छत के लिए',
+    badgeClass: 'bg-blue-100 text-blue-800 border-blue-200'
+  },
+  {
+    key: 'sada-grill',
+    label: '4. सादा ग्रिल दरवाजा — 10mm गोल सरिया + 1¼" एंगल (हवादार व मजबूत)',
+    shortName: 'सादा ग्रिल दरवाजा',
+    sheetDesc: '18 गेज चादर बॉर्डर',
+    angleDesc: '1¼" एंगल (3mm)',
+    supportDesc: '10mm गोल सरिया',
+    badge: 'हवादार व मजबूत',
+    badgeClass: 'bg-purple-100 text-purple-800 border-purple-200'
+  },
+  {
+    key: 'custom',
+    label: '5. कस्टम दरवाजा — अपनी पसंद से नाम, साइज व मेटल भरें (Custom)',
+    shortName: 'कस्टम नया दरवाजा',
+    sheetDesc: 'कस्टम चादर',
+    angleDesc: 'कस्टम फ्रेम',
+    supportDesc: 'कस्टम सपोर्ट',
+    badge: 'मैन्युअल एंट्री',
+    badgeClass: 'bg-slate-100 text-slate-800 border-slate-200'
+  }
+];
+
 // Common Hindi to English transliteration map for fabrication terms
 function transliterateHindi(text: string): string {
   const dictionary: Record<string, string> = {
@@ -100,10 +164,12 @@ export function ProductQuickFabrication() {
 
   // Apply a full preset to form fields
   const applyPreset = (
-    presetKey: 'sada-std' | 'sada-heavy' | 'sada-light' | 'sada-grill',
+    presetKey: 'sada-std' | 'sada-heavy' | 'sada-light' | 'sada-grill' | 'custom',
     rate = ratePerKg
   ) => {
     setActivePreset(presetKey);
+    if (presetKey === 'custom') return;
+
     const form = containerRef.current?.closest('form');
     if (!form) return;
 
@@ -236,89 +302,58 @@ export function ProductQuickFabrication() {
         </div>
       </div>
 
-      {/* Preset Buttons */}
-      <div className="mt-4">
-        <label className="text-xs font-bold text-slate-700 flex items-center gap-1 mb-2">
-          <Sparkles size={13} className="text-amber-600" />
-          रेडीमेड सादा दरवाजा विकल्प (क्लिक करते ही पूरा फॉर्म भर जाएगा):
-        </label>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
-          <button
-            type="button"
-            onClick={() => applyPreset('sada-std')}
-            className={`rounded-xl border p-2.5 text-left transition-all ${
-              activePreset === 'sada-std'
-                ? 'border-emerald-600 bg-emerald-50 ring-2 ring-emerald-500/30'
-                : 'border-slate-200 bg-white hover:border-emerald-300'
-            }`}
-          >
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-slate-900">1. सादा दरवाजा (18G)</span>
-              {activePreset === 'sada-std' && <Check size={14} className="text-emerald-700" />}
-            </div>
-            <p className="mt-1 text-[11px] text-slate-500">18 गेज चादर + 1¼" एंगल</p>
-            <span className="mt-1.5 inline-block text-[10px] font-bold text-emerald-700">
-              ★ सबसे ज्यादा बिकने वाला
-            </span>
-          </button>
-
-          <button
-            type="button"
-            onClick={() => applyPreset('sada-heavy')}
-            className={`rounded-xl border p-2.5 text-left transition-all ${
-              activePreset === 'sada-heavy'
-                ? 'border-emerald-600 bg-emerald-50 ring-2 ring-emerald-500/30'
-                : 'border-slate-200 bg-white hover:border-emerald-300'
-            }`}
-          >
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-slate-900">2. हेवी सादा दरवाजा (16G)</span>
-              {activePreset === 'sada-heavy' && <Check size={14} className="text-emerald-700" />}
-            </div>
-            <p className="mt-1 text-[11px] text-slate-500">16 गेज भारी चादर + 1½" एंगल</p>
-            <span className="mt-1.5 inline-block text-[10px] font-bold text-amber-700">
-              मजबूत व सुरक्षित
-            </span>
-          </button>
-
-          <button
-            type="button"
-            onClick={() => applyPreset('sada-light')}
-            className={`rounded-xl border p-2.5 text-left transition-all ${
-              activePreset === 'sada-light'
-                ? 'border-emerald-600 bg-emerald-50 ring-2 ring-emerald-500/30'
-                : 'border-slate-200 bg-white hover:border-emerald-300'
-            }`}
-          >
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-slate-900">3. किफायती सादा दरवाजा (20G)</span>
-              {activePreset === 'sada-light' && <Check size={14} className="text-emerald-700" />}
-            </div>
-            <p className="mt-1 text-[11px] text-slate-500">20 गेज चादर + 1¼" एंगल</p>
-            <span className="mt-1.5 inline-block text-[10px] font-bold text-blue-700">
-              कम बजट / छत के लिए
-            </span>
-          </button>
-
-          <button
-            type="button"
-            onClick={() => applyPreset('sada-grill')}
-            className={`rounded-xl border p-2.5 text-left transition-all ${
-              activePreset === 'sada-grill'
-                ? 'border-emerald-600 bg-emerald-50 ring-2 ring-emerald-500/30'
-                : 'border-slate-200 bg-white hover:border-emerald-300'
-            }`}
-          >
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-slate-900">4. सादा ग्रिल दरवाजा</span>
-              {activePreset === 'sada-grill' && <Check size={14} className="text-emerald-700" />}
-            </div>
-            <p className="mt-1 text-[11px] text-slate-500">10mm गोल सरिया + एंगल</p>
-            <span className="mt-1.5 inline-block text-[10px] font-bold text-purple-700">
-              हवादार व मजबूत
-            </span>
-          </button>
+      {/* Preset Single Dropdown Selector Box */}
+      <div className="mt-4 rounded-xl border border-emerald-300/80 bg-white p-3.5 shadow-xs">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
+          <label htmlFor="quick-door-preset-select" className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+            <Sparkles size={14} className="text-amber-600" />
+            <span>रेडीमेड दरवाजा मॉडल चुनें (Select Door Model):</span>
+          </label>
+          <span className="text-[11px] text-slate-500 font-medium">
+            चुनते ही नाम, SKU, वजन, मटेरियल व 5 साइज अपने आप भर जाएंगे
+          </span>
         </div>
+
+        <div className="relative">
+          <select
+            id="quick-door-preset-select"
+            aria-label="रेडीमेड दरवाजा मॉडल चुनें"
+            value={activePreset}
+            onChange={(e) => applyPreset(e.target.value as any)}
+            className="w-full appearance-none rounded-xl border-2 border-emerald-600/40 bg-emerald-50/60 px-3.5 py-2.5 pr-10 text-xs sm:text-sm font-bold text-slate-900 transition hover:border-emerald-600 focus:border-emerald-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 cursor-pointer"
+          >
+            {PRESET_OPTIONS.map((opt) => (
+              <option key={opt.key} value={opt.key} className="py-1 font-semibold text-slate-800">
+                {opt.label}
+              </option>
+            ))}
+          </select>
+          <div className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-emerald-800">
+            <ChevronDown size={18} />
+          </div>
+        </div>
+
+        {/* Dynamic Spec Pills below dropdown */}
+        {(() => {
+          const current = PRESET_OPTIONS.find((p) => p.key === activePreset) || PRESET_OPTIONS[0];
+          return (
+            <div className="mt-2.5 flex flex-wrap items-center gap-2 pt-2 border-t border-slate-100 text-[11px]">
+              <span className="font-semibold text-slate-500">शामिल मटेरियल:</span>
+              <span className="rounded-md border border-slate-200 bg-slate-50 px-2 py-0.5 font-medium text-slate-700">
+                चादर: <strong>{current.sheetDesc}</strong>
+              </span>
+              <span className="rounded-md border border-slate-200 bg-slate-50 px-2 py-0.5 font-medium text-slate-700">
+                फ्रेम: <strong>{current.angleDesc}</strong>
+              </span>
+              <span className="rounded-md border border-slate-200 bg-slate-50 px-2 py-0.5 font-medium text-slate-700">
+                सपोर्ट: <strong>{current.supportDesc}</strong>
+              </span>
+              <span className={`rounded-md border px-2 py-0.5 font-bold ${current.badgeClass}`}>
+                {current.badge}
+              </span>
+            </div>
+          );
+        })()}
       </div>
 
       {/* Pricing & Material Customization Strip */}

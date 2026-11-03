@@ -1,5 +1,21 @@
 > Version: 1.0 | Updated: 2026-11-03 | Status: live application; implementation and scoped verification register
 
+## 2026-11-03 - Quick Fabrication Mode: Consolidated Single Dropdown Selector
+
+- **Core User Objective**:
+  - Replaced the 4 sprawling horizontal preset cards in Quick Fabrication mode (`/admin/products?new=1`) with a single compact, elegant dropdown selector.
+- **Component Refactoring (`src/features/catalog/product-quick-fabrication.tsx`)**:
+  - Implemented `PRESET_OPTIONS` supporting Standard 18G, Heavy 16G, Lightweight 20G, Grill Door, and Custom manual entry.
+  - Added dynamic material specification badges under the dropdown (Sheet, Frame Angle, Support Bar, and Use-case Badge).
+  - Maintained instant auto-fill for Product Name, SKU, Slug, Weight, Pricing Range, Material specifications, Finish, and 5 standard size variants.
+  - Saved 60% vertical space on the product creation screen.
+- **Verification**:
+  - `npm run typecheck`: Passed (0 errors).
+  - `npm test`: Passed (78 test suites, 353/353 tests).
+  - `npm run docs:check`: Passed (34 requirements and SHA-256 intact).
+  - `npm run api:check`: Passed (301 documented paths).
+  - `npm run build`: Succeeded (all 74 routes compiled).
+
 ## 2026-11-03 - Plain English Copy Simplification Across UI, Navigation, Milestones & Documents
 
 - **Core User Objective**:
