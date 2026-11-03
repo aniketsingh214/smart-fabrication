@@ -13,6 +13,7 @@ import { AddToCartButton } from '@/features/shop/add-to-cart-button';
 import { getCategoryDisplayName, getBilingualProductName, getBilingualMaterial, expandSearchQuery } from '@/lib/i18n/catalog-bilingual';
 import { getServerLocale } from '@/lib/i18n/server';
 import { MobileFilterDrawer } from '@/features/catalog/mobile-filter-drawer';
+import { CatalogCategorySelector } from '@/features/catalog/catalog-category-selector';
 
 export const metadata = { title: 'Explore fabrication designs & catalogue | SmartFabrication' };
 
@@ -318,84 +319,18 @@ export default async function Catalog({ searchParams }: { searchParams: Promise<
         </div>
       </div>
 
-      {/* Primary Category Filter Pills */}
-      <div className="mb-4">
-        <div className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2.5">
-          {isHi ? 'केटेगरी चुनें:' : 'Select Category:'}
-        </div>
-        <div className="flex flex-wrap gap-2">
-          <Link
-            href={browseHref('/catalog', { q })}
-            className={`rounded-full px-4 py-2 text-xs font-medium transition ${
-              !activeParent && !activeSub
-                ? 'bg-slate-900 text-white shadow-sm'
-                : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-            }`}
-          >
-            {isHi ? 'सभी डिज़ाइन (All)' : 'All Categories'}
-          </Link>
-          {parentCategories.map(cat => {
-            const isSelected = activeParent?.id === cat.id;
-            const displayName = getCategoryDisplayName(cat.slug, cat.name, locale);
-            return (
-              <Link
-                key={cat.id}
-                href={browseHref('/catalog', { category: cat.slug, q })}
-                className={`rounded-full px-4 py-2 text-xs font-medium transition ${
-                  isSelected
-                    ? 'bg-orange-600 text-white shadow-sm'
-                    : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                }`}
-              >
-                {displayName}
-              </Link>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Subcategory Pills */}
-      {availableSubcategories.length > 0 && (
-        <div className="mb-8 rounded-xl border border-orange-100 bg-orange-50/50 p-4">
-          <div className="mb-2.5 flex items-center justify-between">
-            <span className="text-xs font-bold uppercase tracking-wider text-orange-900">
-              {getCategoryDisplayName(activeParent?.slug ?? '', activeParent?.name ?? '', locale)} — {isHi ? 'सब-केटेगरी' : 'Subcategories'}
-            </span>
-            <span className="text-[11px] text-orange-700">
-              {isHi ? 'विशिष्ट डिज़ाइन देखने के लिए क्लिक करें' : 'Click a subcategory to filter'}
-            </span>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            <Link
-              href={browseHref('/catalog', { category: activeParent?.slug, q })}
-              className={`rounded-lg px-3.5 py-1.5 text-xs font-medium transition ${
-                !activeSub
-                  ? 'bg-orange-600 text-white shadow-sm'
-                  : 'border border-orange-200 bg-white text-orange-950 hover:bg-orange-100'
-              }`}
-            >
-              {isHi ? 'सभी (All)' : `All ${activeParent?.name}`}
-            </Link>
-            {availableSubcategories.map(sub => {
-              const isSelected = activeSub?.id === sub.id;
-              const subDisplayName = getCategoryDisplayName(sub.slug, sub.name, locale);
-              return (
-                <Link
-                  key={sub.id}
-                  href={browseHref('/catalog', { category: activeParent?.slug, sub: sub.slug, q })}
-                  className={`rounded-lg px-3.5 py-1.5 text-xs font-medium transition ${
-                    isSelected
-                      ? 'bg-orange-600 text-white shadow-sm'
-                      : 'border border-orange-200 bg-white text-orange-950 hover:bg-orange-100'
-                  }`}
-                >
-                  {subDisplayName}
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-      )}
+      {/* Category Selector (Supporting both Option 1: Visual Photo Cards & Option 3: Sleek Icon Tabs) */}
+      <CatalogCategorySelector
+        parentCategories={parentCategories as any}
+        activeParent={activeParent as any}
+        activeSub={activeSub as any}
+        availableSubcategories={availableSubcategories as any}
+        q={q}
+        locale={locale}
+        getCategoryHref={(catSlug, subSlug) =>
+          browseHref('/catalog', { category: catSlug, sub: subSlug, q })
+        }
+      />
 
       {/* Product Grid Header */}
       <div className="mb-4 flex items-center justify-between text-xs text-slate-500">

@@ -1,5 +1,22 @@
 > Version: 1.0 | Updated: 2026-11-03 | Status: live application; implementation and scoped verification register
 
+## 2026-11-03 - Dual-Mode Category Selector: Visual Photo Cards & Sleek Icon Tabs
+
+- **Core User Objective**:
+  - Transformed the plain text pill category filter on `/catalog` into an interactive dual-mode category showcase supporting both Option 1 (Visual Photo Cards) and Option 3 (Sleek Icon Tabs), empowering visitors to browse visually or with a compact tab view.
+- **Component Implementation (`src/features/catalog/catalog-category-selector.tsx`, `src/app/(public)/catalog/page.tsx`)**:
+  - Built `CatalogCategorySelector` client component with an interactive view switcher:
+    - **Visual Photo Cards View (विकल्प 1)**: Rich visual cards with Cloudinary category images, architectural gradient backgrounds, category-specific icons, bilingual subtitles, and gold/amber selection ring with active checkmark.
+    - **Sleek Icon Tabs View (विकल्प 3)**: Ultra-clean, compact pill buttons with fabrication icons (DoorClosed, Zap, Columns, Grid, Store, Home, Shield, Wrench) and active highlight.
+    - **Subcategory Ribbon**: Automatically highlights relevant subcategories with warm amber styling when an active parent category is selected.
+    - **State Persistence**: Remembers visitor's view preference in `localStorage` (`gatewala_catalog_category_view`).
+- **Verification**:
+  - `npm run typecheck`: Passed (0 errors).
+  - `npm test`: Passed (78 test suites, 353/353 tests).
+  - `npm run docs:check`: Passed (34 requirements and SHA-256 intact).
+  - `npm run api:check`: Passed (301 documented paths).
+  - `npm run build`: Succeeded (all 74 routes compiled).
+
 ## 2026-11-03 - Product Table Image Thumbnails After S.No.
 
 - **Core User Objective**:
