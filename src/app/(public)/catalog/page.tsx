@@ -12,6 +12,7 @@ import { WishlistButton } from '@/features/shop/wishlist-button';
 import { AddToCartButton } from '@/features/shop/add-to-cart-button';
 import { getCategoryDisplayName, getBilingualProductName, getBilingualMaterial, expandSearchQuery } from '@/lib/i18n/catalog-bilingual';
 import { getServerLocale } from '@/lib/i18n/server';
+import { MobileFilterDrawer } from '@/features/catalog/mobile-filter-drawer';
 
 export const metadata = { title: 'Explore fabrication designs & catalogue | SmartFabrication' };
 
@@ -235,6 +236,17 @@ export default async function Catalog({ searchParams }: { searchParams: Promise<
 
         {/* Bilingual Search Form with Category Preservation & Clear Button */}
         <div className="catalog-filter-panel w-full">
+          <MobileFilterDrawer
+            categories={allCategories.map(c => ({ id: c.id, name: c.name, slug: c.slug, parent_id: c.parent_id }))}
+            activeParentSlug={activeParent?.slug}
+            activeSubSlug={activeSub?.slug}
+            currentSearch={q}
+            currentMaterial={filters.material}
+            currentBudget={filters.budget}
+            currentSort={filters.sort}
+            totalResultsCount={totalCount}
+          />
+
           <ValidatedForm className="catalog-filter-form flex w-full flex-wrap items-center gap-2">
             {activeParent && <input type="hidden" name="category" value={activeParent.slug} />}
             {activeSub && <input type="hidden" name="sub" value={activeSub.slug} />}
@@ -272,13 +284,13 @@ export default async function Catalog({ searchParams }: { searchParams: Promise<
             >
               {isHi ? 'खोजें' : 'Search'}
             </button>
-            <div className="grid w-full grid-cols-1 gap-2 sm:grid-cols-3">
+            <div className="hidden md:grid w-full grid-cols-1 gap-2 sm:grid-cols-3">
               <label className="text-xs">{isHi?'मटीरियल':'Material contains'}<input name="material" aria-label="Material contains" defaultValue={filters.material} maxLength={80} placeholder="Steel, iron…" className="mt-1 !text-xs"/></label>
               <label className="text-xs">{isHi?'अधिकतम बजट (₹)':'Max starting price (INR)'}<input name="budget" aria-label="Maximum indicative starting price" type="number" min="1" max="99999999" step="1" defaultValue={filters.budget} className="mt-1 !text-xs"/></label>
               <label className="text-xs">{isHi?'क्रम':'Sort designs'}<select name="sort" aria-label="Sort designs" defaultValue={filters.sort} className="mt-1 !text-xs"><option value="recent">Newest</option><option value="price-low">Starting price: low first</option><option value="price-high">Starting price: high first</option><option value="name">Name: A–Z</option></select></label>
             </div>
-            <p className="w-full text-xs text-slate-500">{isHi?'बजट और कीमत क्रम केवल दर्ज शुरुआती कीमतों पर हैं। बिना कीमत वाले डिज़ाइन इसमें शामिल नहीं हैं। अंतिम कोटेशन माप के बाद मिलेगा।':'Budget and price sorting use recorded starting prices only; unpriced designs are excluded. Final quotation follows measurement.'}</p>
-            <Link href="/catalog" className="text-xs underline">{isHi?'सभी फ़िल्टर हटाएँ':'Reset all filters'}</Link>
+            <p className="hidden md:block w-full text-xs text-slate-500">{isHi?'बजट और कीमत क्रम केवल दर्ज शुरुआती कीमतों पर हैं। बिना कीमत वाले डिज़ाइन इसमें शामिल नहीं हैं। अंतिम कोटेशन माप के बाद मिलेगा।':'Budget and price sorting use recorded starting prices only; unpriced designs are excluded. Final quotation follows measurement.'}</p>
+            <Link href="/catalog" className="hidden md:inline text-xs underline">{isHi?'सभी फ़िल्टर हटाएँ':'Reset all filters'}</Link>
           </ValidatedForm>
 
           {/* Active Search & Category Scope Indicator */}

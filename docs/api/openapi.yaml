@@ -20247,6 +20247,107 @@ paths:
         "429": *a13
         "500": *a14
         "503": *a15
+  /estimates/pdf:
+    post:
+      summary: Generate indicative estimate PDF document
+      security: []
+      x-permission: authenticated actor with object ownership
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $schema: https://json-schema.org/draft/2020-12/schema
+              type: object
+              properties:
+                productName:
+                  type: string
+                  minLength: 1
+                  maxLength: 200
+                widthMm:
+                  type: number
+                  exclusiveMinimum: 0
+                heightMm:
+                  type: number
+                  exclusiveMinimum: 0
+                widthFtIn:
+                  default: ""
+                  type: string
+                heightFtIn:
+                  default: ""
+                  type: string
+                areaSqFt:
+                  default: ""
+                  type: string
+                areaSqM:
+                  default: ""
+                  type: string
+                weightKg:
+                  default: 0
+                  type: number
+                  minimum: 0
+                minMinor:
+                  type: number
+                  exclusiveMinimum: 0
+                maxMinor:
+                  type: number
+                  exclusiveMinimum: 0
+                materials:
+                  default: []
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      quantity:
+                        type: number
+                      unit:
+                        type: string
+                      amount_minor:
+                        type: number
+                    required:
+                      - name
+                      - quantity
+                      - unit
+                      - amount_minor
+                    additionalProperties: false
+                notice:
+                  type: string
+              required:
+                - productName
+                - widthMm
+                - heightMm
+                - widthFtIn
+                - heightFtIn
+                - areaSqFt
+                - areaSqM
+                - weightKg
+                - minMinor
+                - maxMinor
+                - materials
+              additionalProperties: false
+      responses:
+        "200":
+          description: Estimate PDF document
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        "400": *a5
+        "401": *a6
+        "403": *a7
+        "404": *a8
+        "409": *a9
+        "413": *a10
+        "415": *a11
+        "422": *a12
+        "429": *a13
+        "500": *a14
+        "503": *a15
+      x-rate-limits: Shared IP write quota plus public-form or verified-actor
+        policies. See docs/security/rate-limits.md.
   /estimates/preview:
     post:
       summary: Evaluate selected draft/published configuration without saving an

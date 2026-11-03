@@ -33,3 +33,13 @@ The browser reuses an Idempotency-Key for retries of the same mounted payment at
 ## Payment processing feedback - 2026-11-03
 
 Save confirmation no longer waits behind the balance refresh. After POST success, the form closes and shows Payment saved / Updating balance separately. Collection stays unavailable while refreshing; a failed balance read offers Refresh payment balance instead of allowing another payment against stale totals. Payment-summary order/receipt/net-balance reads run concurrently under existing permissions. Retry keys, posting locks and overpayment guards remain intact. No fixed latency improvement is claimed; provider/network cold-start time may still vary. Browser regression includes an artificial 1.5-second summary delay to verify the saved and refreshing states separately.
+
+## Printable Workshop Job Card & Scannable QR Code - 2026-11-03
+
+Order details now include a dedicated **Print Job Card** action (`/admin/orders/[id]/job-card`) for workshop floor supervisors, lead fabricators, and welders:
+- **Printable A4 Sheet**: Technical job sheet formatted for physical shop-floor printing (`window.print()`), displaying client details, site address, agreed job value, promised delivery due date, and itemized technical specifications from the quotation snapshot.
+- **8-Stage Fabricator Floor Sign-off Checklist**: Step-by-step checklist covering Material Cutting, 90° Frame Squareness & Tack Weld, Full Seam Welding, Grinding/Buffing, Hardware Fitting (hinges/locks/rollers), Anti-Rust Red Oxide Primer, Final Paint/Powder Coat, and Final QC Pass & Loading.
+- **Dynamic Scannable QR Code**: Generated dynamically via `qrcode` library as a base64 PNG data URL, pointing directly to the order tracking endpoint (`/account/orders/[id]`), enabling mobile camera inspection of live specs and CAD drawings directly from the workshop floor.
+- **Physical Signatures**: Signature lines for Lead Welder/Fabricator, Quality Inspector (QC), and Workshop Supervisor.
+- **Authorization**: Guarded by `orders.read`, `production.read`, and `work-orders.read` permissions.
+

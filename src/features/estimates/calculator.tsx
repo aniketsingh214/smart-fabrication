@@ -5,7 +5,7 @@ import { SnapshotTable } from '@/components/snapshot-table';
 import { ReferenceInput } from '@/features/operations/reference-input';
 import { useRef, useState } from 'react';
 import Link from 'next/link';
-import { Ruler, ArrowRight, Check, Sparkles } from 'lucide-react';
+import { Ruler, ArrowRight, FileDown, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { money } from '@/lib/utils';
 import { useLocale } from '@/lib/i18n/locale-context';
@@ -19,6 +19,7 @@ export function Calculator({ products, selected }: { products: { id: string; nam
   const [dimensions, setDimensions] = useState<{ width: number; height: number } | null>(null);
   const [selectedProduct, setSelectedProduct] = useState(selected ?? '');
   const [busy, setBusy] = useState(false);
+  const [downloadingPdf, setDownloadingPdf] = useState(false);
   const [error, setError] = useState('');
   const [result, setResult] = useState<Estimate | null>(null);
 
@@ -90,6 +91,50 @@ export function Calculator({ products, selected }: { products: { id: string; nam
   const areaSqM = effectiveWidthMm > 0 && effectiveHeightMm > 0
     ? ((effectiveWidthMm * effectiveHeightMm) / 1000000).toFixed(2)
     : '0';
+
+  const handleDownloadPdf = async () => {
+    if (!result) return;
+    setDownloadingPdf(true);
+    try {
+      const productName = products.find(p => p.id === selectedProduct)?.name || 'Custom Fabrication Design';
+      const widthFtInStr = `${Math.floor(effectiveWidthMm / 304.8)} ft ${Math.round((effectiveWidthMm % 304.8) / 25.4)} in`;
+      const heightFtInStr = `${Math.floor(effectiveHeightMm / 304.8)} ft ${Math.round((effectiveHeightMm % 304.8) / 25.4)} in`;
+
+      const res = await fetch('/api/v1/estimates/pdf', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          productName,
+          widthMm: effectiveWidthMm,
+          heightMm: effectiveHeightMm,
+          widthFtIn: widthFtInStr,
+          heightFtIn: heightFtInStr,
+          areaSqFt,
+          areaSqM,
+          weightKg: result.weight_kg ?? 0,
+          minMinor: result.min_minor,
+          maxMinor: result.max_minor,
+          materials: result.materials || [],
+          notice: result.notice
+        })
+      });
+
+      if (!res.ok) throw new Error('PDF download unavailable');
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `GateWala-Estimate-${productName.replace(/[^a-zA-Z0-9]+/g, '-').slice(0, 30)}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Unable to generate PDF');
+    } finally {
+      setDownloadingPdf(false);
+    }
+  };
 
   return (
     <div className="grid gap-6 lg:grid-cols-2">
@@ -473,17 +518,39 @@ export function Calculator({ products, selected }: { products: { id: string; nam
             <p className="mt-5 rounded-lg bg-orange-50 p-3 text-xs leading-6 text-orange-800">
               {result.notice}
             </p>
-            <Button asChild className="mt-5 w-full sm:w-auto" aria-label="Request exact quotation">
-              <Link
-                href={
-                  '/contact?product=' +
-                  encodeURIComponent(selectedProduct) +
-                  (dimensions ? '&width_mm=' + dimensions.width + '&height_mm=' + dimensions.height : '')
-                }
+            <div className="mt-5 flex flex-wrap items-center gap-3">
+              <Button asChild className="w-full sm:w-auto font-semibold" aria-label="Request exact quotation">
+                <Link
+                  href={
+                    '/contact?product=' +
+                    encodeURIComponent(selectedProduct) +
+                    (dimensions ? '&width_mm=' + dimensions.width + '&height_mm=' + dimensions.height : '')
+                  }
+                >
+                  {locale === 'hi' ? 'पक्का कोटेशन / रेट मँगवाएँ' : 'Request exact quotation'}
+                </Link>
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={handleDownloadPdf}
+                disabled={downloadingPdf}
+                aria-label="Download instant estimate PDF"
+                className="w-full sm:w-auto border-orange-300 bg-orange-50/60 font-semibold text-orange-900 hover:bg-orange-100 transition shadow-xs"
               >
-                {locale === 'hi' ? 'पक्का कोटेशन / रेट मँगवाएँ (Request exact quotation)' : 'Request exact quotation'}
-              </Link>
-            </Button>
+                {downloadingPdf ? (
+                  <>
+                    <Loader2 size={15} className="animate-spin text-orange-600" />
+                    <span>{locale === 'hi' ? 'PDF बन रहा है…' : 'Generating PDF…'}</span>
+                  </>
+                ) : (
+                  <>
+                    <FileDown size={15} className="text-orange-600" />
+                    <span>{locale === 'hi' ? 'अनुमान PDF डाउनलोड करें' : 'Download Estimate PDF'}</span>
+                  </>
+                )}
+              </Button>
+            </div>
           </>
         ) : (
           <div className="grid h-full min-h-72 place-content-center text-center p-4">

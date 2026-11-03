@@ -1,4 +1,32 @@
-> Version: 1.0 | Updated: 2026-10-31 | Status: live application; implementation and scoped verification register
+> Version: 1.0 | Updated: 2026-11-03 | Status: live application; implementation and scoped verification register
+
+## 2026-11-03 - QR Workshop Job Cards, Estimate PDF Generation & Mobile Catalog Filter Drawer
+
+- **Printable Workshop Job Card with Scannable QR Code (`/admin/orders/[id]/job-card`)**:
+  - Implemented printable A4 workshop job card for shop-floor supervisors, lead fabricators, and welders.
+  - Built `src/lib/qrcode/service.ts` generating SVG and base64 PNG data URL representations using the `qrcode` library.
+  - Formatted layout with customer information, site delivery address, promised completion date, agreed order value, itemized technical specifications from the quotation snapshot, an 8-stage physical sign-off checklist, and supervisor/inspector signature blocks.
+  - Embedded a dynamic scannable QR code linking directly to the live customer order tracking view (`/account/orders/[id]`), enabling quick camera inspection from mobile devices.
+  - Integrated "Print Job Card" action button directly in the Orders detail workspace (`OrderPaymentWorkspace` on `/admin/orders?record=...`).
+  - Added unit test suite `tests/unit/qr-job-card.test.ts` verifying data URL and SVG generation.
+- **Indicative Estimate PDF Generator & Instant Download**:
+  - Built `src/features/estimates/estimate-pdf-document.tsx` using `@react-pdf/renderer` for GateWala indicative estimates.
+  - Features brand header, customer dimensions in metric (mm, m²) and imperial (ft/in, sq.ft), estimated weight, itemized bill of materials (BOM), approximate pricing range (₹ min–max), contact info, and clear disclaimer.
+  - Added public API endpoint `POST /api/v1/estimates/pdf` streaming PDF buffer as attachment.
+  - Updated `Calculator` (`src/features/estimates/calculator.tsx`) with a prominent "Download Estimate PDF" action with loading indicator and bilingual Hindi/English labels.
+  - Added unit test suite `tests/unit/estimate-pdf.test.ts` verifying binary `%PDF-` generation.
+  - Documented endpoint in `docs/api/openapi.yaml` and generated TypeScript definitions (`src/contracts/generated-api.d.ts`).
+- **Catalog Mobile Filter Drawer (`src/features/catalog/mobile-filter-drawer.tsx`)**:
+  - Implemented responsive slide-over filter drawer on the public Catalog page (`/catalog`) for mobile viewports.
+  - Allows filtering by parent category, subcategory, material presets (MS, SS, etc.), maximum budget, and sort order.
+  - Synchronizes filter state on drawer open without cascading effect renders, keeping mobile UX fast and uncluttered.
+- **Verification**:
+  - `npm run typecheck` (`tsc --noEmit`) passed with 0 errors.
+  - `npm test` (`vitest run`) passed all 78 suites and 353 tests (100%).
+  - `npm run api:check` passed with 301 documented paths and 44 explicit Route Handler methods.
+  - `npm run docs:check` passed with all 34 requirements, 20 phases, and SHA-256 integrity intact.
+  - `npm run security:check` passed with 0 exposed secrets.
+  - `npm run build` (`next build`) succeeded with all 74 dynamic and static routes compiled cleanly.
 
 ## 2026-10-31 - Standardized Stage Transitions & Payment Mode to Dropdowns
 
