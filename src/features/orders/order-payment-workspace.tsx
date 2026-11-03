@@ -106,7 +106,7 @@ export function OrderPaymentWorkspace({
     e.preventDefault();
     if(paymentInFlight.current||refreshing||!summary)return;
     setError('');
-      setSuccessMsg('Payment receipt saved. The outstanding balance has been updated.');
+      setSuccessMsg('Payment receipt saved successfully.');
     const amtNum = parseFloat(amountRupees);
     if (!amtNum || amtNum <= 0) {
       setError('कृपया मान्य अग्रिम राशि दर्ज करें (Enter a valid positive amount)');
