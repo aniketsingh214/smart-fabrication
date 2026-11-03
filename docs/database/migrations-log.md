@@ -56,5 +56,7 @@
 | 202610290052_crm_customer_search_context.sql | 2026-10-29T16:24:21.743Z | e1550647465f1a9b0c5b7033146a0686600f61f17e7b7577f33641fbf2db3a87 |
 | 202610300053_lead_collection_filters.sql | 2026-10-30T10:14:50.959Z | d2f8f9eb92634dc60de52c6426df4bf5d98df8b5621382c8ecb464b32b5c557a |
 | 202610300054_lead_overdue_time.sql | 2026-10-30T10:16:20.508Z | 530ad79d8c72972e92d0b8165626f45c105fca742836cd61f36b8e03a50cfc90 |
+| 202610310056_follow_up_statuses.sql | 2026-10-30T19:54:03.703Z | 5e6706a9491fad95430dcca65a08d939e4efa084a37eec3190ac124fb3eab578 |
+| 202611030058_readable_record_codes.sql | 2026-11-03T06:43:18.291Z | 663e221de820ef7d5a9725fb785d1657e372a95b2104697f6769b482fcc193b9 |
 
 Applied migrations are immutable. Add forward fixes. No destructive changes performed. Production migration approval and backup remain launch gates.

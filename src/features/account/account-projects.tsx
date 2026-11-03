@@ -1,3 +1,4 @@
+import {recordLabel} from '@/contracts/record-identity';
 import Link from 'next/link';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { customerOrders, customerQuotations } from '@/features/operations/services';
@@ -58,7 +59,7 @@ export async function AccountProjects({ db, filters }: { db: SupabaseClient; fil
         ) : (
           quotes.value.items.map(q => (
             <article id={`quotation-${q.id}`} key={String(q.id)} className="mb-4 border-b border-slate-100 pb-4">
-              <h3 className="text-sm font-semibold">{String(q.name)}</h3>
+              <h3 className="text-sm font-semibold">{recordLabel(q,'Quotation')}</h3>
               <p className="my-3 text-xs text-slate-500">{String(q.status)}</p>
               <p className="mb-3 text-xs text-slate-500">Valid until {dateTime(String(q.expires_at))} (India time)</p>
               {q.status==='approved'&&new Date(String(q.expires_at)).getTime()<=evaluatedAt?<p className="text-xs text-orange-800">This quotation has expired. Contact the workshop for a revision.</p>:<QuoteResponse id={String(q.id)} status={String(q.status)} />}
@@ -100,7 +101,7 @@ export async function AccountProjects({ db, filters }: { db: SupabaseClient; fil
             const milestone = getMilestoneInfo(String(order.status));
             return (
               <article key={String(order.id)} className="mb-4 border-b border-slate-100 pb-4">
-                <h3 className="text-sm font-semibold">{String(order.name)}</h3>
+                <h3 className="text-sm font-semibold">{recordLabel(order,'Order')}</h3>
                 <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
                   <span className={`status ${milestone.colorClass}`}>
                     {milestone.label} ({String(order.status).replaceAll('_', ' ')})

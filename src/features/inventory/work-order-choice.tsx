@@ -1,14 +1,15 @@
 'use client';
+import {recordLabel} from '@/contracts/record-identity';
 import { useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
-type Choice = { id: string; name: string };
+type Choice = { id: string; name: string;record_code?:string };
 export function WorkOrderChoice({ jobs, cursor, selected }: { jobs: Choice[]; cursor?: string | null; selected?: string | null }) {
   const [choices, setChoices] = useState(jobs), [next, setNext] = useState(cursor), [busy, setBusy] = useState(false), [error, setError] = useState('');
   const loading = useRef(false);
   return <div><label>Work order<select aria-label="Work order" className="mt-2" name="work_order_id" defaultValue={selected ?? ''}>
     <option value="">Not linked to a job</option>
     {selected && !choices.some(job => job.id === selected) && <option value={selected}>Saved work order (not in loaded page)</option>}
-    {choices.map(job => <option key={job.id} value={job.id}>{job.name}</option>)}
+    {choices.map(job => <option key={job.id} value={job.id}>{recordLabel(job,'Work order')}</option>)}
   </select></label>
     {next && <Button type="button" className="mt-2" variant="outline" size="sm" disabled={busy} onClick={async () => {
       if (loading.current) return;

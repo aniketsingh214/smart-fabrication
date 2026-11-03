@@ -1,5 +1,5 @@
 {
-  "captured_at": "2026-10-30T10:33:54.139Z",
+  "captured_at": "2026-11-03T06:43:26.590Z",
   "tables": [
     {
       "name": "audit_logs",
@@ -292,6 +292,20 @@
       "column_default": "now()"
     },
     {
+      "table_name": "audit_logs",
+      "column_name": "record_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "audit_logs",
+      "column_name": "record_code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
       "table_name": "bom_items",
       "column_name": "id",
       "data_type": "uuid",
@@ -341,6 +355,20 @@
       "column_default": "true"
     },
     {
+      "table_name": "bom_items",
+      "column_name": "record_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "bom_items",
+      "column_name": "record_code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
       "table_name": "bom_versions",
       "column_name": "id",
       "data_type": "uuid",
@@ -374,6 +402,20 @@
       "data_type": "timestamp with time zone",
       "is_nullable": "NO",
       "column_default": "now()"
+    },
+    {
+      "table_name": "bom_versions",
+      "column_name": "record_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "bom_versions",
+      "column_name": "record_code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
     },
     {
       "table_name": "calculation_rules",
@@ -458,6 +500,20 @@
       "data_type": "timestamp with time zone",
       "is_nullable": "NO",
       "column_default": "now()"
+    },
+    {
+      "table_name": "calculation_rules",
+      "column_name": "record_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "calculation_rules",
+      "column_name": "record_code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
     },
     {
       "table_name": "catalog_copies",
@@ -558,6 +614,20 @@
       "column_default": null
     },
     {
+      "table_name": "categories",
+      "column_name": "record_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "categories",
+      "column_name": "record_code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
       "table_name": "customer_payments",
       "column_name": "id",
       "data_type": "uuid",
@@ -614,6 +684,20 @@
       "column_default": "now()"
     },
     {
+      "table_name": "customer_payments",
+      "column_name": "record_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "customer_payments",
+      "column_name": "record_code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
       "table_name": "customers",
       "column_name": "id",
       "data_type": "uuid",
@@ -668,6 +752,20 @@
       "data_type": "timestamp with time zone",
       "is_nullable": "NO",
       "column_default": "now()"
+    },
+    {
+      "table_name": "customers",
+      "column_name": "record_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "customers",
+      "column_name": "record_code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
     },
     {
       "table_name": "deliveries",
@@ -740,6 +838,20 @@
       "column_default": "now()"
     },
     {
+      "table_name": "deliveries",
+      "column_name": "record_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "deliveries",
+      "column_name": "record_code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
       "table_name": "estimate_snapshots",
       "column_name": "id",
       "data_type": "uuid",
@@ -787,6 +899,20 @@
       "data_type": "timestamp with time zone",
       "is_nullable": "NO",
       "column_default": "now()"
+    },
+    {
+      "table_name": "estimate_snapshots",
+      "column_name": "record_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "estimate_snapshots",
+      "column_name": "record_code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
     },
     {
       "table_name": "expense_reversals",
@@ -843,6 +969,20 @@
       "data_type": "timestamp with time zone",
       "is_nullable": "NO",
       "column_default": "now()"
+    },
+    {
+      "table_name": "expense_reversals",
+      "column_name": "record_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "expense_reversals",
+      "column_name": "record_code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
     },
     {
       "table_name": "expenses",
@@ -915,6 +1055,20 @@
       "column_default": "now()"
     },
     {
+      "table_name": "expenses",
+      "column_name": "record_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "expenses",
+      "column_name": "record_code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
       "table_name": "finance_period_closures",
       "column_name": "id",
       "data_type": "uuid",
@@ -955,6 +1109,20 @@
       "data_type": "timestamp with time zone",
       "is_nullable": "NO",
       "column_default": "now()"
+    },
+    {
+      "table_name": "finance_period_closures",
+      "column_name": "record_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "finance_period_closures",
+      "column_name": "record_code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
     },
     {
       "table_name": "financial_adjustments",
@@ -1062,6 +1230,20 @@
       "column_default": "now()"
     },
     {
+      "table_name": "financial_adjustments",
+      "column_name": "record_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "financial_adjustments",
+      "column_name": "record_code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
       "table_name": "follow_ups",
       "column_name": "id",
       "data_type": "uuid",
@@ -1109,6 +1291,20 @@
       "data_type": "timestamp with time zone",
       "is_nullable": "NO",
       "column_default": "now()"
+    },
+    {
+      "table_name": "follow_ups",
+      "column_name": "record_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "follow_ups",
+      "column_name": "record_code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
     },
     {
       "table_name": "gallery_items",
@@ -1167,6 +1363,20 @@
       "column_default": "now()"
     },
     {
+      "table_name": "gallery_items",
+      "column_name": "record_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "gallery_items",
+      "column_name": "record_code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
       "table_name": "installations",
       "column_name": "id",
       "data_type": "uuid",
@@ -1214,6 +1424,20 @@
       "data_type": "timestamp with time zone",
       "is_nullable": "NO",
       "column_default": "now()"
+    },
+    {
+      "table_name": "installations",
+      "column_name": "record_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "installations",
+      "column_name": "record_code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
     },
     {
       "table_name": "labour_payments",
@@ -1272,6 +1496,20 @@
       "column_default": "auth.uid()"
     },
     {
+      "table_name": "labour_payments",
+      "column_name": "record_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "labour_payments",
+      "column_name": "record_code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
       "table_name": "labour_rates",
       "column_name": "id",
       "data_type": "uuid",
@@ -1312,6 +1550,20 @@
       "data_type": "timestamp with time zone",
       "is_nullable": "NO",
       "column_default": "now()"
+    },
+    {
+      "table_name": "labour_rates",
+      "column_name": "record_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "labour_rates",
+      "column_name": "record_code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
     },
     {
       "table_name": "lead_attachments",
@@ -1375,6 +1627,20 @@
       "data_type": "timestamp with time zone",
       "is_nullable": "NO",
       "column_default": "now()"
+    },
+    {
+      "table_name": "lead_notes",
+      "column_name": "record_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lead_notes",
+      "column_name": "record_code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
     },
     {
       "table_name": "lead_status_history",
@@ -1531,6 +1797,20 @@
       "column_default": "'{}'::jsonb"
     },
     {
+      "table_name": "leads",
+      "column_name": "record_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "leads",
+      "column_name": "record_code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
       "table_name": "material_rates",
       "column_name": "id",
       "data_type": "uuid",
@@ -1585,6 +1865,20 @@
       "data_type": "timestamp with time zone",
       "is_nullable": "NO",
       "column_default": "clock_timestamp()"
+    },
+    {
+      "table_name": "material_rates",
+      "column_name": "record_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "material_rates",
+      "column_name": "record_code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
     },
     {
       "table_name": "materials",
@@ -1720,6 +2014,20 @@
       "column_default": "now()"
     },
     {
+      "table_name": "measurements",
+      "column_name": "record_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "measurements",
+      "column_name": "record_code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
       "table_name": "media_assets",
       "column_name": "id",
       "data_type": "uuid",
@@ -1808,6 +2116,20 @@
       "column_name": "duration_seconds",
       "data_type": "numeric",
       "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "media_assets",
+      "column_name": "record_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "media_assets",
+      "column_name": "record_code",
+      "data_type": "text",
+      "is_nullable": "NO",
       "column_default": null
     },
     {
@@ -1993,6 +2315,20 @@
       "column_default": "now()"
     },
     {
+      "table_name": "orders",
+      "column_name": "record_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "orders",
+      "column_name": "record_code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
       "table_name": "owner_withdrawals",
       "column_name": "id",
       "data_type": "uuid",
@@ -2056,6 +2392,20 @@
       "column_default": "gen_random_uuid()"
     },
     {
+      "table_name": "owner_withdrawals",
+      "column_name": "record_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "owner_withdrawals",
+      "column_name": "record_code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
       "table_name": "permissions",
       "column_name": "id",
       "data_type": "text",
@@ -2103,6 +2453,20 @@
       "data_type": "timestamp with time zone",
       "is_nullable": "NO",
       "column_default": "now()"
+    },
+    {
+      "table_name": "product_media",
+      "column_name": "record_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "product_media",
+      "column_name": "record_code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
     },
     {
       "table_name": "product_options",
@@ -2159,6 +2523,20 @@
       "data_type": "timestamp with time zone",
       "is_nullable": "NO",
       "column_default": "now()"
+    },
+    {
+      "table_name": "product_options",
+      "column_name": "record_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "product_options",
+      "column_name": "record_code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
     },
     {
       "table_name": "product_variants",
@@ -2546,6 +2924,20 @@
       "column_default": null
     },
     {
+      "table_name": "purchase_items",
+      "column_name": "record_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "purchase_items",
+      "column_name": "record_code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
       "table_name": "purchase_returns",
       "column_name": "id",
       "data_type": "uuid",
@@ -2609,6 +3001,20 @@
       "column_default": null
     },
     {
+      "table_name": "purchase_returns",
+      "column_name": "record_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "purchase_returns",
+      "column_name": "record_code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
       "table_name": "purchases",
       "column_name": "id",
       "data_type": "uuid",
@@ -2665,6 +3071,20 @@
       "column_default": "now()"
     },
     {
+      "table_name": "purchases",
+      "column_name": "record_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "purchases",
+      "column_name": "record_code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
       "table_name": "quality_checks",
       "column_name": "id",
       "data_type": "uuid",
@@ -2712,6 +3132,20 @@
       "data_type": "timestamp with time zone",
       "is_nullable": "NO",
       "column_default": "now()"
+    },
+    {
+      "table_name": "quality_checks",
+      "column_name": "record_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "quality_checks",
+      "column_name": "record_code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
     },
     {
       "table_name": "quotation_versions",
@@ -2840,6 +3274,20 @@
       "column_default": null
     },
     {
+      "table_name": "quotations",
+      "column_name": "record_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "quotations",
+      "column_name": "record_code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
       "table_name": "reviews",
       "column_name": "id",
       "data_type": "uuid",
@@ -2880,6 +3328,20 @@
       "data_type": "timestamp with time zone",
       "is_nullable": "NO",
       "column_default": "now()"
+    },
+    {
+      "table_name": "reviews",
+      "column_name": "record_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "reviews",
+      "column_name": "record_code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
     },
     {
       "table_name": "role_permissions",
@@ -2936,6 +3398,20 @@
       "data_type": "timestamp with time zone",
       "is_nullable": "NO",
       "column_default": "now()"
+    },
+    {
+      "table_name": "site_settings",
+      "column_name": "record_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "site_settings",
+      "column_name": "record_code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
     },
     {
       "table_name": "stock_movements",
@@ -3022,6 +3498,20 @@
       "column_default": null
     },
     {
+      "table_name": "stock_movements",
+      "column_name": "record_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "stock_movements",
+      "column_name": "record_code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
       "table_name": "stock_reservations",
       "column_name": "id",
       "data_type": "uuid",
@@ -3092,6 +3582,20 @@
       "column_default": null
     },
     {
+      "table_name": "stock_reservations",
+      "column_name": "record_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "stock_reservations",
+      "column_name": "record_code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
       "table_name": "supplier_payments",
       "column_name": "id",
       "data_type": "uuid",
@@ -3148,6 +3652,20 @@
       "column_default": "auth.uid()"
     },
     {
+      "table_name": "supplier_payments",
+      "column_name": "record_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "supplier_payments",
+      "column_name": "record_code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
       "table_name": "suppliers",
       "column_name": "id",
       "data_type": "uuid",
@@ -3188,6 +3706,20 @@
       "data_type": "timestamp with time zone",
       "is_nullable": "NO",
       "column_default": "now()"
+    },
+    {
+      "table_name": "suppliers",
+      "column_name": "record_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "suppliers",
+      "column_name": "record_code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
     },
     {
       "table_name": "upload_intents",
@@ -3323,6 +3855,20 @@
       "column_default": "now()"
     },
     {
+      "table_name": "website_sections",
+      "column_name": "record_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "website_sections",
+      "column_name": "record_code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
       "table_name": "work_entries",
       "column_name": "id",
       "data_type": "uuid",
@@ -3400,6 +3946,20 @@
       "column_default": "auth.uid()"
     },
     {
+      "table_name": "work_entries",
+      "column_name": "record_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "work_entries",
+      "column_name": "record_code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
       "table_name": "work_orders",
       "column_name": "id",
       "data_type": "uuid",
@@ -3449,6 +4009,20 @@
       "column_default": "now()"
     },
     {
+      "table_name": "work_orders",
+      "column_name": "record_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "work_orders",
+      "column_name": "record_code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
       "table_name": "workers",
       "column_name": "id",
       "data_type": "uuid",
@@ -3489,6 +4063,20 @@
       "data_type": "timestamp with time zone",
       "is_nullable": "NO",
       "column_default": "now()"
+    },
+    {
+      "table_name": "workers",
+      "column_name": "record_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "workers",
+      "column_name": "record_code",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
     }
   ],
   "policies": [
@@ -4058,6 +4646,14 @@
       "roles": "{anon,authenticated}",
       "cmd": "SELECT",
       "qual": "((EXISTS ( SELECT 1\n   FROM products p\n  WHERE ((p.id = product_media.product_id) AND (p.status = 'published'::text)))) AND (EXISTS ( SELECT 1\n   FROM media_assets m\n  WHERE ((m.id = product_media.media_id) AND (m.visibility = 'public'::text)))))",
+      "with_check": null
+    },
+    {
+      "tablename": "product_media",
+      "policyname": "staff_delete",
+      "roles": "{authenticated}",
+      "cmd": "DELETE",
+      "qual": "has_permission('catalog.write'::text)",
       "with_check": null
     },
     {
@@ -4835,6 +5431,16 @@
       "name": "202610300054_lead_overdue_time.sql",
       "sha256": "530ad79d8c72972e92d0b8165626f45c105fca742836cd61f36b8e03a50cfc90",
       "applied_at": "2026-10-30T10:16:20.508Z"
+    },
+    {
+      "name": "202610310056_follow_up_statuses.sql",
+      "sha256": "5e6706a9491fad95430dcca65a08d939e4efa084a37eec3190ac124fb3eab578",
+      "applied_at": "2026-10-30T19:54:03.703Z"
+    },
+    {
+      "name": "202611030058_readable_record_codes.sql",
+      "sha256": "663e221de820ef7d5a9725fb785d1657e372a95b2104697f6769b482fcc193b9",
+      "applied_at": "2026-11-03T06:43:18.291Z"
     }
   ],
   "constraints": [
@@ -4865,6 +5471,20 @@
       "parent_table": null,
       "columns": [
         "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "audit_logs",
+      "name": "audit_logs_record_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (record_code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "record_code"
       ],
       "parent_columns": []
     },
@@ -4940,6 +5560,20 @@
       "parent_table": null,
       "columns": [
         "quantity_per_sq_m"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "bom_items",
+      "name": "bom_items_record_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (record_code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "record_code"
       ],
       "parent_columns": []
     },
@@ -5027,6 +5661,20 @@
       "columns": [
         "product_id",
         "version"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "bom_versions",
+      "name": "bom_versions_record_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (record_code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "record_code"
       ],
       "parent_columns": []
     },
@@ -5204,6 +5852,20 @@
     {
       "schema_name": "public",
       "table_name": "calculation_rules",
+      "name": "calculation_rules_record_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (record_code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "record_code"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "calculation_rules",
       "name": "calculation_rules_status_check",
       "kind": "c",
       "validated": true,
@@ -5355,6 +6017,20 @@
     {
       "schema_name": "public",
       "table_name": "categories",
+      "name": "categories_record_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (record_code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "record_code"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "categories",
       "name": "categories_slug_key",
       "kind": "u",
       "validated": true,
@@ -5456,6 +6132,20 @@
     },
     {
       "schema_name": "public",
+      "table_name": "customer_payments",
+      "name": "customer_payments_record_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (record_code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "record_code"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
       "table_name": "customers",
       "name": "customers_pkey",
       "kind": "p",
@@ -5465,6 +6155,20 @@
       "parent_table": null,
       "columns": [
         "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "customers",
+      "name": "customers_record_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (record_code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "record_code"
       ],
       "parent_columns": []
     },
@@ -5547,6 +6251,20 @@
     {
       "schema_name": "public",
       "table_name": "deliveries",
+      "name": "deliveries_record_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (record_code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "record_code"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "deliveries",
       "name": "deliveries_status_check",
       "kind": "c",
       "validated": true,
@@ -5603,6 +6321,20 @@
       "parent_columns": [
         "id"
       ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "estimate_snapshots",
+      "name": "estimate_snapshots_record_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (record_code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "record_code"
+      ],
+      "parent_columns": []
     },
     {
       "schema_name": "public",
@@ -5708,6 +6440,20 @@
     },
     {
       "schema_name": "public",
+      "table_name": "expense_reversals",
+      "name": "expense_reversals_record_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (record_code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "record_code"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
       "table_name": "expenses",
       "name": "expenses_amount_minor_check",
       "kind": "c",
@@ -5761,6 +6507,20 @@
       "parent_table": null,
       "columns": [
         "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "expenses",
+      "name": "expenses_record_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (record_code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "record_code"
       ],
       "parent_columns": []
     },
@@ -5861,6 +6621,20 @@
       "parent_table": null,
       "columns": [
         "reason"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "finance_period_closures",
+      "name": "finance_period_closures_record_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (record_code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "record_code"
       ],
       "parent_columns": []
     },
@@ -6014,6 +6788,20 @@
     {
       "schema_name": "public",
       "table_name": "financial_adjustments",
+      "name": "financial_adjustments_record_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (record_code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "record_code"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "financial_adjustments",
       "name": "financial_adjustments_reference_check",
       "kind": "c",
       "validated": true,
@@ -6090,10 +6878,24 @@
     {
       "schema_name": "public",
       "table_name": "follow_ups",
+      "name": "follow_ups_record_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (record_code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "record_code"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "follow_ups",
       "name": "follow_ups_status_check",
       "kind": "c",
       "validated": true,
-      "definition": "CHECK (status = ANY (ARRAY['pending'::text, 'completed'::text]))",
+      "definition": "CHECK (status = ANY (ARRAY['pending'::text, 'processing'::text, 'working'::text, 'delay'::text, 'completed'::text]))",
       "parent_schema": null,
       "parent_table": null,
       "columns": [
@@ -6165,6 +6967,20 @@
     {
       "schema_name": "public",
       "table_name": "gallery_items",
+      "name": "gallery_items_record_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (record_code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "record_code"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "gallery_items",
       "name": "gallery_items_status_check",
       "kind": "c",
       "validated": true,
@@ -6218,6 +7034,20 @@
       "parent_table": null,
       "columns": [
         "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "installations",
+      "name": "installations_record_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (record_code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "record_code"
       ],
       "parent_columns": []
     },
@@ -6310,6 +7140,20 @@
     {
       "schema_name": "public",
       "table_name": "labour_payments",
+      "name": "labour_payments_record_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (record_code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "record_code"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "labour_payments",
       "name": "labour_payments_worker_id_fkey",
       "kind": "f",
       "validated": true,
@@ -6348,6 +7192,20 @@
       "parent_table": null,
       "columns": [
         "rate_minor"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "labour_rates",
+      "name": "labour_rates_record_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (record_code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "record_code"
       ],
       "parent_columns": []
     },
@@ -6484,6 +7342,20 @@
       "parent_table": null,
       "columns": [
         "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "lead_notes",
+      "name": "lead_notes_record_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (record_code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "record_code"
       ],
       "parent_columns": []
     },
@@ -6628,6 +7500,20 @@
     {
       "schema_name": "public",
       "table_name": "leads",
+      "name": "leads_record_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (record_code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "record_code"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "leads",
       "name": "leads_source_check",
       "kind": "c",
       "validated": true,
@@ -6724,6 +7610,20 @@
       "parent_table": null,
       "columns": [
         "purchase_minor"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "material_rates",
+      "name": "material_rates_record_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (record_code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "record_code"
       ],
       "parent_columns": []
     },
@@ -6970,6 +7870,20 @@
     {
       "schema_name": "public",
       "table_name": "measurements",
+      "name": "measurements_record_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (record_code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "record_code"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "measurements",
       "name": "measurements_verified_by_fkey",
       "kind": "f",
       "validated": true,
@@ -7080,6 +7994,20 @@
       "parent_table": null,
       "columns": [
         "public_id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "media_assets",
+      "name": "media_assets_record_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (record_code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "record_code"
       ],
       "parent_columns": []
     },
@@ -7268,6 +8196,20 @@
     {
       "schema_name": "public",
       "table_name": "orders",
+      "name": "orders_record_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (record_code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "record_code"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "orders",
       "name": "orders_status_check",
       "kind": "c",
       "validated": true,
@@ -7381,6 +8323,20 @@
     },
     {
       "schema_name": "public",
+      "table_name": "owner_withdrawals",
+      "name": "owner_withdrawals_record_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (record_code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "record_code"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
       "table_name": "permissions",
       "name": "permissions_pkey",
       "kind": "p",
@@ -7438,6 +8394,20 @@
       "parent_columns": [
         "id"
       ]
+    },
+    {
+      "schema_name": "public",
+      "table_name": "product_media",
+      "name": "product_media_record_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (record_code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "record_code"
+      ],
+      "parent_columns": []
     },
     {
       "schema_name": "public",
@@ -7524,6 +8494,20 @@
         "product_id",
         "option_group",
         "name"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "product_options",
+      "name": "product_options_record_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (record_code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "record_code"
       ],
       "parent_columns": []
     },
@@ -8066,6 +9050,20 @@
     {
       "schema_name": "public",
       "table_name": "purchase_items",
+      "name": "purchase_items_record_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (record_code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "record_code"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "purchase_items",
       "name": "purchase_items_tax_bps_check",
       "kind": "c",
       "validated": true,
@@ -8181,6 +9179,20 @@
     },
     {
       "schema_name": "public",
+      "table_name": "purchase_returns",
+      "name": "purchase_returns_record_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (record_code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "record_code"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
       "table_name": "purchases",
       "name": "purchases_pkey",
       "kind": "p",
@@ -8190,6 +9202,20 @@
       "parent_table": null,
       "columns": [
         "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "purchases",
+      "name": "purchases_record_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (record_code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "record_code"
       ],
       "parent_columns": []
     },
@@ -8279,6 +9305,20 @@
       "parent_table": null,
       "columns": [
         "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "quality_checks",
+      "name": "quality_checks_record_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (record_code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "record_code"
       ],
       "parent_columns": []
     },
@@ -8465,6 +9505,20 @@
     {
       "schema_name": "public",
       "table_name": "quotations",
+      "name": "quotations_record_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (record_code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "record_code"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "quotations",
       "name": "quotations_revision_actor_fkey",
       "kind": "f",
       "validated": true,
@@ -8561,6 +9615,20 @@
       "parent_table": null,
       "columns": [
         "rating"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "reviews",
+      "name": "reviews_record_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (record_code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "record_code"
       ],
       "parent_columns": []
     },
@@ -8664,6 +9732,20 @@
       "parent_table": null,
       "columns": [
         "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "site_settings",
+      "name": "site_settings_record_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (record_code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "record_code"
       ],
       "parent_columns": []
     },
@@ -8788,6 +9870,20 @@
     {
       "schema_name": "public",
       "table_name": "stock_movements",
+      "name": "stock_movements_record_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (record_code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "record_code"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "stock_movements",
       "name": "stock_movements_unit_cost_minor_check",
       "kind": "c",
       "validated": true,
@@ -8899,6 +9995,20 @@
       "parent_table": null,
       "columns": [
         "quantity"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "stock_reservations",
+      "name": "stock_reservations_record_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (record_code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "record_code"
       ],
       "parent_columns": []
     },
@@ -9038,6 +10148,20 @@
     },
     {
       "schema_name": "public",
+      "table_name": "supplier_payments",
+      "name": "supplier_payments_record_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (record_code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "record_code"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
       "table_name": "suppliers",
       "name": "suppliers_pkey",
       "kind": "p",
@@ -9047,6 +10171,20 @@
       "parent_table": null,
       "columns": [
         "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "suppliers",
+      "name": "suppliers_record_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (record_code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "record_code"
       ],
       "parent_columns": []
     },
@@ -9249,6 +10387,20 @@
     {
       "schema_name": "public",
       "table_name": "website_sections",
+      "name": "website_sections_record_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (record_code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "record_code"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "website_sections",
       "name": "website_sections_status_check",
       "kind": "c",
       "validated": true,
@@ -9379,6 +10531,20 @@
     {
       "schema_name": "public",
       "table_name": "work_entries",
+      "name": "work_entries_record_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (record_code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "record_code"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "work_entries",
       "name": "work_entries_status_check",
       "kind": "c",
       "validated": true,
@@ -9499,6 +10665,20 @@
     {
       "schema_name": "public",
       "table_name": "work_orders",
+      "name": "work_orders_record_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (record_code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "record_code"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "work_orders",
       "name": "work_orders_status_check",
       "kind": "c",
       "validated": true,
@@ -9521,6 +10701,20 @@
       "parent_table": null,
       "columns": [
         "id"
+      ],
+      "parent_columns": []
+    },
+    {
+      "schema_name": "public",
+      "table_name": "workers",
+      "name": "workers_record_code_key",
+      "kind": "u",
+      "validated": true,
+      "definition": "UNIQUE (record_code)",
+      "parent_schema": null,
+      "parent_table": null,
+      "columns": [
+        "record_code"
       ],
       "parent_columns": []
     }

@@ -18,6 +18,7 @@ export default async function Timeline({ params }: { params: Promise<{ id: strin
   const { data: owned } = await db.rpc('my_orders', { target: id });
   const order = owned?.[0];
   if (!order) notFound();
+  const {data:identity}=await db.from('orders').select('record_code').eq('id',id).maybeSingle();
   const { data: history, error } = await db.rpc('customer_order_timeline', { target: id });
 
   const currentMilestone = getMilestoneInfo(order.status, locale);
@@ -47,7 +48,7 @@ export default async function Timeline({ params }: { params: Promise<{ id: strin
               <span className={`inline-block rounded-full border px-2.5 py-0.5 text-xs font-semibold ${currentMilestone.colorClass}`}>
                 {currentMilestone.stageName}
               </span>
-              <span className="text-xs text-slate-400">Order ID: {order.id.slice(0, 8)}</span>
+              <span className="text-xs text-slate-400">Order: {identity?.record_code || order.name}</span>
             </div>
             <h1 className="mt-2 text-2xl sm:text-3xl font-bold text-slate-900">{order.name}</h1>
             <p className="mt-2 text-xl font-bold text-orange-600">{money(order.total_minor)}</p>

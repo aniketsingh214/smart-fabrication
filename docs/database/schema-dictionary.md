@@ -16,6 +16,8 @@ RLS enabled: true.
 | old_status | text | YES |  |
 | new_status | text | YES |  |
 | created_at | timestamp with time zone | NO | now() |
+| record_number | bigint | NO |  |
+| record_code | text | NO |  |
 
 ## bom_items
 
@@ -30,6 +32,8 @@ RLS enabled: true.
 | wastage_percent | numeric | NO | 5 |
 | created_at | timestamp with time zone | NO | now() |
 | customer_visible | boolean | NO | true |
+| record_number | bigint | NO |  |
+| record_code | text | NO |  |
 
 ## bom_versions
 
@@ -42,6 +46,8 @@ RLS enabled: true.
 | version | integer | NO |  |
 | status | text | NO | 'draft'::text |
 | created_at | timestamp with time zone | NO | now() |
+| record_number | bigint | NO |  |
+| record_code | text | NO |  |
 
 ## calculation_rules
 
@@ -61,6 +67,8 @@ RLS enabled: true.
 | range_percent | integer | NO |  |
 | status | text | NO | 'draft'::text |
 | created_at | timestamp with time zone | NO | now() |
+| record_number | bigint | NO |  |
+| record_code | text | NO |  |
 
 ## catalog_copies
 
@@ -89,6 +97,8 @@ RLS enabled: true.
 | sort_order | integer | NO | 0 |
 | created_at | timestamp with time zone | NO | now() |
 | image_media_id | uuid | YES |  |
+| record_number | bigint | NO |  |
+| record_code | text | NO |  |
 
 ## customer_payments
 
@@ -104,6 +114,8 @@ RLS enabled: true.
 | idempotency_key | uuid | NO |  |
 | created_by | uuid | YES | auth.uid() |
 | created_at | timestamp with time zone | NO | now() |
+| record_number | bigint | NO |  |
+| record_code | text | NO |  |
 
 ## customers
 
@@ -119,6 +131,8 @@ RLS enabled: true.
 | address | text | NO | ''::text |
 | notes | text | NO | ''::text |
 | created_at | timestamp with time zone | NO | now() |
+| record_number | bigint | NO |  |
+| record_code | text | NO |  |
 
 ## deliveries
 
@@ -136,6 +150,8 @@ RLS enabled: true.
 | proof_media_id | uuid | YES |  |
 | confirmed_at | timestamp with time zone | YES |  |
 | created_at | timestamp with time zone | NO | now() |
+| record_number | bigint | NO |  |
+| record_code | text | NO |  |
 
 ## estimate_snapshots
 
@@ -150,6 +166,8 @@ RLS enabled: true.
 | result | jsonb | NO |  |
 | formula_version | text | NO |  |
 | created_at | timestamp with time zone | NO | now() |
+| record_number | bigint | NO |  |
+| record_code | text | NO |  |
 
 ## expense_reversals
 
@@ -165,6 +183,8 @@ RLS enabled: true.
 | idempotency_key | uuid | NO |  |
 | created_by | uuid | NO |  |
 | created_at | timestamp with time zone | NO | now() |
+| record_number | bigint | NO |  |
+| record_code | text | NO |  |
 
 ## expenses
 
@@ -182,6 +202,8 @@ RLS enabled: true.
 | order_id | uuid | YES |  |
 | status | text | NO | 'draft'::text |
 | created_at | timestamp with time zone | NO | now() |
+| record_number | bigint | NO |  |
+| record_code | text | NO |  |
 
 ## finance_period_closures
 
@@ -195,6 +217,8 @@ RLS enabled: true.
 | idempotency_key | uuid | NO |  |
 | created_by | uuid | NO |  |
 | created_at | timestamp with time zone | NO | now() |
+| record_number | bigint | NO |  |
+| record_code | text | NO |  |
 
 ## financial_adjustments
 
@@ -217,6 +241,8 @@ RLS enabled: true.
 | created_by | uuid | NO |  |
 | request | jsonb | NO |  |
 | created_at | timestamp with time zone | NO | now() |
+| record_number | bigint | NO |  |
+| record_code | text | NO |  |
 
 ## follow_ups
 
@@ -231,6 +257,8 @@ RLS enabled: true.
 | note | text | NO | ''::text |
 | status | text | NO | 'pending'::text |
 | created_at | timestamp with time zone | NO | now() |
+| record_number | bigint | NO |  |
+| record_code | text | NO |  |
 
 ## gallery_items
 
@@ -246,6 +274,8 @@ RLS enabled: true.
 | status | text | NO | 'draft'::text |
 | consent_confirmed | boolean | NO | false |
 | created_at | timestamp with time zone | NO | now() |
+| record_number | bigint | NO |  |
+| record_code | text | NO |  |
 
 ## installations
 
@@ -260,6 +290,8 @@ RLS enabled: true.
 | customer_confirmed | boolean | NO | false |
 | status | text | NO | 'pending'::text |
 | created_at | timestamp with time zone | NO | now() |
+| record_number | bigint | NO |  |
+| record_code | text | NO |  |
 
 ## labour_payments
 
@@ -275,6 +307,8 @@ RLS enabled: true.
 | idempotency_key | uuid | NO |  |
 | created_at | timestamp with time zone | NO | now() |
 | created_by | uuid | YES | auth.uid() |
+| record_number | bigint | NO |  |
+| record_code | text | NO |  |
 
 ## labour_rates
 
@@ -288,6 +322,8 @@ RLS enabled: true.
 | rate_minor | bigint | NO |  |
 | effective_at | timestamp with time zone | NO | now() |
 | created_at | timestamp with time zone | NO | now() |
+| record_number | bigint | NO |  |
+| record_code | text | NO |  |
 
 ## lead_attachments
 
@@ -311,6 +347,8 @@ RLS enabled: true.
 | note | text | NO |  |
 | created_by | uuid | NO | auth.uid() |
 | created_at | timestamp with time zone | NO | now() |
+| record_number | bigint | NO |  |
+| record_code | text | NO |  |
 
 ## lead_status_history
 
@@ -347,6 +385,8 @@ RLS enabled: true.
 | version | integer | NO | 1 |
 | duplicate_of | uuid | YES |  |
 | configuration_snapshot | jsonb | NO | '{}'::jsonb |
+| record_number | bigint | NO |  |
+| record_code | text | NO |  |
 
 ## material_rates
 
@@ -362,6 +402,8 @@ RLS enabled: true.
 | currency | text | NO | 'INR'::text |
 | created_by | uuid | YES | auth.uid() |
 | created_at | timestamp with time zone | NO | clock_timestamp() |
+| record_number | bigint | NO |  |
+| record_code | text | NO |  |
 
 ## materials
 
@@ -395,6 +437,8 @@ RLS enabled: true.
 | note | text | NO | ''::text |
 | verified_by | uuid | NO | auth.uid() |
 | created_at | timestamp with time zone | NO | now() |
+| record_number | bigint | NO |  |
+| record_code | text | NO |  |
 
 ## media_assets
 
@@ -415,6 +459,8 @@ RLS enabled: true.
 | context | text | NO |  |
 | created_at | timestamp with time zone | NO | now() |
 | duration_seconds | numeric | YES |  |
+| record_number | bigint | NO |  |
+| record_code | text | NO |  |
 
 ## notifications
 
@@ -462,6 +508,8 @@ RLS enabled: true.
 | note | text | NO | ''::text |
 | version | integer | NO | 1 |
 | created_at | timestamp with time zone | NO | now() |
+| record_number | bigint | NO |  |
+| record_code | text | NO |  |
 
 ## owner_withdrawals
 
@@ -478,6 +526,8 @@ RLS enabled: true.
 | created_by | uuid | YES | auth.uid() |
 | created_at | timestamp with time zone | NO | now() |
 | idempotency_key | uuid | NO | gen_random_uuid() |
+| record_number | bigint | NO |  |
+| record_code | text | NO |  |
 
 ## permissions
 
@@ -499,6 +549,8 @@ RLS enabled: true.
 | alt_text | text | NO |  |
 | sort_order | integer | NO | 0 |
 | created_at | timestamp with time zone | NO | now() |
+| record_number | bigint | NO |  |
+| record_code | text | NO |  |
 
 ## product_options
 
@@ -514,6 +566,8 @@ RLS enabled: true.
 | sort_order | integer | NO | 0 |
 | status | text | NO | 'draft'::text |
 | created_at | timestamp with time zone | NO | now() |
+| record_number | bigint | NO |  |
+| record_code | text | NO |  |
 
 ## product_variants
 
@@ -604,6 +658,8 @@ RLS enabled: true.
 | tax_minor | bigint | YES |  |
 | total_minor | bigint | YES |  |
 | inventory_minor | bigint | YES |  |
+| record_number | bigint | NO |  |
+| record_code | text | NO |  |
 
 ## purchase_returns
 
@@ -620,6 +676,8 @@ RLS enabled: true.
 | created_by | uuid | YES | auth.uid() |
 | created_at | timestamp with time zone | NO | now() |
 | inventory_value_minor | bigint | YES |  |
+| record_number | bigint | NO |  |
+| record_code | text | NO |  |
 
 ## purchases
 
@@ -635,6 +693,8 @@ RLS enabled: true.
 | total_minor | bigint | NO | 0 |
 | status | text | NO | 'draft'::text |
 | created_at | timestamp with time zone | NO | now() |
+| record_number | bigint | NO |  |
+| record_code | text | NO |  |
 
 ## quality_checks
 
@@ -649,6 +709,8 @@ RLS enabled: true.
 | note | text | NO | ''::text |
 | created_by | uuid | YES | auth.uid() |
 | created_at | timestamp with time zone | NO | now() |
+| record_number | bigint | NO |  |
+| record_code | text | NO |  |
 
 ## quotation_versions
 
@@ -681,6 +743,8 @@ RLS enabled: true.
 | revision_key | uuid | YES |  |
 | revision_reason | text | YES |  |
 | revision_actor | uuid | YES |  |
+| record_number | bigint | NO |  |
+| record_code | text | NO |  |
 
 ## reviews
 
@@ -694,6 +758,8 @@ RLS enabled: true.
 | body | text | NO |  |
 | status | text | NO | 'pending'::text |
 | created_at | timestamp with time zone | NO | now() |
+| record_number | bigint | NO |  |
+| record_code | text | NO |  |
 
 ## role_permissions
 
@@ -723,6 +789,8 @@ RLS enabled: true.
 | value | text | NO |  |
 | public | boolean | NO | false |
 | created_at | timestamp with time zone | NO | now() |
+| record_number | bigint | NO |  |
+| record_code | text | NO |  |
 
 ## stock_movements
 
@@ -742,6 +810,8 @@ RLS enabled: true.
 | created_by | uuid | YES | auth.uid() |
 | created_at | timestamp with time zone | NO | now() |
 | book_value_minor | bigint | YES |  |
+| record_number | bigint | NO |  |
+| record_code | text | NO |  |
 
 ## stock_reservations
 
@@ -759,6 +829,8 @@ RLS enabled: true.
 | release_note | text | NO | ''::text |
 | released_at | timestamp with time zone | YES |  |
 | released_by | uuid | YES |  |
+| record_number | bigint | NO |  |
+| record_code | text | NO |  |
 
 ## supplier_payments
 
@@ -774,6 +846,8 @@ RLS enabled: true.
 | idempotency_key | uuid | NO |  |
 | created_at | timestamp with time zone | NO | now() |
 | created_by | uuid | YES | auth.uid() |
+| record_number | bigint | NO |  |
+| record_code | text | NO |  |
 
 ## suppliers
 
@@ -787,6 +861,8 @@ RLS enabled: true.
 | address | text | NO | ''::text |
 | gst_number | text | YES |  |
 | created_at | timestamp with time zone | NO | now() |
+| record_number | bigint | NO |  |
+| record_code | text | NO |  |
 
 ## upload_intents
 
@@ -827,6 +903,8 @@ RLS enabled: true.
 | status | text | NO | 'draft'::text |
 | sort_order | integer | NO | 0 |
 | created_at | timestamp with time zone | NO | now() |
+| record_number | bigint | NO |  |
+| record_code | text | NO |  |
 
 ## work_entries
 
@@ -845,6 +923,8 @@ RLS enabled: true.
 | created_at | timestamp with time zone | NO | now() |
 | idempotency_key | uuid | NO | gen_random_uuid() |
 | created_by | uuid | YES | auth.uid() |
+| record_number | bigint | NO |  |
+| record_code | text | NO |  |
 
 ## work_orders
 
@@ -859,6 +939,8 @@ RLS enabled: true.
 | status | text | NO | 'pending'::text |
 | planned_weight_kg | numeric | NO | 0 |
 | created_at | timestamp with time zone | NO | now() |
+| record_number | bigint | NO |  |
+| record_code | text | NO |  |
 
 ## workers
 
@@ -872,3 +954,5 @@ RLS enabled: true.
 | work_type | text | NO |  |
 | active | boolean | NO | true |
 | created_at | timestamp with time zone | NO | now() |
+| record_number | bigint | NO |  |
+| record_code | text | NO |  |

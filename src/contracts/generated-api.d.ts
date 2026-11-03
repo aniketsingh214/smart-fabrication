@@ -62530,6 +62530,150 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/record-labels": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Resolve up to 100 readable record names/codes; entity read permission and RLS apply */
+        get: {
+            parameters: {
+                query: {
+                    resource: string;
+                    /** @description Comma-separated UUIDs, maximum 100; inaccessible rows are omitted. */
+                    ids: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success envelope */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Envelope"];
+                    };
+                };
+                /** @description HTTP 400; sanitized error envelope */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 401; sanitized error envelope */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 403; sanitized error envelope */
+                403: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 404; sanitized error envelope */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 409; sanitized error envelope */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 413; sanitized error envelope */
+                413: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 415; sanitized error envelope */
+                415: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 422; sanitized error envelope */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description Request quota exceeded. Retry-After is seconds; form values are retained. */
+                429: {
+                    headers: {
+                        "Retry-After"?: number;
+                        "X-RateLimit-Limit"?: number;
+                        "X-RateLimit-Remaining"?: number;
+                        /** @description Unix epoch seconds */
+                        "X-RateLimit-Reset"?: number;
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 500; sanitized error envelope */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+                /** @description HTTP 503; sanitized error envelope */
+                503: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/auth/form": {
         parameters: {
             query?: never;
@@ -63561,6 +63705,7 @@ export interface components {
             id: string;
             /** Format: date-time */
             created_at: string;
+            record_code: string;
             /** Format: uuid */
             product_id: string;
             /** Format: uuid */
@@ -63574,6 +63719,7 @@ export interface components {
             id: string;
             /** Format: date-time */
             created_at: string;
+            record_code: string;
             kind: string;
             /** Format: uuid */
             source_id: string;
@@ -63589,6 +63735,7 @@ export interface components {
             id: string;
             /** Format: date-time */
             created_at: string;
+            record_code: string;
             /** Format: date */
             closed_through: string;
             reason: string;
@@ -63598,6 +63745,7 @@ export interface components {
             id: string;
             /** Format: date-time */
             created_at: string;
+            record_code: string;
             /** Format: uuid */
             expense_id: string;
             /** Format: date */
@@ -63610,6 +63758,7 @@ export interface components {
             id: string;
             /** Format: date-time */
             created_at: string;
+            record_code: string;
             /** Format: uuid */
             purchase_item_id: string;
             quantity: number;
@@ -63639,6 +63788,7 @@ export interface components {
             id: string;
             /** Format: date-time */
             created_at: string;
+            record_code: string;
             /** Format: uuid */
             product_id: string;
             name: string;
@@ -63675,6 +63825,7 @@ export interface components {
             id: string;
             /** Format: date-time */
             created_at: string;
+            record_code: string;
             name: string;
             slug: string;
             parent_id: string | null;
@@ -63687,6 +63838,7 @@ export interface components {
             id: string;
             /** Format: date-time */
             created_at: string;
+            record_code: string;
             /** Format: uuid */
             product_id: string;
             /** Format: uuid */
@@ -63699,6 +63851,7 @@ export interface components {
             id: string;
             /** Format: date-time */
             created_at: string;
+            record_code: string;
             name: string;
             media_id: string | null;
             category_id: string | null;
@@ -63711,6 +63864,7 @@ export interface components {
             id: string;
             /** Format: date-time */
             created_at: string;
+            record_code: string;
             name: string;
             heading: string;
             body: string;
@@ -63722,6 +63876,7 @@ export interface components {
             id: string;
             /** Format: date-time */
             created_at: string;
+            record_code: string;
             name: string;
             rating: number;
             body: string;
@@ -63732,6 +63887,7 @@ export interface components {
             id: string;
             /** Format: date-time */
             created_at: string;
+            record_code: string;
             name: string;
             phone: string;
             email: string | null;
@@ -63753,6 +63909,7 @@ export interface components {
             id: string;
             /** Format: date-time */
             created_at: string;
+            record_code: string;
             name: string;
             phone: string;
             email: string | null;
@@ -63764,6 +63921,7 @@ export interface components {
             id: string;
             /** Format: date-time */
             created_at: string;
+            record_code: string;
             /** Format: uuid */
             lead_id: string;
             note: string;
@@ -63775,6 +63933,7 @@ export interface components {
             id: string;
             /** Format: date-time */
             created_at: string;
+            record_code: string;
             /** Format: uuid */
             lead_id: string;
             assigned_to: string | null;
@@ -63788,6 +63947,7 @@ export interface components {
             id: string;
             /** Format: date-time */
             created_at: string;
+            record_code: string;
             /** Format: uuid */
             lead_id: string;
             width_mm: number;
@@ -63800,6 +63960,7 @@ export interface components {
             id: string;
             /** Format: date-time */
             created_at: string;
+            record_code: string;
             name: string;
             lead_id: string | null;
             /** Format: uuid */
@@ -63815,6 +63976,7 @@ export interface components {
             id: string;
             /** Format: date-time */
             created_at: string;
+            record_code: string;
             name: string;
             total_minor: number;
             due_at: string | null;
@@ -63846,6 +64008,7 @@ export interface components {
             id: string;
             /** Format: date-time */
             created_at: string;
+            record_code: string;
             /** Format: uuid */
             material_id: string;
             purchase_minor: number;
@@ -63858,6 +64021,7 @@ export interface components {
             id: string;
             /** Format: date-time */
             created_at: string;
+            record_code: string;
             /** Format: uuid */
             product_id: string;
             version: number;
@@ -63868,6 +64032,7 @@ export interface components {
             id: string;
             /** Format: date-time */
             created_at: string;
+            record_code: string;
             /** Format: uuid */
             bom_id: string;
             /** Format: uuid */
@@ -63881,6 +64046,7 @@ export interface components {
             id: string;
             /** Format: date-time */
             created_at: string;
+            record_code: string;
             /** Format: uuid */
             product_id: string;
             version: number;
@@ -63898,6 +64064,7 @@ export interface components {
             id: string;
             /** Format: date-time */
             created_at: string;
+            record_code: string;
             name: string;
             phone: string;
             address: string;
@@ -63908,6 +64075,7 @@ export interface components {
             id: string;
             /** Format: date-time */
             created_at: string;
+            record_code: string;
             name: string;
             /** Format: uuid */
             supplier_id: string;
@@ -63922,6 +64090,7 @@ export interface components {
             id: string;
             /** Format: date-time */
             created_at: string;
+            record_code: string;
             /** Format: uuid */
             purchase_id: string;
             /** Format: uuid */
@@ -63941,6 +64110,7 @@ export interface components {
             id: string;
             /** Format: date-time */
             created_at: string;
+            record_code: string;
             /** Format: uuid */
             material_id: string;
             quantity: number;
@@ -63957,6 +64127,7 @@ export interface components {
             id: string;
             /** Format: date-time */
             created_at: string;
+            record_code: string;
             /** Format: uuid */
             material_id: string;
             /** Format: uuid */
@@ -63970,6 +64141,7 @@ export interface components {
             id: string;
             /** Format: date-time */
             created_at: string;
+            record_code: string;
             name: string;
             phone: string;
             work_type: string;
@@ -63980,6 +64152,7 @@ export interface components {
             id: string;
             /** Format: date-time */
             created_at: string;
+            record_code: string;
             /** Format: uuid */
             worker_id: string;
             unit: string;
@@ -63992,6 +64165,7 @@ export interface components {
             id: string;
             /** Format: date-time */
             created_at: string;
+            record_code: string;
             /** Format: uuid */
             worker_id: string;
             /** Format: uuid */
@@ -64005,6 +64179,7 @@ export interface components {
             id: string;
             /** Format: date-time */
             created_at: string;
+            record_code: string;
             name: string;
             /** Format: uuid */
             order_id: string;
@@ -64016,6 +64191,7 @@ export interface components {
             id: string;
             /** Format: date-time */
             created_at: string;
+            record_code: string;
             /** Format: uuid */
             work_order_id: string;
             name: string;
@@ -64027,6 +64203,7 @@ export interface components {
             id: string;
             /** Format: date-time */
             created_at: string;
+            record_code: string;
             name: string;
             /** Format: uuid */
             order_id: string;
@@ -64041,6 +64218,7 @@ export interface components {
             id: string;
             /** Format: date-time */
             created_at: string;
+            record_code: string;
             name: string;
             /** Format: uuid */
             delivery_id: string;
@@ -64053,6 +64231,7 @@ export interface components {
             id: string;
             /** Format: date-time */
             created_at: string;
+            record_code: string;
             /** Format: uuid */
             order_id: string;
             amount_minor: number;
@@ -64064,6 +64243,7 @@ export interface components {
             id: string;
             /** Format: date-time */
             created_at: string;
+            record_code: string;
             /** Format: uuid */
             purchase_id: string;
             amount_minor: number;
@@ -64075,6 +64255,7 @@ export interface components {
             id: string;
             /** Format: date-time */
             created_at: string;
+            record_code: string;
             /** Format: uuid */
             worker_id: string;
             amount_minor: number;
@@ -64086,6 +64267,7 @@ export interface components {
             id: string;
             /** Format: date-time */
             created_at: string;
+            record_code: string;
             name: string;
             category: string;
             amount_minor: number;
@@ -64101,6 +64283,7 @@ export interface components {
             id: string;
             /** Format: date-time */
             created_at: string;
+            record_code: string;
             name: string;
             amount_minor: number;
             /** Format: date */
@@ -64113,6 +64296,7 @@ export interface components {
             id: string;
             /** Format: date-time */
             created_at: string;
+            record_code: string;
             name: string;
             value: string;
             public: boolean;
@@ -64122,6 +64306,7 @@ export interface components {
             id: string;
             /** Format: date-time */
             created_at: string;
+            record_code: string;
             public_id: string;
             resource_type: string;
             visibility: string;
@@ -64139,6 +64324,7 @@ export interface components {
             id: string;
             /** Format: date-time */
             created_at: string;
+            record_code: string;
             action: string;
             entity_type: string;
             entity_id: string | null;
@@ -64174,6 +64360,7 @@ export interface components {
         CustomerQuotation: {
             /** Format: uuid */
             id: string;
+            record_code?: string;
             name: string;
             status: string;
             /** Format: date-time */
@@ -64184,6 +64371,7 @@ export interface components {
         CustomerOrder: {
             /** Format: uuid */
             id: string;
+            record_code?: string;
             name: string;
             total_minor: number;
             status: string;

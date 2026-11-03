@@ -1,3 +1,4 @@
+import {recordPrefixes} from './record-identity.ts';
 import type { Resource } from './resources';
 const extra: Record<string, string[]> = {
   leads: ['configuration_snapshot', 'assigned_to', 'duplicate_of', 'version', 'updated_at'],
@@ -12,5 +13,5 @@ const extra: Record<string, string[]> = {
 };
 /** Explicit shared projection: adding a database column cannot silently expose it. */
 export function recordFields(resource: Resource) {
-  return [...new Set(['id', 'created_at', ...resource.fields.map(field => field.key), ...resource.columns, ...(extra[resource.slug] ?? [])])].join(',');
+  return [...new Set(['id', 'created_at', ...(recordPrefixes[resource.slug]?['record_code']:[]), ...resource.fields.map(field => field.key), ...resource.columns, ...(extra[resource.slug] ?? [])])].join(',');
 }

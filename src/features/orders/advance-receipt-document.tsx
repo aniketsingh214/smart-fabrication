@@ -193,6 +193,7 @@ const styles = StyleSheet.create({
 export interface AdvanceReceiptData {
   order: {
     id: string;
+    record_code?: string;
     name: string;
     status: string;
     total_minor: number;
@@ -206,6 +207,7 @@ export interface AdvanceReceiptData {
   } | null;
   payment: {
     id: string;
+    record_code?: string;
     amount_minor: number;
     mode: string;
     reference?: string | null;
@@ -239,7 +241,7 @@ function modeLabel(mode: string): string {
 
 export async function advanceReceiptPdf(data: AdvanceReceiptData): Promise<Buffer> {
   const { order, customer, payment, totalPaidMinor, balanceDueMinor } = data;
-  const receiptNo = `GW-ADV-${order.id.slice(0, 8).toUpperCase()}-${payment.id.slice(0, 4).toUpperCase()}`;
+  const receiptNo = payment.record_code || payment.reference || 'Payment receipt';
   const paymentDate = new Date(payment.created_at).toLocaleDateString('en-IN', {
     year: 'numeric',
     month: 'short',
@@ -290,7 +292,7 @@ export async function advanceReceiptPdf(data: AdvanceReceiptData): Promise<Buffe
           <View style={styles.metaBox}>
             <Text style={styles.metaHeading}>Order Details (ऑर्डर विवरण)</Text>
             <Text style={[styles.metaLine, styles.metaBold]}>{order.name}</Text>
-            <Text style={styles.metaLine}>Order ID: {order.id}</Text>
+            <Text style={styles.metaLine}>Order: {order.record_code || order.name}</Text>
             <Text style={styles.metaLine}>
               Current Stage: {order.status.replaceAll('_', ' ')}
             </Text>

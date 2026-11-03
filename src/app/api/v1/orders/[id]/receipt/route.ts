@@ -18,7 +18,7 @@ export async function GET(
     // 1. Fetch order details
     const { data: order, error: orderErr } = await db
       .from('orders')
-      .select('id, name, status, total_minor, quotation_version_id, created_at')
+      .select('id, record_code, name, status, total_minor, quotation_version_id, created_at')
       .eq('id', id)
       .maybeSingle();
     databaseError(orderErr);
@@ -53,7 +53,7 @@ export async function GET(
     const paymentId = request.nextUrl.searchParams.get('payment_id');
     const { data: payments, error: payErr } = await db
       .from('customer_payments')
-      .select('id, amount_minor, mode, reference, created_at')
+      .select('id, record_code, amount_minor, mode, reference, created_at')
       .eq('order_id', id)
       .order('created_at', { ascending: false });
     databaseError(payErr);
@@ -76,6 +76,7 @@ export async function GET(
     const buffer = await advanceReceiptPdf({
       order: {
         id: order.id,
+        record_code: order.record_code,
         name: order.name,
         status: order.status,
         total_minor: Number(order.total_minor),
@@ -84,6 +85,7 @@ export async function GET(
       customer,
       payment: {
         id: activePayment.id,
+        record_code: activePayment.record_code,
         amount_minor: Number(activePayment.amount_minor),
         mode: activePayment.mode,
         reference: activePayment.reference,
@@ -93,7 +95,7 @@ export async function GET(
       balanceDueMinor,
     });
 
-    const filename = `advance-receipt-${order.id.slice(0, 8)}-${activePayment.id.slice(0, 4)}.pdf`;
+    const filename = `payment-receipt-${activePayment.record_code || 'receipt'}.pdf`;
 
     return new NextResponse(new Uint8Array(buffer), {
       headers: {

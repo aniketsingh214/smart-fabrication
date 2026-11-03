@@ -1,3 +1,3 @@
 export const salesSearchRPC:Record<string,string>={leads:'search_sales_leads',customers:'search_sales_customers',quotations:'search_sales_quotations','follow-ups':'search_sales_follow_ups',measurements:'search_sales_measurements'};
 export const salesSearchHint='Search IDs, linked contacts, name, phone or email';
-export const recordReferenceResources:Record<string,string>={lead_id:'leads',customer_id:'customers',product_id:'products',quotation_id:'quotations'};
+export const recordReferenceResources:Record<string,string>={lead_id:'leads',customer_id:'customers',product_id:'products',quotation_id:'quotations',order_id:'orders',purchase_id:'purchases',supplier_id:'suppliers',worker_id:'workers',work_order_id:'work-orders',material_id:'materials',delivery_id:'deliveries',category_id:'categories',media_id:'media-assets',bom_version_id:'bom-versions',revision_of:'quotations',duplicate_of:'leads'};

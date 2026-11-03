@@ -1,4 +1,5 @@
 'use client';
+import {recordLabel} from '@/contracts/record-identity';
 import { useEffect, useRef, useState } from 'react';
 import type { RecordContext } from '@/contracts/record-context';
 import type { Field } from '@/contracts/resources';
@@ -7,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
 import { MaterialQuickAddModal } from '@/features/materials/material-quick-add-modal';
 import type { MaterialItem } from '@/features/materials/material-catalog-data';
-type Choice = { id: string; name?: string; heading?: string; code?: string; public_id?: string; version?: number; context?: string; visibility?: string; resource_type?: string; format?: string };
+type Choice = { id: string; sku?:string; record_code?:string; name?: string; heading?: string; code?: string; public_id?: string; version?: number; context?: string; visibility?: string; resource_type?: string; format?: string };
 function CollectionReferenceInput({ field, initial, initialOptions = [], publicList = false, onSelectionChange, invalid, describedBy, context }: { field: Field; initial?: unknown; initialOptions?: Choice[]; publicList?: boolean; onSelectionChange?: (id: string) => void; invalid?: boolean; describedBy?: string; context?: RecordContext }) {
   const [selected, setSelected] = useState(String(initial ?? '')), [options, setOptions] = useState<Choice[]>(initialOptions), [next, setNext] = useState<string | null>(null), [error, setError] = useState(''), [busy, setBusy] = useState(true);
   const [showMaterialQuickAdd, setShowMaterialQuickAdd] = useState(false);
@@ -33,7 +34,7 @@ function CollectionReferenceInput({ field, initial, initialOptions = [], publicL
     <select aria-invalid={invalid||undefined} aria-describedby={describedBy} name={field.key} id={field.key} required={field.required} value={selected} onChange={event => { setSelected(event.target.value); onSelectionChange?.(event.target.value); }}>
       <option value="">Select {field.label.toLowerCase()}</option>
       {selected && !choices.some(option => option.id === selected) && <option value={selected}>Saved selection (not in loaded options)</option>}
-      {choices.map(option => <option key={option.id} value={option.id}>{option.name ?? option.heading ?? option.code ?? option.public_id ?? option.id}{option.version ? ` · v${option.version}` : ''}</option>)}
+      {choices.map(option => <option key={option.id} value={option.id}>{recordLabel(option as unknown as Record<string,unknown>, 'Saved record')}{option.version ? ` · v${option.version}` : ''}</option>)}
     </select>
     {busy && <p role="status" className="mt-2 text-xs text-slate-500">Loading {field.label.toLowerCase()} options…</p>}
     {next && <Button type="button" variant="outline" size="sm" className="mt-2" disabled={busy} onClick={async () => {
