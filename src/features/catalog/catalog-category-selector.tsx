@@ -42,9 +42,11 @@ export interface CatalogCategorySelectorProps {
   activeParent: CategoryItem | null;
   activeSub: CategoryItem | null;
   availableSubcategories: CategoryItem[];
-  q?: string;
+  currentSearch?: string;
+  currentMaterial?: string;
+  currentBudget?: string;
+  currentSort?: string;
   locale?: Locale;
-  getCategoryHref: (categorySlug?: string, subcategorySlug?: string) => string;
 }
 
 interface VisualConfig {
@@ -142,12 +144,27 @@ export function CatalogCategorySelector({
   activeParent,
   activeSub,
   availableSubcategories,
+  currentSearch = '',
+  currentMaterial = '',
+  currentBudget = '',
+  currentSort = 'recent',
   locale = 'en',
-  getCategoryHref,
 }: CatalogCategorySelectorProps) {
   const isHi = locale === 'hi';
   const [viewMode, setViewMode] = useState<'cards' | 'tabs'>('cards');
   const cloud = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+
+  const getCategoryHref = (catSlug?: string, subSlug?: string) => {
+    const params = new URLSearchParams();
+    if (currentMaterial) params.set('material', currentMaterial);
+    if (currentBudget) params.set('budget', currentBudget);
+    if (currentSort && currentSort !== 'recent') params.set('sort', currentSort);
+    if (currentSearch) params.set('q', currentSearch);
+    if (catSlug) params.set('category', catSlug);
+    if (subSlug) params.set('sub', subSlug);
+    const qStr = params.toString();
+    return `/catalog${qStr ? '?' + qStr : ''}`;
+  };
 
   // Restore saved view preference
   useEffect(() => {
@@ -412,3 +429,4 @@ export function CatalogCategorySelector({
     </section>
   );
 }
+

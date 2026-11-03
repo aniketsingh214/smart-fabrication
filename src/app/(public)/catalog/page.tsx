@@ -325,11 +325,11 @@ export default async function Catalog({ searchParams }: { searchParams: Promise<
         activeParent={activeParent as any}
         activeSub={activeSub as any}
         availableSubcategories={availableSubcategories as any}
-        q={q}
+        currentSearch={q}
+        currentMaterial={filters.material}
+        currentBudget={filters.budget}
+        currentSort={filters.sort}
         locale={locale}
-        getCategoryHref={(catSlug, subSlug) =>
-          browseHref('/catalog', { category: catSlug, sub: subSlug, q })
-        }
       />
 
       {/* Product Grid Header */}
