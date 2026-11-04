@@ -21278,6 +21278,36 @@ paths:
           description: Comma-separated UUIDs, maximum 100; inaccessible rows are omitted.
           schema:
             type: string
+  /search/catalogue:
+    get:
+      summary: Published visual-search catalogue with public product images, current
+        prices and opaque continuation
+      security: []
+      x-permission: public published products only
+      responses:
+        "200":
+          description: Success envelope
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Envelope"
+        "400": *a5
+        "401": *a6
+        "403": *a7
+        "404": *a8
+        "409": *a9
+        "413": *a10
+        "415": *a11
+        "422": *a12
+        "429": *a13
+        "500": *a14
+        "503": *a15
+      parameters:
+        - name: cursor
+          in: query
+          required: false
+          schema:
+            type: string
   /auth/form:
     post:
       summary: Rate-limited same-origin login/signup/reset/password-update form

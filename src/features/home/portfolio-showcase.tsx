@@ -113,6 +113,7 @@ export function PortfolioShowcase() {
           </p>
         </div>
 
+        <p className="home-reference-note">Catalogue design references; these images are not presented as verified completed customer projects.</p>
         {/* Minimal Asymmetric Showcase Grid */}
         <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {PORTFOLIO_ITEMS.map((item) => {

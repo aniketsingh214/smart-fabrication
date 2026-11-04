@@ -1,3 +1,4 @@
+import {z} from 'zod';
 import { Calculator } from '@/features/estimates/calculator';
 import { serverClient } from '@/lib/supabase/server';
 export const metadata = {
@@ -15,6 +16,8 @@ export default async function EstimatePage({ searchParams }: { searchParams: Pro
     .order('id', { ascending: false })
     .limit(100);
 
+  const choices=[...(data??[])];
+  if(product&&z.uuid().safeParse(product).success&&!choices.some(item=>item.id===product)){const {data:requested}=await db.from('products').select('id,name').eq('status','published').eq('id',product).maybeSingle();if(requested)choices.unshift(requested);}
   return (
     <main className="mx-auto max-w-6xl px-5 py-14">
       <p className="eyebrow text-orange-600">खर्च का सही अंदाज़ा · An informed starting point</p>
@@ -27,7 +30,7 @@ export default async function EstimatePage({ searchParams }: { searchParams: Pro
       {error ? (
         <p role="alert" className="text-red-600">Products could not be loaded.</p>
       ) : (
-        <Calculator products={data ?? []} selected={product} />
+        <Calculator products={choices} selected={choices.some(item=>item.id===product)?product:undefined} />
       )}
     </main>
   );

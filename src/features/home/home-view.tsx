@@ -276,6 +276,7 @@ export function HomeView({
         </div>
       </section>
 
+      <div className="home-below-hero">
       {/* 2. INSTANT ESTIMATE TEASER BANNER */}
       <section className="mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
         <div className="relative overflow-hidden rounded-2xl border border-orange-200 bg-gradient-to-r from-orange-50 via-amber-50 to-orange-100/70 p-6 shadow-sm sm:p-7">
@@ -428,7 +429,7 @@ export function HomeView({
 
       {/* 7. HIGH-CONVERSION CONSULTATION CTA */}
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="relative overflow-hidden rounded-3xl bg-slate-950 px-6 py-10 text-white shadow-2xl sm:px-10 sm:py-14 md:flex md:items-center md:justify-between">
+        <div className="home-consultation relative overflow-hidden rounded-3xl bg-slate-950 px-6 py-10 text-white shadow-2xl sm:px-10 sm:py-14 md:flex md:items-center md:justify-between">
           <div
             aria-hidden="true"
             className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-orange-600/20 blur-3xl"
@@ -469,6 +470,7 @@ export function HomeView({
         {customSections}
       </section>
 
+      </div>
       {/* Floating 1-Click Action Bar for Mobile Visitors */}
       <MobileStickyActionBar phone={cleanPhone} whatsapp={cleanWa} />
     </div>

@@ -50,3 +50,7 @@ Owner-supplied black/gold crowned gate artwork now appears in the header, footer
 ## Royal Gates responsive presentation - 2026-10-28
 
 The two supplied WebP logos replace legacy asset references. Header/search/navigation, dark footer, login brand panel, typography and shared surfaces follow the [Royal Gates design system](../operations/royal-design-system.md). Actual business content, prices and project claims are not certified by this visual change.
+
+## Homepage preservation and real discovery - 2026-11-04
+
+Applied a scoped white/light-grey/navy/gold theme below the main hero while keeping hero markup and original logo assets unchanged. Replaced search's hard-coded catalogue and manually seeded vectors with actual published catalogue data plus real pretrained CLIP image embeddings in a private browser worker. Reference photos are not uploaded; public catalogue embeddings are cached locally and keyed to current asset/model revision. Model download/CPU indexing latency is explicit, with progress/error/stop states. [Implementation, privacy and verification](../operations/homepage-discovery.md).
