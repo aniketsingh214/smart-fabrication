@@ -97,33 +97,33 @@ export function WorkshopVideoReels() {
       {/* Decorative ambient background */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute top-10 right-10 h-96 w-96 rounded-full bg-orange-600/10 blur-3xl"
+        className="pointer-events-none absolute top-10 right-10 h-96 w-96 rounded-full bg-blue-600/10 blur-3xl"
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute bottom-10 left-10 h-96 w-96 rounded-full bg-amber-500/10 blur-3xl"
+        className="pointer-events-none absolute bottom-10 left-10 h-96 w-96 rounded-full bg-sky-500/10 blur-3xl"
       />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-3.5 py-1 text-xs font-semibold text-orange-400 backdrop-blur-md">
-              <Sparkles size={14} className="text-orange-400 animate-pulse" />
+            <div className="inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-3.5 py-1 text-xs font-semibold text-blue-300 backdrop-blur-md">
+              <Sparkles size={14} className="text-blue-400 animate-pulse" />
               <span>{isHi ? 'लाइव वर्कशॉप रील्स' : 'Live Workshop Craftsmanship'}</span>
             </div>
             <h2 className="mt-3 text-2xl font-extrabold tracking-tight sm:text-4xl text-white">
               {isHi ? (
                 <>
                   देखें हमारी वर्कशॉप में{' '}
-                  <span className="bg-gradient-to-r from-orange-400 via-amber-300 to-orange-500 bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-blue-400 via-sky-300 to-blue-500 bg-clip-text text-transparent">
                     काम कैसे होता है
                   </span>
                 </>
               ) : (
                 <>
                   Experience Architectural Metalwork{' '}
-                  <span className="bg-gradient-to-r from-orange-400 via-amber-300 to-orange-500 bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-blue-400 via-sky-300 to-blue-500 bg-clip-text text-transparent">
                     Behind the Scenes
                   </span>
                 </>
@@ -138,7 +138,7 @@ export function WorkshopVideoReels() {
 
           <Link
             href="/gallery"
-            className="inline-flex items-center gap-2 rounded-xl border border-slate-700 bg-slate-800/80 px-4 py-2 text-xs font-bold text-slate-200 hover:border-orange-500 hover:text-white transition w-fit"
+            className="inline-flex items-center gap-2 rounded-xl border border-slate-700 bg-slate-800/80 px-4 py-2 text-xs font-bold text-slate-200 hover:border-blue-500 hover:text-white transition w-fit"
           >
             <span>{isHi ? 'सभी 398+ प्रोजेक्ट्स देखें' : 'Explore All 398+ Projects'}</span>
             <ArrowRight size={14} />
@@ -163,7 +163,7 @@ export function WorkshopVideoReels() {
                     setActiveModalReel(reel);
                   }
                 }}
-                className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-800 bg-slate-950 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-orange-500/60 hover:shadow-2xl hover:shadow-orange-500/10 cursor-pointer"
+                className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-800 bg-slate-950 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-blue-500/60 hover:shadow-2xl hover:shadow-blue-500/10 cursor-pointer"
               >
                 {/* Visual Image Card with 16:11 Aspect */}
                 <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-slate-900">
@@ -178,7 +178,7 @@ export function WorkshopVideoReels() {
 
                   {/* Top Badges */}
                   <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
-                    <span className="rounded-full bg-slate-950/80 px-2.5 py-0.5 text-[10px] font-bold text-orange-400 backdrop-blur-md border border-orange-500/30">
+                    <span className="rounded-full bg-slate-950/80 px-2.5 py-0.5 text-[10px] font-bold text-blue-400 backdrop-blur-md border border-blue-500/30">
                       {isHi ? reel.badgeHi : reel.badgeEn}
                     </span>
                     <span className="rounded-full bg-black/75 px-2 py-0.5 text-[10px] font-semibold text-slate-300 backdrop-blur-md">
@@ -188,8 +188,8 @@ export function WorkshopVideoReels() {
 
                   {/* Center Play Button with Pulsing Ring */}
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="relative flex h-12 w-12 items-center justify-center rounded-full bg-orange-600 text-white shadow-lg shadow-orange-600/50 transition-transform duration-300 group-hover:scale-125">
-                      <div className="absolute inset-0 rounded-full bg-orange-500 animate-ping opacity-40" />
+                    <div className="relative flex h-12 w-12 items-center justify-center rounded-full bg-blue-600 text-white shadow-lg shadow-blue-600/50 transition-transform duration-300 group-hover:scale-125">
+                      <div className="absolute inset-0 rounded-full bg-blue-500 animate-ping opacity-40" />
                       <Play size={18} className="ml-0.5 fill-current" />
                     </div>
                   </div>
@@ -204,19 +204,19 @@ export function WorkshopVideoReels() {
                 {/* Text Description */}
                 <div className="mt-4 flex-1 flex flex-col justify-between">
                   <div>
-                    <div className="flex items-center gap-1.5 text-xs font-semibold text-orange-400">
-                      <Icon size={14} className="text-orange-400" />
+                    <div className="flex items-center gap-1.5 text-xs font-semibold text-blue-400">
+                      <Icon size={14} className="text-blue-400" />
                       <span>{isHi ? reel.taglineHi : reel.taglineEn}</span>
                     </div>
-                    <h3 className="mt-1 text-base font-bold text-white line-clamp-1 group-hover:text-orange-300 transition">
+                    <h3 className="mt-1 text-base font-bold text-white line-clamp-1 group-hover:text-blue-300 transition">
                       {isHi ? reel.titleHi : reel.titleEn}
                     </h3>
-                    <p className="mt-1.5 text-xs text-slate-400 line-clamp-2 leading-relaxed">
+                    <p className="mt-1.5 text-xs text-slate-300 line-clamp-2 leading-relaxed">
                       {isHi ? reel.descHi : reel.descEn}
                     </p>
                   </div>
 
-                  <div className="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-semibold text-orange-400 group-hover:text-orange-300">
+                  <div className="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-semibold text-blue-400 group-hover:text-blue-300">
                     <span>{isHi ? 'रील्स वीडियो देखें' : 'Watch Footage'}</span>
                     <ArrowRight size={13} className="transition-transform group-hover:translate-x-1" />
                   </div>
@@ -267,7 +267,7 @@ export function WorkshopVideoReels() {
 
             {/* Modal Content */}
             <div className="mt-5">
-              <span className="text-xs font-bold text-orange-400 uppercase tracking-wider">
+              <span className="text-xs font-bold text-blue-400 uppercase tracking-wider">
                 {isHi ? activeModalReel.badgeHi : activeModalReel.badgeEn}
               </span>
               <h3 className="mt-1 text-xl font-extrabold text-white">
@@ -289,7 +289,7 @@ export function WorkshopVideoReels() {
               <div className="mt-6 flex flex-wrap gap-3">
                 <Link
                   href="/contact"
-                  className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-orange-600 px-4 py-2.5 text-xs sm:text-sm font-bold text-white hover:bg-orange-500 transition shadow-md shadow-orange-600/30"
+                  className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-xs sm:text-sm font-bold text-white hover:bg-blue-500 transition shadow-md shadow-blue-600/30"
                 >
                   <span>{isHi ? 'कारीगर से बात करें' : 'Talk with Master Craftsman'}</span>
                   <ArrowRight size={15} />

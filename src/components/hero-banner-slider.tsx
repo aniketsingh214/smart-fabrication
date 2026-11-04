@@ -203,8 +203,8 @@ export function HeroBannerSlider() {
 
         {/* Top Floating Badge Bar */}
         <div className="absolute top-4 left-4 right-4 z-20 flex items-center justify-between">
-          <div className="inline-flex items-center gap-2 rounded-full border border-orange-500/40 bg-slate-950/80 px-3.5 py-1 text-xs font-bold text-orange-400 backdrop-blur-md shadow-lg">
-            <Sparkles size={13} className="text-orange-400 animate-pulse" />
+          <div className="inline-flex items-center gap-2 rounded-full border border-blue-500/40 bg-slate-950/85 px-3.5 py-1 text-xs font-bold text-blue-300 backdrop-blur-md shadow-lg">
+            <Sparkles size={13} className="text-blue-400 animate-pulse" />
             <span>{isHi ? current.badgeHi : current.badgeEn}</span>
           </div>
 
@@ -226,8 +226,8 @@ export function HeroBannerSlider() {
 
         {/* Bottom Slide Information Banner */}
         <div className="absolute bottom-0 inset-x-0 z-20 p-5 sm:p-6 text-white">
-          <p className="text-xs font-bold uppercase tracking-widest text-orange-400">
-            {isHi ? 'स्मार्ट फैब्रिकेशन विशेष' : 'Smart Fabrication Workshop'}
+          <p className="text-xs font-bold uppercase tracking-widest text-blue-400">
+            {isHi ? 'रॉयल गेट्स विशेष' : 'Royal Gates Workshop'}
           </p>
           <h2 className="mt-1 text-lg font-extrabold sm:text-2xl text-white line-clamp-1 drop-shadow-md">
             {isHi ? current.titleHi : current.titleEn}
@@ -239,7 +239,7 @@ export function HeroBannerSlider() {
           <div className="mt-3 flex items-center justify-between">
             <Link
               href={current.link}
-              className="inline-flex items-center gap-2 rounded-xl bg-orange-600 px-3.5 py-1.5 text-xs font-bold text-white shadow-md shadow-orange-600/40 transition hover:bg-orange-500"
+              className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-3.5 py-1.5 text-xs font-bold text-white shadow-md shadow-blue-600/40 transition hover:bg-blue-500"
             >
               <span>{isHi ? 'डिज़ाइन देखें' : 'View Designs'}</span>
               <ArrowRight size={14} />
@@ -247,7 +247,7 @@ export function HeroBannerSlider() {
 
             <Link
               href="/estimate"
-              className="text-xs font-semibold text-slate-300 underline underline-offset-4 hover:text-orange-300 transition"
+              className="text-xs font-semibold text-slate-300 underline underline-offset-4 hover:text-blue-300 transition"
             >
               {isHi ? 'कीमत का अनुमान लगाएँ →' : 'Calculate price →'}
             </Link>
@@ -259,7 +259,7 @@ export function HeroBannerSlider() {
       <button
         onClick={prevSlide}
         aria-label="Previous Hero Slide"
-        className="absolute left-3 top-1/2 -translate-y-1/2 z-30 flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-black/50 text-white backdrop-blur-md transition hover:scale-110 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 opacity-80 group-hover:opacity-100"
+        className="absolute left-3 top-1/2 -translate-y-1/2 z-30 flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-black/50 text-white backdrop-blur-md transition hover:scale-110 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 opacity-80 group-hover:opacity-100"
       >
         <ChevronLeft size={20} />
       </button>
@@ -268,7 +268,7 @@ export function HeroBannerSlider() {
       <button
         onClick={nextSlide}
         aria-label="Next Hero Slide"
-        className="absolute right-3 top-1/2 -translate-y-1/2 z-30 flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-black/50 text-white backdrop-blur-md transition hover:scale-110 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 opacity-80 group-hover:opacity-100"
+        className="absolute right-3 top-1/2 -translate-y-1/2 z-30 flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-black/50 text-white backdrop-blur-md transition hover:scale-110 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 opacity-80 group-hover:opacity-100"
       >
         <ChevronRight size={20} />
       </button>
@@ -284,7 +284,7 @@ export function HeroBannerSlider() {
               aria-label={`Go to slide ${idx + 1}: ${isHi ? slide.titleHi : slide.titleEn}`}
               aria-current={isActive ? 'true' : 'false'}
               className={`h-1.5 rounded-full transition-all duration-300 ${
-                isActive ? 'w-6 bg-orange-500 ring-2 ring-orange-500/50' : 'w-1.5 bg-slate-500/60 hover:bg-slate-400'
+                isActive ? 'w-6 bg-blue-500 ring-2 ring-blue-500/50' : 'w-1.5 bg-slate-500/60 hover:bg-slate-400'
               }`}
             />
           );

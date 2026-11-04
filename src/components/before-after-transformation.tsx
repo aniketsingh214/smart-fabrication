@@ -57,14 +57,14 @@ export function BeforeAfterTransformation({
       {/* Background radial glow */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -bottom-40 left-1/2 -translate-x-1/2 h-[500px] w-[800px] rounded-full bg-gradient-to-t from-orange-600/15 via-orange-500/5 to-transparent blur-3xl"
+        className="pointer-events-none absolute -bottom-40 left-1/2 -translate-x-1/2 h-[500px] w-[800px] rounded-full bg-gradient-to-t from-blue-600/15 via-sky-500/5 to-transparent blur-3xl"
       />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-4 py-1 text-xs font-semibold text-orange-400 backdrop-blur-md">
-            <Sparkles size={14} className="text-orange-400 animate-pulse" />
+          <div className="inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-1 text-xs font-semibold text-blue-300 backdrop-blur-md">
+            <Sparkles size={14} className="text-blue-400 animate-pulse" />
             <span>{isHi ? 'घर का कायाकल्प • असली बदलाव' : 'Home Transformation • Real Upgrade'}</span>
           </div>
           <h2 className="mt-4 text-2xl font-extrabold tracking-tight sm:text-4xl text-white">
@@ -72,14 +72,14 @@ export function BeforeAfterTransformation({
               <>
                 पुराना जंग लगा गेट{' '}
                 <span className="text-slate-500 font-normal">बदलिए</span>{' '}
-                <span className="bg-gradient-to-r from-orange-400 via-amber-300 to-orange-500 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-blue-400 via-sky-300 to-blue-500 bg-clip-text text-transparent">
                   शाही SS 304 गेट में
                 </span>
               </>
             ) : (
               <>
                 Upgrade Old Rusted Iron to{' '}
-                <span className="bg-gradient-to-r from-orange-400 via-amber-300 to-orange-500 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-blue-400 via-sky-300 to-blue-500 bg-clip-text text-transparent">
                   Royal SS 304 Architectural Gate
                 </span>
               </>
@@ -167,8 +167,8 @@ export function BeforeAfterTransformation({
               className="absolute inset-y-0 z-30 flex items-center justify-center pointer-events-none"
               style={{ left: `${sliderPos}%` }}
             >
-              <div className="h-full w-0.5 bg-gradient-to-b from-orange-400 via-white to-orange-400 shadow-[0_0_10px_rgba(249,115,22,0.8)]" />
-              <div className="absolute flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full border-2 border-white bg-orange-600 text-white shadow-xl shadow-black/80 transition group-hover:scale-110">
+              <div className="h-full w-0.5 bg-gradient-to-b from-blue-400 via-white to-blue-400 shadow-[0_0_10px_rgba(37,99,235,0.8)]" />
+              <div className="absolute flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full border-2 border-white bg-blue-600 text-white shadow-xl shadow-black/80 transition group-hover:scale-110">
                 <ArrowLeftRight size={18} className="animate-pulse" />
               </div>
             </div>
@@ -205,7 +205,7 @@ export function BeforeAfterTransformation({
         {/* 3 Key Transformation Guarantees */}
         <div className="mt-12 grid gap-4 sm:grid-cols-3 max-w-4xl mx-auto">
           <div className="rounded-xl border border-slate-800 bg-slate-900/60 p-4 backdrop-blur-md">
-            <p className="text-xs font-bold text-orange-400 uppercase tracking-wider">
+            <p className="text-xs font-bold text-blue-400 uppercase tracking-wider">
               {isHi ? '1. घर की शान 10x' : '1. Elevation Boost'}
             </p>
             <p className="mt-1.5 text-xs text-slate-300 leading-relaxed">

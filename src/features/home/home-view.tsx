@@ -59,25 +59,41 @@ export function HomeView({
   )}`;
 
   return (
-    <div className="relative overflow-hidden bg-slate-50/50">
-      {/* 1. HERO SECTION WITH MINIMAL INDUSTRIAL WORKSHOP ATMOSPHERE */}
+    <div className="relative overflow-hidden bg-white">
+      {/* 1. HERO SECTION WITH INDUSTRIAL WELDING WORKSHOP ATMOSPHERE */}
       <section className="relative overflow-hidden bg-slate-950 py-14 text-white sm:py-20 lg:py-24">
-        {/* Realistic Metal Fabrication Workshop Background with Subtle Navy/Ice-Blue Overlay */}
+        {/* Full-width Realistic Metal Fabrication Workshop Background (Professional Welder with Sparks positioned towards the right) */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-0 bg-cover bg-center opacity-20 mix-blend-luminosity filter contrast-125"
+          className="pointer-events-none absolute inset-0 z-0 bg-cover bg-no-repeat bg-[center_right] sm:bg-[center_right_12%] opacity-45 sm:opacity-60 lg:opacity-70 contrast-110"
           style={{
-            backgroundImage: `url('https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || 'kz4iyauy'}/image/upload/f_auto,q_auto,w_1600/smart-fabrication/development/demo-stock/pexels-17051952.jpg')`
+            backgroundImage: `url('https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || 'kz4iyauy'}/image/upload/f_auto,q_auto,w_1920/smart-fabrication/development/demo-stock/pexels-5846247.jpg')`
           }}
         />
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-r from-slate-950/95 via-slate-900/90 to-slate-950/85"
+
+        {/* Accessible Image tag and caption for screen readers & testing */}
+        <img
+          src="https://res.cloudinary.com/kz4iyauy/image/upload/f_auto,q_auto,w_1920/smart-fabrication/development/demo-stock/pexels-5846247.jpg"
+          alt="Welder wearing protective equipment working on a metal piece"
+          className="sr-only"
         />
-        {/* Subtle Ambient Radial Lighting */}
+        <span className="sr-only">Demo workshop photography</span>
+
+        {/* Dark Navy-Blue Overlay / Gradient for Text Readability on the Left Side */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 h-[550px] w-[900px] rounded-full bg-gradient-to-b from-sky-600/15 via-orange-500/10 to-transparent blur-3xl"
+          className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-r from-slate-950 via-slate-950/95 sm:via-slate-950/85 to-slate-950/35"
+        />
+        {/* Mobile vertical gradient to protect text on compact screens */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-t from-slate-950/95 via-transparent to-slate-950/70 sm:hidden"
+        />
+
+        {/* Subtle Ambient Ice-Blue & Navy Radial Lighting */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -top-40 left-1/3 h-[550px] w-[900px] rounded-full bg-gradient-to-b from-blue-600/15 via-sky-500/10 to-transparent blur-3xl"
         />
         <div
           aria-hidden="true"
@@ -89,8 +105,8 @@ export function HomeView({
             {/* Hero Left Content */}
             <div>
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-3.5 py-1 text-xs font-semibold text-orange-400 backdrop-blur-md">
-                <Sparkles size={14} className="text-orange-400" />
+              <div className="inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-3.5 py-1 text-xs font-semibold text-blue-300 backdrop-blur-md">
+                <Sparkles size={14} className="text-blue-400" />
                 <span>{dict.hero.badge}</span>
               </div>
 
@@ -109,7 +125,7 @@ export function HomeView({
                     <br />
                     मजबूत और सुंदर
                     <br />
-                    <span className="bg-gradient-to-r from-orange-400 via-amber-300 to-orange-500 bg-clip-text text-transparent">
+                    <span className="bg-gradient-to-r from-blue-400 via-sky-300 to-blue-500 bg-clip-text text-transparent">
                       गेट बनवाएँ
                     </span>
                   </>
@@ -119,7 +135,7 @@ export function HomeView({
                     <br />
                     Crafted for your home.
                     <br />
-                    <span className="bg-gradient-to-r from-orange-400 via-amber-300 to-orange-500 bg-clip-text text-transparent">
+                    <span className="bg-gradient-to-r from-blue-400 via-sky-300 to-blue-500 bg-clip-text text-transparent">
                       Built to exact measure.
                     </span>
                   </>
@@ -127,14 +143,14 @@ export function HomeView({
               </h1>
 
               {/* Subtitle */}
-              <p className="mt-5 max-w-xl text-sm leading-relaxed text-slate-300 sm:text-base sm:leading-7">
+              <p className="mt-5 max-w-xl text-sm leading-relaxed text-slate-200 sm:text-base sm:leading-7">
                 {dict.hero.subtitle}
               </p>
 
-              {/* 4 Main Action Buttons (Section 4 Requirement) */}
+              {/* 4 Main Action Buttons */}
               <div className="mt-8 flex flex-wrap items-center gap-3">
                 {/* 1. Explore Designs */}
-                <Button asChild size="lg" className="bg-orange-600 hover:bg-orange-500 text-white font-bold shadow-lg shadow-orange-600/30 border-0 text-sm">
+                <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-500 text-white font-bold shadow-lg shadow-blue-600/30 border-0 text-sm">
                   <Link href="/catalog" className="flex items-center gap-2">
                     {dict.hero.btnDesigns} ({totalDesigns}+) <ArrowRight size={16} />
                   </Link>
@@ -145,10 +161,10 @@ export function HomeView({
                   asChild
                   variant="outline"
                   size="lg"
-                  className="border-slate-700 bg-slate-900/90 text-slate-200 hover:bg-slate-800 hover:text-white text-sm font-semibold"
+                  className="border-slate-600 bg-slate-900/80 text-white hover:bg-slate-800 hover:border-slate-400 text-sm font-semibold"
                 >
                   <Link href="/estimate" className="flex items-center gap-2">
-                    <Calculator size={16} className="text-orange-400" />
+                    <Calculator size={16} className="text-blue-400" />
                     {dict.hero.btnEstimate}
                   </Link>
                 </Button>
@@ -169,7 +185,7 @@ export function HomeView({
                   href={`tel:${cleanPhone || '+919876543210'}`}
                   className="inline-flex items-center gap-2 rounded-xl border border-slate-700 bg-slate-900/80 px-4 py-2.5 text-xs sm:text-sm font-bold text-slate-300 transition hover:bg-slate-800 hover:text-white"
                 >
-                  <Phone size={15} className="text-orange-400" />
+                  <Phone size={15} className="text-blue-400" />
                   <span>{dict.hero.btnCall}</span>
                 </a>
               </div>
@@ -182,42 +198,42 @@ export function HomeView({
                 <div className="flex flex-wrap gap-2">
                   <Link
                     href="/catalog?category=main-gates"
-                    className="inline-flex items-center gap-1.5 rounded-lg border border-slate-800 bg-slate-900/70 px-3 py-1.5 text-xs font-medium text-slate-200 transition hover:border-orange-500/50 hover:bg-slate-800 hover:text-white"
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-slate-700 bg-slate-900/80 px-3 py-1.5 text-xs font-medium text-slate-200 transition hover:border-blue-400/60 hover:bg-slate-800 hover:text-white"
                   >
                     <span>🚪 {isHi ? 'मुख्य गेट' : 'Main Gates'} (88+)</span>
                     <ChevronRight size={12} className="text-slate-500" />
                   </Link>
                   <Link
                     href="/catalog?category=laser-cutting-gates"
-                    className="inline-flex items-center gap-1.5 rounded-lg border border-orange-500/30 bg-orange-950/40 px-3 py-1.5 text-xs font-medium text-orange-300 transition hover:border-orange-500/60 hover:bg-orange-900/50 hover:text-white"
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-blue-500/40 bg-blue-950/50 px-3 py-1.5 text-xs font-medium text-blue-300 transition hover:border-blue-500/70 hover:bg-blue-900/60 hover:text-white"
                   >
                     <span>⚡ {isHi ? 'लेज़र कटिंग गेट' : 'Laser Cut Gates'} (22+)</span>
-                    <ChevronRight size={12} className="text-orange-400" />
+                    <ChevronRight size={12} className="text-blue-400" />
                   </Link>
                   <Link
                     href="/catalog?category=railings"
-                    className="inline-flex items-center gap-1.5 rounded-lg border border-slate-800 bg-slate-900/70 px-3 py-1.5 text-xs font-medium text-slate-200 transition hover:border-orange-500/50 hover:bg-slate-800 hover:text-white"
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-slate-700 bg-slate-900/80 px-3 py-1.5 text-xs font-medium text-slate-200 transition hover:border-blue-400/60 hover:bg-slate-800 hover:text-white"
                   >
                     <span>🪜 {isHi ? 'स्टील रेलिंग' : 'Railings'} (175+)</span>
                     <ChevronRight size={12} className="text-slate-500" />
                   </Link>
                   <Link
                     href="/catalog?category=window-grills"
-                    className="inline-flex items-center gap-1.5 rounded-lg border border-slate-800 bg-slate-900/70 px-3 py-1.5 text-xs font-medium text-slate-200 transition hover:border-orange-500/50 hover:bg-slate-800 hover:text-white"
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-slate-700 bg-slate-900/80 px-3 py-1.5 text-xs font-medium text-slate-200 transition hover:border-blue-400/60 hover:bg-slate-800 hover:text-white"
                   >
                     <span>🪟 {isHi ? 'खिड़की जाली' : 'Window Grills'} (76+)</span>
                     <ChevronRight size={12} className="text-slate-500" />
                   </Link>
                   <Link
                     href="/catalog?category=rolling-shutters"
-                    className="inline-flex items-center gap-1.5 rounded-lg border border-slate-800 bg-slate-900/70 px-3 py-1.5 text-xs font-medium text-slate-200 transition hover:border-orange-500/50 hover:bg-slate-800 hover:text-white"
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-slate-700 bg-slate-900/80 px-3 py-1.5 text-xs font-medium text-slate-200 transition hover:border-blue-400/60 hover:bg-slate-800 hover:text-white"
                   >
                     <span>🏬 {isHi ? 'दुकान के शटर' : 'Rolling Shutters'} (101+)</span>
                     <ChevronRight size={12} className="text-slate-500" />
                   </Link>
                   <Link
                     href="/catalog?category=metal-doors"
-                    className="inline-flex items-center gap-1.5 rounded-lg border border-slate-800 bg-slate-900/70 px-3 py-1.5 text-xs font-medium text-slate-200 transition hover:border-orange-500/50 hover:bg-slate-800 hover:text-white"
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-slate-700 bg-slate-900/80 px-3 py-1.5 text-xs font-medium text-slate-200 transition hover:border-blue-400/60 hover:bg-slate-800 hover:text-white"
                   >
                     <span>🛡️ {isHi ? 'सेफ्टी डोर' : 'Security Doors'} (21+)</span>
                     <ChevronRight size={12} className="text-slate-500" />
@@ -231,8 +247,8 @@ export function HomeView({
               <HeroBannerSlider />
 
               {/* Floating Badge 1: Site Measurement */}
-              <div className="absolute -top-3 -left-3 hidden sm:flex items-center gap-2.5 rounded-xl border border-slate-800 bg-slate-900/95 p-3 shadow-xl backdrop-blur-md">
-                <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-orange-500/20 text-orange-400">
+              <div className="absolute -top-3 -left-3 hidden sm:flex items-center gap-2.5 rounded-xl border border-slate-700/80 bg-slate-900/95 p-3 shadow-xl backdrop-blur-md">
+                <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500/20 text-blue-400">
                   <Ruler size={16} />
                 </span>
                 <div>
@@ -242,7 +258,7 @@ export function HomeView({
               </div>
 
               {/* Floating Badge 2: Genuine Materials */}
-              <div className="absolute -bottom-4 -right-3 hidden sm:flex items-center gap-2.5 rounded-xl border border-slate-800 bg-slate-900/95 p-3 shadow-xl backdrop-blur-md">
+              <div className="absolute -bottom-4 -right-3 hidden sm:flex items-center gap-2.5 rounded-xl border border-slate-700/80 bg-slate-900/95 p-3 shadow-xl backdrop-blur-md">
                 <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-500/20 text-emerald-400">
                   <ShieldCheck size={18} />
                 </span>
@@ -255,13 +271,13 @@ export function HomeView({
           </div>
 
           {/* Bottom Trust Metrics Strip */}
-          <div className="mt-12 grid grid-cols-2 gap-4 rounded-2xl border border-slate-800/80 bg-slate-900/60 p-5 backdrop-blur-md sm:grid-cols-4 sm:p-6">
+          <div className="mt-12 grid grid-cols-2 gap-4 rounded-2xl border border-slate-800/80 bg-slate-900/70 p-5 backdrop-blur-md sm:grid-cols-4 sm:p-6">
             <div className="border-r border-slate-800/80 pr-4">
               <p className="text-2xl font-bold text-white sm:text-3xl">{totalDesigns}+</p>
               <p className="mt-1 text-xs text-slate-400">{dict.hero.badge3}</p>
             </div>
             <div className="border-r-0 sm:border-r border-slate-800/80 pr-4">
-              <p className="text-2xl font-bold text-orange-400 sm:text-3xl">{isHi ? 'फीट & इंच' : 'Feet & Inch'}</p>
+              <p className="text-2xl font-bold text-blue-400 sm:text-3xl">{isHi ? 'फीट & इंच' : 'Feet & Inch'}</p>
               <p className="mt-1 text-xs text-slate-400">{dict.hero.badge4}</p>
             </div>
             <div className="border-r border-slate-800/80 pr-4">
@@ -279,14 +295,14 @@ export function HomeView({
       <div className="home-below-hero">
       {/* 2. INSTANT ESTIMATE TEASER BANNER */}
       <section className="mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
-        <div className="relative overflow-hidden rounded-2xl border border-orange-200 bg-gradient-to-r from-orange-50 via-amber-50 to-orange-100/70 p-6 shadow-sm sm:p-7">
+        <div className="relative overflow-hidden rounded-2xl border border-blue-200/80 bg-gradient-to-r from-blue-50 via-sky-50 to-blue-100/60 p-6 shadow-sm sm:p-7">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-5">
             <div className="flex items-start gap-4">
-              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-orange-600 text-white shadow-md shadow-orange-600/20">
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-blue-600 text-white shadow-md shadow-blue-600/25">
                 <Calculator size={24} />
               </span>
               <div>
-                <span className="inline-block rounded-md bg-orange-600/10 px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider text-orange-700">
+                <span className="inline-block rounded-md bg-blue-600/10 px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider text-blue-700">
                   {isHi ? 'तुरंत खर्च जानें' : 'Fast Estimation'}
                 </span>
                 <h2 className="mt-1 text-lg font-bold text-slate-900 sm:text-xl">
@@ -297,7 +313,7 @@ export function HomeView({
                 </p>
               </div>
             </div>
-            <Button asChild size="lg" className="shrink-0 bg-slate-900 text-white hover:bg-slate-800 shadow-md font-bold text-xs sm:text-sm">
+            <Button asChild size="lg" className="shrink-0 bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-600/20 font-bold text-xs sm:text-sm">
               <Link href="/estimate" className="flex items-center gap-2">
                 {dict.home.teaserAction} <ArrowRight size={16} />
               </Link>
@@ -322,11 +338,11 @@ export function HomeView({
       <section className="bg-slate-900 text-white py-14 sm:py-18">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-12">
-            <p className="eyebrow text-orange-400">{isHi ? 'आसान प्रक्रिया' : 'Simple Process'}</p>
-            <h2 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">
+            <p className="eyebrow text-blue-400">{isHi ? 'आसान प्रक्रिया' : 'Simple Process'}</p>
+            <h2 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl text-white">
               {dict.home.processTitle}
             </h2>
-            <p className="mt-2 text-xs sm:text-sm text-slate-400">
+            <p className="mt-2 text-xs sm:text-sm text-slate-300">
               {dict.home.processSubtitle}
             </p>
           </div>
@@ -356,11 +372,11 @@ export function HomeView({
             ].map(item => (
               <div
                 key={item.step}
-                className="relative rounded-2xl border border-slate-800 bg-slate-950/70 p-5 backdrop-blur-md transition hover:border-orange-500/50"
+                className="relative rounded-2xl border border-slate-800 bg-slate-950/70 p-5 backdrop-blur-md transition hover:border-blue-500/50"
               >
-                <span className="text-2xl font-extrabold text-orange-500/80">{item.step}</span>
+                <span className="text-2xl font-extrabold text-blue-400">{item.step}</span>
                 <h3 className="mt-2 text-base font-bold text-white">{item.title}</h3>
-                <p className="mt-1.5 text-xs leading-relaxed text-slate-400">{item.desc}</p>
+                <p className="mt-1.5 text-xs leading-relaxed text-slate-300">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -373,7 +389,7 @@ export function HomeView({
       {/* 6. CRAFTSMANSHIP & QUALITY ASSURANCE */}
       <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="mb-10 text-center">
-          <p className="eyebrow text-orange-600">{isHi ? 'मजबूती और भरोसा' : 'Quality Work'}</p>
+          <p className="eyebrow text-blue-600">{isHi ? 'मजबूती और भरोसा' : 'Quality Work'}</p>
           <h2 className="mt-1.5 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
             {dict.home.trustTitle}
           </h2>
@@ -383,8 +399,8 @@ export function HomeView({
         </div>
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          <div className="card p-6 transition hover:border-orange-300">
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-50 text-orange-600 mb-4">
+          <div className="card p-6 transition hover:border-blue-300 hover:shadow-md">
+            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600 mb-4">
               <ShieldCheck size={20} />
             </span>
             <h3 className="text-base font-bold text-slate-900">
@@ -397,8 +413,8 @@ export function HomeView({
             </p>
           </div>
 
-          <div className="card p-6 transition hover:border-orange-300">
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-50 text-orange-600 mb-4">
+          <div className="card p-6 transition hover:border-blue-300 hover:shadow-md">
+            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600 mb-4">
               <Sparkle size={20} />
             </span>
             <h3 className="text-base font-bold text-slate-900">
@@ -411,8 +427,8 @@ export function HomeView({
             </p>
           </div>
 
-          <div className="card p-6 transition hover:border-orange-300">
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-50 text-orange-600 mb-4">
+          <div className="card p-6 transition hover:border-blue-300 hover:shadow-md">
+            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600 mb-4">
               <Paintbrush size={20} />
             </span>
             <h3 className="text-base font-bold text-slate-900">
@@ -429,14 +445,14 @@ export function HomeView({
 
       {/* 7. HIGH-CONVERSION CONSULTATION CTA */}
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="home-consultation relative overflow-hidden rounded-3xl bg-slate-950 px-6 py-10 text-white shadow-2xl sm:px-10 sm:py-14 md:flex md:items-center md:justify-between">
+        <div className="home-consultation relative overflow-hidden rounded-3xl bg-slate-950 px-6 py-10 text-white shadow-2xl sm:px-10 sm:py-14 md:flex md:items-center md:justify-between border border-slate-800">
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-orange-600/20 blur-3xl"
+            className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-blue-600/20 blur-3xl"
           />
 
           <div className="relative max-w-xl">
-            <span className="inline-block rounded-full bg-orange-500/20 px-3 py-1 text-xs font-semibold text-orange-400">
+            <span className="inline-block rounded-full border border-blue-500/30 bg-blue-500/20 px-3 py-1 text-xs font-semibold text-blue-300">
               {isHi ? 'कारीगर से सीधी सलाह' : 'Direct Workshop Consultation'}
             </span>
             <h2 className="mt-3 text-2xl font-extrabold tracking-tight sm:text-3xl text-white">
@@ -450,7 +466,7 @@ export function HomeView({
           <div className="relative mt-6 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 md:mt-0">
             <a
               href={`tel:${cleanPhone || '+919876543210'}`}
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-orange-600 hover:bg-orange-500 px-5 py-3 text-xs sm:text-sm font-bold text-white shadow-md transition"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-500 px-5 py-3 text-xs sm:text-sm font-bold text-white shadow-md shadow-blue-600/25 transition"
             >
               <Phone size={15} />
               <span>{isHi ? `सीधे कॉल करें (${phone})` : `Call ${phone}`}</span>

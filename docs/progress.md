@@ -1,5 +1,37 @@
 > Version: 1.0 | Updated: 2026-11-04 | Status: live application; implementation and scoped verification register
 
+## 2026-11-04 - Royal Gates: Homepage Theme Transformation (Navy-Blue, White & Bright-Blue Industrial Welding Theme)
+
+- **Strict Brand & Content Preservation**:
+  - Preserved original ROYAL GATE crowned emblem logo, Hindi tagline, website branding, routes, product categories, and all bilingual text.
+  - Zero modifications to database records, backend business logic, payment handling, or ordering workflows.
+- **Navigation Bar Theme Transformation (`src/components/layout/public-header.tsx` & `src/app/royal-design.css`)**:
+  - Updated header background to pure white (`#ffffff`) with subtle bottom border (`#e2e8f0`).
+  - Navigation links updated to dark navy (`#0f172a` / `#1e293b`), active and hover states updated to bright blue (`#2563eb`).
+  - Primary action button ("Request a Quote") transformed to bright blue (`bg-blue-600 hover:bg-blue-700 text-white`) with subtle shadow.
+  - Mobile menu toggle and drawer updated with dark navy styling and bright blue accents.
+- **Hero Section Transformation (`src/features/home/home-view.tsx`)**:
+  - Full-width industrial metal fabrication workshop background (`pexels-5846247.jpg`) featuring an authentic professional welder working on steel fabrication with visible sparks positioned towards the right side.
+  - Dark navy-blue gradient overlay (`from-slate-950 via-slate-950/95 to-slate-950/35`) ensuring 100% crisp legibility of all headline text, badges, and buttons on the left side.
+  - Wording and bilingual structure preserved; headline highlights transformed to bright blue gradient (`from-blue-400 via-sky-300 to-blue-500`).
+  - Primary button ("Explore Designs") transformed to bright blue (`bg-blue-600 hover:bg-blue-500 text-white`), secondary button ("Price Estimate") transformed to dark navy/transparent (`border-slate-600 bg-slate-900/80 text-white`).
+  - Quick category chips and trust metrics strip updated to dark navy and bright blue.
+- **Product Categories & Featured Designs Sections**:
+  - Clean white backgrounds with subtle light grey borders (`border-slate-200`) and soft shadows (`hover:border-blue-300 hover:shadow-md`).
+  - Eyebrows, links, and action pointers updated to bright blue (`#2563eb`).
+  - Headings updated to dark navy (`text-slate-900`).
+- **Features, Price Estimation & Information Sections**:
+  - Instant estimate teaser banner styled with light ice-blue gradient (`bg-gradient-to-r from-blue-50 via-sky-50 to-blue-100/60`), dark navy heading, and bright blue calculator CTA.
+  - 4-step process roadmap, craftsmanship guarantees, and workshop consultation CTA aligned to the navy, white, and bright blue palette.
+  - Interactive hero banner carousel (`HeroBannerSlider`), before-after comparison slider, and workshop video reels updated with bright-blue accents.
+- **Verification**:
+  - `npm run typecheck`: Passed (0 errors).
+  - `npm test`: Passed (81 test files, 369/369 tests passing).
+  - `npm run docs:check`: Passed.
+  - `npm run api:check`: Passed (OpenAPI 3.1.0, 302 paths).
+  - `npx next build --webpack`: Passed (All 32 routes compiled successfully).
+
+
 ## 2026-11-04 - Enforce 100% Manual Order Payment System (No Online Payment Gateway)
 
 - **Strict Manual Payment Policy (`src/features/orders/order-payment-workspace.tsx`)**:
