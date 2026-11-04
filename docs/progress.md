@@ -1,5 +1,20 @@
 > Version: 1.0 | Updated: 2026-11-04 | Status: live application; implementation and scoped verification register
 
+## 2026-11-04 - Fix Search Input Trigger: Prevent Modal Hijacking on Text Search Box Click
+
+- **Search Input Trigger Fix (`src/components/layout/global-search-bar.tsx`)**:
+  - Removed `onClick` handler that erroneously forced the discovery modal open whenever a user simply clicked the header search input to type.
+  - Visitors can now click directly into the search bar, type search terms, and press Enter or the arrow button to search smoothly without an unexpected full-screen modal interrupting them.
+  - Dedicated visual photo search is accessed cleanly via the dedicated Camera icon button inside the search bar.
+- **Copy & Encoding Fix (`src/features/search/unified-search-modal.tsx`)**:
+  - Cleaned up corrupted unicode replacement characters (`ï¿½`) in search input placeholder and catalogue loading status.
+- **Verification**:
+  - `npm run typecheck`: Passed (0 errors).
+  - `npm test`: Passed (80 test files, 359/359 tests passing).
+  - `npm run docs:check`: Passed.
+  - `npm run api:check`: Passed.
+  - `npx next build --webpack`: Succeeded.
+
 ## 2026-11-04 - Royal Gate Enhancement: Minimal Industrial Atmosphere, Home Nav, Portfolio Showcase & Zepto/AI Visual Search
 
 - **Strict Brand Identity – ROYAL GATE**:
