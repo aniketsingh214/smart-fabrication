@@ -1,5 +1,17 @@
 > Version: 1.0 | Updated: 2026-11-04 | Status: live application; implementation and scoped verification register
 
+## 2026-11-04 - Revert Search Bar Trigger: Restore Direct Modal Opening on Search Bar Click
+
+- **Search Bar Restored (`src/components/layout/global-search-bar.tsx`)**:
+  - Restored search bar behavior exactly as requested: clicking directly inside the search input opens the interactive Zepto-style product discovery and visual search modal (`onClick={() => setOpen(true)}`).
+  - Removed separate extra camera icon button from the header search bar.
+  - Restored `scripts/test-home-discovery-browser.mjs` trigger expectation to target the search textbox directly.
+- **Verification**:
+  - `npm run typecheck`: Passed (0 errors).
+  - `npm test`: Passed (81 test files, 369/369 tests passing).
+  - `npm run docs:check`: Passed.
+  - `npm run api:check`: Passed.
+
 ## 2026-11-04 - Royal Gates Workspace: Two-Payment Policy, Strict Dispatch Validation, Delivery Sign-off, Installation Sign-off & Order Completion Guards
 
 - **Strict Two-Payment Structure**:
