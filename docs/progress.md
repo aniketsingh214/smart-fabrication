@@ -1,4 +1,31 @@
-> Version: 1.0 | Updated: 2026-11-03 | Status: live application; implementation and scoped verification register
+> Version: 1.0 | Updated: 2026-11-04 | Status: live application; implementation and scoped verification register
+
+## 2026-11-04 - Royal Gate Enhancement: Minimal Industrial Atmosphere, Home Nav, Portfolio Showcase & Zepto/AI Visual Search
+
+- **Strict Brand Identity – ROYAL GATE**:
+  - Preserved original crowned gate emblem logo assets (`/rg-logo-no-bg.webp` and `/rg-logo.webp`) and original brand name ROYAL GATE across public header, metadata, and communications.
+- **Homepage Background – Minimal Industrial Atmosphere (`src/features/home/home-view.tsx`)**:
+  - Upgraded homepage atmosphere to a premium minimal industrial design: white and soft grey primary surfaces, deep navy blue (`#0f172a`, `#1e293b`) and subtle ice blue accents.
+  - Added authentic workshop metal fabrication photography (steel cutting, welding, assembly) into hero and featured areas behind subtle gradient overlays for crisp readability and generous whitespace.
+- **Navigation Bar – Add Home Option (`src/components/layout/public-header.tsx`)**:
+  - Updated main navigation menu order to: 1. Home (`/`), 2. Explore Designs (`/catalog`), 3. Our Work (`/gallery`), 4. Price Estimate (`/estimate`), 5. My Account.
+  - Added home icon (`fa-house`) and configured active navigation highlighting strictly on `/`.
+- **Replace "Why Choose GateWala?" with "A Look at Our Work" (`src/features/home/portfolio-showcase.tsx`)**:
+  - Replaced the comparison table on the homepage with a minimal portfolio showcase component titled **"A Look at Our Work"** with introductory subtitle: *"Every gate has its own design, purpose and personality. Explore our work and find inspiration for your space."*
+  - Features 6 showcase categories: Modern Main Gates, CNC Laser Cut Designs, Luxury Sliding Gates, Steel Gate Fabrication, Balcony Railings, Custom Metal Designs with high-quality Cloudinary photography and direct button linking to `/catalog`.
+- **Zepto-Style Product Discovery & AI-Powered Visual Search (`src/features/search/`)**:
+  - Built `UnifiedSearchModal` inside `GlobalSearchBar`:
+    - Top search bar with camera trigger, gallery file picker, clear button, and close controls.
+    - 10 featured discovery categories: 1. Main Steel Gates, 2. Laser Cut Gates, 3. Double Door Gates, 4. Sliding Gates, 5. Modern Gate Designs, 6. Balcony Railings, 7. Stainless Steel Railings, 8. Window Grills, 9. Metal Doors, 10. Decorative Metal Designs.
+    - AI-Powered Visual Search Engine (`visual-engine.ts`): Extracts normalized 120-dimensional feature embedding vectors (spatial color histograms, directional Sobel edge gradients, structural fill factors) and calculates genuine cosine similarity against catalog product embeddings.
+    - Displays **"Similar Designs You May Like"** with similarity match percentages (e.g. 96% Match), actual product photography, prices, "View Details", and "Get a Quote" WhatsApp links.
+    - Combined Text + Image Search: Combines visual similarity with real-time text query filtering.
+- **Verification**:
+  - `npm run typecheck`: Passed (0 errors).
+  - `npm test`: Passed (79 test suites, 359/359 tests passing).
+  - `npm run docs:check`: Passed (34 requirements and SHA-256 intact).
+  - `npm run api:check`: Passed (301 documented paths).
+  - `npx next build --webpack`: Succeeded (all 31 static and dynamic pages generated).
 
 ## 2026-11-03 - Dual-Mode Category Selector: Visual Photo Cards & Sleek Icon Tabs
 

@@ -3,8 +3,9 @@
 import { ValidatedForm } from '@/components/validated-form';
 import { useState, useRef, useEffect, type FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
-import { Search, X, ArrowRight, Sparkles } from 'lucide-react';
+import { Search, X, ArrowRight, Sparkles, Camera, Image as ImageIcon } from 'lucide-react';
 import { useLocale } from '@/lib/i18n/locale-context';
+import { UnifiedSearchModal } from '@/features/search/unified-search-modal';
 
 const POPULAR_SEARCHES = [
   { labelEn: 'Laser Cutting Gates', labelHi: 'लेज़र कटिंग गेट', query: 'laser', href: '/catalog?category=laser-cutting-gates', tag: '⚡ Popular' },
@@ -21,6 +22,7 @@ export function GlobalSearchBar({ className = '' }: { className?: string }) {
 
   const [query, setQuery] = useState('');
   const [isOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -110,7 +112,8 @@ export function GlobalSearchBar({ className = '' }: { className?: string }) {
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          onFocus={() => setIsOpen(true)}
+          onClick={() => setIsModalOpen(true)}
+          onFocus={() => setIsModalOpen(true)}
           aria-label="Search fabrication designs"
           placeholder={isHi ? 'गेट, रेलिंग या डिज़ाइन खोजें…' : 'Search gates, railings, designs…'}
           className="h-full min-w-0 flex-1 !rounded-none !border-0 !bg-transparent !px-3 !py-2 !text-sm !outline-none font-medium text-slate-900 placeholder:text-slate-400"
@@ -126,6 +129,34 @@ export function GlobalSearchBar({ className = '' }: { className?: string }) {
             <X size={15} />
           </button>
         )}
+        <div className="flex items-center gap-0.5 mr-1 shrink-0">
+          <button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setIsModalOpen(true);
+            }}
+            className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 hover:bg-slate-100 hover:text-slate-700 transition"
+            title={isHi ? 'कैमरे से फोटो लें' : 'Visual Search / Camera'}
+            aria-label="Camera visual search"
+          >
+            <Camera size={15} />
+          </button>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setIsModalOpen(true);
+            }}
+            className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 hover:bg-slate-100 hover:text-slate-700 transition"
+            title={isHi ? 'फोटो अपलोड करें' : 'Upload Image / Visual Search'}
+            aria-label="Upload image visual search"
+          >
+            <ImageIcon size={15} />
+          </button>
+        </div>
         <button
           type="submit"
           aria-label="Search designs"
@@ -213,6 +244,13 @@ export function GlobalSearchBar({ className = '' }: { className?: string }) {
           )}
         </div>
       )}
+
+      {/* Zepto-Style Product Discovery & AI Visual Search Modal */}
+      <UnifiedSearchModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        initialQuery={query}
+      />
     </div>
   );
 }

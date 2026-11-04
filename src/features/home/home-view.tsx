@@ -24,6 +24,7 @@ import { HeroBannerSlider } from '@/components/hero-banner-slider';
 import { BeforeAfterTransformation } from '@/components/before-after-transformation';
 import { WorkshopVideoReels } from '@/components/workshop-video-reels';
 import { FabricatorComparison } from '@/components/fabricator-comparison';
+import { PortfolioShowcase } from './portfolio-showcase';
 import { MobileStickyActionBar } from '@/components/mobile-sticky-action-bar';
 import { useLocale } from '@/lib/i18n/locale-context';
 
@@ -59,12 +60,24 @@ export function HomeView({
 
   return (
     <div className="relative overflow-hidden bg-slate-50/50">
-      {/* 1. HERO SECTION */}
+      {/* 1. HERO SECTION WITH MINIMAL INDUSTRIAL WORKSHOP ATMOSPHERE */}
       <section className="relative overflow-hidden bg-slate-950 py-14 text-white sm:py-20 lg:py-24">
+        {/* Realistic Metal Fabrication Workshop Background with Subtle Navy/Ice-Blue Overlay */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-0 bg-cover bg-center opacity-20 mix-blend-luminosity filter contrast-125"
+          style={{
+            backgroundImage: `url('https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || 'kz4iyauy'}/image/upload/f_auto,q_auto,w_1600/smart-fabrication/development/demo-stock/pexels-17051952.jpg')`
+          }}
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-r from-slate-950/95 via-slate-900/90 to-slate-950/85"
+        />
         {/* Subtle Ambient Radial Lighting */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 h-[550px] w-[900px] rounded-full bg-gradient-to-b from-orange-600/25 via-orange-500/10 to-transparent blur-3xl"
+          className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 h-[550px] w-[900px] rounded-full bg-gradient-to-b from-sky-600/15 via-orange-500/10 to-transparent blur-3xl"
         />
         <div
           aria-hidden="true"
@@ -353,8 +366,8 @@ export function HomeView({
         </div>
       </section>
 
-      {/* 5.5 SMARTFABRICATION VS LOCAL WELDING SHOP COMPARISON */}
-      <FabricatorComparison phone={phone} whatsapp={cleanWa} />
+      {/* 5.5 PORTFOLIO: A LOOK AT OUR WORK (Minimal Portfolio Showcase) */}
+      <PortfolioShowcase />
 
       {/* 6. CRAFTSMANSHIP & QUALITY ASSURANCE */}
       <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
