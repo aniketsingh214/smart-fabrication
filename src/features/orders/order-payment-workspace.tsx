@@ -30,6 +30,10 @@ interface PaymentSummary {
   totalMinor: number;
   totalPaidMinor: number;
   balanceDueMinor: number;
+  paymentStatus?: string;
+  isPaidAllDone?: boolean;
+  paymentStage?: string;
+  isDispatchEligible?: boolean;
   payments: PaymentRecord[];
 }
 
@@ -176,11 +180,24 @@ export function OrderPaymentWorkspace({
               <CreditCard size={16} />
             </span>
             <h3 className="text-base font-bold text-slate-900">
-              Order Payments &amp; Receipts
+              Order Payments &amp; Receipts (Two-Payment Policy)
             </h3>
+            {balanceRupees === 0 ? (
+              <span className="rounded-full bg-emerald-100 border border-emerald-300 px-2.5 py-0.5 text-xs font-bold text-emerald-800 flex items-center gap-1">
+                <CheckCircle2 size={13} className="text-emerald-600" /> PAID – ALL DONE
+              </span>
+            ) : paidRupees > 0 ? (
+              <span className="rounded-full bg-amber-100 border border-amber-300 px-2.5 py-0.5 text-xs font-bold text-amber-800 flex items-center gap-1">
+                <AlertCircle size={13} className="text-amber-600" /> ADVANCE RECEIVED
+              </span>
+            ) : (
+              <span className="rounded-full bg-slate-100 border border-slate-300 px-2.5 py-0.5 text-xs font-bold text-slate-700">
+                UNPAID (Advance Pending)
+              </span>
+            )}
           </div>
           <p className="mt-1 text-xs text-slate-500">
-            Manual Cash / UPI / Bank Transfer / Cheque receipts &amp; Payment Gateway Architecture
+            Payment 1: Advance (Starts production) · Payment 2: Next Payment – ALL DONE (Required before dispatch)
           </p>
         </div>
 
@@ -198,6 +215,45 @@ export function OrderPaymentWorkspace({
             </a>
           </Button>
         )}
+      </div>
+
+      {/* Two-Payment Workflow Cards */}
+      <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3">
+        {/* Payment 1 Card */}
+        <div className={`rounded-lg border p-3 text-xs ${paidRupees > 0 ? 'border-emerald-200 bg-emerald-50/60' : 'border-amber-200 bg-amber-50/60'}`}>
+          <div className="flex items-center justify-between">
+            <span className="font-bold text-slate-900 flex items-center gap-1.5">
+              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-slate-800 text-white text-[10px]">1</span>
+              Payment 1: Advance Payment
+            </span>
+            <span className={`rounded px-1.5 py-0.5 font-bold text-[10px] uppercase ${paidRupees > 0 ? 'bg-emerald-200 text-emerald-900' : 'bg-amber-200 text-amber-900'}`}>
+              {paidRupees > 0 ? 'Recorded ✓' : 'Pending'}
+            </span>
+          </div>
+          <p className="mt-1 text-slate-600">
+            {paidRupees > 0
+              ? 'Advance recorded. Workshop production is authorized to proceed.'
+              : 'Advance payment collected upon confirmation to initiate workshop fabrication.'}
+          </p>
+        </div>
+
+        {/* Payment 2 Card */}
+        <div className={`rounded-lg border p-3 text-xs ${balanceRupees === 0 ? 'border-emerald-200 bg-emerald-50/60' : 'border-slate-200 bg-slate-50/60'}`}>
+          <div className="flex items-center justify-between">
+            <span className="font-bold text-slate-900 flex items-center gap-1.5">
+              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-slate-800 text-white text-[10px]">2</span>
+              Payment 2: Next Payment (ALL DONE)
+            </span>
+            <span className={`rounded px-1.5 py-0.5 font-bold text-[10px] uppercase ${balanceRupees === 0 ? 'bg-emerald-200 text-emerald-900' : 'bg-slate-200 text-slate-700'}`}>
+              {balanceRupees === 0 ? 'PAID – ALL DONE ✓' : `Due: ₹${balanceRupees.toLocaleString('en-IN')}`}
+            </span>
+          </div>
+          <p className="mt-1 text-slate-600">
+            {balanceRupees === 0
+              ? '100% full balance received. Order is cleared for dispatch.'
+              : 'Full remaining balance must be collected before dispatch can proceed.'}
+          </p>
+        </div>
       </div>
 
       {/* Financial Summary Cards */}
@@ -273,7 +329,7 @@ export function OrderPaymentWorkspace({
               className="w-full gap-2 border-orange-300 bg-white hover:bg-orange-50 font-semibold text-orange-900"
             >
               <Banknote size={16} />
-              {balancePayment?'Record Balance Payment':'Record Advance Payment'}
+              {balancePayment?'Record Next Payment – ALL DONE (Payment 2 of 2)':'Record Advance Payment (Payment 1 of 2)'}
               <ChevronDown size={15} />
             </Button>
           ) : (
@@ -284,7 +340,7 @@ export function OrderPaymentWorkspace({
               <div className="flex items-center justify-between border-b border-slate-100 pb-2">
                 <span className="text-sm font-bold text-slate-800 flex items-center gap-1.5">
                   <Banknote size={16} className="text-orange-600" />
-                  {balancePayment?'Record Balance Receipt':'Record Advance Receipt'}
+                  {balancePayment?'Record Next Payment – ALL DONE (Payment 2 of 2)':'Record Advance Payment (Payment 1 of 2)'}
                 </span>
                 <button
                   type="button"
@@ -320,37 +376,41 @@ export function OrderPaymentWorkspace({
               <div>
                 <div className="flex items-center justify-between mb-1.5">
                   <label className="text-xs font-semibold text-slate-700">
-                    अग्रिम राशि (Amount in ₹) *
+                    {balancePayment ? 'अंतिम राशि (Remaining Balance in ₹) *' : 'अग्रिम राशि (Advance Amount in ₹) *'}
                   </label>
                   <div className="flex items-center gap-1.5 text-xs">
                     <span className="text-slate-400">त्वरित सुझाव:</span>
-                    <button
-                      type="button"
-                      onClick={() => handlePresetPercent(25)}
-                      className="rounded bg-slate-100 hover:bg-slate-200 px-1.5 py-0.5 text-[11px] font-medium text-slate-700"
-                    >
-                      25%
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => handlePresetPercent(30)}
-                      className="rounded bg-orange-100 hover:bg-orange-200 px-1.5 py-0.5 text-[11px] font-medium text-orange-800"
-                    >
-                      30% (Recommended)
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => handlePresetPercent(50)}
-                      className="rounded bg-slate-100 hover:bg-slate-200 px-1.5 py-0.5 text-[11px] font-medium text-slate-700"
-                    >
-                      50%
-                    </button>
+                    {!balancePayment ? (
+                      <>
+                        <button
+                          type="button"
+                          onClick={() => handlePresetPercent(25)}
+                          className="rounded bg-slate-100 hover:bg-slate-200 px-1.5 py-0.5 text-[11px] font-medium text-slate-700"
+                        >
+                          25%
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handlePresetPercent(30)}
+                          className="rounded bg-orange-100 hover:bg-orange-200 px-1.5 py-0.5 text-[11px] font-medium text-orange-800"
+                        >
+                          30% (Recommended)
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handlePresetPercent(50)}
+                          className="rounded bg-slate-100 hover:bg-slate-200 px-1.5 py-0.5 text-[11px] font-medium text-slate-700"
+                        >
+                          50%
+                        </button>
+                      </>
+                    ) : null}
                     <button
                       type="button"
                       onClick={() => handlePresetPercent(100)}
-                      className="rounded bg-slate-100 hover:bg-slate-200 px-1.5 py-0.5 text-[11px] font-medium text-slate-700"
+                      className="rounded bg-emerald-100 hover:bg-emerald-200 px-1.5 py-0.5 text-[11px] font-bold text-emerald-900"
                     >
-                      Full Balance
+                      {balancePayment ? `Full Remaining (₹${balanceRupees.toLocaleString('en-IN')})` : 'Full Payment'}
                     </button>
                   </div>
                 </div>
@@ -385,6 +445,11 @@ export function OrderPaymentWorkspace({
                     className="w-full rounded-lg border border-slate-300 pl-8 pr-4 py-2 text-sm font-semibold text-slate-900 focus:border-orange-500 focus:outline-hidden"
                   />
                 </div>
+                {balancePayment && (
+                  <p className="mt-1 text-[11px] text-amber-800 font-medium">
+                    Next Payment collects the full balance to mark status as PAID – ALL DONE before dispatch.
+                  </p>
+                )}
               </div>
 
               {/* Reference / UTR Input */}
@@ -459,7 +524,7 @@ export function OrderPaymentWorkspace({
                   ) : (
                     <>
                       <CheckCircle2 size={15} />
-                      {balancePayment?'Save Balance Payment':'Save Advance Payment'}
+                      {balancePayment?'Save Next Payment – ALL DONE':'Save Advance Payment'}
                     </>
                   )}
                 </Button>
@@ -468,6 +533,130 @@ export function OrderPaymentWorkspace({
           )}
         </div>
       )}
+
+      {balanceRupees === 0 && (
+        <div className="mt-4 rounded-lg border border-emerald-300 bg-emerald-50/80 p-4">
+          <div className="flex items-center gap-2">
+            <CheckCircle2 size={18} className="text-emerald-700" />
+            <h4 className="text-sm font-bold text-emerald-900">
+              100% Payment Received (PAID – ALL DONE)
+            </h4>
+          </div>
+          <p className="mt-1 text-xs text-emerald-800">
+            ₹0 balance due. All payment conditions for dispatch are satisfied.
+          </p>
+        </div>
+      )}
+
+      {/* Workflow & Dispatch Readiness Checklist */}
+      <div className="mt-5 rounded-lg border border-slate-200 bg-white p-4 shadow-xs">
+        <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
+          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
+            <ShieldCheck size={14} className="text-orange-600" />
+            Order Workflow &amp; Dispatch Readiness
+          </h4>
+          <span className="text-[11px] text-slate-500 font-medium">
+            Stage: <span className="font-bold text-slate-800">{summary?.status || String(order.status || 'CONFIRMED')}</span>
+          </span>
+        </div>
+
+        <div className="mt-3 space-y-2.5 text-xs">
+          {/* 1. Advance Payment Gate */}
+          <div className="flex items-start justify-between gap-3 p-2 rounded bg-slate-50">
+            <div>
+              <span className="font-semibold text-slate-800">1. Advance Payment (Payment 1)</span>
+              <p className="text-[11px] text-slate-500">Unlocks workshop production authorization</p>
+            </div>
+            <span className={`px-2 py-0.5 rounded font-bold text-[10px] ${paidRupees > 0 ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}`}>
+              {paidRupees > 0 ? 'Recorded ✓' : 'Pending'}
+            </span>
+          </div>
+
+          {/* 2. Production Stage */}
+          <div className="flex items-start justify-between gap-3 p-2 rounded bg-slate-50">
+            <div>
+              <span className="font-semibold text-slate-800">2. Workshop Production</span>
+              <p className="text-[11px] text-slate-500">
+                {['READY', 'OUT_FOR_DELIVERY', 'INSTALLATION', 'COMPLETED'].includes(summary?.status || String(order.status))
+                  ? 'Fabrication completed & ready for dispatch'
+                  : ['PRODUCTION_STARTED', 'FABRICATION_COMPLETED', 'FINISHING'].includes(summary?.status || String(order.status))
+                  ? 'Production in progress'
+                  : 'Pending production start'}
+              </p>
+            </div>
+            <span className={`px-2 py-0.5 rounded font-bold text-[10px] ${['READY', 'OUT_FOR_DELIVERY', 'INSTALLATION', 'COMPLETED'].includes(summary?.status || String(order.status)) ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-200 text-slate-700'}`}>
+              {['READY', 'OUT_FOR_DELIVERY', 'INSTALLATION', 'COMPLETED'].includes(summary?.status || String(order.status)) ? 'Completed ✓' : (summary?.status || String(order.status)).replace(/_/g, ' ')}
+            </span>
+          </div>
+
+          {/* 3. 100% Payment Gate (Strict Dispatch Guard) */}
+          <div className={`flex flex-col gap-1 p-2.5 rounded border ${balanceRupees === 0 ? 'bg-emerald-50 border-emerald-200' : 'bg-red-50/60 border-red-200'}`}>
+            <div className="flex items-center justify-between">
+              <span className="font-semibold text-slate-800">3. 100% Payment (Next Payment – ALL DONE)</span>
+              <span className={`px-2 py-0.5 rounded font-bold text-[10px] ${balanceRupees === 0 ? 'bg-emerald-200 text-emerald-900' : 'bg-red-200 text-red-900'}`}>
+                {balanceRupees === 0 ? 'PAID – ALL DONE ✓' : 'Payment Required'}
+              </span>
+            </div>
+            {balanceRupees === 0 ? (
+              <p className="text-[11px] text-emerald-800 font-medium">
+                ✓ Full payment verified. Balance Due is ₹0. Order is cleared for dispatch.
+              </p>
+            ) : (
+              <p className="text-[11px] font-semibold text-red-700">
+                ⚠️ 100% payment is required before dispatch. Please complete the Next Payment (ALL DONE).
+              </p>
+            )}
+          </div>
+
+          {/* 4. Dispatch Stage */}
+          <div className="flex items-start justify-between gap-3 p-2 rounded bg-slate-50">
+            <div>
+              <span className="font-semibold text-slate-800">4. Order Dispatch (Out for Delivery)</span>
+              <p className="text-[11px] text-slate-500">
+                {['OUT_FOR_DELIVERY', 'INSTALLATION', 'COMPLETED'].includes(summary?.status || String(order.status))
+                  ? 'Dispatched to customer site'
+                  : balanceRupees === 0 && ['READY'].includes(summary?.status || String(order.status))
+                  ? 'Eligible for dispatch'
+                  : 'Dispatch blocked until 100% payment received and production ready'}
+              </p>
+            </div>
+            <span className={`px-2 py-0.5 rounded font-bold text-[10px] ${['OUT_FOR_DELIVERY', 'INSTALLATION', 'COMPLETED'].includes(summary?.status || String(order.status)) ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-200 text-slate-700'}`}>
+              {['OUT_FOR_DELIVERY', 'INSTALLATION', 'COMPLETED'].includes(summary?.status || String(order.status)) ? 'Dispatched' : 'Pending'}
+            </span>
+          </div>
+
+          {/* 5. Delivery & Installation Sign-offs */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <div className="p-2 rounded bg-slate-50 border border-slate-100">
+              <span className="font-semibold text-slate-800 block text-[11px]">5. Delivery Sign-off</span>
+              <p className="text-[10px] text-slate-500 mt-0.5">
+                Customer delivery sign-off is required before completing delivery.
+              </p>
+            </div>
+            <div className="p-2 rounded bg-slate-50 border border-slate-100">
+              <span className="font-semibold text-slate-800 block text-[11px]">6. Installation Sign-off</span>
+              <p className="text-[10px] text-slate-500 mt-0.5">
+                Customer installation sign-off is required before completing installation.
+              </p>
+            </div>
+          </div>
+
+          {/* 6. Overall Order Completion */}
+          <div className="p-2 rounded bg-slate-50 border border-slate-100 flex items-center justify-between">
+            <div>
+              <span className="font-semibold text-slate-800 block text-[11px]">7. Order Completion</span>
+              <p className="text-[10px] text-slate-500">
+                {summary?.status === 'COMPLETED'
+                  ? 'All 8 workflow conditions and customer sign-offs completed.'
+                  : 'Order cannot be completed. Please finish all pending workflow stages and obtain the required customer sign-offs.'}
+              </p>
+            </div>
+            <span className={`px-2 py-0.5 rounded font-bold text-[10px] ${summary?.status === 'COMPLETED' ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-200 text-slate-700'}`}>
+              {summary?.status === 'COMPLETED' ? 'COMPLETED ✓' : 'In Progress'}
+            </span>
+          </div>
+        </div>
+      </div>
 
       {summary?.status==='COMPLETED'&&balanceRupees>0&&<p className="mt-3 text-sm font-semibold text-amber-800">Work completed. Balance payment is still pending; record the amount received below.</p>}
       {error&&!showForm&&<div className="mt-3"><p role="alert" className="text-sm text-red-700">{error}</p>{!balanceFresh&&<Button type="button" variant="outline" className="mt-2" disabled={refreshing} onClick={async()=>{setRefreshing(true);await loadSummary();setRefreshing(false);}}>Refresh payment balance</Button>}</div>}

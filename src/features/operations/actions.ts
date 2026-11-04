@@ -11,7 +11,24 @@ export async function runAction(db:SupabaseClient,resource:string,id:string,acti
   let result;
   if(resource==='products'&&action==='duplicate'){const p=duplicateProductSchema.parse(body);if(!idempotencyKey)throw new AppError('IDEMPOTENCY_REQUIRED','Idempotency-Key header is required',422);result=await db.rpc('duplicate_product',{target:id,payload:p,request_key:z.uuid().parse(idempotencyKey)});}
   else if(resource==='leads'&&action==='transitions'){const p=transitionSchema.parse(body);result=await db.rpc('transition_lead',{target:id,next_status:p.status,expected_version:p.version});}
-  else if(resource==='orders'&&action==='transitions'){const p=transitionSchema.parse(body);result=await db.rpc('transition_order',{target:id,next_status:p.status,expected_version:p.version,note:p.note});}
+  else if(resource==='orders'&&action==='transitions'){
+    const p=transitionSchema.parse(body);
+    if(p.status==='OUT_FOR_DELIVERY'){
+      const {data:bal,error:balErr}=await db.rpc('receivable_balances').eq('order_id',id).maybeSingle();
+      const row=bal as {outstanding_minor?:number|string}|null;
+      if(!balErr&&row&&Number(row.outstanding_minor)>0){
+        throw new AppError('UNPROCESSABLE_ENTITY','100% payment is required before dispatch. Please complete the Next Payment (ALL DONE).',422);
+      }
+    }
+    if(p.status==='COMPLETED'){
+      const {data:bal,error:balErr}=await db.rpc('receivable_balances').eq('order_id',id).maybeSingle();
+      const row=bal as {outstanding_minor?:number|string}|null;
+      if(!balErr&&row&&Number(row.outstanding_minor)>0){
+        throw new AppError('UNPROCESSABLE_ENTITY','Order cannot be completed. Please finish all pending workflow stages and obtain the required customer sign-offs.',422);
+      }
+    }
+    result=await db.rpc('transition_order',{target:id,next_status:p.status,expected_version:p.version,note:p.note});
+  }
   else if(resource==='quotations'&&action==='versions'){const p=quoteVersionSchema.parse(body);result=await db.rpc('make_quotation_version',{target:id,...p});}
   else if(resource==='quotations'&&action==='revise'){const p=quoteRevisionSchema.parse(body);if(!idempotencyKey)throw new AppError('IDEMPOTENCY_REQUIRED','Idempotency-Key header is required',422);result=await db.rpc('revise_quotation',{target:id,new_expiry:p.expires_at,reason:p.reason,request_key:z.uuid().parse(idempotencyKey)});}
   else if(resource==='quotations'&&action==='approve')result=await db.rpc('approve_quotation',{target:id});
@@ -21,7 +38,13 @@ export async function runAction(db:SupabaseClient,resource:string,id:string,acti
   else if(resource==='stock-reservations'&&action==='release'){const {reason}=z.object({reason:z.string().min(3).max(500)}).strict().parse(body);result=await db.rpc('release_reservation',{target:id,reason});}
   else if(resource==='expenses'&&action==='approve')result=await db.from('expenses').update({status:'approved'}).eq('id',id).eq('status','draft').select('id').single();
   else if(resource==='work-orders'&&action==='transitions'){const p=z.object({status:z.enum(['fabrication','finishing','quality_check','ready'])}).strict().parse(body);result=await db.from('work_orders').update(p).eq('id',id).select().single();}
-  else if(resource==='deliveries'&&action==='transitions'){const p=z.object({status:z.enum(['dispatched','delivered']),proof_media_id:z.uuid().optional(),confirmed_at:z.iso.datetime({offset:true}).optional()}).strict().parse(body);result=await db.from('deliveries').update(p).eq('id',id).select().single();}
+  else if(resource==='deliveries'&&action==='transitions'){
+    const p=z.object({status:z.enum(['dispatched','delivered']),proof_media_id:z.uuid().optional(),confirmed_at:z.iso.datetime({offset:true}).optional()}).strict().parse(body);
+    if(p.status==='delivered'&&(!p.proof_media_id||!p.confirmed_at)){
+      throw new AppError('UNPROCESSABLE_ENTITY','Customer delivery sign-off is required before completing delivery.',422);
+    }
+    result=await db.from('deliveries').update(p).eq('id',id).select().single();
+  }
   else if(resource==='product-media'&&action==='delete')result=await db.rpc('delete_product_media',{target:id});
   else throw new AppError('NOT_FOUND','Unknown workflow action',404);
   databaseError(result.error);return {result:result.data??null};

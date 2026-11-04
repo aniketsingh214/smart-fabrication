@@ -35,8 +35,13 @@ export async function GET(
     databaseError(balanceError);
     const balance=(balances??[]).find((row:{order_id:string})=>row.order_id===id);
     if(!balance)throw new AppError('FORBIDDEN','Order payment balance is not available for this account',403);
+    const totalMinor=Number(order.total_minor);
     const totalPaidMinor=Number(balance.paid_minor);
     const balanceDueMinor=Math.max(0,Number(balance.outstanding_minor));
+    const isPaidAllDone=balanceDueMinor===0&&totalPaidMinor>=totalMinor&&totalMinor>0;
+    const paymentStatus=isPaidAllDone?'PAID - ALL DONE':totalPaidMinor>0?'PARTIALLY_PAID':'UNPAID';
+    const paymentStage=totalPaidMinor===0?'PAYMENT_1_ADVANCE':balanceDueMinor>0?'PAYMENT_2_NEXT':'ALL_DONE';
+    const isDispatchEligible=isPaidAllDone&&['READY','OUT_FOR_DELIVERY','INSTALLATION','COMPLETED'].includes(order.status);
 
     return success(
       {
@@ -44,9 +49,13 @@ export async function GET(
         orderName: order.name,
         status: order.status,
         version: order.version,
-        totalMinor: Number(order.total_minor),
+        totalMinor,
         totalPaidMinor,
         balanceDueMinor,
+        paymentStatus,
+        isPaidAllDone,
+        paymentStage,
+        isDispatchEligible,
         payments: payments ?? [],
       },
       requestId

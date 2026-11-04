@@ -1,5 +1,55 @@
 > Version: 1.0 | Updated: 2026-11-04 | Status: live application; implementation and scoped verification register
 
+## 2026-11-04 - Royal Gates Workspace: Two-Payment Policy, Strict Dispatch Validation, Delivery Sign-off, Installation Sign-off & Order Completion Guards
+
+- **Strict Two-Payment Structure**:
+  - Implemented exactly two payment stages:
+    - *Payment 1 (Advance Payment)*: Collected upon order confirmation; recording advance transitions order to `ADVANCE_RECEIVED` and authorizes workshop fabrication to begin.
+    - *Payment 2 (Next Payment – ALL DONE)*: Collects the full remaining balance (`balanceDueMinor = 0`) before dispatch. No multiple partial installments allowed for Payment 2.
+    - Payment calculation: `Total Paid = Advance Payment + Next Payment`, `Balance Due = Approved Order Total − Total Paid`.
+    - Once 100% payment is received, payment status is displayed as **PAID – ALL DONE**.
+- **Strict Server & Database Dispatch Validation**:
+  - Dispatch (`OUT_FOR_DELIVERY`) is completely guarded and blocked at both PostgreSQL RPC level (`public.transition_order`) and API action level (`src/features/operations/actions.ts`) until 100% payment is received:
+    - Verifies `public.finance_net_paid('customer', target) >= item.total_minor` and `outstanding_minor === 0`.
+    - Raises exact error: `"100% payment is required before dispatch. Please complete the Next Payment (ALL DONE)."`.
+- **Delivery Workflow & Customer Sign-off Guard**:
+  - Deliveries cannot be marked `delivered` without customer sign-off (`proof_media_id` and `confirmed_at`).
+  - Enforced in `public.workflow_guard()` trigger and `runAction` / `updateRecord`:
+    - Raises exact error: `"Customer delivery sign-off is required before completing delivery."`.
+- **Installation Workflow & Customer Sign-off Guard**:
+  - Installations cannot be marked `completed` without `customer_confirmed` sign-off.
+  - Attached trigger `guard_installation` on `public.installations` executing `public.workflow_guard()`:
+    - Raises exact error: `"Customer installation sign-off is required before completing installation."`.
+- **Final Order Completion Guard (All 8 Conditions)**:
+  - Overall order status becomes `COMPLETED` only when:
+    1. Production is completed.
+    2. Full payment is received.
+    3. Balance Due is ₹0.
+    4. Dispatch is completed.
+    5. Delivery is completed.
+    6. Customer delivery sign-off is recorded.
+    7. Installation is completed.
+    8. Customer installation sign-off is recorded.
+  - If any condition is pending, raises exact error: `"Order cannot be completed. Please finish all pending workflow stages and obtain the required customer sign-offs."`.
+- **UI & Dashboard Updates**:
+  - Updated `OrderPaymentWorkspace` (`src/features/orders/order-payment-workspace.tsx`):
+    - Added header badges: `PAID – ALL DONE` (green), `ADVANCE RECEIVED` (amber), and `UNPAID` (slate).
+    - Added Two-Payment Policy breakdown cards (Payment 1 vs Payment 2).
+    - Pre-filled Next Payment amount to exact remaining balance.
+    - Added Order Workflow & Dispatch Readiness checklist displaying real-time progress, exact prompt warnings, and clear visual indicators for all 8 workflow stages.
+  - Updated `OrderStatusSelect` (`src/features/leads/status-select.tsx`) with helper notes indicating dispatch payment rules and completion sign-off prerequisites.
+- **Database Migration (`supabase/migrations/202611040059_two_payment_dispatch_completion_guards.sql`)**:
+  - Updated `workflow_guard` for deliveries and installations.
+  - Updated `transition_order` RPC with dispatch and completion validations.
+  - Granted execute rights to authenticated role.
+- **Automated Verification**:
+  - Added integration test suite `tests/integration/order-two-payment-workflow.test.ts` covering all 12 prompt scenarios.
+  - `npm test`: Passed (81 test files, 369/369 tests passing).
+  - `npm run typecheck`: Passed (0 errors).
+  - `npm run docs:check`: Passed.
+  - `npm run api:check`: Passed.
+  - `npx next build --webpack`: Succeeded.
+
 ## 2026-11-04 - Fix Search Input Trigger: Prevent Modal Hijacking on Text Search Box Click
 
 - **Search Input Trigger Fix (`src/components/layout/global-search-bar.tsx`)**:

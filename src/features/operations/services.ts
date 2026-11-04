@@ -62,6 +62,30 @@ export async function updateRecord(db:SupabaseClient,resource:Resource,id:string
   z.uuid().parse(id);if(resource.readOnly||resource.appendOnly||resource.rpc||['measurements','labour-rates'].includes(resource.slug))throw new AppError('METHOD_NOT_ALLOWED','This history is immutable; create a new record',405);
   const payload=resourceSchema(resource,true).parse(input);if(!Object.keys(payload).length)throw new AppError('VALIDATION_ERROR','No changes were submitted',422);
   if(resource.slug==='reviews'&&payload.rating!==undefined&&Number(payload.rating)>5)throw new AppError('VALIDATION_ERROR','Rating must be between 1 and 5',422);
+  if(resource.slug==='installations'&&payload.status==='completed'){
+    if(payload.customer_confirmed===false){
+      throw new AppError('UNPROCESSABLE_ENTITY','Customer installation sign-off is required before completing installation.',422);
+    }
+    if(payload.customer_confirmed===undefined){
+      const {data:cur}=await db.from('installations').select('customer_confirmed').eq('id',id).maybeSingle();
+      if(!cur?.customer_confirmed){
+        throw new AppError('UNPROCESSABLE_ENTITY','Customer installation sign-off is required before completing installation.',422);
+      }
+    }
+  }
+  if(resource.slug==='deliveries'&&payload.status==='delivered'){
+    const proof=payload.proof_media_id;
+    const confirmed=payload.confirmed_at;
+    if(proof===null||confirmed===null){
+      throw new AppError('UNPROCESSABLE_ENTITY','Customer delivery sign-off is required before completing delivery.',422);
+    }
+    if(!proof||!confirmed){
+      const {data:cur}=await db.from('deliveries').select('proof_media_id,confirmed_at').eq('id',id).maybeSingle();
+      if(!(proof??cur?.proof_media_id)||!(confirmed??cur?.confirmed_at)){
+        throw new AppError('UNPROCESSABLE_ENTITY','Customer delivery sign-off is required before completing delivery.',422);
+      }
+    }
+  }
   if(['products','product-variants'].includes(resource.slug)&&(payload.price_min_minor!==undefined||payload.price_max_minor!==undefined)){
     const {data:current,error:readError}=await db.from(resource.table).select('price_min_minor,price_max_minor').eq('id',id).maybeSingle();databaseError(readError);if(!current)throw new AppError('NOT_FOUND','Record not found',404);
     if(Number(payload.price_max_minor??current.price_max_minor)<Number(payload.price_min_minor??current.price_min_minor))throw new AppError('VALIDATION_ERROR','Maximum price must cover starting price',422);
