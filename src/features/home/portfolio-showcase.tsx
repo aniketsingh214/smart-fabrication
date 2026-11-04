@@ -46,7 +46,7 @@ export const PORTFOLIO_ITEMS: PortfolioCategory[] = [
     tagEn: 'Smooth Driveway Track System',
     tagHi: 'हैवी रोलर बियरिंग ट्रैक',
     categorySlug: 'main-gates',
-    publicId: 'smart-fabrication/development/demo-stock/sliding-driveway-gate',
+    publicId: 'smart-fabrication/development/laser-gates/laser-5653e8',
     sampleAspect: 'col-span-1'
   },
   {

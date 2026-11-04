@@ -21,3 +21,5 @@ Model documentation: [Transformers.js image feature extraction](https://huggingf
 ## Verification
 
 Focused tests cover real DTO mapping/public-image filtering, unavailable configuration, real-input ranking, visual priority, cosine calculation and category filtering. Browser harness scripts/test-home-discovery-browser.mjs checks real published products/routes, navigation, preview validation/removal, six screen widths and actual CLIP inference against three real catalogue images (no model/ranking mocks). This bounded inference acceptance does not benchmark full-catalogue mobile indexing. No business writes are required. Final results are recorded in progress.md.
+
+Portfolio image repair: live screenshot review found the original demo-stock/sliding-driveway-gate reference returned HTTP 404. Reused the existing published Motorized CNC Laser Cut Steel Sliding Gate photograph (laser-gates/laser-5653e8) for that single portfolio tile. No product image record, photograph content or other asset was changed/generated. Browser harness now checks that all six portfolio image elements decode successfully.
