@@ -58,9 +58,8 @@ export function OrderPaymentWorkspace({
 
   // Form states
   const [amountRupees, setAmountRupees] = useState('');
-  const [mode, setMode] = useState<'cash' | 'upi' | 'bank' | 'cheque'>('upi');
+  const [mode, setMode] = useState<'cash' | 'upi' | 'bank' | 'cheque'>('cash');
   const [reference, setReference] = useState('');
-  const [gatewayReady, setGatewayReady] = useState(false);
   const paymentAttempt=useRef<{signature:string;key:string}|null>(null);
   const paymentInFlight=useRef(false);
 
@@ -123,7 +122,7 @@ export function OrderPaymentWorkspace({
     }
 
     paymentInFlight.current=true;
-    const signature=JSON.stringify([Math.round(amtNum*100),mode,reference.trim(),gatewayReady]);
+    const signature=JSON.stringify([Math.round(amtNum*100),mode,reference.trim()]);
     if(paymentAttempt.current?.signature!==signature)paymentAttempt.current={signature,key:crypto.randomUUID()};
     setSubmitting(true);
     try {
@@ -134,7 +133,6 @@ export function OrderPaymentWorkspace({
           amount_minor: Math.round(amtNum * 100),
           mode,
           reference: reference.trim(),
-          gateway_ready: gatewayReady,
         }),
       });
 
@@ -197,7 +195,7 @@ export function OrderPaymentWorkspace({
             )}
           </div>
           <p className="mt-1 text-xs text-slate-500">
-            Payment 1: Advance (Starts production) · Payment 2: Next Payment – ALL DONE (Required before dispatch)
+            Manual Payment System: Cash / Direct UPI Scan / Bank Transfer / Cheque (No online gateway)
           </p>
         </div>
 
@@ -361,13 +359,13 @@ export function OrderPaymentWorkspace({
                     onChange={(e) => setMode(e.target.value as 'cash' | 'upi' | 'bank' | 'cheque')}
                     className="mt-2"
                   >
-                    <option value="upi">UPI / QR (Google Pay, PhonePe, Paytm, QR Scan)</option>
-                    <option value="cash">Cash (नकद भुगतान)</option>
+                    <option value="cash">Cash (नकद भुगतान / नकद रसीद)</option>
+                    <option value="upi">Direct UPI / QR (Google Pay, PhonePe, Paytm, Shop QR)</option>
                     <option value="bank">Bank Transfer (NEFT / RTGS / IMPS)</option>
                     <option value="cheque">Cheque / Demand Draft (बैंक चेक)</option>
                   </select>
                   <span className="mt-2 block text-xs font-normal text-slate-500">
-                    Choose how the customer paid. Partial and final balance payments are supported.
+                    ग्राहक से प्राप्त नकद, प्रत्यक्ष UPI या बैंक भुगतान का प्रकार चुनें। (100% हस्तचालित रसीद)
                   </span>
                 </label>
               </div>
@@ -475,25 +473,15 @@ export function OrderPaymentWorkspace({
                 />
               </div>
 
-              {/* Gateway Ready Mode Card */}
-              <div className="rounded-lg border border-indigo-100 bg-indigo-50/50 p-3">
-                <label className="flex items-start gap-2.5 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={gatewayReady}
-                    onChange={(e) => setGatewayReady(e.target.checked)}
-                    className="mt-0.5 h-4 w-4 rounded accent-indigo-600"
-                  />
-                  <div>
-                    <span className="text-xs font-bold text-indigo-950 flex items-center gap-1.5">
-                      <ShieldCheck size={14} className="text-indigo-600" />
-                      Payment Gateway Architecture Ready
-                    </span>
-                    <p className="mt-0.5 text-[11px] text-indigo-800/80 leading-normal">
-                      Gateway Ready मोड सक्षम करने पर भुगतान रिकॉर्ड में गेटवे-तैयार मेटाडेटा संलग्न होता है। (Razorpay / Cashfree एकीकरण के लिए पूरी तरह तैयार)
-                    </p>
-                  </div>
-                </label>
+              {/* Manual Payment Information Card */}
+              <div className="rounded-lg border border-slate-200 bg-slate-50 p-3 text-xs text-slate-600 flex items-start gap-2.5">
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-slate-200 text-slate-700 font-bold text-[10px] shrink-0 mt-0.5">ℹ</span>
+                <div>
+                  <span className="font-semibold text-slate-800">100% हस्तचालित भुगतान (Manual Recording)</span>
+                  <p className="mt-0.5 text-[11px] text-slate-500 leading-normal">
+                    कोई ऑनलाइन पेमेंट गेटवे सक्रिय नहीं है। ग्राहक से नकद (Cash), सीधे दुकान के UPI/QR पर अथवा बैंक ट्रांसफर में प्राप्त रकम की रसीद यहाँ दर्ज करें।
+                  </p>
+                </div>
               </div>
 
               {error && (

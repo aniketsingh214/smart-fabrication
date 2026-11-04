@@ -1,5 +1,23 @@
 > Version: 1.0 | Updated: 2026-11-04 | Status: live application; implementation and scoped verification register
 
+## 2026-11-04 - Enforce 100% Manual Order Payment System (No Online Payment Gateway)
+
+- **Strict Manual Payment Policy (`src/features/orders/order-payment-workspace.tsx`)**:
+  - Removed all online payment gateway toggles and metadata (`gatewayReady`, Razorpay/Cashfree architecture notes).
+  - Configured order payment management strictly as a 100% manual receipt entry workflow:
+    - Cash (नकद भुगतान / रसीद)
+    - Direct Shop UPI / QR Scan (Google Pay, PhonePe, Paytm, Shop QR)
+    - Bank Transfer (NEFT / RTGS / IMPS)
+    - Cheque / Demand Draft (बैंक चेक / ड्राफ्ट)
+  - Added dedicated information banner confirming no online payment gateway is connected; receipts are recorded manually when funds are verified in-hand or in the bank.
+- **Backend Clean-up (`src/app/api/v1/orders/[id]/advance-payment/route.ts`)**:
+  - Cleaned up reference string generation to preserve clean manual receipt references without appending gateway-ready tags.
+- **Verification**:
+  - `npm run typecheck`: Passed (0 errors).
+  - `npm test`: Passed (81 test files, 369/369 tests passing).
+  - `npm run docs:check`: Passed.
+  - `npm run api:check`: Passed.
+
 ## 2026-11-04 - Revert Search Bar Trigger: Restore Direct Modal Opening on Search Bar Click
 
 - **Search Bar Restored (`src/components/layout/global-search-bar.tsx`)**:

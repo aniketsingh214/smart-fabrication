@@ -89,9 +89,7 @@ export async function POST(
 
     // 2. Record payment via post_payment RPC
     const idempotencyKey = z.uuid().parse(request.headers.get('Idempotency-Key')??crypto.randomUUID());
-    const referenceText = body.gateway_ready
-      ? `${body.reference} [Gateway Ready]`
-      : body.reference;
+    const referenceText = body.reference;
 
     const { data: paymentId, error: postErr } = await db.rpc('post_payment', {
       payment_kind: 'customer',
