@@ -449,6 +449,18 @@ Implemented distributed server-side quotas for all /api/v1 write methods, public
 Public pages now show an optional welcome popup asking only name and Indian mobile. Close/Escape/Continue browsing dismisses it for the current tab session without creating a lead. Site Call, SMS/email and exact WhatsApp-host links ask for details before continuing when unregistered. React capture covers contact links in header/footer, product/cart/design sections and mobile actions. Successful POST /api/v1/visitor-contact uses the existing public submit_lead RPC and its rate/duplicate rules; records appear in staff-only Leads with city Not provided and an explicit website-contact intent/path in requirement. No separate visitor database or privileged write client was added. A signed, seven-day HttpOnly/SameSite=Lax cookie remembers registration; GET exposes only registered boolean. Name/phone are not stored in browser storage. Validation, honeypot, same-origin browser writes and constant-time token verification apply. Invalid cookies/failed saves cannot unlock the UI; valid cookies avoid duplicate contact registration. This is number-format validation, not OTP authentication; off-site/manual calls or browsers without JavaScript cannot be technically gated. Privacy notice and generated mobile/API contracts updated (294 paths /36 explicit methods). Existing public regression tests explicitly dismiss the optional welcome popup; contact gating is separately tested.
 
 
+### Complete Mobile-First Website UI Redesign & Dedicated Full-Screen Search Page - 2026-11-11
+
+- Implemented luxury White (#FFFFFF) and Royal Gold (#D9A441) design theme across the public website with dark navy headings (#111827) and soft off-white secondary backgrounds (#F8F7F3).
+- Transformed the search modal into an opaque, dedicated Full-Screen Search Page (100dvh x 100vw) that completely covers and hides the homepage with locked background scroll, instant auto-focus, brand header, clear search button, popular discovery chips, categories filter pills, and live dynamic catalogue results grid.
+- Enhanced sticky public header preserving the original Royal Gates crowned gate emblem asset, adding brand title ("Royal Gates") and subtitle ("Smart Fabrication"), language selector, and Royal Gold CTA.
+- Created mobile bottom navigation bar (Home, Designs, Price, WhatsApp) with safe-area-inset-bottom support, hidden on desktop screens.
+- Updated Hero Section with Hindi headline "अपने घर को दें शाही पहचान", supporting craftsmanship text, Royal Gold "Explore Designs" CTA, "Get Price on WhatsApp" CTA, and 3 core pillars (Strong & Durable, Custom Design, Premium Finish).
+- Enhanced Categories Section with touch-friendly horizontal swipe on mobile and responsive grid on desktop.
+- Added 435+ Premium Designs promotional banner, responsive 2-column mobile popular gate designs grid with direct WhatsApp enquiry buttons, interactive price estimator, workshop craftsmanship reels, and direct contact section.
+- Preserved all 435+ designs, dynamic data, database schema, RLS policies, and 302 API routes with zero functional regression.
+- Verified: TypeScript `tsc --noEmit` (0 errors), 81 test files (369/369 tests passed), `docs:check` (pass), `api:check` (pass), and full Next.js webpack production build (32 routes compiled).
+
 ### Customer account email strictly optional across records and linking - 2026-11-04
 
 - Made customer account email strictly optional in the customer workspace and record details.
