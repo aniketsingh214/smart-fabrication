@@ -38,12 +38,46 @@ export async function runAction(db:SupabaseClient,resource:string,id:string,acti
   else if(resource==='stock-reservations'&&action==='release'){const {reason}=z.object({reason:z.string().min(3).max(500)}).strict().parse(body);result=await db.rpc('release_reservation',{target:id,reason});}
   else if(resource==='expenses'&&action==='approve')result=await db.from('expenses').update({status:'approved'}).eq('id',id).eq('status','draft').select('id').single();
   else if(resource==='work-orders'&&action==='transitions'){const p=z.object({status:z.enum(['fabrication','finishing','quality_check','ready'])}).strict().parse(body);result=await db.from('work_orders').update(p).eq('id',id).select().single();}
-  else if(resource==='deliveries'&&action==='transitions'){
-    const p=z.object({status:z.enum(['dispatched','delivered']),proof_media_id:z.uuid().optional(),confirmed_at:z.iso.datetime({offset:true}).optional()}).strict().parse(body);
-    if(p.status==='delivered'&&(!p.proof_media_id||!p.confirmed_at)){
+  else if(resource==='deliveries'&&(action==='transitions'||action==='signoff')){
+    const p=z.object({
+      status:z.enum(['dispatched','delivered']),
+      delivered_by:z.string().trim().max(200).optional(),
+      customer_signature:z.string().trim().max(200).optional(),
+      remarks:z.string().trim().max(2000).optional(),
+      proof_media_id:z.uuid().optional().nullable(),
+      confirmed_at:z.iso.datetime({offset:true}).optional()
+    }).strict().parse(body);
+    if(p.status==='delivered'&&!p.confirmed_at){
       throw new AppError('UNPROCESSABLE_ENTITY','Customer delivery sign-off is required before completing delivery.',422);
     }
-    result=await db.from('deliveries').update(p).eq('id',id).select().single();
+    const updatePayload:Record<string,unknown>={status:p.status};
+    if(p.confirmed_at)updatePayload.confirmed_at=p.confirmed_at;
+    if(p.delivered_by!==undefined)updatePayload.delivered_by=p.delivered_by;
+    if(p.customer_signature!==undefined)updatePayload.customer_signature=p.customer_signature;
+    if(p.remarks!==undefined)updatePayload.remarks=p.remarks;
+    if(p.proof_media_id!==undefined)updatePayload.proof_media_id=p.proof_media_id;
+    result=await db.from('deliveries').update(updatePayload).eq('id',id).select().single();
+  }
+  else if(resource==='installations'&&(action==='transitions'||action==='signoff')){
+    const p=z.object({
+      status:z.enum(['pending','completed']),
+      installed_by:z.string().trim().max(200).optional(),
+      customer_signature:z.string().trim().max(200).optional(),
+      remarks:z.string().trim().max(2000).optional(),
+      customer_confirmed:z.boolean().optional(),
+      completed_at:z.iso.datetime({offset:true}).optional(),
+      checklist:z.record(z.string(),z.boolean()).optional(),
+    }).strict().parse(body);
+    const updatePayload:Record<string,unknown>={
+      status:p.status,
+      customer_confirmed:p.status==='completed'?true:Boolean(p.customer_confirmed),
+      checklist:p.checklist??{fixings_checked:true,alignment_checked:true,finish_checked:true,site_cleaned:true},
+    };
+    if(p.completed_at)updatePayload.completed_at=p.completed_at;
+    if(p.installed_by!==undefined)updatePayload.installed_by=p.installed_by;
+    if(p.customer_signature!==undefined)updatePayload.customer_signature=p.customer_signature;
+    if(p.remarks!==undefined)updatePayload.remarks=p.remarks;
+    result=await db.from('installations').update(updatePayload).eq('id',id).select().single();
   }
   else if(resource==='product-media'&&action==='delete')result=await db.rpc('delete_product_media',{target:id});
   else throw new AppError('NOT_FOUND','Unknown workflow action',404);

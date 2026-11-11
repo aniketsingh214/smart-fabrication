@@ -21242,6 +21242,81 @@ paths:
           schema:
             type: string
             format: uuid
+  /orders/{id}/installation:
+    get:
+      summary: Installation sign-off details for this order
+      security: *a1
+      x-permission: orders.read and delivery.read
+      responses:
+        "200":
+          description: Success envelope
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Envelope"
+        "400": *a5
+        "401": *a6
+        "403": *a7
+        "404": *a8
+        "409": *a9
+        "413": *a10
+        "415": *a11
+        "422": *a12
+        "429": *a13
+        "500": *a14
+        "503": *a15
+      parameters: *a20
+    post:
+      summary: Save or update installation sign-off details
+      security: *a1
+      x-permission: orders.write and delivery.write
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  enum: [pending, completed]
+                installed_by:
+                  type: string
+                customer_signature:
+                  type: string
+                remarks:
+                  type: string
+                completed_at:
+                  type: string
+                customer_confirmed:
+                  type: boolean
+                checklist:
+                  type: object
+                photos:
+                  type: array
+                  items:
+                    type: string
+              required:
+                - status
+      responses:
+        "201":
+          description: Created installation sign-off
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Envelope"
+        "400": *a5
+        "401": *a6
+        "403": *a7
+        "404": *a8
+        "409": *a9
+        "413": *a10
+        "415": *a11
+        "422": *a12
+        "429": *a13
+        "500": *a14
+        "503": *a15
+      parameters: *a20
   /record-labels:
     get:
       summary: Resolve up to 100 readable record names/codes; entity read permission

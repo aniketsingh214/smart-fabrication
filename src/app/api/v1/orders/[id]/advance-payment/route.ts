@@ -8,6 +8,10 @@ const advancePaymentSchema = z.object({
   amount_minor: z.number().int().positive('Payment amount must be greater than zero'),
   mode: z.enum(['cash', 'bank', 'upi', 'cheque']),
   reference: z.string().trim().min(1, 'Reference or transaction ID is required').max(200),
+  installment_number: z.number().int().positive().optional().nullable(),
+  due_date: z.string().optional().nullable(),
+  received_by: z.string().trim().max(200).optional().nullable(),
+  notes: z.string().trim().max(1000).optional().nullable(),
   gateway_ready: z.boolean().optional().default(false),
 });
 
@@ -23,14 +27,18 @@ export async function GET(
 
     const [orderResult,paymentResult,balanceResult]=await Promise.all([
       db.from('orders').select('id, name, status, total_minor, version, created_at').eq('id',id).maybeSingle(),
-      db.from('customer_payments').select('id, amount_minor, mode, reference, created_at').eq('order_id',id).order('created_at',{ascending:false}),
+      db.from('customer_payments').select('id, amount_minor, mode, reference, installment_number, due_date, received_by, notes, record_code, created_at').eq('order_id',id).order('created_at',{ascending:false}),
       db.rpc('receivable_balances').eq('order_id',id),
     ]);
     const {data:order,error:orderErr}=orderResult;
     databaseError(orderErr);
     if(!order)throw new AppError('NOT_FOUND','Order not found',404);
-    const {data:payments,error:payErr}=paymentResult;
+    const {data:rawPayments,error:payErr}=paymentResult;
     databaseError(payErr);
+    const payments = (rawPayments ?? []).map((p, idx, arr) => ({
+      ...p,
+      installment_number: p.installment_number ?? (arr.length - idx),
+    }));
     const {data:balances,error:balanceError}=balanceResult;
     databaseError(balanceError);
     const balance=(balances??[]).find((row:{order_id:string})=>row.order_id===id);
@@ -98,6 +106,10 @@ export async function POST(
         amount_minor: body.amount_minor,
         mode: body.mode,
         reference: referenceText,
+        installment_number: body.installment_number ?? null,
+        due_date: body.due_date ?? null,
+        received_by: body.received_by ?? null,
+        notes: body.notes ?? null,
         idempotency_key: idempotencyKey,
       },
     });

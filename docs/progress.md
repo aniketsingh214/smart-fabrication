@@ -1,4 +1,37 @@
-> Version: 1.0 | Updated: 2026-11-04 | Status: live application; implementation and scoped verification register
+> Version: 1.0 | Updated: 2026-11-11 | Status: live application; implementation and scoped verification register
+
+## 2026-11-11 - Royal Gates Admin Dashboard: Delivery Sign-off, Installation Sign-off inside Orders & Multi-Installment Payment System
+
+- **Delivery Sign-off Module (`/admin/deliveries` & `src/features/deliveries/delivery-signoff-card.tsx`)**:
+  - Added dedicated Delivery Sign-off card directly inside the existing Delivery details view without disrupting existing delivery routes.
+  - Implemented delivery completion status, delivery date & time (`confirmed_at`), delivered-by (staff/driver name), customer confirmation/signature, delivery remarks, and optional delivery proof photo attachment.
+  - Connected delivery sign-off data directly against the associated Order ID.
+- **Installation Sign-off inside Existing Orders Section (`src/features/orders/order-installation-workspace.tsx` & `/api/v1/orders/[id]/installation`)**:
+  - Preserved existing structure by keeping installation strictly inside Order Details (no duplicate navigation module).
+  - Implemented installation completion status, installation date & time (`completed_at`), installed-by (fabrication team/worker name), customer confirmation/signature, installation remarks, and completion photos.
+  - Added the three required action buttons: **Save Installation Sign-off**, **Update Installation Sign-off**, and **View Installation Details** (with a full details modal).
+  - Linked installation records to the correct Order ID and associated delivery.
+- **Multi-Installment Payment Management (`src/features/orders/order-payment-workspace.tsx`)**:
+  - Expanded payment management to support multiple installments per order until full settlement.
+  - Displays: Total Order Amount, Advance Payment, Total Paid, Remaining Balance, Installment Number, Installment Amount, Due Date, Payment Date, Payment Mode (Cash / UPI / Bank Transfer / Cheque), Reference / UTR Number, Payment Status (Paid / Partially Paid / Pending), Received By, and Downloadable PDF Receipt.
+  - Automatically calculates: $\text{Remaining Balance} = \text{Total Order Amount} - \text{Total Payments Received}$.
+  - Maintained complete, immutable payment history with zero record deletions or duplicates.
+- **Granular Order Status Validation & Clear Error Messages**:
+  - Strictly enforced 100% payment before order dispatch (`OUT_FOR_DELIVERY`).
+  - Added separate, user-friendly error messages for each missing requirement before final order completion (`COMPLETED`):
+    1. 100% Payment required ($\text{Remaining Balance} = ₹0$).
+    2. Delivery Sign-off required.
+    3. Installation Sign-off required.
+- **Orders Page Unified Workflow Summary Panel (`src/features/orders/order-workflow-summary.tsx`)**:
+  - Added compact 3-milestone status strip at the top of Order Details displaying clear Pending and Completed indicators for Payment, Delivery Sign-off, and Installation Sign-off.
+- **Database & Migration (`supabase/migrations/202611110060_delivery_installation_installments.sql`)**:
+  - Non-destructive columns added to `deliveries`, `installations`, and `customer_payments`.
+  - Updated `workflow_guard` trigger and `transition_order` RPC with distinct error messages.
+- **Verification**:
+  - `npm run typecheck`: Passed (0 errors).
+  - `npm test`: Passed (82 test files, 373/373 tests passing).
+  - `npm run docs:check`: Passed.
+  - `npm run api:check`: Passed (OpenAPI 3.1.0, 303 documented paths).
 
 ## 2026-11-04 - Royal Gates: Homepage Theme Transformation (Navy-Blue, White & Bright-Blue Industrial Welding Theme)
 
