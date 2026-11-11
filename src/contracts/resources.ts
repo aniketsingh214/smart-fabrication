@@ -69,7 +69,7 @@ export function resourceSchema(resource:Resource,partial=false){
     else if(f.type==='reference')s=z.uuid();
     else if(f.type==='select')s=z.enum(f.options as [string,...string[]]);
     else if(f.type==='json')s=z.record(z.string(),z.unknown());
-    else if(f.type==='email')s=z.email().max(254);
+    else if(f.type==='email')s=f.required?z.email().max(254):z.preprocess(v=>v===''?null:v,z.email().max(254).nullable().optional());
     else if(f.type==='phone')s=indianMobileSchema;
     else if(f.type==='date')s=z.iso.date();
     else if(f.type==='datetime')s=z.iso.datetime({offset:true});

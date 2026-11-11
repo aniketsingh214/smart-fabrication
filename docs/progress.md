@@ -449,6 +449,14 @@ Implemented distributed server-side quotas for all /api/v1 write methods, public
 Public pages now show an optional welcome popup asking only name and Indian mobile. Close/Escape/Continue browsing dismisses it for the current tab session without creating a lead. Site Call, SMS/email and exact WhatsApp-host links ask for details before continuing when unregistered. React capture covers contact links in header/footer, product/cart/design sections and mobile actions. Successful POST /api/v1/visitor-contact uses the existing public submit_lead RPC and its rate/duplicate rules; records appear in staff-only Leads with city Not provided and an explicit website-contact intent/path in requirement. No separate visitor database or privileged write client was added. A signed, seven-day HttpOnly/SameSite=Lax cookie remembers registration; GET exposes only registered boolean. Name/phone are not stored in browser storage. Validation, honeypot, same-origin browser writes and constant-time token verification apply. Invalid cookies/failed saves cannot unlock the UI; valid cookies avoid duplicate contact registration. This is number-format validation, not OTP authentication; off-site/manual calls or browsers without JavaScript cannot be technically gated. Privacy notice and generated mobile/API contracts updated (294 paths /36 explicit methods). Existing public regression tests explicitly dismiss the optional welcome popup; contact gating is separately tested.
 
 
+### Customer account email strictly optional across records and linking - 2026-11-04
+
+- Made customer account email strictly optional in the customer workspace and record details.
+- Removed HTML `required` from the customer account linking email input and updated the UI label to `Confirmed customer account email (Optional / वैकल्पिक)` with bilingual guidance note explaining that emails are only needed when linking a customer to an online portal login.
+- Added client-side empty-field handling so submitting without an email shows friendly informational feedback (`Email is optional / ईमेल वैकल्पिक है`) without triggering any red required error or blocking form submission.
+- Updated `resourceSchema` email field validation with Zod preprocess to transform empty strings (`""`) to `null`, ensuring optional emails validate smoothly without errors across both forms and API routes.
+- Ran test suite (81 test files, 369/369 tests passed), `docs:check`, `api:check`, `typecheck`, and full production build (32 routes compiled).
+
 ### Human-readable business codes and label resolution across admin - 2026-11-03
 
 Standardized record presentation across all 38 business entities to show human-readable SKU/Codes (e.g. `RG-GT-000001`, `RG-ORD-000001`, `RG-QT-000001`, `RG-GAL-000001`) and formatted titles (`Name — Code`) instead of raw internal database UUIDs.
